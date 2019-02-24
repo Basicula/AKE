@@ -5,7 +5,8 @@ BMPWriter::BMPWriter(size_t i_width, size_t i_height)
   , m_width(i_width)
   , m_height(i_height)
   , m_bytes_per_pixel(3)
-  , m_picture(std::vector<std::vector<Pixel>>(i_height, std::vector<Pixel>(i_width)))
+  , m_picture(Picture(i_width,i_height))
+  , m_color_mode(RGB)
 {
   size_t info_size = sizeof(FileHeader) + sizeof(InfoHeader);
   m_file_size = info_size + (m_bytes_per_pixel * i_width + (4 - (m_width*m_bytes_per_pixel) % 4) % 4) * i_height;
@@ -29,10 +30,14 @@ void BMPWriter::Write(const std::string& i_file_path)
   fwrite(&m_info_header, sizeof(InfoHeader), 1, mp_file);
   for (auto i = 0u; i < m_height; ++i)
   {
-    for (auto j = 0u; j < m_width; ++j)
+    if (m_color_mode == BGR)
+      fwrite(m_picture[i].data(), sizeof(Pixel), m_picture[i].size(), mp_file);
+    else
     {
-      m_picture[i][j] = Pixel(static_cast<unsigned char>(j*255.0 / m_width), 0, 0);
-      fwrite(&m_picture[i][j], 1, 1, mp_file);
+      for (auto j = 0u; j < m_width; ++j)
+      {
+        fwrite(m_picture[i][j].BGR(), 1, m_bytes_per_pixel, mp_file);
+      }
     }
     fwrite(padding, 1, paddingSize, mp_file);
   }
