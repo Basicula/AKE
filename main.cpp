@@ -30,7 +30,8 @@ Picture TestSphere(int w, int h)
 
 int main()
 {
-  Vector3d vec(1, 2, 3), vec2(2, 3, 4);
+  Vector3d vec(1, 0.5,0), vec2(132,1,0);
+  Vector3d norm = vec.CrossProduct(vec2);
   Vector3d res = vec - vec2;
   const size_t width = 800, height = 600;
   auto t1 = std::chrono::system_clock::now();

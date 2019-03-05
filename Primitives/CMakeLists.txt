@@ -1,13 +1,15 @@
 add_library(
 	Primitives
 	
+	src/IntersectionUtilities.cpp
 	src/Sphere.cpp
 	src/Ray.cpp
-	src/IntersectionUtilities.cpp
+	src/Plane.cpp
 	
+	include/IntersectionUtilities.h
 	include/Sphere.h
 	include/Ray.h
-	include/IntersectionUtilities.h
+	include/Plane.h
 )
 
 target_include_directories(Primitives PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")

@@ -18,3 +18,9 @@ bool IntersectRayWithSphere(Vector3d& o_intersection, const Ray& i_ray, const Sp
   o_intersection = ray_start + i_ray.GetDirection()*distance_to_intersection;
   return true;
 }
+
+bool IntersectRayWithPlane(Vector3d & o_intersection, const Ray & i_ray, const Plane & i_plane)
+{
+  return false;
+  return true;
+}
