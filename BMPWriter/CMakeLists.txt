@@ -3,8 +3,8 @@ add_library(
 	src/BMPWriter.cpp
 	src/BMPUtilities.cpp
 
-	includes/BMPWriter.h
-	includes/BMPUtilities.h
+	include/BMPWriter.h
+	include/BMPUtilities.h
 )
 
-target_include_directories(BMPWriter PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/includes")
+target_include_directories(BMPWriter PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")

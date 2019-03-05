@@ -1,3 +1,5 @@
+#include <omp.h>
+
 #include "BMPUtilities.h"
 
 void DrawLine(Picture& io_picture, int x0, int y0, int x1, int y1)
@@ -45,11 +47,34 @@ Picture DiagonalLine(size_t i_width, size_t i_height)
   return res;
 }
 
-Picture MandelbrotSet(size_t i_width, size_t i_height)
+Picture MandelbrotSet(size_t i_width, size_t i_height, RunMode i_run_mode)
 {
   Picture res = Picture(i_width, i_height);
-  const int max_iterations = 1000;
-  for (size_t y = 0; y < i_height; ++y)
+  const int max_iterations = 10000;
+  int begin,end;
+  if (i_run_mode == MPI)
+  {
+    /*int size, rank;
+    MPI_Init(NULL,NULL);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    printf("rank,size %d %d",size,rank);
+    int n = (i_height - 1)/size + 1;
+    begin = rank*n;
+    end = (rank+1)*n;*/
+  }
+  else
+  {
+    begin = 0;
+    end = i_height;
+  }
+  int omp_val = 0;
+  if (i_run_mode == OMP)
+  {
+    omp_val = 8;
+  }
+#pragma omp parallel for if(omp_val) default(none) shared(res) num_threads(8)
+  for (int y = begin; y < end; ++y)
     for (size_t x = 0; x < i_width; ++x)
     {
       double cx = 3.5 * x / i_width - 2.5;
@@ -66,5 +91,9 @@ Picture MandelbrotSet(size_t i_width, size_t i_height)
       }
       res[y][x] = Pixel(sin(iter) * sin(iter)*255, cos(iter) * cos(iter)*255, 0);
     }
+  if (i_run_mode == MPI)
+  {
+    /*MPI_Finalize();*/
+  }
   return res;
 }

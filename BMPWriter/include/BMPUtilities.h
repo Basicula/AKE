@@ -18,8 +18,15 @@ struct Pixel
   unsigned char blue;
 };
 
+enum RunMode
+{
+  STANDART,
+  OMP,
+  MPI,
+};
+
 using Picture = std::vector<std::vector<Pixel>>;
 #define Picture(i_width,i_height) std::vector<std::vector<Pixel>>(i_height, std::vector<Pixel>(i_width))
 
 Picture DiagonalLine(size_t i_width, size_t i_height);
-Picture MandelbrotSet(size_t i_width, size_t i_height);
+Picture MandelbrotSet(size_t i_width, size_t i_height,RunMode i_run_mode = STANDART);
