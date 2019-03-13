@@ -10,6 +10,8 @@ add_library(
 	include/Sphere.h
 	include/Ray.h
 	include/Plane.h
+
+	include/IObject.h
 )
 
 target_include_directories(Primitives PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")

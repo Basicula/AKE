@@ -1,39 +1,58 @@
 #include <stdio.h>
 #include <iostream>
 #include <chrono>
+#include <vector>
 
 #include <BMPWriter.h>
 #include <Vector.h>
+#include <Plane.h>
 #include <Ray.h>
 #include <Sphere.h>
 #include <IntersectionUtilities.h>
+#include <SpotLight.h>
 
 #define mpi 0
 
+const double g_max_distance = 200;
+
 Picture TestSphere(int w, int h)
-{
+  {
   Picture res = Picture(w, h);
-  Sphere sphere(Vector3d(0, 0, 10), 10);
+  std::vector<std::vector<double>> distances(h, std::vector<double>(w, INFINITY));
+  std::vector<std::unique_ptr<IObject>> objects;
+  double cx = -20;
+  double cy = -20;
+  for (size_t i = 0; i < 9; ++i)
+    objects.emplace_back(new Sphere(Vector3d(cx + 20 * (i % 3), cy + 20 * (i / 3), 200), 9));
+  objects.emplace_back(new Plane(Vector3d(0, -30, 1), Vector3d(1, -30, 0), Vector3d(0, -30, 0)));
+  SpotLight light(Vector3d(-20, -10, 200));
+  //Sphere sphere(Vector3d(0, 0, 10), 10);
   for (int y = 0; y < h; ++y)
     for (int x = 0; x < w; ++x)
-    {
-      Ray ray(Vector3d(0, 0, -1), Vector3d(x - w / 2, y - h / 2, 50) - Vector3d(0, 0, -1));
+      {
+      Ray ray(Vector3d(0, 0, -1), Vector3d(1.*x / w - 0.5, 1.*y / h - 0.5, 1) - Vector3d(0, 0, -1));
       Vector3d intersection;
-      if (IntersectRayWithSphere(intersection, ray, sphere))
-        {
-          double col = 10*(sphere.GetRadius()+Vector3d(0,0,-1).Distance(sphere.GetCenter()))/Vector3d(0,0,-1).Distance(intersection);
-          res[y][x] = Pixel(col, 0, 0);
-        }
-    }
+      for (size_t i = 0; i < objects.size(); ++i)
+        if (IntersectRayWithObject(intersection, ray, objects[i].get()))
+          {
+          double distance = Vector3d(0, 0, -1).Distance(intersection);
+          if (distance < distances[y][x])
+            {
+            distances[y][x] = distance;
+            Vector3d to_ligth = (light.GetLocation() - intersection).Normalized();
+            Vector3d normal;
+            objects[i]->GetNormalInPoint(normal,intersection);
+            double col = std::max(0.0, to_ligth.Dot(normal)) * 255;
+            res[y][x] = Color(col, 0, 0);
+            }
+          }
+      }
   return res;
-}
+  }
 
-int main()
-{
-  Vector3d vec(1, 0.5,0), vec2(132,1,0);
-  Vector3d norm = vec.CrossProduct(vec2);
-  Vector3d res = vec - vec2;
-  const size_t width = 800, height = 600;
+void LabMandelbrot()
+  {
+  const size_t width = 600, height = 600;
   auto t1 = std::chrono::system_clock::now();
   auto t2 = std::chrono::system_clock::now();
   Picture mand;
@@ -58,110 +77,18 @@ int main()
 #endif
   writer.SetPicture(mand);
   writer.Write("D:\\Study\\RayTracing\\ResultsOutputs\\test.bmp");
+  }
 
+int main()
+  {
+  Vector3d vec(1, 0.5, 0), vec2(132, 1, 0);
+  Vector3d norm = vec.CrossProduct(vec2);
+  Vector3d res = vec - vec2;
+  const size_t width = 800, height = 600;
+  Picture picture;
+  BMPWriter writer(width, height);
+  picture = TestSphere(width, height);
+  writer.SetPicture(picture);
+  writer.Write("D:\\Study\\RayTracing\\ResultsOutputs\\sphere.bmp");
   return 0;
-}
-
-// #include <stdio.h>
-// 
-// const int bytesPerPixel = 3; /// red, green, blue
-// const int fileHeaderSize = 14;
-// const int infoHeaderSize = 40;
-// 
-// void generateBitmapImage(unsigned char *image, int height, int width, const char* imageFileName);
-// unsigned char* createBitmapFileHeader(int height, int width, int paddingSize);
-// unsigned char* createBitmapInfoHeader(int height, int width);
-// 
-// 
-// int main() {
-//   const int height = 341;
-//   const int width = 753;
-//   unsigned char image[height][width][bytesPerPixel];
-//   const char* imageFileName = "D:\\Study\\RayTracing\\ResultsOutputs\\test.bmp";
-// 
-//   int i, j;
-//   for (i = 0; i < height; i++) {
-//     for (j = 0; j < width; j++) {
-//       image[i][j][2] = (unsigned char)((double)i / height * 255); ///red
-//       image[i][j][1] = (unsigned char)((double)j / width * 255); ///green
-//       image[i][j][0] = (unsigned char)(((double)i + j) / (height + width) * 255); ///blue
-//     }
-//   }
-// 
-//   generateBitmapImage((unsigned char *)image, height, width, imageFileName);
-//   printf("Image generated!!");
-// }
-// 
-// 
-// void generateBitmapImage(unsigned char *image, int height, int width, const char* imageFileName) {
-// 
-//   unsigned char padding[3] = { 0, 0, 0 };
-//   int paddingSize = (4 - (width*bytesPerPixel) % 4) % 4;
-// 
-//   unsigned char* fileHeader = createBitmapFileHeader(height, width, paddingSize);
-//   unsigned char* infoHeader = createBitmapInfoHeader(height, width);
-// 
-//   FILE* imageFile = fopen(imageFileName, "wb");
-// 
-//   fwrite(fileHeader, 1, fileHeaderSize, imageFile);
-//   fwrite(infoHeader, 1, infoHeaderSize, imageFile);
-// 
-//   int i;
-//   for (i = 0; i < height; i++) {
-//     fwrite(image + (i*width*bytesPerPixel), bytesPerPixel, width, imageFile);
-//     fwrite(padding, 1, paddingSize, imageFile);
-//   }
-// 
-//   fclose(imageFile);
-// }
-// 
-// unsigned char* createBitmapFileHeader(int height, int width, int paddingSize) {
-//   int fileSize = fileHeaderSize + infoHeaderSize + (bytesPerPixel*width + paddingSize) * height;
-// 
-//   static unsigned char fileHeader[] = {
-//       0,0, /// signature
-//       0,0,0,0, /// image file size in bytes
-//       0,0,0,0, /// reserved
-//       0,0,0,0, /// start of pixel array
-//   };
-// 
-//   fileHeader[0] = (unsigned char)('B');
-//   fileHeader[1] = (unsigned char)('M');
-//   fileHeader[2] = (unsigned char)(fileSize);
-//   fileHeader[3] = (unsigned char)(fileSize >> 8);
-//   fileHeader[4] = (unsigned char)(fileSize >> 16);
-//   fileHeader[5] = (unsigned char)(fileSize >> 24);
-//   fileHeader[10] = (unsigned char)(fileHeaderSize + infoHeaderSize);
-// 
-//   return fileHeader;
-// }
-// 
-// unsigned char* createBitmapInfoHeader(int height, int width) {
-//   static unsigned char infoHeader[] = {
-//       0,0,0,0, /// header size
-//       0,0,0,0, /// image width
-//       0,0,0,0, /// image height
-//       0,0, /// number of color planes
-//       0,0, /// bits per pixel
-//       0,0,0,0, /// compression
-//       0,0,0,0, /// image size
-//       0,0,0,0, /// horizontal resolution
-//       0,0,0,0, /// vertical resolution
-//       0,0,0,0, /// colors in color table
-//       0,0,0,0, /// important color count
-//   };
-// 
-//   infoHeader[0] = (unsigned char)(infoHeaderSize);
-//   infoHeader[4] = (unsigned char)(width);
-//   infoHeader[5] = (unsigned char)(width >> 8);
-//   infoHeader[6] = (unsigned char)(width >> 16);
-//   infoHeader[7] = (unsigned char)(width >> 24);
-//   infoHeader[8] = (unsigned char)(height);
-//   infoHeader[9] = (unsigned char)(height >> 8);
-//   infoHeader[10] = (unsigned char)(height >> 16);
-//   infoHeader[11] = (unsigned char)(height >> 24);
-//   infoHeader[12] = (unsigned char)(1);
-//   infoHeader[14] = (unsigned char)(bytesPerPixel * 8);
-// 
-//   return infoHeader;
-//}
+  }

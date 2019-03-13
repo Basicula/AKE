@@ -31,7 +31,7 @@ void BMPWriter::Write(const std::string& i_file_path)
   for (auto i = 0u; i < m_height; ++i)
   {
     if (m_color_mode == BGR)
-      fwrite(m_picture[i].data(), sizeof(Pixel), m_picture[i].size(), mp_file);
+      fwrite(m_picture[i].data(), sizeof(Color), m_picture[i].size(), mp_file);
     else
     {
       for (auto j = 0u; j < m_width; ++j)

@@ -26,9 +26,9 @@ void DrawLine(Picture& io_picture, int x0, int y0, int x1, int y1)
   for (int x = x0, y = y0; x <= x1; ++x)
   {
     if (inverse)
-      io_picture[x][y] = Pixel(255, 255, 255);
+      io_picture[x][y] = Color(255, 255, 255);
     else
-      io_picture[y][x] = Pixel(255, 255, 255);
+      io_picture[y][x] = Color(255, 255, 255);
 
     err += derr;
 
@@ -89,7 +89,7 @@ Picture MandelbrotSet(size_t i_width, size_t i_height, RunMode i_run_mode)
         zx = tempzx;
         ++iter;
       }
-      res[y][x] = Pixel(sin(iter) * sin(iter)*255, cos(iter) * cos(iter)*255, 0);
+      res[y][x] = Color(sin(iter) * sin(iter)*255, cos(iter) * cos(iter)*255, 0);
     }
   if (i_run_mode == MPI)
   {

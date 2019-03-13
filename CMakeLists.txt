@@ -5,9 +5,11 @@ project(RayTracing)
 add_subdirectory(BMPWriter)
 add_subdirectory(Math)
 add_subdirectory(Primitives)
+add_subdirectory(VisualAspects)
 
 add_executable(RayTracing main.cpp)
 
 target_link_libraries(RayTracing PRIVATE BMPWriter)
 target_link_libraries(RayTracing PRIVATE Math)
-target_link_libraries(RayTracing PUBLIC Primitives)
+target_link_libraries(RayTracing PRIVATE Primitives)
+target_link_libraries(RayTracing PRIVATE VisualAspects)
