@@ -1,2 +1,2 @@
 **Actual progress**
-![](States/actual_progress.png)
+![](States/actual_state.png)
