@@ -4,29 +4,29 @@
 #include <IObject.h>
 
 class Plane : public IObject
-{
-public:
-  Plane() = delete;
-  Plane(const Vector3d& i_first, const Vector3d& i_second, const Vector3d& i_third);
-  Plane(const Vector3d& i_point, const Vector3d& i_normal);
+  {
+  public:
+    Plane() = delete;
+    Plane(const Vector3d& i_first, const Vector3d& i_second, const Vector3d& i_third, const ColorMaterial& i_material = Color(255, 255, 255));
+    Plane(const Vector3d& i_point, const Vector3d& i_normal, const ColorMaterial& i_material = Color(255, 255, 255));
 
-  bool GetNormalInPoint(Vector3d& o_normal,const Vector3d& i_point) const override;
-  Vector3d GetNormal() const;
+    bool GetNormalInPoint(Vector3d& o_normal, const Vector3d& i_point) const override;
+    Vector3d GetNormal() const;
 
-  int WhereIsPoint(const Vector3d& i_point) const;
+    int WhereIsPoint(const Vector3d& i_point) const;
 
-  double* GetCoefs() const;
+    inline double GetD() const { return m_d; };
 
-private:
-  void _FillParams();
+  private:
+    void _FillParams();
 
-private:
-  Vector3d m_point;
-  Vector3d m_normal;
+  private:
+    Vector3d m_point;
+    Vector3d m_normal;
 
-  double m_a;
-  double m_b;
-  double m_c;
-  double m_d;
+    double m_a;
+    double m_b;
+    double m_c;
+    double m_d;
 
-};
+  };

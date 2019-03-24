@@ -15,6 +15,8 @@ bool IntersectRayWithSphere(Vector3d& o_intersection, const Ray& i_ray, const Sp
     return false;
 
   double distance_to_intersection = to_sphere - sqrt(radius*radius - sphere_center_to_point * sphere_center_to_point);
+  if (distance_to_intersection <= 0)
+    return false;
   o_intersection = ray_start + i_ray.GetDirection()*distance_to_intersection;
   return true;
   }
@@ -23,9 +25,47 @@ bool IntersectRayWithPlane(Vector3d & o_intersection, const Ray & i_ray, const P
   {
   if (i_plane.WhereIsPoint(i_ray.GetStart()) * i_ray.GetDirection().Dot(i_plane.GetNormal()) >= 0)
     return false;
-  double distance_to_intersection = abs((i_plane.GetNormal().Dot(i_ray.GetStart()) + i_plane.GetCoefs()[3]) / i_plane.GetNormal().Dot(i_ray.GetDirection()));
+  double distance_to_intersection = abs((i_plane.GetNormal().Dot(i_ray.GetStart()) + i_plane.GetD()) / i_plane.GetNormal().Dot(i_ray.GetDirection()));
+  if(distance_to_intersection < 1e-16)
+    return false;
   o_intersection = i_ray.GetStart() + i_ray.GetDirection()*distance_to_intersection;
   return true;
+  }
+
+bool IntersectRayWithWave(Vector3d& o_intersection, const Ray& i_ray)
+  {
+  // z + a = sin(x^2 + y^2)
+  // z + a = sin(sqrt(x^2+y^2))
+  const double PI = 3.14159265359;
+  double tr = 1000, tl = 0;
+  const double a = -210;
+  const double eps = 1e-6;
+  Vector3d far_point = i_ray.GetStart() + i_ray.GetDirection() * tr;
+  double eqr = far_point[2] + a - sin(far_point[0] * far_point[0] + far_point[1] * far_point[1]);
+  double eql = i_ray.GetStart()[2] + a - sin(i_ray.GetStart()[0] * i_ray.GetStart()[0] + i_ray.GetStart()[1] * i_ray.GetStart()[1]);
+  if (eqr*eql > 0)
+    return false;
+  while (true)
+    {
+    double tm = (tr + tl) / 2;
+    Vector3d probably_intersection = i_ray.GetStart() + i_ray.GetDirection() * tm;
+    double x = probably_intersection[0] - PI * int(probably_intersection[0] / PI);
+    double y = probably_intersection[1] - PI * int(probably_intersection[1] / PI);
+    //double sqrx = x * x;
+    double sqrx = probably_intersection[0] * probably_intersection[0];
+    //double sqry = y * y;
+    double sqry = probably_intersection[1] * probably_intersection[1];
+    double eq = probably_intersection[2] + a - sin(sqrt(sqrx + sqry));
+    if (abs(eq) <= eps)
+      {
+      o_intersection = probably_intersection;
+      return true;
+      }
+    else if (eq > 0)
+      tr = tm;
+    else
+      tl = tm;
+    }
   }
 
 bool IntersectRayWithObject(Vector3d& o_intersection, const Ray& i_ray, const IObject* ip_object)

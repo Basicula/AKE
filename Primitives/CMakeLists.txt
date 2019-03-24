@@ -17,3 +17,4 @@ add_library(
 target_include_directories(Primitives PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
 target_link_libraries(Primitives PRIVATE Math)
+target_link_libraries(Primitives PRIVATE VisualAspects)

@@ -5,39 +5,44 @@ class Vector;
 
 template<size_t Dimension, class ElementType>
 class Vector
-{
-public:
-  template<size_t D = 3, typename T = typename ElementType>
-  Vector(ElementType i_x, ElementType i_y, ElementType i_z);
+  {
+  public:
+    template<size_t D = 3, typename T = typename ElementType>
+    Vector(ElementType i_x, ElementType i_y, ElementType i_z);
 
-  Vector();
-  Vector(const Vector& i_other);
+    Vector();
+    Vector(const Vector& i_other);
 
-  ElementType* GetArray() const;
+    //can throw exception
+    ElementType operator[](size_t i_index) const;
 
-  Vector operator-(const Vector& i_other) const;
-  void operator-=(const Vector& i_other);
+    Vector operator-() const;
+    Vector operator-(const Vector& i_other) const;
+    void operator-=(const Vector& i_other);
 
-  Vector operator+(const Vector& i_other) const;
-  void operator+=(const Vector& i_other);
+    Vector operator+(const Vector& i_other) const;
+    void operator+=(const Vector& i_other);
 
-  template<class Factor>
-  Vector operator*(Factor i_factor) const;
-  template<class Factor>
-  void operator*=(Factor i_factor);
+    template<class Factor>
+    Vector operator*(Factor i_factor) const;
+    template<class Factor>
+    void operator*=(Factor i_factor);
 
-  template<size_t D = 3, typename T>
-  Vector<D,T> CrossProduct(const Vector<D,T>& i_other) const;
-  ElementType Dot(const Vector& i_other) const;
-  void Normalize();
-  Vector Normalized() const;
-  double Length() const;
-  ElementType SquareLength() const;
-  double Distance(const Vector& i_other) const;
+    template<size_t D = 3, typename T>
+    Vector<D, T> CrossProduct(const Vector<D, T>& i_other) const;
+    ElementType Dot(const Vector& i_other) const;
+    void Normalize();
+    Vector Normalized() const;
+    double Length() const;
+    ElementType SquareLength() const;
+    double Distance(const Vector& i_other) const;
 
-private:
-  ElementType m_coords[Dimension];
-};
+  protected:
+    ElementType* GetArray() const;
+
+  private:
+    ElementType m_coords[Dimension];
+  };
 
 #include <VectorImpl.h>
 
