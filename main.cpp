@@ -124,7 +124,7 @@ Picture TestSphere(int w, int h)
 
   for (size_t i = 0; i < 9; ++i)
     if (i != 4) objects.emplace_back(new Sphere(Vector3d(cx + 20 * (i % 3), cy + 20 * (i / 3), 150), 9, pure_mirror));
-  objects.emplace_back(new Sphere(Vector3d(0, 0, 50), 9, pure_glass));
+  objects.emplace_back(new Sphere(Vector3d(10, -10, 100), 9, pure_glass));
   objects.emplace_back(new Plane(Vector3d(0, -30, 1), Vector3d(1, -30, 0), Vector3d(0, -30, 0), half_mirror));
   objects.emplace_back(new Plane(Vector3d(30, 1, 0), Vector3d(30, 0, 0), Vector3d(30, 0, 1), red_plastic));
   objects.emplace_back(new Plane(Vector3d(-30, 0, 1), Vector3d(-30, 0, 0), Vector3d(-30, 1, 0), green_plastic));
