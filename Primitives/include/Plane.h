@@ -7,8 +7,8 @@ class Plane : public IObject
   {
   public:
     Plane() = delete;
-    Plane(const Vector3d& i_first, const Vector3d& i_second, const Vector3d& i_third, const ColorMaterial& i_material = Color(255, 255, 255));
-    Plane(const Vector3d& i_point, const Vector3d& i_normal, const ColorMaterial& i_material = Color(255, 255, 255));
+    Plane(const Vector3d& i_first, const Vector3d& i_second, const Vector3d& i_third, const ColorMaterial& i_material = defaultMaterial);
+    Plane(const Vector3d& i_point, const Vector3d& i_normal, const ColorMaterial& i_material = defaultMaterial);
 
     bool GetNormalInPoint(Vector3d& o_normal, const Vector3d& i_point) const override;
     Vector3d GetNormal() const;

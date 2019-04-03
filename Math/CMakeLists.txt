@@ -1,4 +1,13 @@
-add_library(Math INTERFACE)
+add_library(
+	Math 
+	
+	src/SolveEquations.cpp
+	
+	include/SolveEquations.h
+	include/Vector.h
 
-target_include_directories(Math INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/include")
-target_include_directories(Math INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src")
+	include/impl/VectorImpl.h
+)
+
+target_include_directories(Math PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
+target_include_directories(Math PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/impl")

@@ -2,6 +2,7 @@
 #include <math.h>
 #include <algorithm>
 #include <stdexcept>
+#include "..\include\Vector.h"
 
 template<size_t Dimension, class ElementType>
 Vector<Dimension, ElementType>::Vector()
@@ -11,13 +12,6 @@ Vector<Dimension, ElementType>::Vector()
   };
 
 template<size_t Dimension, class ElementType>
-Vector<Dimension, ElementType>::Vector(const Vector& i_other)
-  {
-  for (size_t i = 0; i < Dimension; ++i)
-    m_coords[i] = i_other.m_coords[i];
-  }
-
-template<size_t Dimension, class ElementType>
 template<size_t D, typename T>
 Vector<Dimension, ElementType>::Vector(ElementType i_x, ElementType i_y, ElementType i_z)
   {
@@ -25,14 +19,6 @@ Vector<Dimension, ElementType>::Vector(ElementType i_x, ElementType i_y, Element
   m_coords[1] = i_y;
   m_coords[2] = i_z;
   };
-
-template<size_t Dimension, class ElementType>
-ElementType* Vector<Dimension, ElementType>::GetArray() const
-  {
-  ElementType* res = new ElementType[Dimension];
-  std::copy(m_coords, m_coords + Dimension, res);
-  return res;
-  }
 
 template<size_t Dimension, class ElementType>
 ElementType Vector<Dimension, ElementType>::operator[](size_t i_index) const
@@ -102,6 +88,12 @@ template<size_t Dimension, class ElementType>
 double Vector<Dimension, ElementType>::Distance(const Vector<Dimension, ElementType>& i_other) const
   {
   return (*this - i_other).Length();
+  }
+
+template<size_t Dimension, class ElementType>
+inline ElementType Vector<Dimension, ElementType>::SquareDistance(const Vector & i_other) const
+  {
+  return (*this - i_other).SquareLength();
   }
 
 template<size_t Dimension, class ElementType>

@@ -31,6 +31,7 @@ class ColorMaterial
     inline Vector3d GetSpecular() const { return m_specular; };
     inline void SetSpecular(const Vector3d& i_specular) { m_specular = i_specular; };
     inline double GetReflection() const { return m_reflection; };
+    inline double GetRefraction() const { return m_refraction; };
 
 
   private:
@@ -43,5 +44,8 @@ class ColorMaterial
     Vector3d m_specular;
     //[0,1]
     double m_reflection;
+
     double m_refraction;
   };
+
+const ColorMaterial defaultMaterial(Color(255,255,255));

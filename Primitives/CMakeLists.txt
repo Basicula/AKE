@@ -5,11 +5,13 @@ add_library(
 	src/Sphere.cpp
 	src/Ray.cpp
 	src/Plane.cpp
-	
+	src/Torus.cpp
+
 	include/IntersectionUtilities.h
 	include/Sphere.h
 	include/Ray.h
 	include/Plane.h
+	include/Torus.h
 
 	include/IObject.h
 )

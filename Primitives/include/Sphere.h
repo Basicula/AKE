@@ -6,9 +6,9 @@
 class Sphere : public IObject
   {
   public:
-    Sphere(const ColorMaterial& i_material = Color(255, 255, 255));
-    Sphere(double i_radius, const ColorMaterial& i_material = Color(255, 255, 255));
-    Sphere(const Vector3d& i_center, double i_radius, const ColorMaterial& i_material = Color(255, 255, 255));
+    Sphere(const ColorMaterial& i_material = defaultMaterial);
+    Sphere(double i_radius, const ColorMaterial& i_material = defaultMaterial);
+    Sphere(const Vector3d& i_center, double i_radius, const ColorMaterial& i_material = defaultMaterial);
 
     inline Vector3d GetCenter() const { return m_center; };
     inline double GetRadius() const { return m_radius; };

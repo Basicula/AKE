@@ -11,7 +11,7 @@ class Vector
     Vector(ElementType i_x, ElementType i_y, ElementType i_z);
 
     Vector();
-    Vector(const Vector& i_other);
+    Vector(const Vector& i_other) = default;
 
     //can throw exception
     ElementType operator[](size_t i_index) const;
@@ -36,9 +36,9 @@ class Vector
     double Length() const;
     ElementType SquareLength() const;
     double Distance(const Vector& i_other) const;
+    ElementType SquareDistance(const Vector& i_other) const;
 
   protected:
-    ElementType* GetArray() const;
 
   private:
     ElementType m_coords[Dimension];
@@ -47,3 +47,49 @@ class Vector
 #include <VectorImpl.h>
 
 using Vector3d = Vector<3, double>;
+
+template<>
+inline Vector3d Vector3d::operator-(const Vector3d& i_other) const
+  {
+  return Vector3d(m_coords[0] - i_other.m_coords[0], m_coords[1] - i_other.m_coords[1], m_coords[2] - i_other.m_coords[2]);
+  }
+
+template<>
+inline Vector3d Vector3d::operator+(const Vector3d& i_other) const
+  {
+  return Vector3d(m_coords[0] + i_other.m_coords[0], m_coords[1] + i_other.m_coords[1], m_coords[2] + i_other.m_coords[2]);
+  }
+
+template<>
+inline double Vector3d::Dot(const Vector3d& i_other) const
+  {
+  return m_coords[0] * i_other.m_coords[0] + m_coords[1] * i_other.m_coords[1] + m_coords[2] * i_other.m_coords[2];
+  }
+
+template<>
+template<>
+inline Vector3d Vector3d::operator*<double>(double i_val) const
+  {
+  return Vector3d(m_coords[0]*i_val, m_coords[1] * i_val, m_coords[2] * i_val);
+  }
+
+template<>
+template<>
+inline void Vector3d::operator*=<double>(double i_val)
+  {
+  m_coords[0] *= i_val;
+  m_coords[1] *= i_val;
+  m_coords[2] *= i_val;
+  }
+
+template<>
+inline double Vector3d::SquareLength() const
+  {
+  return m_coords[0] * m_coords[0] + m_coords[1] * m_coords[1] + m_coords[2] * m_coords[2];
+  }
+
+template<>
+inline double Vector3d::SquareDistance(const Vector3d& i_other) const
+  {
+  return (i_other - *this).SquareLength();
+  }

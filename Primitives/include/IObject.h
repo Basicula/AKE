@@ -12,7 +12,8 @@ class IObject
       {
       SPHERE,
       PLANE,
-      UNDEFINED
+      TORUS,
+      UNDEFINED,
       };
 
   protected:
