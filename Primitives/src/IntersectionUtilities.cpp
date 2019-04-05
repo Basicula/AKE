@@ -114,7 +114,7 @@ bool IntersectRayWithCylinder(Vector3d& o_intersecion, double &o_distance, const
       std::swap(roots[0], roots[1]);
     Vector3d first_intersection = origin + direction * roots[0];
     Vector3d second_intersection = origin + direction * roots[1];
-    if (first_intersection[2] <= zmax && first_intersection[2] >= zmin && roots[0] > EPS)
+    if (!i_torus.IsFinite() || first_intersection[2] <= zmax && first_intersection[2] >= zmin && roots[0] > EPS)
       {
       o_distance = roots[0];
       o_intersecion = first_intersection + i_torus.GetCenter();

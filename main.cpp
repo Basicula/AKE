@@ -124,14 +124,14 @@ Picture TestSphere(int w, int h)
 
   for (size_t i = 0; i < 9; ++i)
     if (i != 4) objects.emplace_back(new Sphere(Vector3d(cx + 20 * (i % 3), cy + 20 * (i / 3), 150), 9, pure_mirror));
-  objects.emplace_back(new Sphere(Vector3d(-25, -25, 100), 9, pure_glass));
+  objects.emplace_back(new Sphere(Vector3d(-10, 10, 100), 5, pure_glass));
   objects.emplace_back(new Plane(Vector3d(0, -30, 1), Vector3d(1, -30, 0), Vector3d(0, -30, 0), half_mirror));
   objects.emplace_back(new Plane(Vector3d(30, 1, 0), Vector3d(30, 0, 0), Vector3d(30, 0, 1), red_plastic));
   objects.emplace_back(new Plane(Vector3d(-30, 0, 1), Vector3d(-30, 0, 0), Vector3d(-30, 1, 0), green_plastic));
   objects.emplace_back(new Plane(Vector3d(1, 30, 0), Vector3d(0, 30, 1), Vector3d(0, 30, 0), half_mirror));
   objects.emplace_back(new Torus(Vector3d(0, 0, 150), 10, 4, blue_plastic));
   objects.emplace_back(new Cylinder(Vector3d(-25, -25, 100), 5, 40, half_mirror));
-  objects.emplace_back(new Sphere(Vector3d(0, -27, 60), 3, ruby));
+  objects.emplace_back(new Cylinder(Vector3d(-27, -20, 100), 1, -1, half_mirror));
   lights.emplace_back(new SpotLight(Vector3d(-25, -25, 55), Color(255, 255, 255), 4));
   lights.emplace_back(new SpotLight(Vector3d(-20, -20, 130), Color(255, 255, 255), 1));
   lights.emplace_back(new SpotLight(Vector3d(20, -20, 130), Color(255, 255, 255), 2));
