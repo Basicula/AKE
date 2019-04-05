@@ -6,12 +6,14 @@ add_library(
 	src/Ray.cpp
 	src/Plane.cpp
 	src/Torus.cpp
+	src/Cylinder.cpp
 
 	include/IntersectionUtilities.h
 	include/Sphere.h
 	include/Ray.h
 	include/Plane.h
 	include/Torus.h
+	include/Cylinder.h
 
 	include/IObject.h
 )

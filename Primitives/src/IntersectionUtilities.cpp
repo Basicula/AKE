@@ -62,9 +62,9 @@ bool IntersectRayWithTorus(Vector3d & o_intersecion, double &o_distance, const R
     - 4 * square_major * (1 - i_ray.GetDirection()[2] * i_ray.GetDirection()[2]);
   double c1 = 4 * square_start_major_minor * start_dot_direction - 8 * square_major * (start_dot_direction - i_ray.GetDirection()[2] * start[2]);
   double c0 = square_start_major_minor * square_start_major_minor - 4 * square_major * (square_start - start[2] * start[2]);
-  double roots[4] = {INFINITY,INFINITY ,INFINITY ,INFINITY };
+  double roots[4] = { INFINITY,INFINITY ,INFINITY ,INFINITY };
   const double quartic_coefs[5] = { c0,c1,c2,c3,c4 };
-  int roots_count = Equations::SolveQuartic(quartic_coefs,roots);
+  int roots_count = Equations::SolveQuartic(quartic_coefs, roots);
   if (roots_count == 0)
     return false;
   //find smallest positive if exist temp solution
@@ -77,6 +77,63 @@ bool IntersectRayWithTorus(Vector3d & o_intersecion, double &o_distance, const R
   o_distance = distance;
   o_intersecion = start + i_ray.GetDirection() * distance + i_torus.GetCenter();
   return true;
+  }
+
+bool IntersectRayWithCylinder(Vector3d& o_intersecion, double &o_distance, const Ray& i_ray, const Cylinder& i_torus)
+  {
+  Vector3d direction = i_ray.GetDirection();
+  Vector3d origin = i_ray.GetStart() - i_torus.GetCenter();
+  const double zmin = -i_torus.GetHeight() / 2;
+  const double zmax = i_torus.GetHeight() / 2;
+  double quadratic_coefs[3] = {
+    origin[0] * origin[0] + origin[1] * origin[1] - i_torus.GetRadius() * i_torus.GetRadius(),
+    2 * origin[0] * direction[0] + 2 * origin[1] * direction[1],
+    direction[0] * direction[0] + direction[1] * direction[1] };
+  double roots[2] = { INFINITY, INFINITY };
+  int roots_count = Equations::SolveQuadratic(quadratic_coefs, roots);
+  if (roots_count == 0)
+    {
+    return false;
+    }
+  if (roots_count == 1)
+    {
+    if (roots[0] < EPS)
+      return false;
+    Vector3d intersection = origin + direction * roots[0];
+    if (intersection[2] >= zmax || intersection[2] <=zmin)
+      return false;
+    o_distance = roots[0];
+    o_intersecion = intersection + i_torus.GetCenter();
+    return true;
+    }
+  else
+    {
+    if (roots[0] < EPS && roots[1] < EPS)
+      return false;
+    if (roots[0] > roots[1])
+      std::swap(roots[0], roots[1]);
+    Vector3d first_intersection = origin + direction * roots[0];
+    Vector3d second_intersection = origin + direction * roots[1];
+    if (first_intersection[2] <= zmax && first_intersection[2] >= zmin && roots[0] > EPS)
+      {
+      o_distance = roots[0];
+      o_intersecion = first_intersection + i_torus.GetCenter();
+      return true;
+      }
+    if ((first_intersection[2] > zmax && second_intersection[2] <= zmax) ||
+      (first_intersection[2] < zmin && second_intersection[2] >= zmin))
+      {
+      double dz = first_intersection[2] > zmax ? first_intersection[2] - zmax : zmin - first_intersection[2];
+      double dist = first_intersection.Distance(second_intersection);
+      double to_intersection = dz * dist / abs(first_intersection[2] - second_intersection[2]);
+      if(roots[0] + to_intersection < EPS)
+        return false;
+      o_distance = roots[0] + to_intersection;
+      o_intersecion = i_ray.GetStart() + direction * o_distance;
+      return true;
+      }
+    }
+  return false;
   }
 
 bool IntersectRayWithWave(Vector3d& o_intersection, double &o_distance, const Ray& i_ray)
@@ -115,16 +172,18 @@ bool IntersectRayWithWave(Vector3d& o_intersection, double &o_distance, const Ra
     }
   }
 
-bool IntersectRayWithObject(Vector3d& o_intersection,double &o_distance, const Ray& i_ray, const IObject* ip_object)
+bool IntersectRayWithObject(Vector3d& o_intersection, double &o_distance, const Ray& i_ray, const IObject* ip_object)
   {
   switch (ip_object->GetType())
     {
     case IObject::ObjectType::SPHERE:
-      return IntersectRayWithSphere(o_intersection,o_distance, i_ray,*static_cast<const Sphere*>(ip_object));
+      return IntersectRayWithSphere(o_intersection, o_distance, i_ray, *static_cast<const Sphere*>(ip_object));
     case IObject::ObjectType::PLANE:
-      return IntersectRayWithPlane(o_intersection,o_distance, i_ray, *static_cast<const Plane*>(ip_object));
+      return IntersectRayWithPlane(o_intersection, o_distance, i_ray, *static_cast<const Plane*>(ip_object));
     case IObject::ObjectType::TORUS:
-      return IntersectRayWithTorus(o_intersection,o_distance, i_ray, *static_cast<const Torus*>(ip_object));
+      return IntersectRayWithTorus(o_intersection, o_distance, i_ray, *static_cast<const Torus*>(ip_object));
+    case IObject::ObjectType::CYLINDER:
+      return IntersectRayWithCylinder(o_intersection, o_distance, i_ray, *static_cast<const Cylinder*>(ip_object));
     default:
       break;
     }

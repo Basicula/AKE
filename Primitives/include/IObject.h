@@ -13,6 +13,7 @@ class IObject
       SPHERE,
       PLANE,
       TORUS,
+      CYLINDER,
       UNDEFINED,
       };
 

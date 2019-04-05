@@ -48,4 +48,4 @@ class ColorMaterial
     double m_refraction;
   };
 
-const ColorMaterial defaultMaterial(Color(255,255,255));
+const ColorMaterial g_DefaultMaterial(Color(255,255,255));

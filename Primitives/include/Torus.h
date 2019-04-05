@@ -14,7 +14,7 @@ class Torus : public IObject
   {
   public:
     Torus() = delete;
-    Torus(const Vector3d& i_center, double i_major_radius, double i_minor_radius, const ColorMaterial& i_material = defaultMaterial);
+    Torus(const Vector3d& i_center, double i_major_radius, double i_minor_radius, const ColorMaterial& i_material = g_DefaultMaterial);
 
     inline Vector3d GetCenter() const { return m_center; };
     inline double GetMinor() const { return m_minor_radius; };
