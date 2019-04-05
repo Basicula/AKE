@@ -7,6 +7,7 @@ add_library(
 	include/SolveEquations.h
 	include/Vector.h
 	include/TransformationMatrix.h
+	include/DefinesAndConstants.h
 
 	include/impl/VectorImpl.h
 )

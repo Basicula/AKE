@@ -35,8 +35,21 @@ bool Plane::GetNormalInPoint(Vector3d& o_normal, const Vector3d& i_point) const
   return true;
   }
 
-int Plane::WhereIsPoint(const Vector3d& i_point) const
+double Plane::GetValueFromEquation(const Vector3d& i_point) const
   {
-  double eq_res = i_point.Dot(m_normal) + m_d;
-  return eq_res > 0 ? 1 : eq_res < 0 ? -1 : 0;
+  return i_point.Dot(m_normal) + m_d;
+  }
+
+
+bool Plane::IntersectWithRay(Vector3d & o_intersection, double &o_distance, const Ray & i_ray) const
+  {
+  const double value_from_equation = GetValueFromEquation(i_ray.GetStart());
+  if (value_from_equation * i_ray.GetDirection().Dot(m_normal) >= 0)
+    return false;
+  double distance_to_intersection = abs(value_from_equation / m_normal.Dot(i_ray.GetDirection()));
+  if (distance_to_intersection <= Epsilon3D)
+    return false;
+  o_distance = distance_to_intersection;
+  o_intersection = i_ray.GetStart() + i_ray.GetDirection()*distance_to_intersection;
+  return true;
   }

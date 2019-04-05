@@ -11,9 +11,11 @@ class Plane : public IObject
     Plane(const Vector3d& i_point, const Vector3d& i_normal, const ColorMaterial& i_material = g_DefaultMaterial);
 
     bool GetNormalInPoint(Vector3d& o_normal, const Vector3d& i_point) const override;
+    bool IntersectWithRay(Vector3d & o_intersection, double &o_distance, const Ray & i_ray) const override;
+
     Vector3d GetNormal() const;
 
-    int WhereIsPoint(const Vector3d& i_point) const;
+    double GetValueFromEquation(const Vector3d& i_point) const;
 
     inline double GetD() const { return m_d; };
 

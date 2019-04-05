@@ -11,6 +11,11 @@
 #include <ColorMaterial.h>
 #include <TransformationMatrix.h>
 #include <SolveEquations.h>
+#include <IObject.h>
+#include <Sphere.h>
+#include <Torus.h>
+#include <Plane.h>
+#include <Cylinder.h>
 
 #define mpi 0
 
@@ -27,7 +32,7 @@ std::string GetPath(int i_num)
   return path + num + ".bmp";
   }
 
-Color CastRay(const Ray& i_ray, const std::vector<std::unique_ptr<IObject>>& i_objects, const std::vector<std::unique_ptr<SpotLight>>& i_lights, int depth = 3)
+Color CastRay(const Ray& i_ray, const std::vector<std::unique_ptr<IObject>>& i_objects, const std::vector<std::unique_ptr<SpotLight>>& i_lights, int depth = 5)
   {
   Color res = Color(0, 0, 0);
   double distance = INFINITY;
@@ -45,7 +50,7 @@ Color CastRay(const Ray& i_ray, const std::vector<std::unique_ptr<IObject>>& i_o
   for (const auto& object : i_objects)
     {
     double dist_to_obj;
-    if (IntersectRayWithObject(intersection, dist_to_obj, i_ray, object.get()))
+    if (object->IntersectWithRay(intersection, dist_to_obj, i_ray))
       {
       if (dist_to_obj > distance) continue;
       distance = dist_to_obj;
@@ -87,7 +92,7 @@ Color CastRay(const Ray& i_ray, const std::vector<std::unique_ptr<IObject>>& i_o
         Vector3d temp_intersection;
         double temp_dist;
         for (const auto& shadow_obj : i_objects)
-          if (object.get() != shadow_obj.get() && IntersectRayWithObject(temp_intersection, temp_dist, to_light, shadow_obj.get()))
+          if (object.get() != shadow_obj.get() && shadow_obj->IntersectWithRay(temp_intersection, temp_dist, to_light))
             {
             if (intersection.SquareDistance(light->GetLocation()) > temp_dist*temp_dist)
               {

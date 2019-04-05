@@ -4,6 +4,7 @@
 #include <Vector.h>
 #include <Ray.h>
 #include <ColorMaterial.h>
+#include <DefinesAndConstants.h>
 
 class IObject
   {
@@ -25,6 +26,7 @@ class IObject
   public:
     inline ObjectType GetType() const { return m_type; };
     virtual bool GetNormalInPoint(Vector3d& o_normal, const Vector3d& i_point) const = 0;
+    virtual bool IntersectWithRay(Vector3d& o_intersection, double& o_distance, const Ray& i_ray) const = 0;
 
     inline Color GetColor() const { return m_material.GetBaseColor(); };
     inline ColorMaterial GetMaterial() const { return m_material; };

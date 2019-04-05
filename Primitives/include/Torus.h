@@ -21,6 +21,7 @@ class Torus : public IObject
     inline double GetMajor() const { return m_major_radius; };
 
     bool GetNormalInPoint(Vector3d& o_normal, const Vector3d& i_point) const override;
+    bool IntersectWithRay(Vector3d& o_intersection, double& o_distance, const Ray& i_ray) const override;
 
   private:
     Vector3d m_center;

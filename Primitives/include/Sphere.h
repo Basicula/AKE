@@ -14,6 +14,7 @@ class Sphere : public IObject
     inline double GetRadius() const { return m_radius; };
 
     bool GetNormalInPoint(Vector3d& o_normal, const Vector3d& i_point) const override;
+    bool IntersectWithRay(Vector3d& o_intersection, double& o_distance, const Ray& i_ray) const override;
   private:
     Vector3d m_center;
     double m_radius;

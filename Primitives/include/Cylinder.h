@@ -19,6 +19,7 @@ class Cylinder : public IObject
     inline void SetFiniteness(bool i_is_finite) { m_is_finite = i_is_finite; m_height = -1; };
 
     bool GetNormalInPoint(Vector3d& o_normal, const Vector3d& i_point) const override;
+    bool IntersectWithRay(Vector3d& o_intersection, double& o_distance, const Ray& i_ray) const override;
   private:
     Vector3d m_center;
     double m_radius;
