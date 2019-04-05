@@ -2,21 +2,28 @@
 
 #include <Vector.h>
 
-template<class ElementsType = double>
 class TransformationMatrix
   {
   public:
     TransformationMatrix();
+    TransformationMatrix(double* i_from16);
+    TransformationMatrix(const TransformationMatrix& i_other);
 
-    template<class ValueType>
-    void SetDiagonal(ValueType i_number);
+    void SetDiagonal(double i_number);
     void SetIdentity();
 
     inline bool IsIdentity() const { return m_is_identity; };
 
-    inline Vector<3, ElementsType> GetTranslation() const { return Vector<3, ElementsType>(m_matrix[0][3], m_matrix[1][3], m_matrix[2][3]); };
+    inline Vector3d GetTranslation() const { return Vector3d(m_matrix[0][3], m_matrix[1][3], m_matrix[2][3]); };
+
+    TransformationMatrix operator*(const TransformationMatrix& i_other) const;
+
+  private:
+    void _Multiply(const TransformationMatrix& i_other);
+    bool _CheckIdentity() const;
 
   private:
     bool m_is_identity;
-    ElementsType m_matrix[4][4];
+    double m_matrix[4][4];
+    double m_inverse_matrix[4][4];
   };

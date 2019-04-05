@@ -2,9 +2,11 @@ add_library(
 	Math 
 	
 	src/SolveEquations.cpp
+	src/TransformationMatrix.cpp
 	
 	include/SolveEquations.h
 	include/Vector.h
+	include/TransformationMatrix.h
 
 	include/impl/VectorImpl.h
 )
