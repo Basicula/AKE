@@ -16,6 +16,9 @@ class TransformationMatrix
 
     inline Vector3d GetTranslation() const { return Vector3d(m_matrix[0][3], m_matrix[1][3], m_matrix[2][3]); };
 
+    inline void Inverse() { std::swap(m_matrix,m_inverse_matrix); };
+    TransformationMatrix GetInversed() const;
+
     TransformationMatrix operator*(const TransformationMatrix& i_other) const;
 
   private:
