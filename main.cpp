@@ -16,21 +16,7 @@
 #include <Torus.h>
 #include <Plane.h>
 #include <Cylinder.h>
-
-#define mpi 0
-
-std::string GetPath(int i_num)
-  {
-  std::string path = "D:\\Study\\RayTracing\\ResultsOutputs\\";
-  std::string num;
-  while (i_num)
-    {
-    num += '0' + i_num % 10;
-    i_num /= 10;
-    }
-  std::reverse(num.begin(), num.end());
-  return path + num + ".bmp";
-  }
+#include <GLUTWindow.h>
 
 Color CastRay(const Ray& i_ray, const std::vector<std::unique_ptr<IObject>>& i_objects, const std::vector<std::unique_ptr<SpotLight>>& i_lights, int depth = 5)
   {
@@ -159,6 +145,8 @@ Picture TestSphere(int w, int h)
 
 int main()
   {
+  GLUTWindow window(800,600,"Test");
+  window.Open();
   Vector3d vec(1, 0.5, 0), vec2(132, 1, 0);
   Vector3d norm = vec.CrossProduct(vec2);
   Vector3d res = vec - vec2;
