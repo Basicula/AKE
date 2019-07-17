@@ -39,6 +39,35 @@ include_directories(${GLUT_INCLUDE_DIRS})
 
 #GLUT end
 
+#OpenCL
+
+find_package(OpenCL QUIET)
+
+if(NOT GLUT_FOUND)
+	message("Installing OpenCL...")
+	
+	set(OpenCLPath ThirdParties/OpenCL)
+	
+	set(OPENCL_INCLUDE_DIRS ${OpenCLPath}/include)
+	if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+		set(OPENCL_LIBRARY_DIRS ${OpenCLPath}/lib/x64)
+		#file(	COPY ${OpenCLPath}/bin/x64/.dll
+		#	DESTINATION ${CMAKE_BINARY_DIR}
+		#)
+	else()
+		set(OPENCL_LIBRARY_DIRS ${OpenCLPath}/lib/x32)
+		#file(	COPY ${OpenCLPath}/bin/.dll
+		#	DESTINATION ${CMAKE_BINARY_DIR}
+		#)
+	endif()
+	
+	link_directories(${OPENCL_LIBRARY_DIRS})
+endif()
+
+include_directories(${OPENCL_INCLUDE_DIRS})
+
+#OpenCL end
+
 add_subdirectory(BMPWriter)
 add_subdirectory(Math)
 add_subdirectory(Primitives)
@@ -50,6 +79,7 @@ add_executable(RayTracing main.cpp)
 #ThirdParties
 #target_link_libraries(RayTracing PRIVATE ${OPENGL_LIBRARIES})
 #target_link_libraries(RayTracing PRIVATE freeglut)
+target_link_libraries(RayTracing PUBLIC OpenCL)
 
 target_link_libraries(RayTracing PUBLIC BMPWriter)
 target_link_libraries(RayTracing PUBLIC Math)

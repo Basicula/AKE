@@ -17,6 +17,7 @@
 #include <Plane.h>
 #include <Cylinder.h>
 #include <GLUTWindow.h>
+#include <CL/cl.hpp>
 
 Color CastRay(const Ray& i_ray, const std::vector<std::unique_ptr<IObject>>& i_objects, const std::vector<std::unique_ptr<SpotLight>>& i_lights, int depth = 5)
   {
@@ -143,6 +144,15 @@ Picture TestSphere(int w, int h)
 
 int main()
   {
+  std::vector<cl::Platform> all_platforms;
+  cl::Platform::get(&all_platforms);
+
+  if (all_platforms.size() == 0) {
+    std::cout << " No platforms found. Check OpenCL installation!\n";
+    exit(1);
+    }
+  cl::Platform default_platform = all_platforms[0];
+  std::cout << "Using platform: " << default_platform.getInfo<CL_PLATFORM_NAME>() << "\n";
   GLUTWindow window(800,600,"Test");
   window.Open();
   Vector3d vec(1, 0.5, 0), vec2(132, 1, 0);
