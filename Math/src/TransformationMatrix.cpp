@@ -56,6 +56,13 @@ void TransformationMatrix::SetDiagonal(double i_number)
   m_is_identity = false;
   }
 
+TransformationMatrix TransformationMatrix::GetInversed() const
+  {
+  TransformationMatrix temp(*this);
+  temp.Inverse();
+  return temp;
+  }
+
 TransformationMatrix TransformationMatrix::operator*(const TransformationMatrix& i_other) const
   {
   TransformationMatrix res(*this);
