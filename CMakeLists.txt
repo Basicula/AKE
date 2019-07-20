@@ -73,6 +73,7 @@ add_subdirectory(Math)
 add_subdirectory(Primitives)
 add_subdirectory(VisualAspects)
 add_subdirectory(GLUTWindow)
+add_subdirectory(OpenCLKernel)
 
 add_executable(RayTracing main.cpp)
 
@@ -86,3 +87,4 @@ target_link_libraries(RayTracing PUBLIC Math)
 target_link_libraries(RayTracing PUBLIC Primitives)
 target_link_libraries(RayTracing PUBLIC VisualAspects)
 target_link_libraries(RayTracing PUBLIC GLUTWindow)
+target_link_libraries(RayTracing PUBLIC OpenCLKernel)
