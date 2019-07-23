@@ -23,14 +23,14 @@ bool Color::operator==(const Color& i_other) const
   return m_red == i_other.m_red && m_green == i_other.m_green && m_blue == i_other.m_blue;
   }
 
-unsigned char* Color::RGB() const
+std::initializer_list<unsigned char> Color::ColorToRGB() const
   {
-  return new unsigned char[3]{ m_red, m_green, m_blue };
+  return { m_red, m_green, m_blue };
   };
 
-unsigned char* Color::BGR() const
+std::initializer_list<unsigned char> Color::ColorToBGR() const
   {
-  return new unsigned char[3]{ m_blue, m_green, m_red };
+  return { m_blue, m_green, m_red };
   };
 
 Color Color::operator*(double i_factor) const

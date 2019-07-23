@@ -36,7 +36,7 @@ void BMPWriter::Write(const std::string& i_file_path)
     {
       for (auto j = 0u; j < m_width; ++j)
       {
-        fwrite(m_picture[i][j].BGR(), 1, m_bytes_per_pixel, mp_file);
+        fwrite(m_picture[i][j].ColorToBGR().begin(), 1, m_bytes_per_pixel, mp_file);
       }
     }
     fwrite(padding, 1, paddingSize, mp_file);

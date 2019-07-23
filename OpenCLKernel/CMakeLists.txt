@@ -7,4 +7,4 @@ add_library(
 
 target_include_directories(OpenCLKernel PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
-#target_link_libraries(OpenCLKernel PRIVATE smth)
+target_link_libraries(OpenCLKernel PRIVATE OpenCL)

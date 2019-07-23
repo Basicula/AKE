@@ -19,8 +19,8 @@ public:
   Color operator+(const Color& i_other) const;
 
   bool operator==(const Color& i_other) const;
-  unsigned char* RGB() const;
-  unsigned char* BGR() const;
+  std::initializer_list<unsigned char> ColorToRGB() const;
+  std::initializer_list<unsigned char> ColorToBGR() const;
 private:
   unsigned char m_red;
   unsigned char m_green;

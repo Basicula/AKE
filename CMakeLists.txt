@@ -80,7 +80,7 @@ add_executable(RayTracing main.cpp)
 #ThirdParties
 #target_link_libraries(RayTracing PRIVATE ${OPENGL_LIBRARIES})
 #target_link_libraries(RayTracing PRIVATE freeglut)
-target_link_libraries(RayTracing PUBLIC OpenCL)
+#target_link_libraries(RayTracing PRIVATE OpenCL)
 
 target_link_libraries(RayTracing PUBLIC BMPWriter)
 target_link_libraries(RayTracing PUBLIC Math)
