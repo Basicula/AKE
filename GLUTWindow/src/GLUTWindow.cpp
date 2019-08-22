@@ -46,22 +46,22 @@ void GLUTWindow::_DisplayFunc()
 
   GLuint texture;
 
-  const size_t width = 25;
-  const size_t height = 25;
+  const size_t width = 256;
+  const size_t height = 256;
   const size_t bytes_per_pixel = 4;
-  srand(rand());
-  auto data = new unsigned char[width * height * bytes_per_pixel];
-  for(size_t y = 0; y < height; ++y)
-    {
-    for (size_t x = 0; x < width; ++x)
-      {
-      size_t row = y * width * bytes_per_pixel;
-      data[row + x * bytes_per_pixel + 0] = rand() % 255;
-      data[row + x * bytes_per_pixel + 1] = rand() % 255;
-      data[row + x * bytes_per_pixel + 2] = rand() % 255;
-      data[row + x * bytes_per_pixel + 3] = 255;
-      }
-    }
+  //srand(rand());
+  //auto data = new unsigned char[width * height * bytes_per_pixel];
+  //for(size_t y = 0; y < height; ++y)
+  //  {
+  //  for (size_t x = 0; x < width; ++x)
+  //    {
+  //    size_t row = y * width * bytes_per_pixel;
+  //    data[row + x * bytes_per_pixel + 0] = rand() % 255;
+  //    data[row + x * bytes_per_pixel + 1] = rand() % 255;
+  //    data[row + x * bytes_per_pixel + 2] = rand() % 255;
+  //    data[row + x * bytes_per_pixel + 3] = 255;
+  //    }
+  //  }
 
 
   glGenTextures(1, &texture);
@@ -71,7 +71,7 @@ void GLUTWindow::_DisplayFunc()
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-  gluBuild2DMipmaps(GL_TEXTURE_2D, 4, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data);
+  gluBuild2DMipmaps(GL_TEXTURE_2D, 4, width, height, GL_RGBA, GL_UNSIGNED_BYTE, m_picture.data());
 
   glEnable(GL_TEXTURE_2D);
 

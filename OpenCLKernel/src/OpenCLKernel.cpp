@@ -304,11 +304,16 @@ void OpenCLKernel::Test()
 
 std::vector<unsigned char> OpenCLKernel::Dummy()
   {
-  std::vector<unsigned char> res;
   std::string kernel_code =
-    "   void kernel create_dummy_picture(global int* width, global int* height, global unsigned char* picture){       "
-    "       int id = get_global_id(0);"
-    "                        "
+    "   void kernel create_dummy_picture(int width, int height, global uchar* picture){       "
+    "       int i = get_global_id(0);"
+    "       int j = get_global_id(1);"
+    "       int x = i * width * 4;"
+    "       int y = j * 4;"
+    "       picture[x + y + 0] = (i + j) * 255 / (width + height);"
+    "       picture[x + y + 1] = 0;"
+    "       picture[x + y + 2] = 0;"
+    "       picture[x + y + 3] = 255;"
     "   }                                                                               ";
   size_t length = kernel_code.length();
   const char* raw_data = kernel_code.data();
@@ -324,66 +329,46 @@ std::vector<unsigned char> OpenCLKernel::Dummy()
     std::cout << "Build kernel program failed\n";
     }
 
-  cl_kernel kernel = clCreateKernel(m_program, "simple_add", &rc);
+  cl_kernel kernel = clCreateKernel(m_program, "create_dummy_picture", &rc);
 
-  int n = rand() % 100;
-  int* a = new int[n];
-  int* b = new int[n];
-  for (int i = 0; i < n; ++i)
-    {
-    a[i] = rand() % 1000;
-    b[i] = rand() % 1000;
-    }
+  const int width = 256;
+  const int height = 256;
+  const int bytes_per_pixel = 4;
 
-  cl_mem ag = clCreateBuffer(m_context, CL_MEM_READ_ONLY, n * sizeof(int), nullptr, &rc);
-  cl_mem bg = clCreateBuffer(m_context, CL_MEM_READ_ONLY, n * sizeof(int), nullptr, &rc);
-  cl_mem cg = clCreateBuffer(m_context, CL_MEM_WRITE_ONLY, n * sizeof(int), nullptr, &rc);
+  cl_mem d_c = clCreateBuffer(m_context, CL_MEM_WRITE_ONLY, width * height * bytes_per_pixel * sizeof(cl_uchar), nullptr, &rc);
 
-  if (!ag || !bg || !cg)
+  if (!d_c)
     {
     std::cout << "Error: Failed to allocate device memory!\n";
     }
-
-  rc = clEnqueueWriteBuffer(m_queue, ag, CL_TRUE, 0, n * sizeof(int), a, 0, nullptr, nullptr);
-  if (rc != CL_SUCCESS)
-    {
-    std::cout << "Error: Failed to write to source array a!\n";
-    }
-  rc = clEnqueueWriteBuffer(m_queue, bg, CL_TRUE, 0, n * sizeof(int), b, 0, nullptr, nullptr);
-  if (rc != CL_SUCCESS)
-    {
-    std::cout << "Error: Failed to write to source array b!\n";
-    }
-
-  rc = clSetKernelArg(kernel, 0, sizeof(cl_mem), &ag);
+  
+  rc = clSetKernelArg(kernel, 0, sizeof(int), &width);
   if (rc != CL_SUCCESS)
     {
     std::cout << "0 kernel program failed\n";
     }
-  rc = clSetKernelArg(kernel, 1, sizeof(cl_mem), &bg);
+  rc = clSetKernelArg(kernel, 1, sizeof(int), &width);
   if (rc != CL_SUCCESS)
     {
     std::cout << "1 kernel program failed\n";
     }
-  rc = clSetKernelArg(kernel, 2, sizeof(cl_mem), &cg);
+  rc = clSetKernelArg(kernel, 2, sizeof(cl_mem), &d_c);
   if (rc != CL_SUCCESS)
     {
     std::cout << "2 kernel program failed\n";
     }
-  size_t size = 128;
-  rc = clEnqueueNDRangeKernel(m_queue, kernel, 1, nullptr, &size, &size, 0, nullptr, nullptr);
+  size_t global_size[2] = { width, height };
+  size_t local_size[2] = { 1, 1 };
+  rc = clEnqueueNDRangeKernel(m_queue, kernel, 2, nullptr, global_size, local_size, 0, nullptr, nullptr);
   if (rc != CL_SUCCESS)
     {
     std::cout << "ND kernel program failed\n";
     }
   clFinish(m_queue);
-  int* c_cpu = new int[n];
-  clEnqueueReadBuffer(m_queue, cg, CL_TRUE, 0, n * sizeof(int), c_cpu, 0, nullptr, nullptr);
-  for (int i = 0; i < n; ++i)
-    {
-    std::cout << a[i] << " + " << b[i] << " = " << c_cpu[i] << std::endl;
-    }
-  delete[] c_cpu;
-  c_cpu = nullptr;
+  auto picture = new cl_uchar[width * height * bytes_per_pixel];
+  clEnqueueReadBuffer(m_queue, d_c, CL_TRUE, 0, width * height * bytes_per_pixel * sizeof(cl_uchar), picture, 0, nullptr, nullptr);
+  std::vector<unsigned char> res(picture,picture+width*height*bytes_per_pixel);
+  delete[] picture;
+  picture = nullptr;
   return res;
   }

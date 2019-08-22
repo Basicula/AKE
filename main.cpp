@@ -148,13 +148,16 @@ void OpenCLTest()
   {
   OpenCLKernel kernel;
   kernel.Init();
+  //kernel.Test();
   //kernel.PrintInfo();
-  kernel.Test();
+  GLUTWindow window(800, 600, "Test");
+  window.SetPicture(kernel.Dummy());
+  window.Open();
   }
 
 int main()
   {
-  //OpenCLTest();
+  OpenCLTest();
   GLUTWindow window(800,600,"Test");
   window.Open();
   Vector3d vec(1, 0.5, 0), vec2(132, 1, 0);
