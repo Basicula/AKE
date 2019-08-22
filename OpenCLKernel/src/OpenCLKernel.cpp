@@ -305,25 +305,21 @@ void OpenCLKernel::Test()
 std::vector<unsigned char> OpenCLKernel::Dummy()
   {
   std::string kernel_code =
-    "int const a = 16807; "
-    "int const m = 2147483647; "
-    "int last_rand = a;"
-    "   int rand(){"
-    "     res = (a*last_rand)%m;"
-    "     last_rand = res;"
-    "     return res;"
-    "} "
-    "   void kernel create_dummy_picture(int width, int height, global uchar* picture, int k){       "
-    "       int i = get_global_id(0);"
-    "       int j = get_global_id(1);"
-    "       int x = i * width * 4;"
-    "       int y = j * 4;"
-    "       last_rand = k;"
-    "       picture[x + y + 0] = rand() % 256;"
-    "       picture[x + y + 1] = rand() % 256;"
-    "       picture[x + y + 2] = rand() % 256;"
-    "       picture[x + y + 3] = 255;"
-    "   }                                                                               ";
+    "void kernel create_dummy_picture(int width, int height, global uchar* picture, int k){"
+    "  int i = get_global_id(0);"
+    "  int j = get_global_id(1);"
+    "  int x = i * width * 4;"
+    "  int y = j * 4;"
+    "  int const a = k;"
+    "  int const m = 2147483647;"
+    "  int r = ((x + y) * a) % m;"
+    "  int g = (r * a) % m;"
+    "  int b = (g * a) % m;"
+    "  picture[x + y + 0] = r % 256;"
+    "  picture[x + y + 1] = g % 256;"
+    "  picture[x + y + 2] = b % 256;"
+    "  picture[x + y + 3] = 255;"
+    "}";
   size_t length = kernel_code.length();
   const char* raw_data = kernel_code.data();
   cl_int rc;
