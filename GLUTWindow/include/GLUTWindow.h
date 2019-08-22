@@ -1,4 +1,6 @@
 #pragma once
+#include <OpenCLKernel.h>
+
 #include <vector>
 
 class GLUTWindow
@@ -7,7 +9,6 @@ class GLUTWindow
     GLUTWindow(int i_width, int i_height, char* i_title = "New window");
 
     void Open();
-    inline void SetPicture(const std::vector<unsigned char>& i_picture) { m_picture = i_picture; };
 
   private:
     void _Init();
@@ -19,8 +20,7 @@ class GLUTWindow
     int m_height;
     char* m_title;
 
-    std::vector<unsigned char> m_picture;
-
+    OpenCLKernel m_kernel;
   };
 
  static GLUTWindow* mg_instance;

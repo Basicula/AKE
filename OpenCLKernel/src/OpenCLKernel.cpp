@@ -305,14 +305,23 @@ void OpenCLKernel::Test()
 std::vector<unsigned char> OpenCLKernel::Dummy()
   {
   std::string kernel_code =
-    "   void kernel create_dummy_picture(int width, int height, global uchar* picture){       "
+    "int const a = 16807; "
+    "int const m = 2147483647; "
+    "int last_rand = a;"
+    "   int rand(){"
+    "     res = (a*last_rand)%m;"
+    "     last_rand = res;"
+    "     return res;"
+    "} "
+    "   void kernel create_dummy_picture(int width, int height, global uchar* picture, int k){       "
     "       int i = get_global_id(0);"
     "       int j = get_global_id(1);"
     "       int x = i * width * 4;"
     "       int y = j * 4;"
-    "       picture[x + y + 0] = (i + j) * 255 / (width + height);"
-    "       picture[x + y + 1] = 0;"
-    "       picture[x + y + 2] = 0;"
+    "       last_rand = k;"
+    "       picture[x + y + 0] = rand() % 256;"
+    "       picture[x + y + 1] = rand() % 256;"
+    "       picture[x + y + 2] = rand() % 256;"
     "       picture[x + y + 3] = 255;"
     "   }                                                                               ";
   size_t length = kernel_code.length();
@@ -334,6 +343,7 @@ std::vector<unsigned char> OpenCLKernel::Dummy()
   const int width = 256;
   const int height = 256;
   const int bytes_per_pixel = 4;
+  const int rd = rand() % RAND_MAX;
 
   cl_mem d_c = clCreateBuffer(m_context, CL_MEM_WRITE_ONLY, width * height * bytes_per_pixel * sizeof(cl_uchar), nullptr, &rc);
 
@@ -353,6 +363,11 @@ std::vector<unsigned char> OpenCLKernel::Dummy()
     std::cout << "1 kernel program failed\n";
     }
   rc = clSetKernelArg(kernel, 2, sizeof(cl_mem), &d_c);
+  if (rc != CL_SUCCESS)
+    {
+    std::cout << "2 kernel program failed\n";
+    }
+  rc = clSetKernelArg(kernel, 3, sizeof(int), &rd);
   if (rc != CL_SUCCESS)
     {
     std::cout << "2 kernel program failed\n";

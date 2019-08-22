@@ -14,7 +14,6 @@ GLUTWindow::GLUTWindow(int i_width, int i_height, char* i_title)
   : m_width(i_width)
   , m_height(i_height)
   , m_title(i_title)
-  , m_picture()
   {
   _Init();
   }
@@ -36,6 +35,8 @@ void GLUTWindow::_Init()
 
   glutDisplayFunc(GLUTWindow::_DisplayFuncWrapper);
   Timer(0);
+
+  m_kernel.Init();
   }
 
 void GLUTWindow::_DisplayFunc()
@@ -49,20 +50,8 @@ void GLUTWindow::_DisplayFunc()
   const size_t width = 256;
   const size_t height = 256;
   const size_t bytes_per_pixel = 4;
-  //srand(rand());
-  //auto data = new unsigned char[width * height * bytes_per_pixel];
-  //for(size_t y = 0; y < height; ++y)
-  //  {
-  //  for (size_t x = 0; x < width; ++x)
-  //    {
-  //    size_t row = y * width * bytes_per_pixel;
-  //    data[row + x * bytes_per_pixel + 0] = rand() % 255;
-  //    data[row + x * bytes_per_pixel + 1] = rand() % 255;
-  //    data[row + x * bytes_per_pixel + 2] = rand() % 255;
-  //    data[row + x * bytes_per_pixel + 3] = 255;
-  //    }
-  //  }
 
+  std::vector<unsigned char> picture = m_kernel.Dummy();
 
   glGenTextures(1, &texture);
   glBindTexture(GL_TEXTURE_2D, texture);
@@ -71,7 +60,7 @@ void GLUTWindow::_DisplayFunc()
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-  gluBuild2DMipmaps(GL_TEXTURE_2D, 4, width, height, GL_RGBA, GL_UNSIGNED_BYTE, m_picture.data());
+  gluBuild2DMipmaps(GL_TEXTURE_2D, 4, width, height, GL_RGBA, GL_UNSIGNED_BYTE, picture.data());
 
   glEnable(GL_TEXTURE_2D);
 

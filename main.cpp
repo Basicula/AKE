@@ -146,12 +146,7 @@ Picture TestSphere(int w, int h)
 
 void OpenCLTest()
   {
-  OpenCLKernel kernel;
-  kernel.Init();
-  //kernel.Test();
-  //kernel.PrintInfo();
   GLUTWindow window(800, 600, "Test");
-  window.SetPicture(kernel.Dummy());
   window.Open();
   }
 

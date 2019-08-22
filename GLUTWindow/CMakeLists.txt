@@ -9,5 +9,7 @@ target_include_directories(GLUTWindow PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/includ
 
 target_link_libraries(GLUTWindow PUBLIC ${OPENGL_LIBRARIES})
 target_link_libraries(GLUTWindow PUBLIC freeglut)
+target_link_libraries(GLUTWindow PUBLIC OpenCLKernel)
+
 target_link_libraries(GLUTWindow PUBLIC VisualAspects)
 target_link_libraries(GLUTWindow PUBLIC Math)
