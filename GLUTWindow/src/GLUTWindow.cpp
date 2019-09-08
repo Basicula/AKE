@@ -1,6 +1,7 @@
 #include <GLUTWindow.h>
 #include <time.h>
 #include <iostream>
+#include <fstream>
 #include <gl/glut.h>
 
 
@@ -37,21 +38,24 @@ void GLUTWindow::_Init()
   Timer(0);
 
   m_kernel.Init();
+  std::string path("D:\\Study\\RayTracing\\RayTracingBmp\\OpenCLKernel\\src\\OpenCLKernel.cl");
+  std::ifstream reader(path);
+  m_kernel.SetKernelSource(std::string(std::istreambuf_iterator<char>(reader),std::istreambuf_iterator<char>()));
+  m_kernel.Build();
   }
 
 void GLUTWindow::_DisplayFunc()
   {
-  auto r = 1.0*rand() / RAND_MAX ,g= 1.0*rand() / RAND_MAX,b= 1.0*rand() / RAND_MAX;
-  glClearColor(r,g,b, 1.0);
+  glClearColor(1.0, 0, 0, 1.0);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   GLuint texture;
 
-  const size_t width = 256;
-  const size_t height = 256;
+  const size_t width = 1024;
+  const size_t height = 768;
   const size_t bytes_per_pixel = 4;
 
-  std::vector<unsigned char> picture = m_kernel.Dummy();
+  std::vector<unsigned char> picture = m_kernel.MandelbrotSet(width,height,256);
 
   glGenTextures(1, &texture);
   glBindTexture(GL_TEXTURE_2D, texture);
