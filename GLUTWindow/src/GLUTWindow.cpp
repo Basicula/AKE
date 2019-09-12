@@ -6,7 +6,7 @@
 
 
 void Timer(int value) {
-  glutTimerFunc(25, Timer, 0);
+  glutTimerFunc(5, Timer, 0);
   glutPostRedisplay();
   }
 
@@ -15,6 +15,8 @@ GLUTWindow::GLUTWindow(int i_width, int i_height, char* i_title)
   : m_width(i_width)
   , m_height(i_height)
   , m_title(i_title)
+  , m_iterations_for_mandelbrot(256)
+  , m_new_mandelbrot(true)
   {
   _Init();
   }
@@ -35,10 +37,11 @@ void GLUTWindow::_Init()
   glutCreateWindow(m_title);
 
   glutDisplayFunc(GLUTWindow::_DisplayFuncWrapper);
+  glutKeyboardFunc(GLUTWindow::_PressButtonWrapper);
   Timer(0);
 
   m_kernel.Init();
-  std::string path("D:\\Study\\RayTracing\\RayTracingBmp\\OpenCLKernel\\src\\OpenCLKernel.cl");
+  std::string path("G:\\_Extra\\Study\\APiR\\OpenCLKernel\\src\\OpenCLKernel.cl");
   std::ifstream reader(path);
   m_kernel.SetKernelSource(std::string(std::istreambuf_iterator<char>(reader),std::istreambuf_iterator<char>()));
   m_kernel.Build();
@@ -55,7 +58,12 @@ void GLUTWindow::_DisplayFunc()
   const size_t height = 768;
   const size_t bytes_per_pixel = 4;
 
-  std::vector<unsigned char> picture = m_kernel.MandelbrotSet(width,height,256);
+  if(m_new_mandelbrot)
+    {
+    m_kernel.MandelbrotSetBegin(width, height, m_iterations_for_mandelbrot);
+    m_new_mandelbrot = false;
+    }
+  std::vector<unsigned char> picture = m_kernel.MandelbrotSetEnd();
 
   glGenTextures(1, &texture);
   glBindTexture(GL_TEXTURE_2D, texture);
@@ -79,7 +87,27 @@ void GLUTWindow::_DisplayFunc()
   glutSwapBuffers();
   }
 
+void GLUTWindow::_PressButton(unsigned char i_key, int i_x, int i_y)
+  {
+  switch (i_key)
+    {
+    case 'z': 
+      m_iterations_for_mandelbrot += 10;
+      m_new_mandelbrot = true;
+      break;
+    case 'x': 
+      m_iterations_for_mandelbrot -= 10;
+      m_new_mandelbrot = true;
+      break;
+    }
+  }
+
 void GLUTWindow::_DisplayFuncWrapper()
   {
   mg_instance->_DisplayFunc();
+  }
+
+void GLUTWindow::_PressButtonWrapper(unsigned char i_key, int i_x, int i_y)
+  {
+  mg_instance->_PressButton(i_key,i_x,i_y);
   }

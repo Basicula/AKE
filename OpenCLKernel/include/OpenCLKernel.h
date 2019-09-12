@@ -4,6 +4,36 @@
 
 #include <CL/cl.h>
 
+struct Mandelbrot
+  {
+  int m_width = 1024;
+  int m_height = 768;
+  int m_origin_x = 0;
+  int m_origin_y = 0;
+  int m_max_iterations = 256;
+  int m_scale = 1;
+  const float m_color_map[17 * 3] =
+    {
+      0.0,  0.0,  0.0,
+      0.26, 0.18, 0.06,
+      0.1,  0.03, 0.1,
+      0.04, 0.0,  0.18,
+      0.02, 0.02, 0.29,
+      0.0,  0.03, 0.39,
+      0.05, 0.17, 0.54,
+      0.09, 0.32, 0.69,
+      0.22, 0.49, 0.82,
+      0.52, 0.71, 0.9,
+      0.82, 0.92, 0.97,
+      0.94, 0.91, 0.75,
+      0.97, 0.79, 0.37,
+      1.0,  0.67, 0.0,
+      0.8,  0.5,  0.0,
+      0.6,  0.34, 0.0,
+      0.41, 0.2,  0.01
+    };
+  };
+
 class OpenCLKernel
   {
   public:
@@ -37,7 +67,8 @@ class OpenCLKernel
     // temporary test features
     void Test();
     std::vector<unsigned char> Dummy();
-    std::vector<unsigned char> MandelbrotSet(size_t i_width, size_t i_height, size_t i_max_iterations = 1000);
+    void MandelbrotSetBegin(size_t i_width, size_t i_height, size_t i_max_iterations = 1000);
+    std::vector<unsigned char> MandelbrotSetEnd();
   private:
 
     // init platforms and set defalt platform
@@ -62,6 +93,8 @@ class OpenCLKernel
     cl_program m_program;
 
     cl_kernel mk_mandelbrot;
+    Mandelbrot m_mandelbrot;
     cl_mem md_picture;
-    bool m_picture_buffer_created;
+    cl_mem md_color_map;
+    bool m_mandelbrot_buffers_created;
   };
