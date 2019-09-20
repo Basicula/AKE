@@ -230,7 +230,7 @@ bool OpenCLKernel::Build()
   return true;
   }
 
-void OpenCLKernel::MandelbrotSetBegin(size_t i_width, size_t i_height, size_t i_max_iterations)
+void OpenCLKernel::MandelbrotSetInit(size_t i_width, size_t i_height, size_t i_max_iterations)
   {
   cl_int rc;
 
@@ -239,6 +239,7 @@ void OpenCLKernel::MandelbrotSetBegin(size_t i_width, size_t i_height, size_t i_
 
   m_mandelbrot.m_width = i_width;
   m_mandelbrot.m_height = i_height;
+  m_mandelbrot.m_max_iterations = i_max_iterations;
 
   if(!m_mandelbrot_buffers_created)
     {
@@ -248,30 +249,9 @@ void OpenCLKernel::MandelbrotSetBegin(size_t i_width, size_t i_height, size_t i_
     CheckSuccess("Create color map buffer", rc);
     m_mandelbrot_buffers_created = true;
     }
-
-  rc = clSetKernelArg(mk_mandelbrot, 0, sizeof(int), &i_max_iterations);
-  CheckSuccess("Set max iterations for mandelbrot kernel", rc);
-
-  rc = clSetKernelArg(mk_mandelbrot, 1, sizeof(cl_mem), &md_color_map);
-  CheckSuccess("Set color map memory for mandelbrot kernel", rc);
-
-  rc = clSetKernelArg(mk_mandelbrot, 2, sizeof(cl_mem), &md_picture);
-  CheckSuccess("Set picture memory for mandelbrot kernel", rc);
-
-  size_t device_size[2] = { i_width, i_height / m_number_of_devices[m_platform_idx] };
-  size_t local_size[2] = { 1,1 };
-  for (auto i = 0; i < m_queue_count; ++i)
-    {
-    rc = clEnqueueWriteBuffer(m_queue[i], md_color_map, CL_FALSE, 0, sizeof(m_mandelbrot.m_color_map), m_mandelbrot.m_color_map, 0, nullptr, nullptr);
-    CheckSuccess("Write color map info", rc);
-
-    size_t device_offset[2] = { 0, device_size[1] * i };
-    rc = clEnqueueNDRangeKernel(m_queue[i], mk_mandelbrot, 2, device_offset, device_size, local_size, 0, nullptr, nullptr);
-    CheckSuccess("Run kernel", rc);
-    }
   }
 
-std::vector<unsigned char> OpenCLKernel::MandelbrotSetEnd()
+std::vector<unsigned char> OpenCLKernel::MandelbrotSetRender()
   {
   cl_int rc;
 
@@ -280,12 +260,28 @@ std::vector<unsigned char> OpenCLKernel::MandelbrotSetEnd()
   const auto height = m_mandelbrot.m_height;
   const int one_dim_picture_size = width * height * bytes_per_pixel;
 
+  rc = clSetKernelArg(mk_mandelbrot, 0, sizeof(int), &m_mandelbrot.m_max_iterations);
+  CheckSuccess("Set max iterations for mandelbrot kernel", rc);
+
+  rc = clSetKernelArg(mk_mandelbrot, 1, sizeof(cl_mem), &md_color_map);
+  CheckSuccess("Set color map memory for mandelbrot kernel", rc);
+
+  rc = clSetKernelArg(mk_mandelbrot, 2, sizeof(cl_mem), &md_picture);
+  CheckSuccess("Set picture memory for mandelbrot kernel", rc);
+
   auto picture = new unsigned char[one_dim_picture_size];
   size_t global_size[2] = { width, height };
+  size_t local_size[2] = { 1,1 };
   size_t device_size[2] = { width, height / m_number_of_devices[m_platform_idx] };
   for (auto i = 0; i < m_queue_count; ++i)
     {
+    rc = clEnqueueWriteBuffer(m_queue[i], md_color_map, CL_FALSE, 0, sizeof(m_mandelbrot.m_color_map), m_mandelbrot.m_color_map, 0, nullptr, nullptr);
+    CheckSuccess("Write color map info", rc);
+
     size_t device_offset[2] = { 0, device_size[1] * i };
+    rc = clEnqueueNDRangeKernel(m_queue[i], mk_mandelbrot, 2, device_offset, device_size, local_size, 0, nullptr, nullptr);
+    CheckSuccess("Run kernel", rc);
+
     size_t offset = device_offset[1] * 4 * width;
     rc = clEnqueueReadBuffer(m_queue[i], md_picture, CL_FALSE, offset, one_dim_picture_size * sizeof(unsigned char) / m_number_of_devices[m_platform_idx], picture, 0, nullptr, nullptr);
     CheckSuccess("Read picture",rc);

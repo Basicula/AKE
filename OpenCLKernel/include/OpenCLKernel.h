@@ -67,8 +67,8 @@ class OpenCLKernel
     // temporary test features
     void Test();
     std::vector<unsigned char> Dummy();
-    void MandelbrotSetBegin(size_t i_width, size_t i_height, size_t i_max_iterations = 1000);
-    std::vector<unsigned char> MandelbrotSetEnd();
+    void MandelbrotSetInit(size_t i_width, size_t i_height, size_t i_max_iterations = 1000);
+    std::vector<unsigned char> MandelbrotSetRender();
   private:
 
     // init platforms and set defalt platform

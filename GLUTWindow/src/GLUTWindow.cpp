@@ -55,16 +55,16 @@ void GLUTWindow::_DisplayFunc()
 
   GLuint texture;
 
-  const size_t width = 1024;
-  const size_t height = 768;
+  const size_t width = 800;
+  const size_t height = 600;
   const size_t bytes_per_pixel = 4;
 
   if(m_new_mandelbrot)
     {
-    m_kernel.MandelbrotSetBegin(width, height, m_iterations_for_mandelbrot);
+    m_kernel.MandelbrotSetInit(width, height, m_iterations_for_mandelbrot);
     m_new_mandelbrot = false;
     }
-  std::vector<unsigned char> picture = m_kernel.MandelbrotSetEnd();
+  std::vector<unsigned char> picture = m_kernel.MandelbrotSetRender();
 
   glGenTextures(1, &texture);
   glBindTexture(GL_TEXTURE_2D, texture);
