@@ -7,6 +7,8 @@ namespace
   {
   void CheckSuccess(const char* i_message, cl_int i_rc)
     {
+    if(i_rc == 0)
+      return;
     std::cout<<(i_message)<<" : ";
     switch (i_rc)
       {
@@ -293,7 +295,10 @@ std::vector<unsigned char> OpenCLKernel::MandelbrotSetEnd()
   picture = nullptr;
 
   for (auto i = 0; i < m_queue_count; ++i)
+    {
+    clFlush(m_queue[i]);
     clFinish(m_queue[i]);
+    }
 
   return res;
   }

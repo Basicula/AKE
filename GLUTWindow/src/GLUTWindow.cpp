@@ -38,6 +38,7 @@ void GLUTWindow::_Init()
 
   glutDisplayFunc(GLUTWindow::_DisplayFuncWrapper);
   glutKeyboardFunc(GLUTWindow::_PressButtonWrapper);
+  glutMouseFunc(GLUTWindow::_MouseEventWrapper);
   Timer(0);
 
   m_kernel.Init();
@@ -89,17 +90,16 @@ void GLUTWindow::_DisplayFunc()
 
 void GLUTWindow::_PressButton(unsigned char i_key, int i_x, int i_y)
   {
-  switch (i_key)
-    {
-    case 'z': 
-      m_iterations_for_mandelbrot += 10;
-      m_new_mandelbrot = true;
-      break;
-    case 'x': 
-      m_iterations_for_mandelbrot -= 10;
-      m_new_mandelbrot = true;
-      break;
-    }
+  
+  }
+
+void GLUTWindow::_MouseEvent(int i_button, int i_state, int i_x, int i_y)
+  {
+  m_new_mandelbrot = true;
+  if (i_button == 3)
+    m_iterations_for_mandelbrot += 1;
+  else if (i_button == 4)
+    m_iterations_for_mandelbrot -= 1;
   }
 
 void GLUTWindow::_DisplayFuncWrapper()
@@ -110,4 +110,9 @@ void GLUTWindow::_DisplayFuncWrapper()
 void GLUTWindow::_PressButtonWrapper(unsigned char i_key, int i_x, int i_y)
   {
   mg_instance->_PressButton(i_key,i_x,i_y);
+  }
+
+void GLUTWindow::_MouseEventWrapper(int i_button, int i_state, int i_x, int i_y)
+  {
+  mg_instance->_MouseEvent(i_button, i_state, i_x, i_y);
   }

@@ -14,9 +14,11 @@ class GLUTWindow
     void _Init();
     void _DisplayFunc();
     void _PressButton(unsigned char i_key, int i_x, int i_y);
+    void _MouseEvent(int i_button, int i_state, int i_x, int i_y);
 
     static void _DisplayFuncWrapper();
     static void _PressButtonWrapper(unsigned char i_key, int i_x, int i_y);
+    static void _MouseEventWrapper(int i_button, int i_state, int i_x, int i_y);
   private:
     int m_width;
     int m_height;
