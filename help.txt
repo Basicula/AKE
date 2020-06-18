@@ -1,0 +1,18 @@
+------------------------------------------------Docker----------------------------------------------------
+docker system prune                                         - clean bad, unused, unnamed images
+docker build .                                              - build from docker file in current directory
+docker build -t basicula/fsgw:<tag> .                       - build with tag
+winpty/sudo docker push                                     - push new image after prev command
+docker run -it basicula/fsgw:<tag>                          - run interactive (winpty <command> for windows)
+docker run -it basicula/fsgw:<tag> bash                     - run bush on VM (winpty <command> for windows)
+docker run --env PARCS_ARGS=master -it basicula/fsgw:05     - run with environment variables
+
+
+------------------------------------------------Parcs-----------------------------------------------------
+python3 start.py -config master.config                      - run master node
+python3 start.py -config worker.config                      - run worker node
+
+
+------------------------------------------------Main------------------------------------------------------
+pip3 install APiR/                                          - install as python lib
+python3 run_all_py_tests.py <ProjectName or for all tests>  - run tests

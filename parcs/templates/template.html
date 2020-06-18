@@ -1,0 +1,31 @@
+<html>
+
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+     <!-- Latest compiled and minified JavaScript -->
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style.css') }}">
+
+    <title>FSGW</title>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="topnav">
+    <a {% if request.path=="/" or request.path=="/index" %} class="active" {% endif %} href="/index">Home</a>
+    <a {% if request.path=="/about" %} class="active" {% endif %} href="/about">About</a>
+    <a {% if "/simulation" in request.path %} class="active" {% endif %} href="/simulation">Simulation</a>
+    <a {% if request.path=="/test" %} class="active" {% endif %} href="/test">Test</a>
+  </div>
+  <div class="">
+    {% block content %}{% endblock %}
+  </div>
+</div>
+</body>
+
+</html>

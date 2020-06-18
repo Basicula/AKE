@@ -1,0 +1,6 @@
+.idea/
+py2-env/
+*.pyc
+commands.txt
+.vagrant
+*.backup
