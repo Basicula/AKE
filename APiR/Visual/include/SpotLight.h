@@ -28,9 +28,6 @@ class SpotLight : public ILight
   private:
     Vector3d m_location;
     Color m_color;
-    double m_intensity;
-    // true - on, false - off
-    bool m_state;
   };
   
 inline Vector3d SpotLight::GetLocation() const 

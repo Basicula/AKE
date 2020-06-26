@@ -1,7 +1,6 @@
-#include "..\include\ColorMaterial.h"
-#include "..\include\ColorMaterial.h"
 #include <vector>
 #include <memory>
+#include <algorithm>
 
 #include <ColorMaterial.h>
 
@@ -25,18 +24,23 @@ ColorMaterial::ColorMaterial(
 
 Color ColorMaterial::GetLightInfluence(
   const Vector3d& i_point,
-  const Vector3d& i_normal, 
+  const Vector3d& i_normal,
+  const Vector3d& i_view_direction,
   std::shared_ptr<ILight> i_light) const
   {
   if (!i_light->GetState())
     return Color(0);
   const auto& light_direction = i_light->GetDirection(i_point);
-  return m_color * std::max(0.0, -i_normal.Dot(light_direction)) * m_diffuse * i_light->GetIntensityAtPoint(i_point);
+  const double diffuse_coef = std::max(0.0, -i_normal.Dot(light_direction));
+  const auto light_reflected_direction = ReflectedDirection(i_normal, -light_direction);
+  const double specular_coef = pow(std::max(0.0, light_reflected_direction.Dot(i_view_direction)), m_shinines);
+  const double light_intensity = i_light->GetIntensityAtPoint(i_point);
+  return m_color * (m_diffuse * diffuse_coef + m_specular * specular_coef) * light_intensity;
   }
 
 Vector3d ColorMaterial::ReflectedDirection(const Vector3d& i_normal_at_point, const Vector3d& i_view_direction) const
   {
-  return i_normal_at_point * i_normal_at_point.Dot(-i_view_direction) * 2 + i_view_direction;
+  return i_normal_at_point * i_normal_at_point.Dot(-i_view_direction) * 2.0 + i_view_direction;
   }
 
 Vector3d ColorMaterial::RefractedDirection() const

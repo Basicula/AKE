@@ -25,7 +25,8 @@ class ColorMaterial : public IMaterial
 
     virtual Color GetLightInfluence(
       const Vector3d& i_point,
-      const Vector3d& i_normal, 
+      const Vector3d& i_normal,
+      const Vector3d& i_view_direction,
       std::shared_ptr<ILight> i_light) const override;
 
     virtual bool IsReflectable() const override;

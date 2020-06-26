@@ -5,10 +5,9 @@ SpotLight::SpotLight(
   const Color& i_color, 
   double i_intensity,
   bool i_state)
-  : m_location(i_location)
+  : ILight(i_state, i_intensity)
+  , m_location(i_location)
   , m_color(i_color)
-  , m_intensity(i_intensity)
-  , m_state(i_state)
   {};
 
 double SpotLight::GetIntensityAtPoint(const Vector3d& i_point) const

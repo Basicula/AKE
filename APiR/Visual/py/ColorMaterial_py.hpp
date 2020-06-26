@@ -24,6 +24,7 @@ namespace
     Color GetLightInfluence(
       const Vector3d& i_point,
       const Vector3d& i_normal,
+      const Vector3d& i_view_direction,
       std::shared_ptr<ILight> i_light) const override
       {
       PYBIND11_OVERLOAD_PURE(
@@ -32,6 +33,7 @@ namespace
         GetLightInfluence,
         i_point,
         i_normal,
+        i_view_direction,
         i_light
       );
       }

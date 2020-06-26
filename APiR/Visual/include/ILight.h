@@ -6,6 +6,7 @@
 class ILight
   {
   public:
+    ILight(bool i_state, double i_intensity);
     virtual ~ILight() = default;
 
     virtual void SetState(bool i_state);
@@ -19,10 +20,15 @@ class ILight
 
     virtual std::string Serialize() const = 0;
 
-  private:
+  protected:
     bool m_state;
     double m_intensity;
   };
+
+inline ILight::ILight(bool i_state, double i_intensity)
+  : m_state(i_state)
+  , m_intensity(i_intensity)
+  {}
 
 inline double ILight::GetIntensity() const
   {
