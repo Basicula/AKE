@@ -38,8 +38,9 @@ bool KDNode::IntersectWithRay(
 
   RayBoxIntersectionRecord ray_box_intersection;
   RayBoxIntersection(i_ray, m_bounding_box, ray_box_intersection);
-  if (!ray_box_intersection.m_intersected ||
-    ray_box_intersection.m_tmin > io_intersection.m_distance)
+  if ((ray_box_intersection.m_tmin < 0.0 && ray_box_intersection.m_tmax < 0.0) ||
+      !ray_box_intersection.m_intersected ||
+      ray_box_intersection.m_tmin > io_intersection.m_distance)
     return false;
 
   if (m_type == NodeType::LEAF)
