@@ -4,37 +4,37 @@
 #include <stdexcept>
 #include <Vector.h>
 
-template<std::size_t Dimension, class ElementType>
-Vector<Dimension, ElementType>::Vector()
+template<class ElementType, std::size_t Dimension>
+Vector<ElementType, Dimension>::Vector()
   : Vector(0)
   {
   };
   
-template<std::size_t Dimension, class ElementType>
-Vector<Dimension, ElementType>::Vector(ElementType i_elem)
+template<class ElementType, std::size_t Dimension>
+Vector<ElementType, Dimension>::Vector(ElementType i_elem)
   {
   for (std::size_t i = 0; i < Dimension; ++i)
     m_coords[i] = i_elem;
   };
   
-template<std::size_t Dimension, class ElementType>
+template<class ElementType, std::size_t Dimension>
 template<std::size_t D, typename T>
-inline Vector<Dimension, ElementType>::Vector(ElementType i_x, ElementType i_y)
+inline Vector<ElementType, Dimension>::Vector(ElementType i_x, ElementType i_y)
   : m_coords{i_x, i_y}
   {}
 
-template<std::size_t Dimension, class ElementType>
+template<class ElementType, std::size_t Dimension>
 template<std::size_t D, typename T>
-inline Vector<Dimension, ElementType>::Vector(
+inline Vector<ElementType, Dimension>::Vector(
   ElementType i_x, 
   ElementType i_y, 
   ElementType i_z)
   : m_coords{i_x, i_y, i_z}
   {}
   
-template<std::size_t Dimension, class ElementType>
+template<class ElementType, std::size_t Dimension>
 template<std::size_t D, typename T>
-inline Vector<Dimension, ElementType>::Vector(
+inline Vector<ElementType, Dimension>::Vector(
   ElementType i_x, 
   ElementType i_y, 
   ElementType i_z, 
@@ -42,21 +42,21 @@ inline Vector<Dimension, ElementType>::Vector(
   : m_coords{i_x, i_y, i_z, i_w}
   {}
 
-template<std::size_t Dimension, class ElementType>
-inline ElementType& Vector<Dimension, ElementType>::operator[](std::size_t i_index)
+template<class ElementType, std::size_t Dimension>
+inline ElementType& Vector<ElementType, Dimension>::operator[](std::size_t i_index)
   {
   return m_coords[i_index];
   }
 
-template<std::size_t Dimension, class ElementType>
+template<class ElementType, std::size_t Dimension>
 inline const ElementType& 
-Vector<Dimension, ElementType>::operator[](std::size_t i_index) const
+Vector<ElementType, Dimension>::operator[](std::size_t i_index) const
   {
   return m_coords[i_index];
   }
 
-template<std::size_t Dimension, class ElementType>
-bool Vector<Dimension, ElementType>::operator==(const Vector<Dimension, ElementType>& i_other) const
+template<class ElementType, std::size_t Dimension>
+bool Vector<ElementType, Dimension>::operator==(const Vector<ElementType, Dimension>& i_other) const
   {
   bool equal = true;
   for (auto i = 0u; i < Dimension; ++i)
@@ -68,8 +68,8 @@ bool Vector<Dimension, ElementType>::operator==(const Vector<Dimension, ElementT
   return true;
   }
   
-template<std::size_t Dimension, class ElementType>
-bool Vector<Dimension, ElementType>::operator<(const Vector<Dimension, ElementType>& i_other) const
+template<class ElementType, std::size_t Dimension>
+bool Vector<ElementType, Dimension>::operator<(const Vector<ElementType, Dimension>& i_other) const
   {
   bool res = true;
   bool eq = true;
@@ -83,8 +83,8 @@ bool Vector<Dimension, ElementType>::operator<(const Vector<Dimension, ElementTy
   return !eq;
   }
 
-template<std::size_t Dimension, class ElementType>
-bool Vector<Dimension, ElementType>::operator<=(const Vector<Dimension, ElementType>& i_other) const
+template<class ElementType, std::size_t Dimension>
+bool Vector<ElementType, Dimension>::operator<=(const Vector<ElementType, Dimension>& i_other) const
   {
   bool res = true;
   for (auto i = 0u; i < Dimension; ++i)
@@ -96,126 +96,126 @@ bool Vector<Dimension, ElementType>::operator<=(const Vector<Dimension, ElementT
   return true;
   }
 
-template<std::size_t Dimension, class ElementType>
-bool Vector<Dimension, ElementType>::operator>(const Vector<Dimension, ElementType>& i_other) const
+template<class ElementType, std::size_t Dimension>
+bool Vector<ElementType, Dimension>::operator>(const Vector<ElementType, Dimension>& i_other) const
   {
   return !(*this <= i_other);
   }
 
-template<std::size_t Dimension, class ElementType>
-bool Vector<Dimension, ElementType>::operator>=(const Vector<Dimension, ElementType>& i_other) const
+template<class ElementType, std::size_t Dimension>
+bool Vector<ElementType, Dimension>::operator>=(const Vector<ElementType, Dimension>& i_other) const
   {
   return !(*this < i_other);
   }
 
-template<std::size_t Dimension, class ElementType>
-bool Vector<Dimension, ElementType>::operator!=(const Vector<Dimension, ElementType>& i_other) const
+template<class ElementType, std::size_t Dimension>
+bool Vector<ElementType, Dimension>::operator!=(const Vector<ElementType, Dimension>& i_other) const
   {
   return !(*this == i_other);
   }
 
-template<std::size_t Dimension, class ElementType>
-Vector<Dimension, ElementType> Vector<Dimension, ElementType>::operator-() const
+template<class ElementType, std::size_t Dimension>
+Vector<ElementType, Dimension> Vector<ElementType, Dimension>::operator-() const
   {
-  Vector<Dimension,ElementType> copy(*this);
+  Vector<ElementType, Dimension> copy(*this);
   for(auto& coord : copy.m_coords)
     coord = -coord;
   return copy;
   }
 
-template<std::size_t Dimension, class ElementType>
-Vector<Dimension, ElementType> Vector<Dimension, ElementType>::operator-(const Vector<Dimension, ElementType>& i_other) const
+template<class ElementType, std::size_t Dimension>
+Vector<ElementType, Dimension> Vector<ElementType, Dimension>::operator-(const Vector<ElementType, Dimension>& i_other) const
   {
-  Vector<Dimension, ElementType> copy(*this);
+  Vector<ElementType, Dimension> copy(*this);
   copy -= i_other;
   return copy;
   }
 
-template<std::size_t Dimension, class ElementType>
-Vector<Dimension, ElementType>& Vector<Dimension, ElementType>::operator-=(const Vector<Dimension, ElementType>& i_other)
+template<class ElementType, std::size_t Dimension>
+Vector<ElementType, Dimension>& Vector<ElementType, Dimension>::operator-=(const Vector<ElementType, Dimension>& i_other)
   {
   for (std::size_t i = 0; i < Dimension; ++i)
     m_coords[i] -= i_other.m_coords[i];
   return *this;
   }
 
-template<std::size_t Dimension, class ElementType>
-Vector<Dimension, ElementType> Vector<Dimension, ElementType>::operator+(const Vector<Dimension, ElementType>& i_other) const
+template<class ElementType, std::size_t Dimension>
+Vector<ElementType, Dimension> Vector<ElementType, Dimension>::operator+(const Vector<ElementType, Dimension>& i_other) const
   {
-  Vector<Dimension, ElementType> copy(*this);
+  Vector<ElementType, Dimension> copy(*this);
   copy += i_other;
   return copy;
   }
 
-template<std::size_t Dimension, class ElementType>
-Vector<Dimension, ElementType>& Vector<Dimension, ElementType>::operator+=(const Vector<Dimension, ElementType>& i_other)
+template<class ElementType, std::size_t Dimension>
+Vector<ElementType, Dimension>& Vector<ElementType, Dimension>::operator+=(const Vector<ElementType, Dimension>& i_other)
   {
   for (std::size_t i = 0; i < Dimension; ++i)
     m_coords[i] += i_other.m_coords[i];
   return *this;
   }
 
-template<std::size_t Dimension, class ElementType>
+template<class ElementType, std::size_t Dimension>
 template<class Factor>
-Vector<Dimension, ElementType> Vector<Dimension, ElementType>::operator*(Factor i_factor) const
+Vector<ElementType, Dimension> Vector<ElementType, Dimension>::operator*(Factor i_factor) const
   {
-  Vector<Dimension, ElementType> copy(*this);
+  Vector<ElementType, Dimension> copy(*this);
   copy *= i_factor;
   return copy;
   }
 
-template<std::size_t Dimension, class ElementType>
+template<class ElementType, std::size_t Dimension>
 template<class Factor>
-Vector<Dimension, ElementType>& Vector<Dimension, ElementType>::operator*=(Factor i_factor)
+Vector<ElementType, Dimension>& Vector<ElementType, Dimension>::operator*=(Factor i_factor)
   {
   for (std::size_t i = 0; i < Dimension; ++i)
     m_coords[i] *= i_factor;
   return *this;
   }
   
-template<std::size_t Dimension, class ElementType>
+template<class ElementType, std::size_t Dimension>
 template<class Factor>
-Vector<Dimension, ElementType> Vector<Dimension, ElementType>::operator/(Factor i_factor) const
+Vector<ElementType, Dimension> Vector<ElementType, Dimension>::operator/(Factor i_factor) const
   {
-  Vector<Dimension, ElementType> copy(*this);
+  Vector<ElementType, Dimension> copy(*this);
   copy /= i_factor;
   return copy;
   }
 
-template<std::size_t Dimension, class ElementType>
+template<class ElementType, std::size_t Dimension>
 template<class Factor>
-Vector<Dimension, ElementType>& Vector<Dimension, ElementType>::operator/=(Factor i_factor)
+Vector<ElementType, Dimension>& Vector<ElementType, Dimension>::operator/=(Factor i_factor)
   {
   for (std::size_t i = 0; i < Dimension; ++i)
     m_coords[i] /= i_factor;
   return *this;
   }
 
-template<std::size_t Dimension, class ElementType>
-double Vector<Dimension, ElementType>::Distance(const Vector<Dimension, ElementType>& i_other) const
+template<class ElementType, std::size_t Dimension>
+double Vector<ElementType, Dimension>::Distance(const Vector<ElementType, Dimension>& i_other) const
   {
   return (*this - i_other).Length();
   }
 
-template<std::size_t Dimension, class ElementType>
-inline ElementType Vector<Dimension, ElementType>::SquareDistance(const Vector & i_other) const
+template<class ElementType, std::size_t Dimension>
+inline ElementType Vector<ElementType, Dimension>::SquareDistance(const Vector & i_other) const
   {
   return (*this - i_other).SquareLength();
   }
 
-template<std::size_t Dimension, class ElementType>
+template<class ElementType, std::size_t Dimension>
 template<std::size_t D, typename T>
-Vector<Dimension, ElementType> Vector<Dimension, ElementType>::CrossProduct(const Vector<Dimension, ElementType>& i_other) const
+Vector<ElementType, Dimension> Vector<ElementType, Dimension>::CrossProduct(const Vector<ElementType, Dimension>& i_other) const
   {
-  Vector<Dimension, ElementType> res;
+  Vector<ElementType, Dimension> res;
   res.m_coords[0] = m_coords[1] * i_other.m_coords[2] - m_coords[2] * i_other.m_coords[1];
   res.m_coords[1] = m_coords[2] * i_other.m_coords[0] - m_coords[0] * i_other.m_coords[2];
   res.m_coords[2] = m_coords[0] * i_other.m_coords[1] - m_coords[1] * i_other.m_coords[0];
   return res;
   }
 
-template<std::size_t Dimension, class ElementType>
-ElementType Vector<Dimension, ElementType>::Dot(const Vector<Dimension, ElementType>& i_other) const
+template<class ElementType, std::size_t Dimension>
+ElementType Vector<ElementType, Dimension>::Dot(const Vector<ElementType, Dimension>& i_other) const
   {
   ElementType res = 0;
   for (std::size_t i = 0; i < Dimension; ++i)
@@ -223,8 +223,8 @@ ElementType Vector<Dimension, ElementType>::Dot(const Vector<Dimension, ElementT
   return res;
   }
 
-template<std::size_t Dimension, class ElementType>
-void Vector<Dimension, ElementType>::Normalize()
+template<class ElementType, std::size_t Dimension>
+void Vector<ElementType, Dimension>::Normalize()
   {
   const double length = Length();
   if (length > 0.0)
@@ -232,22 +232,22 @@ void Vector<Dimension, ElementType>::Normalize()
       m_coords[i] /= length;
   }
 
-template<std::size_t Dimension, class ElementType>
-Vector<Dimension, ElementType> Vector<Dimension, ElementType>::Normalized() const
+template<class ElementType, std::size_t Dimension>
+Vector<ElementType, Dimension> Vector<ElementType, Dimension>::Normalized() const
   {
-  Vector<Dimension, ElementType> res(*this);
+  Vector<ElementType, Dimension> res(*this);
   res.Normalize();
   return res;
   }
 
-template<std::size_t Dimension, class ElementType>
-double Vector<Dimension, ElementType>::Length() const
+template<class ElementType, std::size_t Dimension>
+double Vector<ElementType, Dimension>::Length() const
   {
   return sqrt(SquareLength());
   }
 
-template<std::size_t Dimension, class ElementType>
-ElementType Vector<Dimension, ElementType>::SquareLength() const
+template<class ElementType, std::size_t Dimension>
+inline ElementType Vector<ElementType, Dimension>::SquareLength() const
   {
   ElementType res = 0;
   for (std::size_t i = 0; i < Dimension; ++i)
@@ -255,8 +255,8 @@ ElementType Vector<Dimension, ElementType>::SquareLength() const
   return res;
   }
 
-template<std::size_t Dimension, class ElementType>
-std::string Vector<Dimension, ElementType>::Serialize() const
+template<class ElementType, std::size_t Dimension>
+std::string Vector<ElementType, Dimension>::Serialize() const
   {
   std::string res = "{ \"Vector" + std::to_string(m_dimension) + "d\" : [";
   for (auto i = 0u; i < m_dimension; ++i)

@@ -67,7 +67,7 @@ static void AddVectors(py::module& io_module)
   auto vector_submodule = io_module.def_submodule("Vector");
 
   // vec2d
-  using Vec2d = Vector<2, double>;
+  using Vec2d = Vector<double, 2>;
   auto vec2d = py::class_<Vec2d>(vector_submodule, "Vector2d");
   vec2d.def(py::init<double, double>());
   vec2d.def("__str__", [](const Vec2d&) { return "Vector2d"; });
@@ -83,7 +83,7 @@ static void AddVectors(py::module& io_module)
   define_individual(vec2d, 2);
 
   // vec3d
-  using Vec3d = Vector<3, double>;
+  using Vec3d = Vector<double, 3>;
   auto vec3d = py::class_<Vec3d>(vector_submodule, "Vector3d");
   vec3d.def(py::init<double, double, double>());
   vec3d.def("__str__", [](const Vec3d&) { return "Vector3d"; });
@@ -101,7 +101,7 @@ static void AddVectors(py::module& io_module)
   define_individual(vec3d, 3);
 
   // vec4d
-  using Vec4d = Vector<4, double>;
+  using Vec4d = Vector<double, 4>;
   auto vec4d = py::class_<Vec4d>(vector_submodule, "Vector4d");
   vec4d.def(py::init<double, double, double, double>());
   vec4d.def("__str__", [](const Vec4d&) { return "Vector4d"; });

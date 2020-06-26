@@ -4,7 +4,7 @@
 #include <string>
 #include <array>
 
-template<std::size_t Dimension, class ElementType>
+template<class ElementType, std::size_t Dimension>
 class Vector
   {
   public:
@@ -53,9 +53,8 @@ class Vector
 
     template<std::size_t D = Dimension, 
       typename T = typename std::enable_if<D == 3>::type >
-    Vector<Dimension, ElementType> CrossProduct(
-      const Vector<Dimension, 
-      ElementType>& i_other) const;
+    Vector<ElementType, Dimension> CrossProduct(
+      const Vector<ElementType, Dimension>& i_other) const;
     ElementType Dot(const Vector& i_other) const;
     void Normalize();
     Vector Normalized() const;
@@ -75,7 +74,10 @@ class Vector
     using m_element_type = ElementType;
   };
 
-using Vector3d = Vector<3, double>;
+using Vector2d = Vector<double, 2>;
 
+using Vector3d = Vector<double, 3>;
+
+#include <Vector2dImpl.h>
 #include <Vector3dImpl.h>
 #include <VectorImpl.h>

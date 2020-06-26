@@ -13,6 +13,7 @@ set(
 	include/TransformationMatrix.h
 
 	include/impl/VectorImpl.h
+	include/impl/Vector2dImpl.h
 	include/impl/Vector3dImpl.h
 )
 
