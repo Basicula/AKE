@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 
 project(APiR)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(OpenGL_GL_PREFERENCE LEGACY)
 
 if(MSVC)

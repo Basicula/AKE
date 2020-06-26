@@ -17,7 +17,7 @@ namespace Parallel
 
       template<class Function, class... Args>
       auto Enqueue(Function&& i_function, Args&&... i_args)
-        ->std::future<typename std::result_of<Function(Args...)>::type>;
+        ->std::future<typename std::invoke_result<Function, Args...>::type>;
 
       template<class IndexType, class Function>
       void ParallelFor(

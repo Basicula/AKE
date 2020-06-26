@@ -17,7 +17,7 @@ void ThreadPool::ParallelFor(
       i_function(i);
     };
 
-  std::vector<std::future<typename std::result_of<Function(IndexType)>::type>> results;
+  std::vector<std::future<typename std::invoke_result<Function, IndexType>::type>> results;
   IndexType i1 = i_start;
   IndexType i2 = std::min(i_start + bucket_size, i_end);
   for (auto i = 0u; i1 < i_end; ++i)
@@ -32,9 +32,9 @@ void ThreadPool::ParallelFor(
 
 template<class Function, class ...Args>
 inline auto ThreadPool::Enqueue(Function&& i_function, Args&&... i_args) 
-  -> std::future<typename std::result_of<Function(Args...)>::type>
+  -> std::future<typename std::invoke_result<Function, Args...>::type>
   {
-  using ResultType = typename std::result_of<Function(Args...)>::type;
+  using ResultType = typename std::invoke_result<Function, Args...>::type;
   auto task = std::make_shared<std::packaged_task<ResultType()>>(
     std::bind(
       std::forward<Function>(i_function), 
