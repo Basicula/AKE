@@ -1,7 +1,9 @@
 #pragma once
+#include <optional>
 
 #include <ISurface.h>
 #include <Vector.h>
+#include <Plane.h>
 
 class Cylinder : public ISurface
   {
@@ -29,11 +31,21 @@ class Cylinder : public ISurface
       IntersectionRecord& io_intersection, 
       const Ray& i_ray) const override;
 
+    void _CalculateBoundingBox();
   private:
     Vector3d m_center;
     double m_radius;
     double m_height;
     bool m_is_finite;
+    BoundingBox m_bounding_box;
+
+    // helpfull vars
+    double m_zmax;
+    double m_zmin;
+    double m_half_height;
+
+    std::optional<Plane> m_top;
+    std::optional<Plane> m_bottom;
   };
 
 inline double Cylinder::GetRadius() const 
