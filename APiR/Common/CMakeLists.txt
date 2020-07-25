@@ -10,6 +10,9 @@ set(
     src/Simulation.cpp
     
     src/ThreadPool.cpp
+    
+    src/Transformable.cpp
+    src/Transformation.cpp
 )
 
 set(
@@ -28,6 +31,9 @@ set(
     include/impl/ThreadPool_impl.h
     include/ParallelUtils.h
     
+    include/Transformable.h
+    include/Transformation.h
+    
     include/IObject.h
     
     include/DefinesAndConstants.h
@@ -37,6 +43,7 @@ set(
     TESTS
     
     test/c++/ThreadPool_test.cpp
+    test/c++/Transformation_test.cpp
     
     test/c++/Utils.h
 )
@@ -59,6 +66,7 @@ target_link_libraries(Common PRIVATE Math)
 # Test library
 add_executable(Common.Test ${TESTS})
 target_link_libraries(Common.Test PRIVATE Common)
+target_link_libraries(Common.Test PRIVATE Math)
 target_link_libraries(Common.Test PRIVATE gtest_main)
 add_test(
   NAME

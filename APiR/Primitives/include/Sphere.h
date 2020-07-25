@@ -19,25 +19,24 @@ class Sphere : public ISurface
     void SetRadius(double i_radius);
 
   protected:
-    virtual BoundingBox _GetBoundingBox() const override;
+    virtual void _CalculateBoundingBox() override;
     virtual bool _IntersectWithRay(
       IntersectionRecord& o_intersection,
       const Ray& i_ray) const override;
-    virtual Vector3d _NormalAtPoint(const Vector3d& i_point) const override;
+    virtual Vector3d _NormalAtLocalPoint(const Vector3d& i_point) const override;
 
   private:
-    Vector3d m_center;
     double m_radius;
   };
 
 inline Vector3d Sphere::GetCenter() const 
   { 
-  return m_center; 
+  return GetTranslation(); 
   };
 
 inline void Sphere::SetCenter(const Vector3d& i_center)
   {
-  m_center = i_center;
+  SetTranslation(i_center);
   };
 
 inline double Sphere::GetRadius() const 
@@ -53,18 +52,13 @@ inline void Sphere::SetRadius(double i_radius)
 inline std::string Sphere::Serialize() const
   {
   std::string res = "{ \"Sphere\" : { ";
-  res += "\"Center\" : " + m_center.Serialize() + ", ";
+  res += "\"Center\" : " + ApplyTranslation(Vector3d(0)).Serialize() + ", ";
   res += "\"Radius\" : " + std::to_string(m_radius);
   res += "} }";
   return res;
   }
 
-inline BoundingBox Sphere::_GetBoundingBox() const
+inline Vector3d Sphere::_NormalAtLocalPoint(const Vector3d& i_local_point) const
   {
-  return BoundingBox(m_center - m_radius, m_center + m_radius);
-  }
-
-inline Vector3d Sphere::_NormalAtPoint(const Vector3d& i_point) const
-  {
-  return (i_point - m_center).Normalized();
+  return i_local_point.Normalized();
   }

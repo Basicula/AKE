@@ -5,12 +5,12 @@ namespace
   class PyISurface : public ISurface
     {
     using ISurface::ISurface;
-    BoundingBox _GetBoundingBox() const override
+    void _CalculateBoundingBox() override
       {
       PYBIND11_OVERLOAD_PURE(
-        BoundingBox,
+        void,
         ISurface,
-        _GetBoundingBox, );
+        _CalculateBoundingBox, );
       }
 
     bool _IntersectWithRay(
@@ -25,12 +25,12 @@ namespace
         i_ray);
       }
 
-    Vector3d _NormalAtPoint(const Vector3d& i_point) const override
+    Vector3d _NormalAtLocalPoint(const Vector3d& i_point) const override
       {
       PYBIND11_OVERLOAD_PURE(
         Vector3d,
         ISurface,
-        _NormalAtPoint,
+        _NormalAtLocalPoint,
         i_point);
       }
 

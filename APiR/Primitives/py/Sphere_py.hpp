@@ -22,12 +22,12 @@ namespace
         Sphere,
         Serialize,);
       }
-    BoundingBox _GetBoundingBox() const override
+    void _CalculateBoundingBox() override
       {
       PYBIND11_OVERLOAD(
-        BoundingBox,
+        void,
         Sphere,
-        _GetBoundingBox,);
+        _CalculateBoundingBox,);
       }
     };
   }

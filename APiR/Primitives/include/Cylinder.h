@@ -17,7 +17,10 @@ class Cylinder : public ISurface
       double i_height = -1);
 
     double GetRadius() const;
+
     Vector3d GetCenter() const;
+    void SetCenter(const Vector3d& i_center);
+    
     double GetHeight() const;
 
     bool IsFinite() const;
@@ -25,19 +28,15 @@ class Cylinder : public ISurface
 
     virtual std::string Serialize() const override;
   protected:
-    virtual BoundingBox _GetBoundingBox() const override;
-    virtual Vector3d _NormalAtPoint(const Vector3d& i_point) const override;
+    virtual void _CalculateBoundingBox() override;
+    virtual Vector3d _NormalAtLocalPoint(const Vector3d& i_local_point) const override;
     virtual bool _IntersectWithRay(
       IntersectionRecord& io_intersection, 
       const Ray& i_ray) const override;
-
-    void _CalculateBoundingBox();
   private:
-    Vector3d m_center;
     double m_radius;
     double m_height;
     bool m_is_finite;
-    BoundingBox m_bounding_box;
 
     // helpfull vars
     double m_zmax;
@@ -55,7 +54,12 @@ inline double Cylinder::GetRadius() const
 
 inline Vector3d Cylinder::GetCenter() const 
   { 
-  return m_center; 
+  return GetTranslation(); 
+  }
+
+inline void Cylinder::SetCenter(const Vector3d& i_center)
+  {
+  SetTranslation(i_center);
   }
 
 inline double Cylinder::GetHeight() const

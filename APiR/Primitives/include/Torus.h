@@ -24,25 +24,20 @@ class Torus : public ISurface
 
     virtual std::string Serialize() const override;
   protected:
-    virtual BoundingBox _GetBoundingBox() const override;
-    virtual Vector3d _NormalAtPoint(const Vector3d& i_point) const override;
+    virtual void _CalculateBoundingBox() override;
+    virtual Vector3d _NormalAtLocalPoint(const Vector3d& i_point) const override;
     virtual bool _IntersectWithRay(
       IntersectionRecord& io_intersection, 
       const Ray& i_ray) const override;
 
   private:
-    void _CalculateBoundingBox();
-
-  private:
-    Vector3d m_center;
     double m_major_radius;
     double m_minor_radius;
-    BoundingBox m_bounding_box;
   };
 
 inline Vector3d Torus::GetCenter() const 
   { 
-  return m_center; 
+  return GetTranslation(); 
   }
 
 inline double Torus::GetMinor() const 
