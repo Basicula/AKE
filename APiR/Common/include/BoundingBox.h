@@ -15,6 +15,9 @@ class BoundingBox
     const Vector3d& GetMin() const;
     const Vector3d& GetMax() const;
     Vector3d Center() const;
+    // iterate from min to max using bitmask
+    // i.e. (0,0,0) -> (1,1,1)
+    Vector3d GetCorner(std::size_t i_corner_id) const;
 
     double DeltaX() const;
     double DeltaY() const;

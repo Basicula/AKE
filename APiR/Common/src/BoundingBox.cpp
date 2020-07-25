@@ -36,3 +36,11 @@ void BoundingBox::Reset()
   m_min = Vector3d(MAX_INT);
   m_max = Vector3d(MIN_INT);
   }
+
+Vector3d BoundingBox::GetCorner(std::size_t i_corner_id) const
+  {
+  return Vector3d(
+    ((i_corner_id >> 2) & 1) == 1 ? m_max[0] : m_min[0],
+    ((i_corner_id >> 1) & 1) == 1 ? m_max[1] : m_min[1],
+    ((i_corner_id >> 0) & 1) == 1 ? m_max[2] : m_min[2]);
+  }
