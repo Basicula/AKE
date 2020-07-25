@@ -16,7 +16,7 @@ double SpotLight::GetIntensityAtPoint(const Vector3d& i_point) const
     return 0;
   double distance_to_point = m_location.Distance(i_point);
   double c1 = 0.0;
-  double c2 = 0.1;
+  double c2 = 0.05;
   double c3 = 0.0;
   return m_intensity / (c1 + c2 * distance_to_point + c3 * distance_to_point * distance_to_point);
   }
