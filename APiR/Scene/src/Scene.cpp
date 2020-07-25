@@ -7,7 +7,7 @@
 #include <ThreadPool.h>
 #include <ColorMaterial.h>
 
-//IntersectionRecord Scene::m_dummy_intersection = IntersectionRecord();
+#include <iostream>
 
 Scene::Scene(
   const std::string& i_name,
@@ -62,17 +62,17 @@ bool Scene::_Render(
   // TODO : UPDATE THIS VERY BAD CODE)
   if (i_camera != m_active_camera)
     return false;
-  for (std::size_t i_pixel_id = 0; i_pixel_id < m_frame_height * m_frame_width; ++i_pixel_id)
-  //ThreadPool::GetInstance()->ParallelFor(
-  //  static_cast<std::size_t>(0),
-  //  m_frame_width * m_frame_height,
-  //  [&](std::size_t i_pixel_id)
+  //for (std::size_t i_pixel_id = 0; i_pixel_id < m_frame_height * m_frame_width; ++i_pixel_id)
+  ThreadPool::GetInstance()->ParallelFor(
+    static_cast<std::size_t>(0),
+    m_frame_width * m_frame_height,
+    [&](std::size_t i_pixel_id)
     {
     auto x = i_pixel_id % m_frame_width + i_offset_x;
     auto y = i_pixel_id / m_frame_width + i_offset_y;
     o_image.SetPixel(x, y, _TraceRay(i_pixel_id));
     }
-  //);
+  );
   return true;
   }
 
@@ -119,7 +119,7 @@ Color Scene::_ProcessIntersection(
   if (i_intersection.m_material->IsRefractable())
     refracted_color = _ProcessRefraction(i_intersection, i_camera_ray);
 
-  Color light_influence = _ProcessLightInfluence(i_intersection);
+  Color light_influence = _ProcessLightInfluence(i_intersection, i_camera_ray);
   return light_influence + reflected_color;
   }
 
@@ -142,7 +142,7 @@ Color Scene::_ProcessReflection(
     else
       return m_background_color;
     }
-  return _ProcessLightInfluence(local_record) * i_intersection.m_material->ReflectionInfluence();
+  return _ProcessLightInfluence(local_record, i_camera_ray) * i_intersection.m_material->ReflectionInfluence();
   }
 
 Color Scene::_ProcessRefraction(
@@ -163,26 +163,32 @@ Color Scene::_ProcessRefraction(
   return Color();
   }
 
-Color Scene::_ProcessLightInfluence(const IntersectionRecord& i_intersection)
+Color Scene::_ProcessLightInfluence(
+  const IntersectionRecord& i_intersection,
+  const Ray& i_camera_ray)
   {
+  const auto& view_direction = i_camera_ray.GetDirection();
   Color result_pixel_color = i_intersection.m_material->GetPrimitiveColor();
   std::size_t red, green, blue, active_lights_cnt;
   red = green = blue = active_lights_cnt = 0;
-  Ray to_light(i_intersection.m_intersection, Vector3d(0, 1, 0));
+  Ray to_light(i_intersection.m_intersection + i_intersection.m_normal * 1e-10, Vector3d(0, 1, 0));
   for (auto i = 0u; i < m_lights.size(); ++i)
     {
     const auto& light = m_lights[i];
     if (!light->GetState())
       continue;
-    to_light.SetDirection(-light->GetDirection(i_intersection.m_intersection));
-    IntersectionRecord dummy_intersection;
-    if (!m_object_tree.IntersectWithRay(dummy_intersection, to_light))
+    ++active_lights_cnt;
+    const auto light_direction = light->GetDirection(i_intersection.m_intersection);
+    to_light.SetDirection(-light_direction);
+    IntersectionRecord temp_intersection;
+    const bool is_intersected = m_object_tree.IntersectWithRay(temp_intersection, to_light);
+    if (!is_intersected || light_direction.Dot(light->GetDirection(temp_intersection.m_intersection)) < 0.0)
       {
-      ++active_lights_cnt;
       Color light_influence =
         i_intersection.m_material->GetLightInfluence(
           i_intersection.m_intersection,
           i_intersection.m_normal,
+          view_direction,
           light);
       red += light_influence.GetRed();
       green += light_influence.GetGreen();
@@ -191,10 +197,14 @@ Color Scene::_ProcessLightInfluence(const IntersectionRecord& i_intersection)
     }
   if (active_lights_cnt > 0)
     {
+    //result_pixel_color += Color(
+    //  static_cast<std::uint8_t>(red / active_lights_cnt),
+    //  static_cast<std::uint8_t>(green / active_lights_cnt),
+    //  static_cast<std::uint8_t>(blue / active_lights_cnt));
     result_pixel_color += Color(
-      static_cast<std::uint8_t>(red / active_lights_cnt),
-      static_cast<std::uint8_t>(green / active_lights_cnt),
-      static_cast<std::uint8_t>(blue / active_lights_cnt));
+      static_cast<std::uint8_t>(red > 255 ? 255 : red),
+      static_cast<std::uint8_t>(green > 255 ? 255 : green),
+      static_cast<std::uint8_t>(blue > 255 ? 255 : blue));
     }
   return result_pixel_color;
   }

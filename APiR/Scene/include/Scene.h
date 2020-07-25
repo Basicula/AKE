@@ -73,7 +73,9 @@ class Scene
     Color _ProcessRefraction(
       const IntersectionRecord& i_intersection,
       const Ray& i_camera_ray);
-    Color _ProcessLightInfluence(const IntersectionRecord& i_intersection);
+    Color _ProcessLightInfluence(
+      const IntersectionRecord& i_intersection,
+      const Ray& i_camera_ray);
 
     void _UpdateRaysForActiveCamera();
 
