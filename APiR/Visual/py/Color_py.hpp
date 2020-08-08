@@ -7,7 +7,7 @@ namespace
   std::string hex_by_color_rgb(const Color& i_color)
     {
     char hex[10];
-    sprintf(hex + 2, "%x", i_color.GetRGB());
+    sprintf(hex + 2, "%x", i_color.GetRGBA());
     hex[0] = '0';
     hex[1] = 'x';
     return std::string(hex);
@@ -34,9 +34,9 @@ static void AddColor(py::module& io_module)
     .def_property("blue", 
       &Color::GetBlue, 
       &Color::SetBlue)
-    .def_property("rgb", 
-      &Color::GetRGB, 
-      &Color::SetRGB)
+    .def_property("rgba", 
+      &Color::GetRGBA, 
+      &Color::SetRGBA)
     .def("fromDict", [](py::dict i_dict)
       {
       std::uint32_t value = i_dict["Color"].cast<std::uint32_t>();

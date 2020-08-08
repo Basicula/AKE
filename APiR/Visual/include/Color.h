@@ -8,8 +8,12 @@ class Color
 {
 public:
   Color();
-  Color(std::uint32_t i_rgb);
-  Color(std::uint8_t i_red, std::uint8_t i_green, std::uint8_t i_blue);
+  Color(std::uint32_t i_rgba);
+  Color(
+    std::uint8_t i_red, 
+    std::uint8_t i_green, 
+    std::uint8_t i_blue,
+    std::uint8_t i_alpha = 0xff);
 
   Color(const Color& i_other);
 
@@ -24,69 +28,77 @@ public:
   std::uint8_t GetRed()   const;
   std::uint8_t GetGreen() const;
   std::uint8_t GetBlue()  const;
+  std::uint8_t GetAlpha()  const;
   
   void SetRed(std::uint8_t i_red);
   void SetGreen(std::uint8_t i_green);
   void SetBlue(std::uint8_t i_blue);
+  void SetAlpha(std::uint8_t i_alpha);
   
-  operator std::uint32_t();
-  std::uint32_t GetRGB() const;
-  void SetRGB(std::uint32_t i_rgb);
+  operator std::uint32_t() const;
+  std::uint32_t GetRGBA() const;
+  void SetRGBA(std::uint32_t i_rgba);
 
   std::string Serialize() const;
 private:
-  std::uint32_t m_rgb;
+  std::uint32_t m_rgba;
 };
 
 inline std::uint8_t Color::GetRed() const
   {
-  return static_cast<std::uint8_t>((m_rgb & 0xff0000) >> 16);
+  return reinterpret_cast<const std::uint8_t*>(&m_rgba)[0];
   }
   
 inline std::uint8_t Color::GetGreen() const
   { 
-  return static_cast<std::uint8_t>((m_rgb & 0x00ff00) >> 8 );
-  };
+  return reinterpret_cast<const std::uint8_t*>(&m_rgba)[1];
+  }
   
 inline std::uint8_t Color::GetBlue() const
   { 
-  return static_cast<std::uint8_t>(m_rgb & 0x0000ff);
-  };
+  return reinterpret_cast<const std::uint8_t*>(&m_rgba)[2];
+  }
+inline std::uint8_t Color::GetAlpha() const
+  {
+  return reinterpret_cast<const std::uint8_t*>(&m_rgba)[3];
+  }
   
 inline void Color::SetRed(std::uint8_t i_red)
   {
-  m_rgb &= 0x00ffff;
-  m_rgb |= (i_red << 16);
+  reinterpret_cast<std::uint8_t*>(&m_rgba)[0] = i_red;
   }
 
 inline void Color::SetGreen(std::uint8_t i_green)
   {
-  m_rgb &= 0xff00ff;
-  m_rgb |= (i_green << 8);
+  reinterpret_cast<std::uint8_t*>(&m_rgba)[1] = i_green;
   }
   
 inline void Color::SetBlue(std::uint8_t i_blue)
   {
-  m_rgb &= 0xffff00;
-  m_rgb |= i_blue;
-  }
-  
-inline Color::operator std::uint32_t()
-  {
-  return m_rgb;
+  reinterpret_cast<std::uint8_t*>(&m_rgba)[2] = i_blue;
   }
 
-inline std::uint32_t Color::GetRGB() const
+inline void Color::SetAlpha(std::uint8_t i_alpha)
   {
-  return m_rgb;
+  reinterpret_cast<std::uint8_t*>(&m_rgba)[3] = i_alpha;
   }
   
-inline void Color::SetRGB(std::uint32_t i_rgb)
+inline Color::operator std::uint32_t() const
   {
-  m_rgb = i_rgb;
+  return m_rgba;
+  }
+
+inline std::uint32_t Color::GetRGBA() const
+  {
+  return m_rgba;
+  }
+  
+inline void Color::SetRGBA(std::uint32_t i_rgba)
+  {
+  m_rgba = i_rgba;
   }
 
 inline std::string Color::Serialize() const
   {
-  return "{ \"Color\" : " + std::to_string(m_rgb) + " }";
+  return "{ \"Color\" : " + std::to_string(m_rgba) + " }";
   }
