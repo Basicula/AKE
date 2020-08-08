@@ -98,17 +98,26 @@ void KDNode::_Build(const Objects& i_objects)
     return;
 
   auto axis = _DetectSplitingAxis(m_bounding_box);
-  const auto& bbox_center = m_bounding_box.Center();
+  
+  std::vector<std::pair<std::size_t,double>> box_center_axis_values;
+  for (std::size_t i = 0; i < m_objects.size(); ++i)
+    box_center_axis_values.emplace_back(i, m_objects[i]->GetBoundingBox().Center()[axis]);
+  std::sort(
+    box_center_axis_values.begin(),
+    box_center_axis_values.end(),
+    [](
+      const std::pair<std::size_t, double>& i_first,
+      const std::pair<std::size_t, double>& i_second)
+    {
+    return i_first.second < i_second.second;
+    });
   Objects left, right;
-  for (const auto& object : m_objects)
-    if (object->GetBoundingBox().Center()[axis] < bbox_center[axis])
-      left.push_back(object);
+  const auto half = box_center_axis_values.size() / 2;
+  for (std::size_t i = 0; i < box_center_axis_values.size(); ++i)
+    if (i < half)
+      left.push_back(m_objects[box_center_axis_values[i].first]);
     else
-      right.push_back(object);
-
-  if (m_objects.size() == left.size()
-    || m_objects.size() == right.size())
-    return;
+      right.push_back(m_objects[box_center_axis_values[i].first]);
 
   m_type = NodeType::INTERNAL;
   m_left->_Build(left);
