@@ -1,7 +1,7 @@
 set(
   SOURCES
     
-	src/SolveEquations.cpp
+  src/SolveEquations.cpp
   
   src/Matrix.cpp
 )
@@ -11,10 +11,10 @@ set(
     
   include/SolveEquations.h
   
-	include/Vector.h
-	include/impl/VectorImpl.h
-	include/impl/Vector2dImpl.h
-	include/impl/Vector3dImpl.h
+  include/Vector.h
+  include/impl/VectorImpl.h
+  include/impl/Vector2dImpl.h
+  include/impl/Vector3dImpl.h
   
   include/Matrix.h
   include/Matrix3.h
@@ -30,7 +30,7 @@ set(
 )
 
 add_library(
-	Math	
+  Math	
     
   ${SOURCES}
   ${HEADERS}

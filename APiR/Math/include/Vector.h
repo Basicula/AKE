@@ -43,13 +43,17 @@ class Vector
 
     template<class Factor>
     Vector operator*(Factor i_factor) const;
+    Vector operator*(const Vector& i_other) const;
     template<class Factor>
     Vector& operator*=(Factor i_factor);
-    
+    Vector operator*=(const Vector& i_other);
+
     template<class Factor>
     Vector operator/(Factor i_factor) const;
+    Vector operator/(const Vector& i_other) const;
     template<class Factor>
     Vector& operator/=(Factor i_factor);
+    Vector operator/=(const Vector& i_other);
 
     template<std::size_t D = Dimension, 
       typename T = typename std::enable_if<D == 3>::type >

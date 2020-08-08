@@ -13,10 +13,9 @@ Vector<ElementType, Dimension>::Vector()
 template<class ElementType, std::size_t Dimension>
 Vector<ElementType, Dimension>::Vector(ElementType i_elem)
   {
-  for (std::size_t i = 0; i < Dimension; ++i)
-    m_coords[i] = i_elem;
-  };
-  
+  std::fill_n(m_coords, m_dimension, i_elem);
+  }
+
 template<class ElementType, std::size_t Dimension>
 template<std::size_t D, typename T>
 inline Vector<ElementType, Dimension>::Vector(ElementType i_x, ElementType i_y)
@@ -152,6 +151,38 @@ Vector<ElementType, Dimension>& Vector<ElementType, Dimension>::operator+=(const
   {
   for (std::size_t i = 0; i < Dimension; ++i)
     m_coords[i] += i_other.m_coords[i];
+  return *this;
+  }
+
+template<class ElementType, std::size_t Dimension>
+Vector<ElementType, Dimension> Vector<ElementType, Dimension>::operator*(const Vector& i_other) const
+  {
+  Vector<ElementType, Dimension> copy(*this);
+  copy *= i_other;
+  return copy;
+  }
+
+template<class ElementType, std::size_t Dimension>
+Vector<ElementType, Dimension> Vector<ElementType, Dimension>::operator*=(const Vector& i_other)
+  {
+  for (std::size_t i = 0; i < Dimension; ++i)
+    m_coords[i] *= i_other.m_coords[i];
+  return *this;
+  }
+
+template<class ElementType, std::size_t Dimension>
+Vector<ElementType, Dimension> Vector<ElementType, Dimension>::operator/(const Vector& i_other) const
+  {
+  Vector<ElementType, Dimension> copy(*this);
+  copy /= i_other;
+  return copy;
+  }
+
+template<class ElementType, std::size_t Dimension>
+Vector<ElementType, Dimension> Vector<ElementType, Dimension>::operator/=(const Vector& i_other)
+  {
+  for (std::size_t i = 0; i < Dimension; ++i)
+    m_coords[i] /= i_other.m_coords[i];
   return *this;
   }
 

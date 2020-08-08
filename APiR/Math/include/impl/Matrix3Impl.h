@@ -79,6 +79,48 @@ Matrix3<ElementType> Matrix3<ElementType>::operator*(const Matrix3& i_other) con
   }
 
 template<class ElementType>
+void Matrix3<ElementType>::ApplyLeft(Vector3d& io_vector) const
+  {
+  const double x =
+    m_matrix[0] * io_vector[0] +
+    m_matrix[1] * io_vector[1] +
+    m_matrix[2] * io_vector[2];
+  const double y =
+    m_matrix[3] * io_vector[0] +
+    m_matrix[4] * io_vector[1] +
+    m_matrix[5] * io_vector[2];
+  const double z =
+    m_matrix[6] * io_vector[0] +
+    m_matrix[7] * io_vector[1] +
+    m_matrix[8] * io_vector[2];
+
+  io_vector[0] = x;
+  io_vector[1] = y;
+  io_vector[2] = z;
+  }
+
+template<class ElementType>
+void Matrix3<ElementType>::ApplyRight(Vector3d& io_vector) const
+  {
+  const double x =
+    m_matrix[0] * io_vector[0] +
+    m_matrix[3] * io_vector[1] +
+    m_matrix[6] * io_vector[2];
+  const double y =
+    m_matrix[1] * io_vector[0] +
+    m_matrix[4] * io_vector[1] +
+    m_matrix[7] * io_vector[2];
+  const double z =
+    m_matrix[2] * io_vector[0] +
+    m_matrix[5] * io_vector[1] +
+    m_matrix[8] * io_vector[2];
+
+  io_vector[0] = x;
+  io_vector[1] = y;
+  io_vector[2] = z;
+  }
+
+template<class ElementType>
 void Matrix3<ElementType>::Transpose()
   {
   // 0 1 2

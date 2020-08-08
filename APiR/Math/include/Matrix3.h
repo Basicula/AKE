@@ -18,6 +18,11 @@ class Matrix3
     Vector3d operator*(const Vector3d& i_vector) const;
     Matrix3 operator*(const Matrix3& i_other) const;
 
+    // matrix * vector
+    void ApplyLeft(Vector3d& io_vector) const;
+    // vector * matrix
+    void ApplyRight(Vector3d& io_vector) const;
+
     void Transpose();
     Matrix3 Transposed() const;
 
