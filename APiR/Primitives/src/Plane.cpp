@@ -38,7 +38,9 @@ void Plane::_CalculateBoundingBox()
   m_bounding_box.AddPoint(-vec2 * m_size_limit);
   }
 
-bool Plane::_IntersectWithRay(IntersectionRecord& io_intersection, const Ray & i_ray) const
+bool Plane::_IntersectWithRay(
+  double& io_nearest_intersection_dist,
+  const Ray & i_ray) const
   {
   const auto& ray_origin = i_ray.GetOrigin();
   const auto& ray_direction = i_ray.GetDirection();
@@ -48,13 +50,7 @@ bool Plane::_IntersectWithRay(IntersectionRecord& io_intersection, const Ray & i
       value_from_equation < 0.0)
     return false;
 
-  double distance_to_intersection = value_from_equation / m_normal.Dot(-ray_direction);
-
-  if (distance_to_intersection > io_intersection.m_distance)
-    return false;
-
-  io_intersection.m_distance = distance_to_intersection;
-  io_intersection.m_intersection = ray_origin + ray_direction * distance_to_intersection;
-  io_intersection.m_normal = m_normal;
+  const double distance_to_intersection = value_from_equation / m_normal.Dot(-ray_direction);
+  io_nearest_intersection_dist = distance_to_intersection;
   return true;
   }

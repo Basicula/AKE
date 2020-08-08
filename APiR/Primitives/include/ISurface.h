@@ -25,7 +25,7 @@ class ISurface : public Transformable
     // and for changing by need
     virtual void _CalculateBoundingBox() = 0;
     virtual bool _IntersectWithRay(
-      IntersectionRecord& o_intersection,
+      double& io_nearest_intersection_dist,
       const Ray& i_local_ray) const = 0;
     virtual Vector3d _NormalAtLocalPoint(const Vector3d& i_local_point) const = 0;
 
@@ -44,11 +44,20 @@ inline bool ISurface::IntersectWithRay(
   IntersectionRecord& o_intersection,
   const Ray& i_ray) const
   {
-  const auto local_ray = RayToLocal(i_ray);
-  const bool is_intersected = _IntersectWithRay(o_intersection, local_ray);
-  if (is_intersected)
+  const auto& local_ray = RayToLocal(i_ray);
+  double new_distance = o_intersection.m_distance;
+  const bool is_intersected = _IntersectWithRay(new_distance, local_ray);
+  if (is_intersected &&
+      new_distance > 0.0 &&
+      new_distance < o_intersection.m_distance)
+    {
+    o_intersection.m_distance = new_distance;
+    o_intersection.m_intersection = local_ray.GetOrigin() + local_ray.GetDirection() * new_distance;
+    o_intersection.m_normal = _NormalAtLocalPoint(o_intersection.m_intersection);
     _LocalIntersectionToWorld(o_intersection);
-  return is_intersected;
+    return true;
+    }
+  return false;
   }
 
 inline Vector3d ISurface::NormalAtPoint(const Vector3d& i_local_point) const

@@ -17,7 +17,7 @@ void Sphere::_CalculateBoundingBox()
   }
 
 bool Sphere::_IntersectWithRay(
-  IntersectionRecord& o_intersection,
+  double& io_nearest_intersection_dist,
   const Ray& i_local_ray) const
   {
   // transform ray origin to sphere coordinate system
@@ -29,7 +29,8 @@ bool Sphere::_IntersectWithRay(
   // after simplifications we have below value
   const double distance_to_sphere = -ray_origin.Dot(ray_direction);
   
-  if (distance_to_sphere < 0.0 || distance_to_sphere - m_radius > o_intersection.m_distance)
+  if (distance_to_sphere < 0.0 || 
+      distance_to_sphere - m_radius > io_nearest_intersection_dist)
     return false;
   
   const auto& point_near_sphere = ray_origin + ray_direction * distance_to_sphere;
@@ -47,11 +48,6 @@ bool Sphere::_IntersectWithRay(
   //if (distance < 0.0)
   //  distance = distance_to_sphere + half_horde;
 
-  if (distance <= 0.0 || distance > o_intersection.m_distance)
-    return false;
-
-  o_intersection.m_distance = distance;
-  o_intersection.m_intersection = ray_origin + ray_direction * distance;
-  o_intersection.m_normal = _NormalAtLocalPoint(o_intersection.m_intersection);
+  io_nearest_intersection_dist = distance;
   return true;
   }

@@ -14,14 +14,14 @@ namespace
       }
 
     bool _IntersectWithRay(
-      IntersectionRecord& o_intersection,
+      double& io_nearest_intersection_dist,
       const Ray& i_ray) const override
       {
       PYBIND11_OVERLOAD_PURE(
         bool,
         ISurface,
         _IntersectWithRay,
-        o_intersection,
+        io_nearest_intersection_dist,
         i_ray);
       }
 

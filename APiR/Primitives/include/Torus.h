@@ -27,7 +27,7 @@ class Torus : public ISurface
     virtual void _CalculateBoundingBox() override;
     virtual Vector3d _NormalAtLocalPoint(const Vector3d& i_point) const override;
     virtual bool _IntersectWithRay(
-      IntersectionRecord& io_intersection, 
+      double& io_nearest_intersection_dist,
       const Ray& i_ray) const override;
 
   private:

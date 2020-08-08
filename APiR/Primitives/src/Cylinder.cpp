@@ -43,7 +43,7 @@ Vector3d Cylinder::_NormalAtLocalPoint(const Vector3d& i_local_point) const
   }
 
 bool Cylinder::_IntersectWithRay(
-  IntersectionRecord& io_intersection,
+  double& io_nearest_intersection_dist,
   const Ray& i_local_ray) const
   {
   const auto& ray_direction = i_local_ray.GetDirection();
@@ -64,7 +64,7 @@ bool Cylinder::_IntersectWithRay(
   // solve ray sphere task in 2d
   const double dist_to_circle_point = -ray_origin_2d.Dot(projected_direction);
   if (dist_to_circle_point <= 0.0 && !m_is_finite || 
-      dist_to_circle_point - m_radius > io_intersection.m_distance)
+      dist_to_circle_point - m_radius > io_nearest_intersection_dist)
     return false;
 
   const auto pojnt_near_circle_2d = ray_origin_2d + projected_direction * dist_to_circle_point;
@@ -75,14 +75,14 @@ bool Cylinder::_IntersectWithRay(
 
   const double half_chorde = sqrt(sqr_radius - center_to_point);
   const double close_dist_to_circle = dist_to_circle_point - half_chorde;
-  if (close_dist_to_circle > io_intersection.m_distance)
+  if (close_dist_to_circle > io_nearest_intersection_dist)
     return false;
 
   // after solving intersection problem in 2D
   // extend result to 3D
   const double close_distance = close_dist_to_circle / projected_direction_len;
 
-  if (close_distance > io_intersection.m_distance)
+  if (close_distance > io_nearest_intersection_dist)
     return false;
 
   const auto close_intersection = ray_origin + ray_direction * close_distance;
@@ -92,16 +92,14 @@ bool Cylinder::_IntersectWithRay(
         (close_intersection[2] <= m_zmax &&
          close_intersection[2] >= m_zmin))
       {
-      io_intersection.m_distance = close_distance;
-      io_intersection.m_intersection = close_intersection;
-      io_intersection.m_normal = _NormalAtLocalPoint(close_intersection);
+      io_nearest_intersection_dist = close_distance;
       return true;
       }
     }
 
   const double far_dist_to_circle = dist_to_circle_point + half_chorde;
   const double far_distance = far_dist_to_circle / projected_direction_len;
-  if (far_distance <= 0.0 || far_distance > io_intersection.m_distance)
+  if (far_distance <= 0.0 || far_distance > io_nearest_intersection_dist)
     return false;
   const auto far_intersection = ray_origin + ray_direction * far_distance;
 
@@ -112,9 +110,7 @@ bool Cylinder::_IntersectWithRay(
 
   if (!m_is_finite)
     {
-    io_intersection.m_distance = far_distance;
-    io_intersection.m_intersection = far_intersection;
-    io_intersection.m_normal = _NormalAtLocalPoint(far_intersection);
+    io_nearest_intersection_dist = far_distance;
     return true;
     }
 
@@ -124,7 +120,7 @@ bool Cylinder::_IntersectWithRay(
   is_intersected |= m_bottom->IntersectWithRay(intersection, i_local_ray);
   if (!is_intersected ||
       intersection.m_distance < 0 ||
-      intersection.m_distance > io_intersection.m_distance)
+      intersection.m_distance > io_nearest_intersection_dist)
     return false;
 
   // check that intersection point with plane satisfies cylinder equation
@@ -133,9 +129,7 @@ bool Cylinder::_IntersectWithRay(
   if (transformed_intersection[0] * transformed_intersection[0] +
       transformed_intersection[1] * transformed_intersection[1] <= m_radius * m_radius)
     {
-    io_intersection.m_distance = intersection.m_distance;
-    io_intersection.m_intersection = intersection.m_intersection;
-    io_intersection.m_normal = intersection.m_normal;
+    io_nearest_intersection_dist = intersection.m_distance;
     return true;
     }
   return false;

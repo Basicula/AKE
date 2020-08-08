@@ -6,13 +6,14 @@ namespace
     {
     using Sphere::Sphere;
     bool _IntersectWithRay(
-      IntersectionRecord& io_intersection, const Ray& i_ray) const override
+      double& io_nearest_intersection_dist,
+      const Ray& i_ray) const override
       {
       PYBIND11_OVERLOAD(
         bool,
         Sphere,
         _IntersectWithRay,
-        io_intersection,
+        io_nearest_intersection_dist,
         i_ray);
       }
     std::string Serialize() const override

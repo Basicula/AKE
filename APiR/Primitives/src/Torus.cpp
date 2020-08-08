@@ -27,7 +27,7 @@ Vector3d Torus::_NormalAtLocalPoint(const Vector3d& i_local_point) const
   }
 
 bool Torus::_IntersectWithRay(
-  IntersectionRecord& io_intersection, 
+  double& io_nearest_intersection_dist,
   const Ray & i_local_ray) const
   {
   /*
@@ -62,15 +62,9 @@ bool Torus::_IntersectWithRay(
   if (roots_count == 0)
     return false;
   //find smallest positive if exist temp solution
-  double distance = INFINITY;
   for (const auto& root : roots)
-    if (root > 0.0 && root < distance)
-      distance = root;
-  if (distance == INFINITY || distance > io_intersection.m_distance)
-    return false;
-  io_intersection.m_distance = distance;
-  io_intersection.m_intersection = ray_origin + ray_direction * distance;
-  io_intersection.m_normal = _NormalAtLocalPoint(io_intersection.m_intersection);
+    if (root > 0.0 && root < io_nearest_intersection_dist)
+      io_nearest_intersection_dist = root;
   return true;
   }
 
