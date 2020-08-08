@@ -64,12 +64,12 @@ void GLUTWindow::_DisplayFunc()
     {
     gluBuild2DMipmaps(
       GL_TEXTURE_2D, 
-      3, 
+      4, 
       static_cast<GLint>(mp_source->GetWidth()), 
       static_cast<GLint>(mp_source->GetHeight()), 
-      GL_RGB, 
+      GL_RGBA, 
       GL_UNSIGNED_BYTE, 
-      mp_source->GetRGBData());
+      mp_source->GetRGBAData());
     }
 
   glEnable(GL_TEXTURE_2D);
