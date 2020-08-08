@@ -42,30 +42,36 @@ Transformation Transformation::GetInversed() const
 
 Vector3d Transformation::PointToLocal(const Vector3d& i_world_point) const
   {
-  const auto translated = i_world_point - m_translation;
-  const auto rotated = m_inverse_rotation * translated;
-  const auto scaled = Vector3d(rotated[0] / m_scale[0], rotated[1] / m_scale[1], rotated[2] / m_scale[2]);
-  return scaled;
+  Vector3d local_point = i_world_point;
+  local_point -= m_translation; // translation
+  m_inverse_rotation.ApplyLeft(local_point); // rotation
+  local_point /= m_scale; // scaling
+  return local_point;
   }
 
 Vector3d Transformation::PointToWorld(const Vector3d& i_local_point) const
   {
-  const auto scaled = Vector3d(i_local_point[0] * m_scale[0], i_local_point[1] * m_scale[1], i_local_point[2] * m_scale[2]);
-  const auto rotated = m_rotation * scaled;
-  const auto translated = rotated + m_translation;
-  return translated;
+  Vector3d world_point = i_local_point;
+  world_point *= m_scale; // scaling
+  m_rotation.ApplyLeft(world_point); // rotation
+  world_point += m_translation; // translation
+  return world_point;
   }
 
 Vector3d Transformation::DirectionToLocal(const Vector3d& i_world_dir) const
   {
-  const auto rotated = m_inverse_rotation * i_world_dir;
-  const auto scaled = Vector3d(rotated[0] / m_scale[0], rotated[1] / m_scale[1], rotated[2] / m_scale[2]);
-  return scaled.Normalized();
+  Vector3d local_direction = i_world_dir;
+  m_inverse_rotation.ApplyLeft(local_direction); // rotation
+  local_direction /= m_scale; // scaling
+  local_direction.Normalize(); // keep normalized after scaling
+  return local_direction;
   }
 
 Vector3d Transformation::DirectionToWorld(const Vector3d& i_local_dir) const
   {
-  const auto scaled = Vector3d(i_local_dir[0] * m_scale[0], i_local_dir[1] * m_scale[1], i_local_dir[2] * m_scale[2]);
-  const auto rotated = m_rotation * scaled;
-  return rotated.Normalized();
+  Vector3d world_direction = i_local_dir;
+  world_direction *= m_scale; // scaling
+  m_rotation.ApplyLeft(world_direction); // rotation
+  world_direction.Normalize(); // keep normalized after scaling
+  return world_direction;
   }
