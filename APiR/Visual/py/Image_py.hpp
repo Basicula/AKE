@@ -26,14 +26,14 @@ static void AddImage(py::module& io_module)
          [](const Image& i_image)
          {
          return std::vector<std::uint8_t>(
-           i_image.GetRGBData(),
-           i_image.GetRGBData() + i_image.GetSize() * 3);
+           i_image.GetRGBAData(),
+           i_image.GetRGBAData() + i_image.GetSize() * 4);
          })
      .def("rgbDataStr",
           [](const Image& i_image)
           {
           return std::wstring(
-            i_image.GetRGBData(),
-            i_image.GetRGBData() + i_image.GetSize() * 3);
+            i_image.GetRGBAData(),
+            i_image.GetRGBAData() + i_image.GetSize() * 4);
           });
   }
