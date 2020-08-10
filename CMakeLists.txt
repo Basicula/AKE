@@ -19,11 +19,11 @@ add_subdirectory(pybind11)
 # aditional packages
 add_subdirectory(cmake)
 
-link_directories(${GLUT_LIBRARY_DIRS})
-include_directories(${GLUT_INCLUDE_DIRS})
-
-link_directories(${OPENCL_LIBRARY_DIRS})
 include_directories(${OPENCL_INCLUDE_DIRS})
+link_directories(${OPENCL_LIBRARY_DIRS})
+
+include_directories(${GLUT_INCLUDE_DIRS})
+link_directories(${GLUT_LIBRARY_DIRS})
 
 # to future testing libs
 enable_testing()
