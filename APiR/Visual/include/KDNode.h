@@ -10,7 +10,7 @@ using Objects = std::vector<IRenderableSPtr>;
 class KDNode
   {
   public:
-    enum Axis
+    enum class Axis
       {
       X = 0,
       Y = 1,

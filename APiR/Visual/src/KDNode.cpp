@@ -97,7 +97,7 @@ void KDNode::_Build(const Objects& i_objects)
   if (i_objects.size() == 1)
     return;
 
-  auto axis = _DetectSplitingAxis(m_bounding_box);
+  auto axis = static_cast<std::size_t>(_DetectSplitingAxis(m_bounding_box));
   
   std::vector<std::pair<std::size_t,double>> box_center_axis_values;
   for (std::size_t i = 0; i < m_objects.size(); ++i)
