@@ -1,8 +1,8 @@
 #pragma once
+#include <Image.h>
+
 #include <stdio.h>
 #include <vector>
-
-#include <Image.h>
 
 class BMPWriter
 {

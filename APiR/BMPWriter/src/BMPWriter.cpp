@@ -1,7 +1,7 @@
-#include <fstream>
-
-#include <BMPWriter.h>
+#include <BMPWriter/BMPWriter.h>
 #include <Color.h>
+
+#include <fstream>
 
 BMPWriter::BMPWriter(ColorMode i_mode)
   : m_color_mode(i_mode)

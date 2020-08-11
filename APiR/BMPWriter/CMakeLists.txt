@@ -1,11 +1,29 @@
-add_library(
-	BMPWriter
-	src/BMPWriter.cpp
-
-	include/BMPWriter.h
+set(
+  SOURCES
+  
+  BMPWriter.cpp
 )
 
-target_include_directories(BMPWriter PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
+set(
+  HEADERS
+  
+  BMPWriter.h
+)
 
-target_link_libraries(BMPWriter PUBLIC Math)
-target_link_libraries(BMPWriter PUBLIC Visual)
+set(
+  PY
+)
+
+set(
+  TESTS
+)
+
+generate_project(
+  STATIC
+  SOURCES ${SOURCES}
+  HEADERS ${HEADERS}
+  PY      ${PY}
+  TESTS   ${TESTS}
+  LINK    Math
+          Visual
+)
