@@ -1,3 +1,5 @@
+include(CMakeParseArguments)
+
 function(source_groups)
   foreach(f IN ITEMS ${ARGV})
     get_filename_component(g ${f} DIRECTORY)
@@ -12,7 +14,7 @@ endfunction()
 #   headers                               - "include/${PROJECT_NAME}"
 #   sources                               - "src"
 #   py                                    - "py"
-#   tests                                 - "test/c++"
+#   tests                                 - "tests/c++"
 #   precompile headers(pch.h and pch.cpp) - "src" 
 function(generate_project)
   set (KEYWORDS
@@ -22,7 +24,7 @@ function(generate_project)
     TESTS
     LINK
   )
-  cmake_parse_arguments(ARG "STATIC;SHARED;EXECUTABLE;SUPPORT_MFC;ENABLE_PCH;WIN32_EXE" "" "${KEYWORDS}" ${ARGN})
+  cmake_parse_arguments(ARG "STATIC;SHARED;EXECUTABLE;SUPPORT_MFC;ENABLE_PCH;WIN32_EXE;" "" "${KEYWORDS}" ${ARGN})
   get_filename_component(NAME "${CMAKE_CURRENT_SOURCE_DIR}" NAME)
   
   if (ARG_ENABLE_PCH)
@@ -41,6 +43,11 @@ function(generate_project)
   foreach(FILE ${ARG_SOURCES})
     list(APPEND FILES "src/${FILE}")
   endforeach()
+  if (${ARG_PY})
+    foreach(FILE ${ARG_PY})
+      list(APPEND FILES "py/${FILE}")
+    endforeach()
+  endif()
   
   if (ARG_SHARED)
     add_library(
@@ -81,7 +88,30 @@ function(generate_project)
   endif()
   
   target_include_directories(${NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
+  target_include_directories(${NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/impl")
+  target_include_directories(${NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/inl")
   target_link_libraries(${NAME} PRIVATE ${ARG_LINK})
   
   set_property(TARGET ${NAME} PROPERTY FOLDER "APiR")
+  
+  if (DEFINED ARG_TESTS)
+    set(TEST_FILES)
+    foreach(FILE ${ARG_TESTS})
+      list(APPEND TEST_FILES "tests/c++/${FILE}")
+    endforeach()
+    add_executable(
+      ${NAME}.Tests
+      ${TEST_FILES}
+    )
+    target_link_libraries(${NAME}.Tests PRIVATE ${NAME})
+    target_link_libraries(${NAME}.Tests PRIVATE ${ARG_LINK})
+    add_test(
+      NAME
+      unit
+      COMMAND
+      ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${NAME}.Tests
+    )
+    
+    set_property(TARGET ${NAME}.Tests PROPERTY FOLDER "APiR")
+  endif()
 endfunction()
