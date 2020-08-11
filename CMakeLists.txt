@@ -29,4 +29,5 @@ link_directories(${GLUT_LIBRARY_DIRS})
 enable_testing()
 
 # main lib
+include("cmake/generate_project.cmake")
 add_subdirectory(APiR)
