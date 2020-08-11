@@ -88,8 +88,7 @@ function(generate_project)
   endif()
   
   target_include_directories(${NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
-  target_include_directories(${NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/impl")
-  target_include_directories(${NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/inl")
+  target_include_directories(${NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/py")
   target_link_libraries(${NAME} PRIVATE ${ARG_LINK})
   
   set_property(TARGET ${NAME} PROPERTY FOLDER "APiR")
@@ -105,6 +104,7 @@ function(generate_project)
     )
     target_link_libraries(${NAME}.Tests PRIVATE ${NAME})
     target_link_libraries(${NAME}.Tests PRIVATE ${ARG_LINK})
+    target_link_libraries(${NAME}.Tests PRIVATE gtest_main)
     add_test(
       NAME
       unit
