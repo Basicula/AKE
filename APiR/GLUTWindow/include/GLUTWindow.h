@@ -1,8 +1,15 @@
 #pragma once
 #include <functional>
 #include <vector>
+#include <string>
+
+#pragma warning(push)
+#pragma warning(disable:4505)
+#include <GL/glut.h>
+#pragma warning(pop)
 
 #include <Image.h>
+#include <FPSCounter.h>
 
 class GLUTWindow
   {
@@ -10,7 +17,7 @@ class GLUTWindow
     GLUTWindow(int i_width, int i_height, const char* i_title = "New window");
 
     void SetImageSource(const Image* ip_source);
-    void SetUpdateImageFunc(std::function<void()> i_func);
+    void SetUpdateFunction(std::function<void()> i_func);
     void Open();
 
   private:
@@ -22,24 +29,20 @@ class GLUTWindow
     static void _DisplayFuncWrapper();
     static void _PressButtonWrapper(unsigned char i_key, int i_x, int i_y);
     static void _MouseEventWrapper(int i_button, int i_state, int i_x, int i_y);
+
   private:
     int m_width;
     int m_height;
     const char* m_title;
 
-    int m_iterations_for_mandelbrot;
-    bool m_new_mandelbrot;
-
+    GLuint m_main_screen;
     const Image* mp_source;
+    FPSCounter m_fps_counter;
+
     std::function<void()> m_update_function;
   };
 
-inline void GLUTWindow::SetImageSource(const Image* ip_source)
-  {
-  mp_source = ip_source;
-  }
-
-inline void GLUTWindow::SetUpdateImageFunc(std::function<void()> i_func)
+inline void GLUTWindow::SetUpdateFunction(std::function<void()> i_func)
   {
   m_update_function = i_func;
   }
