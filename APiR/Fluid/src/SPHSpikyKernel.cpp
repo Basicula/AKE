@@ -1,4 +1,4 @@
-#include <DefinesAndConstants.h>
+#include <Common/DefinesAndConstants.h>
 #include <SPHSpikyKernel.h>
 
 SPHSpikyKernel::SPHSpikyKernel()

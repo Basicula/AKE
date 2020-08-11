@@ -2,7 +2,7 @@
 #include <vector>
 
 #include <IRenderable.h>
-#include <BoundingBox.h>
+#include <Common/BoundingBox.h>
 #include <StandartParticle.h>
 #include <SPHSimulation.h>
 

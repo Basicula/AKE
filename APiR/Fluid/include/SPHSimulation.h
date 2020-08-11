@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Simulation.h>
+#include <Common/Simulation.h>
 #include <SPHSystem.h>
 
 class SPHSimulation : public Simulation

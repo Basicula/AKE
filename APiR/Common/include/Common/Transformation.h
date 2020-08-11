@@ -2,8 +2,8 @@
 
 #include <Matrix3.h>
 #include <Vector.h>
-#include <Ray.h>
-#include <BoundingBox.h>
+#include <Common/Ray.h>
+#include <Common/BoundingBox.h>
 
 class Transformation
   {

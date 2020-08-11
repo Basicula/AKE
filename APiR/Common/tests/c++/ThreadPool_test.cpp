@@ -2,7 +2,7 @@
 #include <chrono>
 #include <numeric>
 
-#include <ThreadPool.h>
+#include <Common/ThreadPool.h>
 #include "Utils.h"
 
 TEST(ThreadPoolTest, ThreadPoolCommonScenario)

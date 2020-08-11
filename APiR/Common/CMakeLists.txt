@@ -1,76 +1,70 @@
 set(
-    SOURCES
-    
-    src/BoundingBox.cpp
-    src/Intersection.cpp
-    src/Ray.cpp
-    
-    src/BFPointSearcher.cpp
-    
-    src/Simulation.cpp
-    
-    src/ThreadPool.cpp
-    
-    src/Transformable.cpp
-    src/Transformation.cpp
+  SOURCES
+  
+  BoundingBox.cpp
+  Intersection.cpp
+  Ray.cpp
+  
+  BFPointSearcher.cpp
+  
+  Simulation.cpp
+  
+  ThreadPool.cpp
+  
+  Transformable.cpp
+  Transformation.cpp
 )
 
 set(
-    HEADERS
+  HEADERS
     
-    include/BoundingBox.h
-    include/Intersection.h
-    include/Ray.h
+  BoundingBox.h
+  Intersection.h
+  Ray.h
 
-    include/PointNeighborSearcher.h
-    include/BFPointSearcher.h
-    
-    include/Simulation.h
-    
-    include/ThreadPool.h
-    include/impl/ThreadPool_impl.h
-    include/ParallelUtils.h
-    
-    include/Transformable.h
-    include/Transformation.h
-    
-    include/IObject.h
-    
-    include/DefinesAndConstants.h
+  PointNeighborSearcher.h
+  BFPointSearcher.h
+  
+  Simulation.h
+  
+  ThreadPool.h
+  impl/ThreadPool_impl.h
+  ParallelUtils.h
+  
+  Transformable.h
+  Transformation.h
+  
+  IObject.h
+  
+  DefinesAndConstants.h
 )
 
 set(
-    TESTS
-    
-    test/c++/ThreadPool_test.cpp
-    test/c++/Transformation_test.cpp
-    
-    test/c++/Utils.h
+  PY
+  
+  common_py.hpp
+  
+  BoundingBox_py.hpp
+  Intersection_py.hpp
+  IObject_py.hpp
+  Ray_py.hpp
 )
 
-# Main library
-add_library(
-    Common
-    
-    ${SOURCES}
-    ${HEADERS}
+
+set(
+  TESTS
+  
+  ThreadPool_test.cpp
+  Transformation_test.cpp
+  
+  Utils.h
 )
 
-target_include_directories(Common PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
-target_include_directories(Common PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/impl")
+generate_project(
+  STATIC
+  SOURCES ${SOURCES}
+  HEADERS ${HEADERS}
+  TESTS   ${TESTS}
+  LINK    Math
+)
 
-target_include_directories(Common PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/py")
-
-target_link_libraries(Common PRIVATE Math)
-
-# Test library
-add_executable(Common.Test ${TESTS})
-target_link_libraries(Common.Test PRIVATE Common)
-target_link_libraries(Common.Test PRIVATE Math)
-target_link_libraries(Common.Test PRIVATE gtest_main)
-add_test(
-  NAME
-    unit
-  COMMAND
-    ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/Common.Test
-  )

@@ -1,8 +1,8 @@
-#include <DefinesAndConstants.h>
+#include <Common/DefinesAndConstants.h>
 #include <SPHSimulation.h>
 #include <SPHSpikyKernel.h>
-#include <ParallelUtils.h>
-#include <ThreadPool.h>
+#include <Common/ParallelUtils.h>
+#include <Common/ThreadPool.h>
 
 namespace
   {

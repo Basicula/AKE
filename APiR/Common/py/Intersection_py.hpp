@@ -1,4 +1,4 @@
-#include <Intersection.h>
+#include <Common/Intersection.h>
 
 namespace
   {

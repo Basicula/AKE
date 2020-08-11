@@ -1,11 +1,11 @@
 #include <Fluid.h>
-#include <DefinesAndConstants.h>
+#include <Common/DefinesAndConstants.h>
 #include <FluidConstants.h>
 #include <Sphere.h>
 #include <ColorMaterial.h>
 #include <RenderableObject.h>
-#include <ParallelUtils.h>
-#include <ThreadPool.h>
+#include <Common/ParallelUtils.h>
+#include <Common/ThreadPool.h>
 
 namespace
   {

@@ -2,10 +2,10 @@
 #include <string>
 #include <memory>
 
-#include <BoundingBox.h>
-#include <Intersection.h>
-#include <Ray.h>
-#include <Transformable.h>
+#include <Common/BoundingBox.h>
+#include <Common/Intersection.h>
+#include <Common/Ray.h>
+#include <Common/Transformable.h>
 
 class ISurface : public Transformable
   {

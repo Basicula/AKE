@@ -1,10 +1,10 @@
 #include <algorithm>
 
 #include <Scene.h>
-#include <Ray.h>
-#include <Intersection.h>
-#include <ParallelUtils.h>
-#include <ThreadPool.h>
+#include <Common/Ray.h>
+#include <Common/Intersection.h>
+#include <Common/ParallelUtils.h>
+#include <Common/ThreadPool.h>
 #include <ColorMaterial.h>
 
 #include <iostream>

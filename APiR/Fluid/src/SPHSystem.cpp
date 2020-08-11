@@ -1,8 +1,8 @@
-#include <BFPointSearcher.h>
+#include <Common/BFPointSearcher.h>
 #include <SPHSystem.h>
 #include <SPHStandartKernel.h>
-#include <ParallelUtils.h>
-#include <ThreadPool.h>
+#include <Common/ParallelUtils.h>
+#include <Common/ThreadPool.h>
 
 SPHSystem::SPHSystem(
   std::size_t i_num_particles,

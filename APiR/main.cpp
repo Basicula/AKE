@@ -1,7 +1,7 @@
 #include <iostream>
 #include <chrono>
 
-#include <BoundingBox.h>
+#include <Common/BoundingBox.h>
 #include <Vector.h>
 
 #include <Fluid.h>

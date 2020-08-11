@@ -1,5 +1,5 @@
 #include <Sphere.h>
-#include <DefinesAndConstants.h>
+#include <Common/DefinesAndConstants.h>
 #include <SolveEquations.h>
 
 Sphere::Sphere(const Vector3d& i_center, double i_radius)

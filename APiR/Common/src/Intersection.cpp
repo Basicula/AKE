@@ -1,7 +1,7 @@
-#include <Intersection.h>
-#include <BoundingBox.h>
-#include <Ray.h>
-#include <DefinesAndConstants.h>
+#include <Common/Intersection.h>
+#include <Common/BoundingBox.h>
+#include <Common/Ray.h>
+#include <Common/DefinesAndConstants.h>
 
 #include <iostream>
 namespace

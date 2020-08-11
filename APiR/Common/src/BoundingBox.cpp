@@ -1,5 +1,5 @@
-#include <BoundingBox.h>
-#include <DefinesAndConstants.h>
+#include <Common/BoundingBox.h>
+#include <Common/DefinesAndConstants.h>
 
 BoundingBox::BoundingBox()
   : m_min(MAX_INT)

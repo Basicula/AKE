@@ -2,7 +2,7 @@
 
 #include <Torus.h>
 #include <SolveEquations.h>
-#include <DefinesAndConstants.h>
+#include <Common/DefinesAndConstants.h>
 
 Torus::Torus(
   const Vector3d& i_center, 

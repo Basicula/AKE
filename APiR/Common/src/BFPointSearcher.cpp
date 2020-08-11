@@ -1,4 +1,4 @@
-#include <BFPointSearcher.h>
+#include <Common/BFPointSearcher.h>
 
 BFPointSearcher::BFPointSearcher(const Points& i_points)
   : m_points(i_points)

@@ -1,8 +1,8 @@
 #pragma once
 
-#include <IObject.h>
-#include <Intersection.h>
-#include <Ray.h>
+#include <Common/IObject.h>
+#include <Common/Intersection.h>
+#include <Common/Ray.h>
 
 class IRenderable : public IObject
   {

@@ -3,7 +3,7 @@
 #include <memory>
 
 #include <IRenderable.h>
-#include <BoundingBox.h>
+#include <Common/BoundingBox.h>
 
 using Objects = std::vector<IRenderableSPtr>;
 

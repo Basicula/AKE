@@ -1,4 +1,4 @@
-#include <Ray.h>
+#include <Common/Ray.h>
 
 Ray::Ray(const Ray& i_other)
   : m_origin(i_other.m_origin)

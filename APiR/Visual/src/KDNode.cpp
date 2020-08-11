@@ -1,7 +1,7 @@
 #include <KDNode.h>
-#include <Intersection.h>
-#include <ThreadPool.h>
-#include <ParallelUtils.h>
+#include <Common/Intersection.h>
+#include <Common/ThreadPool.h>
+#include <Common/ParallelUtils.h>
 
 KDNode::KDNode()
   {

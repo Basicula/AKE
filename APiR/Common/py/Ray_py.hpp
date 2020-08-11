@@ -1,4 +1,4 @@
-#include <Ray.h>
+#include <Common/Ray.h>
 
 static void AddRay(py::module& io_module)
   {

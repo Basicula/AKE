@@ -1,6 +1,6 @@
 #pragma once
 
-#include <PointNeighborSearcher.h>
+#include <Common/PointNeighborSearcher.h>
 
 class BFPointSearcher : public PointNeighborSearcher
   {
