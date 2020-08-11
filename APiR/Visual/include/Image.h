@@ -10,7 +10,7 @@ class Image
     Image(
       std::size_t i_width, 
       std::size_t i_height, 
-      const Color& i_default_color = 0xffffffff);
+      const Color& i_default_color = 0);
     ~Image();
 
     Color GetPixel(std::size_t i_x, std::size_t i_y) const;
@@ -28,8 +28,9 @@ class Image
 
     std::size_t GetWidth() const;
     std::size_t GetHeight() const;
-    std::size_t GetSize() const;
     std::size_t GetDepth() const;
+    std::size_t GetSize() const;
+    std::size_t GetBytesCount() const;
 
     std::uint32_t* GetData() const;
     std::uint8_t* GetRGBAData() const;
@@ -77,6 +78,11 @@ inline std::size_t Image::GetHeight() const
 inline std::size_t Image::GetSize() const
   {
   return m_size;
+  }
+
+inline std::size_t Image::GetBytesCount() const
+  {
+  return GetSize() * GetDepth();
   }
   
 inline std::size_t Image::GetDepth() const
