@@ -8,15 +8,23 @@ set(
   
 )
 
-add_library(
-  __temp
+# optional
+set(
+  PY
   
-  ${SOURCES}
-  ${HEADERS}
 )
 
-target_include_directories(__temp PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
+# optional
+set(
+  TESTS
+  
+)
 
-target_include_directories(__temp PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/py")
-
-target_link_libraries(__temp PRIVATE __another)
+generatre_project(
+  ProjectType(STATIC, SHARED etc)
+  SOURCES ${SOURCES}
+  HEADERS ${HEADERS}
+  PY      ${PY}
+  TESTS   ${TESTS}
+  LINK    ListOfLinkingLibs  
+)
