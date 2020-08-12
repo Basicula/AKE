@@ -1,6 +1,6 @@
 #include <Common/BFPointSearcher.h>
-#include <SPHSystem.h>
-#include <SPHStandartKernel.h>
+#include <Fluid/SPHSystem.h>
+#include <Fluid/SPHStandartKernel.h>
 #include <Common/ParallelUtils.h>
 #include <Common/ThreadPool.h>
 

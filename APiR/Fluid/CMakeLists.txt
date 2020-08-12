@@ -1,53 +1,55 @@
 set(
   SOURCES
   
-  src/Fluid.cpp
+  Fluid.cpp
   
-  src/StandartParticle.cpp
-  src/Particle.cpp
+  StandartParticle.cpp
+  Particle.cpp
   
-  src/ParticleSystem.cpp
-  src/SPHSystem.cpp
+  ParticleSystem.cpp
+  SPHSystem.cpp
   
-  src/SPHSimulation.cpp
+  SPHSimulation.cpp
   
-  src/SPHKernel.cpp
-  src/SPHStandartKernel.cpp
-  src/SPHSpikyKernel.cpp
+  SPHKernel.cpp
+  SPHStandartKernel.cpp
+  SPHSpikyKernel.cpp
 )
 
 set(
   HEADERS
   
-  include/Fluid.h
+  Fluid.h
   
-  include/StandartParticle.h
-  include/Particle.h
+  StandartParticle.h
+  Particle.h
   
-  include/ParticleSystem.h
-  include/SPHSystem.h
+  ParticleSystem.h
+  SPHSystem.h
   
-  include/SPHSimulation.h
+  SPHSimulation.h
   
-  include/SPHKernel.h
-  include/SPHStandartKernel.h
-  include/SPHSpikyKernel.h
+  SPHKernel.h
+  SPHStandartKernel.h
+  SPHSpikyKernel.h
   
-  include/FluidConstants.h
+  FluidConstants.h
 )
 
-add_library(
-  Fluid
+set(
+  PY
   
-  ${SOURCES}
-  ${HEADERS}
+  fluid_module_py.hpp
+  Fluid_py.hpp
 )
 
-target_include_directories(Fluid PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
-
-target_include_directories(Fluid PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/py")
-
-target_link_libraries(Fluid PRIVATE Math)
-target_link_libraries(Fluid PRIVATE Common)
-target_link_libraries(Fluid PRIVATE Visual)
-target_link_libraries(Fluid PRIVATE Primitives)
+generate_project(
+  STATIC
+  SOURCES ${SOURCES}
+  HEADERS ${HEADERS}
+  PY      ${PY}
+  LINK    Math
+          Common
+          Visual
+          Primitives
+)

@@ -4,7 +4,7 @@
 #include <Common/BoundingBox.h>
 #include <Vector.h>
 
-#include <Fluid.h>
+#include <Fluid/Fluid.h>
 #include <Sphere.h>
 #include <Plane.h>
 #include <Cylinder.h>

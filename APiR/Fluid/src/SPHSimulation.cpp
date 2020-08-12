@@ -1,6 +1,6 @@
 #include <Common/DefinesAndConstants.h>
-#include <SPHSimulation.h>
-#include <SPHSpikyKernel.h>
+#include <Fluid/SPHSimulation.h>
+#include <Fluid/SPHSpikyKernel.h>
 #include <Common/ParallelUtils.h>
 #include <Common/ThreadPool.h>
 

@@ -3,8 +3,7 @@
 
 #include <IRenderable.h>
 #include <Common/BoundingBox.h>
-#include <StandartParticle.h>
-#include <SPHSimulation.h>
+#include <Fluid/SPHSimulation.h>
 
 class Fluid : public IRenderable
   {

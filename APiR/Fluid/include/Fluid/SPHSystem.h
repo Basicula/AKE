@@ -1,6 +1,6 @@
 #pragma once
-#include <FluidConstants.h>
-#include <ParticleSystem.h>
+#include <Fluid/FluidConstants.h>
+#include <Fluid/ParticleSystem.h>
 #include <Common/PointNeighborSearcher.h>
 
 class SPHSystem : public ParticleSystem

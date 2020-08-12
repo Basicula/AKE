@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Particle.h>
+#include <Fluid/Particle.h>
 
 class StandartParticle : public Particle
   {

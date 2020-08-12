@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Common/Simulation.h>
-#include <SPHSystem.h>
+#include <Fluid/SPHSystem.h>
 
 class SPHSimulation : public Simulation
   {

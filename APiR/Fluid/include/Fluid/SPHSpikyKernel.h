@@ -1,6 +1,6 @@
 #pragma once
 
-#include <SPHKernel.h>
+#include <Fluid/SPHKernel.h>
 
 class SPHSpikyKernel : public SPHKernel
   {

@@ -1,4 +1,4 @@
-#include <ParticleSystem.h>
+#include <Fluid/ParticleSystem.h>
 
 ParticleSystem::ParticleSystem()
   : ParticleSystem(0)

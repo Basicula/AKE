@@ -1,5 +1,5 @@
 #include <Common/DefinesAndConstants.h>
-#include <SPHSpikyKernel.h>
+#include <Fluid/SPHSpikyKernel.h>
 
 SPHSpikyKernel::SPHSpikyKernel()
   : SPHKernel()
