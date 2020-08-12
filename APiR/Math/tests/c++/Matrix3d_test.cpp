@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-#include <Matrix3.h>
-#include <Vector.h>
+#include <Math/Matrix3.h>
+#include <Math/Vector.h>
 
 TEST(Matrix3dMultiplicationSuite, IdentityAndVector)
   {

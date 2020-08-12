@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <string>
 
-#include <Vector.h>
+#include <Math/Vector.h>
 
 class Color
 {

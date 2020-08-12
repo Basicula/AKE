@@ -2,7 +2,6 @@
 
 #include <type_traits>
 #include <string>
-#include <array>
 
 template<class ElementType, std::size_t Dimension>
 class Vector
@@ -82,6 +81,6 @@ using Vector2d = Vector<double, 2>;
 
 using Vector3d = Vector<double, 3>;
 
-#include <Vector2dImpl.h>
-#include <Vector3dImpl.h>
-#include <VectorImpl.h>
+#include <Math/impl/Vector2dImpl.h>
+#include <Math/impl/Vector3dImpl.h>
+#include <Math/impl/VectorImpl.h>

@@ -1,7 +1,7 @@
 #include <math.h>
 
 #include <Torus.h>
-#include <SolveEquations.h>
+#include <Math/SolveEquations.h>
 #include <Common/DefinesAndConstants.h>
 
 Torus::Torus(

@@ -2,7 +2,7 @@
 #include <optional>
 
 #include <ISurface.h>
-#include <Vector.h>
+#include <Math/Vector.h>
 #include <Plane.h>
 
 class Cylinder : public ISurface

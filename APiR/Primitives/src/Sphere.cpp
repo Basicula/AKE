@@ -1,6 +1,6 @@
 #include <Sphere.h>
 #include <Common/DefinesAndConstants.h>
-#include <SolveEquations.h>
+#include <Math/SolveEquations.h>
 
 Sphere::Sphere(const Vector3d& i_center, double i_radius)
   : ISurface()

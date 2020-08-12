@@ -1,6 +1,6 @@
 #include <cmath>
 
-#include <SolveEquations.h>
+#include <Math/SolveEquations.h>
 
 namespace Equations
   {

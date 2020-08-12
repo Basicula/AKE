@@ -2,7 +2,7 @@
 
 #include <Common/Intersection.h>
 #include <Common/Transformation.h>
-#include <Vector.h>
+#include <Math/Vector.h>
 
 class Transformable
   {

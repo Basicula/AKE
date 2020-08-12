@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-#include <Vector.h>
+#include <Math/Vector.h>
 
 class ILight
   {

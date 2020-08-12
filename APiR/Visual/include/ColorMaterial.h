@@ -2,7 +2,7 @@
 
 #include <IMaterial.h>
 #include <Color.h>
-#include <Vector.h>
+#include <Math/Vector.h>
 
 class ColorMaterial : public IMaterial
   {

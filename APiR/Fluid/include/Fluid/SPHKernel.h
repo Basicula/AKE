@@ -1,7 +1,5 @@
 #pragma once
-#include <array>
-
-#include <Vector.h>
+#include <Math/Vector.h>
 
 class SPHKernel
   {

@@ -2,7 +2,7 @@
 #include <math.h>
 #include <algorithm>
 #include <stdexcept>
-#include <Vector.h>
+#include <Math/Vector.h>
 
 template<class ElementType, std::size_t Dimension>
 Vector<ElementType, Dimension>::Vector()

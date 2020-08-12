@@ -1,5 +1,5 @@
 #pragma once
-#include <Vector.h>
+#include <Math/Vector.h>
 
 template<class ElementType>
 class Matrix3
@@ -34,4 +34,4 @@ class Matrix3
 
 using Matrix3d = Matrix3<double>;
 
-#include <Matrix3Impl.h>
+#include <Math/impl/Matrix3Impl.h>

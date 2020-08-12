@@ -3,7 +3,7 @@
 #include <memory>
 #include <vector>
 
-#include <Vector.h>
+#include <Math/Vector.h>
 
 class PointNeighborSearcher
   {

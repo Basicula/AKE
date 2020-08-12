@@ -2,7 +2,7 @@
 #include <chrono>
 
 #include <Common/BoundingBox.h>
-#include <Vector.h>
+#include <Math/Vector.h>
 
 #include <Fluid/Fluid.h>
 #include <Sphere.h>
