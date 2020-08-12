@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Math/Vector.h>
-#include <ISurface.h>
+#include <Primitives/ISurface.h>
 
 //based on torus equation
 /*

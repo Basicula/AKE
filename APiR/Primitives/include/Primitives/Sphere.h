@@ -1,7 +1,5 @@
 #pragma once
-#include <memory>
-
-#include <ISurface.h>
+#include <Primitives/ISurface.h>
 
 class Sphere : public ISurface
   {

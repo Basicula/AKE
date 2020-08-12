@@ -1,7 +1,6 @@
 #include <Fluid/Fluid.h>
 #include <Common/DefinesAndConstants.h>
 #include <Fluid/FluidConstants.h>
-#include <Sphere.h>
 #include <ColorMaterial.h>
 #include <RenderableObject.h>
 #include <Common/ParallelUtils.h>

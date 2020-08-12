@@ -1,9 +1,9 @@
 #pragma once
 #include <optional>
 
-#include <ISurface.h>
+#include <Primitives/ISurface.h>
 #include <Math/Vector.h>
-#include <Plane.h>
+#include <Primitives/Plane.h>
 
 class Cylinder : public ISurface
   {

@@ -1,33 +1,36 @@
 set(
   SOURCES
     
-	src/Sphere.cpp
-	src/Plane.cpp
-	src/Torus.cpp
-	src/Cylinder.cpp
+	Sphere.cpp
+	Plane.cpp
+	Torus.cpp
+	Cylinder.cpp
 )
 
 set(
   HEADERS
   
-  include/ISurface.h
+  ISurface.h
   
-	include/Sphere.h
-	include/Plane.h
-	include/Torus.h
-	include/Cylinder.h
+	Sphere.h
+	Plane.h
+	Torus.h
+	Cylinder.h
 )
 
-add_library(
-	Primitives
-    
-  ${SOURCES}
-  ${HEADERS}
+set(
+  PY
+  
+  ISurface_py.hpp
+  primitives_py.hpp
+  Sphere_py.hpp
 )
 
-target_include_directories(Primitives PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
-
-target_include_directories(Primitives PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/py")
-
-target_link_libraries(Primitives PRIVATE Math)
-target_link_libraries(Primitives PRIVATE Common)
+generate_project(
+  STATIC
+  SOURCES ${SOURCES}
+  HEADERS ${HEADERS}
+  PY      ${PY}
+  LINK    Math
+          Common
+)

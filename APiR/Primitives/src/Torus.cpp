@@ -1,8 +1,7 @@
 #include <math.h>
 
-#include <Torus.h>
+#include <Primitives/Torus.h>
 #include <Math/SolveEquations.h>
-#include <Common/DefinesAndConstants.h>
 
 Torus::Torus(
   const Vector3d& i_center, 

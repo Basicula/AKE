@@ -1,4 +1,4 @@
-#include <Sphere.h>
+#include <Primitives/Sphere.h>
 
 namespace
   {

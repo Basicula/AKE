@@ -2,13 +2,16 @@
 #include <chrono>
 
 #include <Common/BoundingBox.h>
+#include <Common/DefinesAndConstants.h>
+
 #include <Math/Vector.h>
 
 #include <Fluid/Fluid.h>
-#include <Sphere.h>
-#include <Plane.h>
-#include <Cylinder.h>
-#include <Torus.h>
+
+#include <Primitives/Sphere.h>
+#include <Primitives/Plane.h>
+#include <Primitives/Cylinder.h>
+#include <Primitives/Torus.h>
 
 #include <Scene.h>
 #include <Image.h>
@@ -16,6 +19,7 @@
 #include <ColorMaterial.h>
 
 #include <GLUTWindow/GLUTWindow.h>
+
 #include <BMPWriter/BMPWriter.h>
 
 #include <OpenCLCore/OpenCLEnvironment.h>
