@@ -18,8 +18,8 @@
 #include <GLUTWindow/GLUTWindow.h>
 #include <BMPWriter/BMPWriter.h>
 
-#include <OpenCLEnvironment.h>
-#include <MandelbrotSetKernel.h>
+#include <OpenCLCore/OpenCLEnvironment.h>
+#include <OpenCLCore/MandelbrotSetKernel.h>
 
 void test_fluid()
   {

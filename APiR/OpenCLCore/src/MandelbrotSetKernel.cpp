@@ -1,6 +1,6 @@
-#include <OpenCLUtils.h>
+#include <OpenCLCore/OpenCLUtils.h>
 
-#include <MandelbrotSetKernel.h>
+#include <OpenCLCore/MandelbrotSetKernel.h>
 
 // MandelbrotSet
 const std::uint8_t MandelbrotSetKernel::MandelbrotSet::m_color_map[17 * 3] =

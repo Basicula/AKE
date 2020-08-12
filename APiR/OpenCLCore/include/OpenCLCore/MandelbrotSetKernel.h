@@ -3,7 +3,7 @@
 
 #include <CL/cl.h>
 
-#include <Kernel.h>
+#include <OpenCLCore/Kernel.h>
 #include <Image.h>
 
 class MandelbrotSetKernel : public Kernel

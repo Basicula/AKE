@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-#include <KernelSize.h>
+#include <OpenCLCore/KernelSize.h>
 
 class Kernel
   {

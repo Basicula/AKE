@@ -1,36 +1,32 @@
 set(
   SOURCES
   
-  src/OpenCLEnvironment.cpp
+  OpenCLEnvironment.cpp
   
-  src/KernelSize.cpp
-  src/Kernel.cpp
-  src/MandelbrotSetKernel.cpp
+  KernelSize.cpp
+  Kernel.cpp
+  MandelbrotSetKernel.cpp
   
-  src/OpenCLUtils.cpp
+  OpenCLUtils.cpp
 )
 
 set(
   HEADERS
 
-  include/OpenCLEnvironment.h
+  OpenCLEnvironment.h
 
-  include/KernelSize.h
-  include/Kernel.h
-  include/MandelbrotSetKernel.h
+  KernelSize.h
+  Kernel.h
+  MandelbrotSetKernel.h
   
-  include/OpenCLUtils.h
+  OpenCLUtils.h
 )
 
-add_library(
-  OpenCLCore
-
-  ${SOURCES}
-  ${HEADERS}
+generate_project(
+  STATIC
+  SOURCES ${SOURCES}
+  HEADERS ${HEADERS}
+  LINK    Math
+          Visual
+          ${OPENCL_LIBRARIES}
 )
-
-target_include_directories(OpenCLCore PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
-
-target_link_libraries(OpenCLCore PRIVATE ${OPENCL_LIBRARIES})
-target_link_libraries(OpenCLCore PRIVATE Math)
-target_link_libraries(OpenCLCore PRIVATE Visual)

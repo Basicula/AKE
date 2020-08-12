@@ -3,8 +3,8 @@
 
 #include <CL/cl.h>
 
-#include <Kernel.h>
-#include <OpenCLUtils.h>
+#include <OpenCLCore/Kernel.h>
+#include <OpenCLCore/OpenCLUtils.h>
 
 Kernel::Kernel(
   const std::string& i_file_path, 

@@ -4,7 +4,7 @@
 
 #include <CL/cl.h>
 
-#include <Kernel.h>
+#include <OpenCLCore/Kernel.h>
 
 class OpenCLEnvironment
   {
