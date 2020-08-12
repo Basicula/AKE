@@ -13,7 +13,8 @@
 #include <Primitives/Cylinder.h>
 #include <Primitives/Torus.h>
 
-#include <Scene.h>
+#include <Scene/Scene.h>
+
 #include <Image.h>
 #include <SpotLight.h>
 #include <ColorMaterial.h>

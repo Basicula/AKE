@@ -1,6 +1,6 @@
 #include <algorithm>
 
-#include <Scene.h>
+#include <Scene/Scene.h>
 #include <Common/Ray.h>
 #include <Common/Intersection.h>
 #include <Common/ParallelUtils.h>
