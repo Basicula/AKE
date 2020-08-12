@@ -1,4 +1,4 @@
-#include <FPSCounter.h>
+#include <GLUTWindow/FPSCounter.h>
 
 FPSCounter::FPSCounter(
   std::ostream& io_output_stream, 

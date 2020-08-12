@@ -1,27 +1,23 @@
 set(
   SOURCES
   
-	src/GLUTWindow.cpp
-	src/FPSCounter.cpp
+	GLUTWindow.cpp
+	FPSCounter.cpp
 )
 
 set(
   HEADERS
   
-	include/GLUTWindow.h
-	include/FPSCounter.h
+	GLUTWindow.h
+	FPSCounter.h
 )
 
-add_library(
-  GLUTWindow
-
-  ${SOURCES}
-  ${HEADERS}
+generate_project(
+  STATIC
+  SOURCES ${SOURCES}
+  HEADERS ${HEADERS}
+  PY      ${PY}
+  LINK    Math
+          Visual
+          ${GLUT_LIBRARIES}
 )
-
-target_include_directories(GLUTWindow PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
-
-target_link_libraries(GLUTWindow PUBLIC ${GLUT_LIBRARIES})
-
-target_link_libraries(GLUTWindow PRIVATE Visual)
-target_link_libraries(GLUTWindow PRIVATE Math)

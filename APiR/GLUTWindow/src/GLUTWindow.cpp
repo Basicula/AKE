@@ -1,4 +1,4 @@
-#include <GLUTWindow.h>
+#include <GLUTWindow/GLUTWindow.h>
 
 GLUTWindow::GLUTWindow(int i_width, int i_height, const char* i_title)
   : m_width(i_width)

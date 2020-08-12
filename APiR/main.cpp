@@ -15,7 +15,7 @@
 #include <SpotLight.h>
 #include <ColorMaterial.h>
 
-#include <GLUTWindow.h>
+#include <GLUTWindow/GLUTWindow.h>
 #include <BMPWriter/BMPWriter.h>
 
 #include <OpenCLEnvironment.h>

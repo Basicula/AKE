@@ -9,7 +9,7 @@
 #pragma warning(pop)
 
 #include <Image.h>
-#include <FPSCounter.h>
+#include <GLUTWindow/FPSCounter.h>
 
 class GLUTWindow
   {
