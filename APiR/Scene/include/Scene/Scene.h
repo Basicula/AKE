@@ -1,14 +1,14 @@
 #pragma once
+#include <Visual/Camera.h>
+#include <Visual/Image.h>
+#include <Visual/ILight.h>
+#include <Visual/IMaterial.h>
+#include <Visual/KDTree.h>
+#include <Visual/IRenderable.h>
+
 #include <vector>
 #include <memory>
 #include <string>
-
-#include <ILight.h>
-#include <IMaterial.h>
-#include <Camera.h>
-#include <Image.h>
-#include <RenderableObject.h>
-#include <KDTree.h>
 
 class Scene
   {

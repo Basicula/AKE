@@ -1,4 +1,4 @@
-#include <Image.h>
+#include <Visual/Image.h>
 
 static void AddImage(py::module& io_module)
   {

@@ -1,8 +1,8 @@
 #pragma once
 
-#include <IRenderable.h>
+#include <Visual/IRenderable.h>
 #include <Primitives/ISurface.h>
-#include <IMaterial.h>
+#include <Visual/IMaterial.h>
 
 class RenderableObject : public IRenderable
   {

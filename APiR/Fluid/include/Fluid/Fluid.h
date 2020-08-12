@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-#include <IRenderable.h>
+#include <Visual/IRenderable.h>
 #include <Common/BoundingBox.h>
 #include <Fluid/SPHSimulation.h>
 

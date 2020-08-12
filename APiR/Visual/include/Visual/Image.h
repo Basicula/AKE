@@ -1,8 +1,5 @@
 #pragma once
-#include <vector>
-#include <string>
-
-#include <Color.h>
+#include <Visual/Color.h>
 
 class Image
   {

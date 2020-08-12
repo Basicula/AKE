@@ -5,7 +5,7 @@
 #include <Common/Intersection.h>
 #include <Common/ParallelUtils.h>
 #include <Common/ThreadPool.h>
-#include <ColorMaterial.h>
+#include <Visual/ColorMaterial.h>
 
 #include <iostream>
 

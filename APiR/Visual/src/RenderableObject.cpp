@@ -1,4 +1,4 @@
-#include <RenderableObject.h>
+#include <Visual/RenderableObject.h>
 
 RenderableObject::RenderableObject(
   ISurfaceSPtr i_surface, 

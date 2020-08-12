@@ -1,10 +1,9 @@
 #pragma once
 #include <string>
-#include <vector>
 #include <memory>
 
-#include <Color.h>
-#include <ILight.h>
+#include <Visual/Color.h>
+#include <Visual/ILight.h>
 
 class IMaterial
   {

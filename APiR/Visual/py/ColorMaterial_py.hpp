@@ -1,4 +1,4 @@
-#include <ColorMaterial.h>
+#include <Visual/ColorMaterial.h>
 
 namespace
   {

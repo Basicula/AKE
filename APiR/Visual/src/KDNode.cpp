@@ -1,7 +1,5 @@
-#include <KDNode.h>
+#include <Visual/KDNode.h>
 #include <Common/Intersection.h>
-#include <Common/ThreadPool.h>
-#include <Common/ParallelUtils.h>
 
 KDNode::KDNode()
   {

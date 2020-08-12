@@ -1,10 +1,8 @@
 #pragma once
-#include <vector>
+#include <OpenCLCore/Kernel.h>
+#include <Visual/Image.h>
 
 #include <CL/cl.h>
-
-#include <OpenCLCore/Kernel.h>
-#include <Image.h>
 
 class MandelbrotSetKernel : public Kernel
   {

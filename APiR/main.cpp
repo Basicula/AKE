@@ -15,9 +15,10 @@
 
 #include <Scene/Scene.h>
 
-#include <Image.h>
-#include <SpotLight.h>
-#include <ColorMaterial.h>
+#include <Visual/Image.h>
+#include <Visual/SpotLight.h>
+#include <Visual/ColorMaterial.h>
+#include <Visual/RenderableObject.h>
 
 #include <GLUTWindow/GLUTWindow.h>
 

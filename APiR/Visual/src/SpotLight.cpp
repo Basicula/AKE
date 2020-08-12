@@ -1,4 +1,4 @@
-#include <SpotLight.h>
+#include <Visual/SpotLight.h>
 
 SpotLight::SpotLight(
   const Vector3d& i_location, 

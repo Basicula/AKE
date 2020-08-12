@@ -1,4 +1,4 @@
-#include <Camera.h>
+#include <Visual/Camera.h>
 
 static void AddCamera(py::module& io_module)
   {

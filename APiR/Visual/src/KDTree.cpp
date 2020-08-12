@@ -1,4 +1,4 @@
-#include <KDTree.h>
+#include <Visual/KDTree.h>
 
 KDTree::KDTree()
   : m_objects()

@@ -1,15 +1,14 @@
 #pragma once
-#include <functional>
-#include <vector>
-#include <string>
+#include <GLUTWindow/FPSCounter.h>
+#include <Visual/Image.h>
 
 #pragma warning(push)
 #pragma warning(disable:4505)
 #include <GL/glut.h>
 #pragma warning(pop)
 
-#include <Image.h>
-#include <GLUTWindow/FPSCounter.h>
+#include <string>
+#include <functional>
 
 class GLUTWindow
   {

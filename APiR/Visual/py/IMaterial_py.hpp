@@ -1,4 +1,4 @@
-#include <IMaterial.h>
+#include <Visual/IMaterial.h>
 
 namespace
   {

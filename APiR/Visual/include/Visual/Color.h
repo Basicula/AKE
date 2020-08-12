@@ -1,7 +1,4 @@
 #pragma once
-#include <algorithm>
-#include <string>
-
 #include <Math/Vector.h>
 
 class Color

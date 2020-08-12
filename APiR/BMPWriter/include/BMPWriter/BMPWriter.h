@@ -1,5 +1,5 @@
 #pragma once
-#include <Image.h>
+#include <Visual/Image.h>
 
 #include <stdio.h>
 #include <vector>

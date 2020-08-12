@@ -1,8 +1,8 @@
 #pragma once
-
-#include <ILight.h>
 #include <Math/Vector.h>
-#include <Color.h>
+
+#include <Visual/Color.h>
+#include <Visual/ILight.h>
 
 class SpotLight : public ILight
   {

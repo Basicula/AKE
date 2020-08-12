@@ -1,7 +1,7 @@
-#include <cmath>
-
-#include <Camera.h>
+#include <Visual/Camera.h>
 #include <Common/DefinesAndConstants.h>
+
+#include <cmath>
 
 Camera::Camera(
     const Vector3d& i_lookFrom

@@ -1,4 +1,4 @@
-#include <Image.h>
+#include <Visual/Image.h>
 
 Image::Image(
   std::size_t i_width, 

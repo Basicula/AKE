@@ -1,7 +1,7 @@
 #pragma once
 
-#include <IMaterial.h>
-#include <Color.h>
+#include <Visual/IMaterial.h>
+#include <Visual/Color.h>
 #include <Math/Vector.h>
 
 class ColorMaterial : public IMaterial

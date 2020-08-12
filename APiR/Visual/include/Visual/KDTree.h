@@ -1,6 +1,5 @@
 #pragma once
-
-#include <KDNode.h>
+#include <Visual/KDNode.h>
 
 using KDNodePtr = std::unique_ptr<KDNode>;
 

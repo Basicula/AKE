@@ -1,48 +1,61 @@
 set(
   SOURCES
 
-  src/Camera.cpp
-  src/Color.cpp
-  src/ColorMaterial.cpp
-  src/Image.cpp
-  src/SpotLight.cpp
+  Camera.cpp
+  Color.cpp
+  ColorMaterial.cpp
+  Image.cpp
+  SpotLight.cpp
   
-  src/RenderableObject.cpp
+  RenderableObject.cpp
   
-  src/KDTree.cpp
-  src/KDNode.cpp
+  KDTree.cpp
+  KDNode.cpp
 )
 
 set(
   HEADERS
   
-  include/ILight.h
-  include/IMaterial.h
+  ILight.h
+  IMaterial.h
   
-  include/IRenderable.h
-  include/RenderableObject.h
+  IRenderable.h
+  RenderableObject.h
   
-  include/KDTree.h
-  include/KDNode.h
+  KDTree.h
+  KDNode.h
 
-  include/Camera.h
-  include/Color.h
-  include/ColorMaterial.h
-  include/Image.h
-  include/SpotLight.h
+  Camera.h
+  Color.h
+  ColorMaterial.h
+  Image.h
+  SpotLight.h
 )
 
-add_library(
-  Visual
-
-  ${SOURCES}
-  ${HEADERS}
+set(
+  PY
+  
+  Camera_py.hpp
+  ColorMaterial_py.hpp
+  Color_py.hpp
+  ILight_py.hpp
+  Image_py.hpp
+  IMaterial_py.hpp
+  IRenderable_py.hpp
+  light_py.hpp
+  material_py.hpp
+  RenderableObject_py.hpp
+  renderable_py.hpp
+  SpotLight_py.hpp
+  visual_py.hpp
 )
 
-target_include_directories(Visual PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
-
-target_include_directories(Visual PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/py")
-
-target_link_libraries(Visual PRIVATE Math)
-target_link_libraries(Visual PRIVATE Common)
-target_link_libraries(Visual PRIVATE Primitives)
+generate_project(
+  STATIC
+  SOURCES ${SOURCES}
+  HEADERS ${HEADERS}
+  PY      ${PY}
+  LINK    Math
+          Common
+          Primitives
+)

@@ -1,8 +1,4 @@
-#include <vector>
-#include <memory>
-#include <algorithm>
-
-#include <ColorMaterial.h>
+#include <Visual/ColorMaterial.h>
 
 ColorMaterial::ColorMaterial(
   const Color& i_color, 
