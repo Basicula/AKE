@@ -1,9 +1,6 @@
 #pragma once
 #include <Visual/Image.h>
 
-#include <stdio.h>
-#include <vector>
-
 class BMPWriter
 {
 public:
@@ -17,26 +14,25 @@ public:
 public:
   struct FileHeader
   {
-    unsigned char bfType[2] = { 'B', 'M' };
-    unsigned char bfSize[4];
-    unsigned char bfReserved1[2] = { 0, 0 };
-    unsigned char bfReserved2[2] = { 0, 0 };
-    unsigned char bfOffBits[4] = { 0, 0, 0, 0 };
+    uint16_t bfType = 0x4d42; // BM
+    uint32_t bfSize = 0;          // files size in bytes
+    uint32_t bfReserved = 0;  // reserved 4 bytes Reserved1 and Reserved2
+    uint32_t bfOffBits = 0;       // offset to pixel data
   };
 
   struct InfoHeader
   {
-    unsigned char biSize[4] = { 0, 0, 0, 0 };
-    unsigned char biWidth[4];
-    unsigned char biHeight[4];
-    unsigned char biPlanes[2] = { 1, 0 };
-    unsigned char biBitCount[2] = { 0, 0 };
-    unsigned char biCompression[4] = { 0, 0, 0, 0 };
-    unsigned char biSizeImage[4] = { 0, 0, 0, 0 };
-    unsigned char biXPelsPerMeter[4] = { 0, 0, 0, 0 };
-    unsigned char biYPelsPerMeter[4] = { 0, 0, 0, 0 };
-    unsigned char biClrUsed[4] = { 0, 0, 0, 0 };
-    unsigned char biClrImportant[4] = { 0, 0, 0, 0 };
+    uint32_t biSize;              // sizeof current struct
+    uint32_t biWidth;             // width of image
+    uint32_t biHeight;            // height of image
+    uint16_t biPlanes = 1;        // just 1 :)
+    uint16_t biBitCount;          // bits per color
+    uint32_t biCompression = 6;   // compression method
+    uint32_t biSizeImage = 0;     // sizeof pixels in bytes but we skip it
+    uint32_t biXPelsPerMeter = 0; // unused vars
+    uint32_t biYPelsPerMeter = 0; // unused vars
+    uint32_t biClrUsed = 0;       // unused vars
+    uint32_t biClrImportant = 0;  // unused vars
   };
 
 public:
@@ -44,7 +40,6 @@ public:
   void Write(const std::string& i_file_path, const Image& i_image);
 
 private:
-  FILE* mp_file;
   ColorMode m_color_mode;
   FileHeader m_file_header;
   InfoHeader m_info_header;

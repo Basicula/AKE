@@ -267,11 +267,19 @@ void test_opencl()
 #endif
   }
 
+void test_bmp_writer()
+  {
+  Image image(2, 2);
+  BMPWriter writer;
+  writer.Write("D:/Study/RayTracing/test.bmp", image);
+  }
+
 int main()
   {
   //test_fluid();
   //test_advanced_scene();
   //test();
-  test_opencl();
+  //test_opencl();
+  test_bmp_writer();
   return 0;
   }
