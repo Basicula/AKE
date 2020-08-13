@@ -1,13 +1,9 @@
-#include <algorithm>
-
 #include <Scene/Scene.h>
 #include <Common/Ray.h>
 #include <Common/Intersection.h>
 #include <Common/ParallelUtils.h>
 #include <Common/ThreadPool.h>
 #include <Visual/ColorMaterial.h>
-
-#include <iostream>
 
 Scene::Scene(
   const std::string& i_name,

@@ -1,9 +1,9 @@
 #pragma once
-#include <vector>
-#include <memory>
-
 #include <Visual/IRenderable.h>
 #include <Common/BoundingBox.h>
+
+#include <vector>
+#include <memory>
 
 using Objects = std::vector<IRenderableSPtr>;
 

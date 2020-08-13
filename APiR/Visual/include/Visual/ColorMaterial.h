@@ -1,8 +1,8 @@
 #pragma once
+#include <Math/Vector.h>
 
 #include <Visual/IMaterial.h>
 #include <Visual/Color.h>
-#include <Math/Vector.h>
 
 class ColorMaterial : public IMaterial
   {

@@ -1,8 +1,6 @@
 #pragma once
 #include <math.h>
 #include <algorithm>
-#include <stdexcept>
-#include <Math/Vector.h>
 
 template<class ElementType, std::size_t Dimension>
 Vector<ElementType, Dimension>::Vector()

@@ -1,5 +1,3 @@
-#include <math.h>
-
 #include <Primitives/Torus.h>
 #include <Math/SolveEquations.h>
 

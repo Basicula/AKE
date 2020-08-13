@@ -1,9 +1,6 @@
-#include <iostream>
-#include <chrono>
-
 #include <Common/BoundingBox.h>
-#include <Common/DefinesAndConstants.h>
 
+#include <Math/Constants.h>
 #include <Math/Vector.h>
 
 #include <Fluid/Fluid.h>
@@ -26,6 +23,9 @@
 
 #include <OpenCLCore/OpenCLEnvironment.h>
 #include <OpenCLCore/MandelbrotSetKernel.h>
+
+#include <iostream>
+#include <chrono>
 
 void test_fluid()
   {
@@ -279,7 +279,7 @@ int main()
   //test_fluid();
   //test_advanced_scene(true);
   //test();
-  //test_opencl();
-  test_bmp_writer();
+  test_opencl();
+  //test_bmp_writer();
   return 0;
   }

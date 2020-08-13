@@ -1,5 +1,4 @@
 #pragma once
-
 #include <Common/IObject.h>
 #include <Common/Intersection.h>
 #include <Common/Ray.h>

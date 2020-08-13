@@ -1,9 +1,9 @@
 #pragma once
+#include <Common/BoundingBox.h>
+#include <Common/Ray.h>
 
 #include <Math/Matrix3.h>
 #include <Math/Vector.h>
-#include <Common/Ray.h>
-#include <Common/BoundingBox.h>
 
 class Transformation
   {

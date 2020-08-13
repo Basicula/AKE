@@ -1,5 +1,5 @@
 #include <Visual/Camera.h>
-#include <Common/DefinesAndConstants.h>
+#include <Math/Constants.h>
 
 #include <cmath>
 

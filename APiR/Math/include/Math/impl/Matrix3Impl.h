@@ -1,6 +1,4 @@
-#include "..\Matrix3.h"
 #pragma once
-
 template<class ElementType>
 Matrix3<ElementType>::Matrix3()
   {

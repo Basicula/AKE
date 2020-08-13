@@ -1,10 +1,8 @@
-#include <fstream>
-#include <streambuf>
-
-#include <CL/cl.h>
-
 #include <OpenCLCore/Kernel.h>
 #include <OpenCLCore/OpenCLUtils.h>
+
+#include <fstream>
+#include <streambuf>
 
 Kernel::Kernel(
   const std::string& i_file_path, 

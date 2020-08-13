@@ -1,5 +1,5 @@
-#include <Common/DefinesAndConstants.h>
-#include <Common/Simulation.h>
+#include <Physics/Constants.h>
+#include <Physics/Simulation.h>
 
 Simulation::Simulation()
   : Simulation(DEFAULT_TIME_STEP)

@@ -2,6 +2,7 @@ add_subdirectory(Math)
 add_subdirectory(Common)
 add_subdirectory(Visual)
 add_subdirectory(BMPWriter)
+add_subdirectory(Physics)
 add_subdirectory(Primitives)
 add_subdirectory(Fluid)
 add_subdirectory(OpenCLCore)
@@ -17,6 +18,7 @@ target_link_libraries(
     Math
     Common
     Visual
+    Physics
     Primitives
     Fluid
     Scene
@@ -37,6 +39,7 @@ if (WIN32)
   target_link_libraries(EXE PRIVATE OpenCLCore)
   target_link_libraries(EXE PRIVATE Common)
   target_link_libraries(EXE PRIVATE Visual)
+  target_link_libraries(EXE PRIVATE Physics)
   target_link_libraries(EXE PRIVATE Primitives)
   target_link_libraries(EXE PRIVATE Fluid)
   target_link_libraries(EXE PRIVATE Scene)

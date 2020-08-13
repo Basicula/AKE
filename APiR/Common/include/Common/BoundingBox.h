@@ -1,8 +1,7 @@
 #pragma once
-#include <algorithm>
-#include <string>
-
 #include <Math/Vector.h>
+
+#include <string>
 
 class BoundingBox
   {

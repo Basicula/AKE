@@ -1,6 +1,6 @@
-#include <algorithm>
-
 #include <OpenCLCore/KernelSize.h>
+
+#include <algorithm>
 
 KernelSize::KernelSize()
   : m_work_dimension(0)

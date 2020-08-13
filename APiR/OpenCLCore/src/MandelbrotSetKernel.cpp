@@ -1,5 +1,4 @@
 #include <OpenCLCore/OpenCLUtils.h>
-
 #include <OpenCLCore/MandelbrotSetKernel.h>
 
 // MandelbrotSet
@@ -44,7 +43,7 @@ MandelbrotSetKernel::MandelbrotSetKernel(
   std::size_t i_height,
   std::size_t i_max_iterations)
   : Kernel(
-    "D:/Study/RayTracing/APiR/APiR/OpenCLCore/src/Kernels/MandelbrotSetKernel.cl", 
+    MANDELBROT_SET_KERNEL_PATH,
     "mandelbrot_set")
   , m_mandelbrot_set(i_width, i_height, i_max_iterations)
   , mp_output_image(nullptr)

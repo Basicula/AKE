@@ -1,9 +1,9 @@
 #pragma once
+#include <Math/Vector.h>
+
 #include <functional>
 #include <memory>
 #include <vector>
-
-#include <Math/Vector.h>
 
 class PointNeighborSearcher
   {

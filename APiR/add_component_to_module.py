@@ -6,7 +6,7 @@ def add_component(module, component):
     include = "./"+module+"/include/"
     sources = "./"+module+"/src/"
     py = "./"+module+"/py/"
-    python_tests = "./"+module+"/test/python/"
+    python_tests = "./"+module+"/tests/python/"
     if not os.path.exists(include):
         ok = False
         print("Include directory missing")

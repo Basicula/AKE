@@ -20,7 +20,7 @@ set(
   
 )
 
-generatre_project(
+generate_project(
   ProjectType(STATIC, SHARED etc)
   SOURCES ${SOURCES}
   HEADERS ${HEADERS}

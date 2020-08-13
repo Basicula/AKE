@@ -9,6 +9,8 @@ set(
 set(
   HEADERS
 
+  Constants.h
+
   SolveEquations.h
   
   Vector.h

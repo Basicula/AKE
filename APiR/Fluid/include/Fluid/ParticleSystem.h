@@ -1,7 +1,7 @@
 #pragma once
-#include <vector>
-
 #include <Math/Vector.h>
+
+#include <vector>
 
 class ParticleSystem
   {

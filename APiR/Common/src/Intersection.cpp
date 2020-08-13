@@ -1,9 +1,8 @@
 #include <Common/Intersection.h>
 #include <Common/BoundingBox.h>
 #include <Common/Ray.h>
-#include <Common/DefinesAndConstants.h>
+#include <Common/Constants.h>
 
-#include <iostream>
 namespace
   {
   void RayBoxIntersection(

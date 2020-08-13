@@ -1,8 +1,8 @@
 #pragma once
+#include <CL/cl.h>
+
 #include <string>
 #include <iostream>
-
-#include <CL/cl.h>
 
 namespace OpenCLUtils
   {

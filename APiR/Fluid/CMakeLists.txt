@@ -3,9 +3,6 @@ set(
   
   Fluid.cpp
   
-  StandartParticle.cpp
-  Particle.cpp
-  
   ParticleSystem.cpp
   SPHSystem.cpp
   
@@ -20,9 +17,6 @@ set(
   HEADERS
   
   Fluid.h
-  
-  StandartParticle.h
-  Particle.h
   
   ParticleSystem.h
   SPHSystem.h
@@ -50,6 +44,7 @@ generate_project(
   PY      ${PY}
   LINK    Math
           Common
-          Visual
+          Physics
           Primitives
+          Visual
 )

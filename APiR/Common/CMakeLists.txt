@@ -7,8 +7,6 @@ set(
   
   BFPointSearcher.cpp
   
-  Simulation.cpp
-  
   ThreadPool.cpp
   
   Transformable.cpp
@@ -25,8 +23,6 @@ set(
   PointNeighborSearcher.h
   BFPointSearcher.h
   
-  Simulation.h
-  
   ThreadPool.h
   impl/ThreadPool_impl.h
   ParallelUtils.h
@@ -36,7 +32,7 @@ set(
   
   IObject.h
   
-  DefinesAndConstants.h
+  Constants.h
 )
 
 set(
@@ -64,6 +60,7 @@ generate_project(
   STATIC
   SOURCES ${SOURCES}
   HEADERS ${HEADERS}
+  PY      ${PY}
   TESTS   ${TESTS}
   LINK    Math
 )

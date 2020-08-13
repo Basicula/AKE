@@ -1,9 +1,9 @@
+#include <Common/ThreadPool.h>
+#include "Utils.h"
+
 #include <gtest/gtest.h>
 #include <chrono>
 #include <numeric>
-
-#include <Common/ThreadPool.h>
-#include "Utils.h"
 
 TEST(ThreadPoolTest, ThreadPoolCommonScenario)
   {
@@ -30,7 +30,7 @@ TEST(ThreadPoolTest, ThreadPoolCommonScenario)
       function_wrapper_for_time([&]()
         {
         std::vector<std::future<long long>> results(k);
-        for (int i = 0; i < k; ++i)
+        for (std::size_t i = 0; i < k; ++i)
           {
           results[i] = pool->Enqueue(sum_func, i * interval_size, (i + 1) * interval_size);
           }

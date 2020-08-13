@@ -1,5 +1,5 @@
-#include <Visual/KDNode.h>
 #include <Common/Intersection.h>
+#include <Visual/KDNode.h>
 
 KDNode::KDNode()
   {

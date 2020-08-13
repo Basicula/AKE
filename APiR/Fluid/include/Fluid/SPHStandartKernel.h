@@ -1,5 +1,4 @@
 #pragma once
-
 #include <Fluid/SPHKernel.h>
 
 class SPHStandartKernel : public SPHKernel

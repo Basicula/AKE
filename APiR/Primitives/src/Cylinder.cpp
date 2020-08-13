@@ -1,6 +1,6 @@
 #include <Primitives/Cylinder.h>
 #include <Math/SolveEquations.h>
-#include <Common/DefinesAndConstants.h>
+#include <Common/Constants.h>
 
 Cylinder::Cylinder(
   const Vector3d& i_center,

@@ -1,9 +1,7 @@
 #pragma once
-#include <vector>
-
-#include <Visual/IRenderable.h>
 #include <Common/BoundingBox.h>
 #include <Fluid/SPHSimulation.h>
+#include <Visual/IRenderable.h>
 
 class Fluid : public IRenderable
   {

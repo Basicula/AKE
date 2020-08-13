@@ -1,7 +1,8 @@
 #pragma once
+#include <Math/Vector.h>
+
 #include <memory>
 
-#include <Math/Vector.h>
 class IMaterial;
 
 struct IntersectionRecord

@@ -1,11 +1,10 @@
 #pragma once
-#include <string>
-#include <memory>
-
 #include <Common/BoundingBox.h>
 #include <Common/Intersection.h>
 #include <Common/Ray.h>
 #include <Common/Transformable.h>
+
+#include <memory>
 
 class ISurface : public Transformable
   {

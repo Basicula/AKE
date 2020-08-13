@@ -1,5 +1,4 @@
 #pragma once
-
 #include <Math/Vector.h>
 
 class Ray

@@ -1,8 +1,7 @@
 #pragma once
-#include <iostream>
+#include <ostream>
 #include <chrono>
 #include <functional>
-#include <string>
 
 class FPSCounter
   {

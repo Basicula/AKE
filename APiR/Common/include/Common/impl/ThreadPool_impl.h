@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <math.h>
+
 using namespace Parallel;
 
 template<class IndexType, class Function>

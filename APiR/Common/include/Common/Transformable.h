@@ -1,7 +1,7 @@
 #pragma once
-
 #include <Common/Intersection.h>
 #include <Common/Transformation.h>
+
 #include <Math/Vector.h>
 
 class Transformable

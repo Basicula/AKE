@@ -1,10 +1,7 @@
 #pragma once
-#include <string>
-#include <vector>
+#include <OpenCLCore/Kernel.h>
 
 #include <CL/cl.h>
-
-#include <OpenCLCore/Kernel.h>
 
 class OpenCLEnvironment
   {
@@ -31,9 +28,6 @@ class OpenCLEnvironment
     void PrintInfo();
     /// Log some info about success of kernel processing
     void SetLoggingState(bool i_is_on);
-
-    /// temporary test features
-    std::vector<unsigned char> Dummy();
 
   private:
     /// Init platforms and set defalt platform
