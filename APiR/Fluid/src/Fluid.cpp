@@ -29,7 +29,7 @@ namespace
 Fluid::Fluid(std::size_t i_num_particles)
   : m_bbox()
   , m_simulation(i_num_particles)
-  , m_material(std::make_shared<ColorMaterial>(Color(0x0000ff)))
+  , m_material(std::make_shared<ColorMaterial>(Color(0xffff0000)))
   {
   _UpdateBBox();
   }

@@ -7,7 +7,7 @@ class TestImagePerformance(unittest.TestCase):
     def test_to_string(self):
         width = 800
         height = 600
-        image = Image(width, height, Color(0xff0000))
+        image = Image(width, height, Color(0xff0000ff))
         iterations = 1000
         start = time.time()
         for i in range(iterations):
@@ -18,7 +18,7 @@ class TestImagePerformance(unittest.TestCase):
     def test_raw_data(self):
         width = 800
         height = 600
-        image = Image(width, height, Color(0xff0000))
+        image = Image(width, height, Color(0xff0000ff))
         iterations = 1000
         start = time.time()
         for i in range(iterations):
@@ -29,7 +29,7 @@ class TestImagePerformance(unittest.TestCase):
     def test_data(self):
         width = 800
         height = 600
-        image = Image(width, height, Color(0xff0000))
+        image = Image(width, height, Color(0xff0000ff))
         iterations = 1000
         start = time.time()
         for i in range(iterations):

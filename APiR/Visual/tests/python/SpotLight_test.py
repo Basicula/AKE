@@ -11,16 +11,16 @@ class TestSpotLightConstructor(unittest.TestCase):
         light = SpotLight(Vector3d(0,0,0))
         
         self.assertEqual(light.location, Vector3d(0,0,0))
-        self.assertEqual(light.color, Color(0xffffff))
+        self.assertEqual(light.color, Color(0xffffffff))
         self.assertEqual(light.intensity, 1)
         self.assertEqual(light.state, True)
         
     def test_custom_construtor(self):
         print("\nCustom constructor", end = "")
-        light = SpotLight(Vector3d(1,2,3),Color(0xff00ff),23, False)
+        light = SpotLight(Vector3d(1,2,3),Color(0xffff00ff),23, False)
         
         self.assertEqual(light.location, Vector3d(1,2,3))
-        self.assertEqual(light.color, Color(0xff00ff))
+        self.assertEqual(light.color, Color(0xffff00ff))
         self.assertEqual(light.intensity, 23)
         self.assertEqual(light.state, False)
         
@@ -32,8 +32,8 @@ class TestSpotLightProperties(unittest.TestCase):
         light.location = Vector3d(1,2,3)
         self.assertEqual(light.location, Vector3d(1,2,3))
         
-        light.color = Color(0xff00ff)
-        self.assertEqual(light.color, Color(0xff00ff))
+        light.color = Color(0xffff00ff)
+        self.assertEqual(light.color, Color(0xffff00ff))
         
         light.intensity = 23
         self.assertEqual(light.intensity, 23)
@@ -57,7 +57,7 @@ class TestSpotLightFunctionality(unittest.TestCase):
         dict = json.loads(repr(light))
         splight = dict["SpotLight"]
         self.assertEqual(splight["Location"], json.loads(repr(Vector3d(0))))
-        self.assertEqual(splight["Color"], json.loads(repr(Color(0xffffff))))
+        self.assertEqual(splight["Color"], json.loads(repr(Color(0xffffffff))))
         self.assertEqual(splight["Intensity"], 1)
         self.assertEqual(splight["State"], True)
         
@@ -68,7 +68,7 @@ class TestSpotLightFunctionality(unittest.TestCase):
         dict = json.loads(repr(light))
         splight = SpotLight.fromDict(dict)
         self.assertEqual(splight.location, Vector3d(0))
-        self.assertEqual(splight.color, Color(0xffffff))
+        self.assertEqual(splight.color, Color(0xffffffff))
         self.assertEqual(splight.intensity, 1)
         self.assertEqual(splight.state, True)
         

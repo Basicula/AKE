@@ -12,7 +12,7 @@ class TestColorConstructors(unittest.TestCase):
         self.assertEqual(color.green, 0)
         self.assertEqual(color.blue,  0)
         
-        color = Color(0x123456)
+        color = Color(0xff563412)
         self.assertEqual(color.red,   18)
         self.assertEqual(color.green, 52)
         self.assertEqual(color.blue,  86)
@@ -64,18 +64,18 @@ class TestColorOperations(unittest.TestCase):
         
     def test_color_sum(self):
         print("\nColor sum", end = "")
-        color1 = Color(0xff0000)
-        color2 = Color(0x00ff00)
+        color1 = Color(0xff0000ff)
+        color2 = Color(0xff00ff00)
         
         actual = color1 + color2
-        expected = Color(0xffff00)
+        expected = Color(0xff00ffff)
         self.assertEqual(actual,expected)
         
-        color1 = Color(0xff0000)
-        color2 = Color(0xff1234)
+        color1 = Color(0xff0000ff)
+        color2 = Color(0xff3412ff)
         
         actual = color1 + color2
-        expected = Color(0xff1234)
+        expected = Color(0xff3412ff)
         self.assertEqual(actual,expected)
         
 class TestColorProperties(unittest.TestCase):
@@ -94,7 +94,7 @@ class TestColorProperties(unittest.TestCase):
         self.assertEqual(color.red,   18)
         self.assertEqual(color.green, 52)
         self.assertEqual(color.blue,  86)
-        self.assertEqual(str(color), "0x123456")
+        self.assertEqual(str(color), "0xff563412")
         
         with self.assertRaises(TypeError):
             color.red = 1000
@@ -105,12 +105,12 @@ class TestColorProperties(unittest.TestCase):
 class TestColorFunctionality(unittest.TestCase):
     def test_serialization(self):
         print("\nColor serialization", end = "")
-        color = Color(0x123456)
-        self.assertEqual(json.loads(repr(color)), {"Color" : 0x123456})
+        color = Color(0xff563412)
+        self.assertEqual(json.loads(repr(color)), {"Color" : 0xff563412})
         
     def test_deserialization(self):
         print("\nColor deserialization", end = "")
-        color = Color(0x123456)
+        color = Color(0xff563412)
         self.assertEqual(
             Color.fromDict(json.loads(repr(color))), 
             color)

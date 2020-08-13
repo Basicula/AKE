@@ -1,27 +1,12 @@
 #include <Visual/Color.h>
 
-namespace
-  {
-  bool IsBigEndian()
-    {
-    int a = 1;
-    return (reinterpret_cast<char*>(&a)[0] == 0);
-    }
-  }
-
 Color::Color()
   : m_rgba(0)
   {};
 
-Color::Color(std::uint32_t i_rgba)
-  : m_rgba(i_rgba)
-  {
-  if (!IsBigEndian())
-    {
-    auto rgba_data = reinterpret_cast<std::uint8_t*>(&m_rgba);
-    std::reverse(rgba_data, rgba_data + sizeof(m_rgba));
-    }
-  };
+Color::Color(std::uint32_t i_abgr)
+  : m_rgba(i_abgr)
+  {};
 
 Color::Color(
   std::uint8_t i_red, 
@@ -39,7 +24,17 @@ Color::Color(
 
 Color::Color(const Color& i_other)
   : m_rgba(i_other.m_rgba)
-  {};
+  {}
+
+Color& Color::operator=(const Color & i_other)
+  {
+  if (this == &i_other) {
+    return *this;
+    }
+  m_rgba = i_other.m_rgba;
+  return *this;
+  }
+;
 
 bool Color::operator==(const Color& i_other) const
   {

@@ -5,7 +5,7 @@ class Color
 {
 public:
   Color();
-  Color(std::uint32_t i_rgba);
+  Color(std::uint32_t i_abgr);
   Color(
     std::uint8_t i_red, 
     std::uint8_t i_green, 
@@ -13,6 +13,7 @@ public:
     std::uint8_t i_alpha = 0xff);
 
   Color(const Color& i_other);
+  Color& operator=(const Color& i_other);
 
   Color operator*(double i_factor) const;
   Color operator*(const Vector3d& i_factor) const;

@@ -33,7 +33,7 @@ void test_fluid()
   const std::size_t height = 480;
 
   Scene scene("Fluid test", width, height);
-  Image image(width, height, Color(0xaaaaaa));
+  Image image(width, height, 0xffaaaaaa);
 
   scene.AddCamera(
     Camera(
@@ -139,13 +139,13 @@ void test_advanced_scene(bool i_dump_bmp = false)
   //scene.AddObject(std::make_shared<RenderableObject>(std::make_shared<Cylinder>(Vector3d(-4, -4, 0), 0.5, -1), ruby));
   //scene.AddObject(std::make_shared<RenderableObject>(std::make_shared<Cylinder>(Vector3d(-27, -20, 100), 1, -1), half_mirror));
   
-  //scene.AddLight(std::make_shared<SpotLight>(Vector3d(3, 3, -5), 0xffffff, 0.25));
-  //scene.AddLight(std::make_shared<SpotLight>(Vector3d(3, -3, -5), 0xffffff, 0.5));
-  //scene.AddLight(std::make_shared<SpotLight>(Vector3d(-3, 3, -5), 0xffffff, 0.75));
-  auto moving_light = std::make_shared<SpotLight>(Vector3d(0, 5, -5), 0xffffff, 1);
+  //scene.AddLight(std::make_shared<SpotLight>(Vector3d(3, 3, -5), 0xffffffff, 0.25));
+  //scene.AddLight(std::make_shared<SpotLight>(Vector3d(3, -3, -5), 0xffffffff, 0.5));
+  //scene.AddLight(std::make_shared<SpotLight>(Vector3d(-3, 3, -5), 0xffffffff, 0.75));
+  auto moving_light = std::make_shared<SpotLight>(Vector3d(0, 5, -5), 0xffffffff, 1);
   scene.AddLight(moving_light);
-  //scene.AddLight(std::make_shared<SpotLight>(Vector3d(10, -10, -10), 0xffffff, 1));
-  //scene.AddLight(std::make_shared<SpotLight>(Vector3d(0, 0, 20), 0xffffff, 1));
+  //scene.AddLight(std::make_shared<SpotLight>(Vector3d(10, -10, -10), 0xffffffff, 1));
+  //scene.AddLight(std::make_shared<SpotLight>(Vector3d(0, 0, 20), 0xffffffff, 1));
   
   //scene.AddCamera(Camera(Vector3d(0, 0, -10), Vector3d(0,0,0), Vector3d(0, 1, 0), 60, 1.0 * width / height, 0.5), true);
   //scene.AddCamera(Camera(Vector3d(0, 0, 0), Vector3d(-3,-3,0), Vector3d(-1/SQRT_2, 1/SQRT_2, 0), 75, 1.0 * width / height, 0.5), true);
@@ -269,7 +269,7 @@ void test_opencl()
 
 void test_bmp_writer()
   {
-  Image image(2, 2);
+  Image image(800, 600, 0xff00ffff);
   BMPWriter writer;
   writer.Write("D:/Study/RayTracing/test.bmp", image);
   }
@@ -277,7 +277,7 @@ void test_bmp_writer()
 int main()
   {
   //test_fluid();
-  //test_advanced_scene();
+  //test_advanced_scene(true);
   //test();
   //test_opencl();
   test_bmp_writer();

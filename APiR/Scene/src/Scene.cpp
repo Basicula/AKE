@@ -17,7 +17,7 @@ Scene::Scene(
   , m_active_camera(static_cast<std::size_t>(-1))
   , m_frame_width(i_frame_width)
   , m_frame_height(i_frame_height)
-  , m_background_color(0xaaccff)
+  , m_background_color(0xffffccaa)
   , m_max_depth(3)
   , m_rays()
   , m_intersection_records(m_frame_height* m_frame_width)

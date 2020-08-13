@@ -9,7 +9,7 @@ static void AddImage(py::module& io_module)
          std::uint32_t>(),
          py::arg("width"),
          py::arg("height"),
-         py::arg("color") = 0x000000)
+         py::arg("color") = 0xff000000)
     .def("getPixel", &Image::GetPixel)
     .def("setPixel", &Image::SetPixel)
     .def_property_readonly("width", &Image::GetWidth)

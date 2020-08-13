@@ -8,7 +8,7 @@ class ColorMaterial : public IMaterial
   {
   public:
     ColorMaterial(
-      const Color& i_color = Color(0xaaaaaa),
+      const Color& i_color = Color(0xffaaaaaa),
       const Vector3d& i_ambient = Vector3d(1.0, 1.0, 1.0),
       const Vector3d& i_diffuse = Vector3d(1.0, 1.0, 1.0),
       const Vector3d& i_specular = Vector3d(1.0, 1.0, 1.0),

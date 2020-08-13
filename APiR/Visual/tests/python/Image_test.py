@@ -13,7 +13,7 @@ class TestImageConstructor(unittest.TestCase):
         self.assertEqual(image.width, width)
         self.assertEqual(image.height, height)
         
-        default_color = 0x000000
+        default_color = 0xff000000
         for x in range(width):
             for y in range(height):
                 self.assertEqual(image.getPixel(x,y), default_color)
@@ -22,12 +22,12 @@ class TestImageConstructor(unittest.TestCase):
         print("\nCustom constructor", end = "")
         width = 12
         height = 32
-        image = Image(width, height, 0xffffff)
+        image = Image(width, height, 0xffffffff)
         
         self.assertEqual(image.width, width)
         self.assertEqual(image.height, height)
         
-        custom_color = 0xffffff
+        custom_color = 0xffffffff
         for x in range(width):
             for y in range(height):
                 self.assertEqual(image.getPixel(x,y), custom_color)
@@ -54,17 +54,17 @@ class TestImageProperties(unittest.TestCase):
             
         width = 40
         height = 40
-        image = Image(width, height, 0x123456)
+        image = Image(width, height, 0xff563412)
             
         image_data = image.data()
-        self.assertEqual(image_data[0], 0x123456)
+        self.assertEqual(image_data[0], 0xff563412)
             
     def test_image_rgb_data(self):
         print("\nImage rgb data", end = "")
             
         width = 40
         height = 40
-        image = Image(width, height, 0x123456)
+        image = Image(width, height, 0xff563412)
         
         image_rgb_data = image.rgbData()
         self.assertEqual(image_rgb_data[0], 0x12)
@@ -76,7 +76,7 @@ class TestImageProperties(unittest.TestCase):
             
         width = 40
         height = 40
-        image = Image(width, height, 0x123456)
+        image = Image(width, height, 0xff563412)
         
         image_rgb_str_data = image.rgbDataStr()
         self.assertEqual(image_rgb_str_data[0], chr(0x12))
@@ -90,15 +90,15 @@ class TestImageFunctionality(unittest.TestCase):
         print("\nPixel manipulation", end = "")
         width = 22
         height = 33
-        image = Image(width, height, 0xff0000)
+        image = Image(width, height, 0xff0000ff)
         
         expected_color = 0x00ff00
         image.setPixel(11, 11, expected_color)
         self.assertEqual(image.getPixel(11,11), expected_color)
         
-        self.assertEqual(image.getPixel(123,123), 0x000000)
+        self.assertEqual(image.getPixel(123,123), 0xff000000)
         
-        image.setPixel(123, 1312, 0x000000)
+        image.setPixel(123, 1312, 0xff000000)
 
 
 if __name__ == "__main__":
