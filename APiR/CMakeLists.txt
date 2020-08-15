@@ -11,20 +11,21 @@ add_subdirectory(GLUTWindow)
 
 pybind11_add_module(engine engine_module.cpp)
 target_link_libraries(
-    engine
-    
-    PRIVATE
-    
-    Math
-    Common
-    Visual
-    Physics
-    Primitives
-    Fluid
-    Scene
-    
-    pybind11)
-    
+  engine
+  
+  PRIVATE
+  
+  Math
+  Common
+  Visual
+  Physics
+  Primitives
+  Fluid
+  Scene
+  
+  pybind11
+)
+set_property(TARGET engine PROPERTY FOLDER "APiR")
 set_target_properties(Primitives PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 set_target_properties(Common PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 set_target_properties(Fluid PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
@@ -45,4 +46,5 @@ if (WIN32)
   target_link_libraries(EXE PRIVATE Scene)
   target_link_libraries(EXE PRIVATE GLUTWindow)
   target_link_libraries(EXE PRIVATE BMPWriter)
+  set_property(TARGET EXE PROPERTY FOLDER "APiR")
 endif()

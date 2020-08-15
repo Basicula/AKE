@@ -30,4 +30,5 @@ enable_testing()
 
 # main lib
 include("cmake/generate_project.cmake")
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 add_subdirectory(APiR)
