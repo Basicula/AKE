@@ -28,11 +28,8 @@ void BMPWriter::Write(const std::string& i_file_path, const Image& i_image)
     {
     for (auto j = 0u; j < width; ++j)
       {
-      const auto color_pixel = i_image.GetPixel(j, i);
-      const uint8_t r = color_pixel.GetRed();
-      const uint8_t g = color_pixel.GetGreen();
-      const uint8_t b = color_pixel.GetBlue();
-      const uint8_t a = color_pixel.GetAlpha();
+      uint8_t r, g, b, a;
+      i_image.GetPixelRGBA(j, i, r, g, b, a);
       switch (m_color_mode)
         {
         case BMPWriter::ColorMode::RGBA:

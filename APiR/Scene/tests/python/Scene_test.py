@@ -5,10 +5,10 @@ import matplotlib.pyplot as plt
 from engine import Scene
 from engine.Math.Vector import Vector3d
 from engine.Visual import *
-from engine.Primitives import *
+from engine.Geometry import *
 from engine.Visual.Light import *
 from engine.Visual.Material import *
-from engine.Visual.Renderable import RenderableObject
+from engine.Rendering import *
 
 def create_scene_sample(camera_cnt = 1, obj_cnt = 1, light_cnt = 1):
     scene = Scene("example")

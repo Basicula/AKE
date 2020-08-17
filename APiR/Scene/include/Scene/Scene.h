@@ -1,10 +1,11 @@
 #pragma once
-#include <Visual/Camera.h>
-#include <Visual/Image.h>
+#include <Rendering/Camera.h>
+#include <Rendering/Image.h>
+#include <Rendering/IRenderable.h>
+#include <Rendering/KDTree.h>
+
 #include <Visual/IMaterial.h>
 #include <Visual/ILight.h>
-#include <Visual/IRenderable.h>
-#include <Visual/KDTree.h>
 
 #include <vector>
 #include <memory>

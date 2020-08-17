@@ -27,7 +27,7 @@ class TestColorMaterialConstructors(unittest.TestCase):
                                     , Vector3d(0.727811, 0.626959, 0.626959)
                                     , 76.8)
         
-        self.assertEqual(ruby_material.color, Color(0xff0000))
+        self.assertEqual(ruby_material.color, Color(0xffff0000))
         self.assertEqual(ruby_material.ambient, Vector3d(0.1745, 0.01175, 0.01175))
         self.assertEqual(ruby_material.diffuse, Vector3d(0.61424, 0.04136, 0.04136))
         self.assertEqual(ruby_material.specular, Vector3d(0.727811, 0.626959, 0.626959))

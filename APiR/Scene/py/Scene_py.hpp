@@ -66,7 +66,7 @@ static void AddScene(py::module& io_module)
       if (scene.contains("Objects"))
         {
         auto objects = scene["Objects"];
-        auto renderable_m = py::module::import("engine.Visual.Renderable");
+        auto renderable_m = py::module::import("engine.Rendering");
         for (auto object : objects)
           res.AddObject(renderable_m
                         .attr("IRenderable")
@@ -87,7 +87,7 @@ static void AddScene(py::module& io_module)
 
       if (scene.contains("Cameras"))
         {
-        auto visual_m = py::module::import("engine.Visual");
+        auto visual_m = py::module::import("engine.Rendering");
         auto cameras = scene["Cameras"];
         for (auto camera : cameras)
           res.AddCamera(visual_m

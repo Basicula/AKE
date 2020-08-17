@@ -22,8 +22,9 @@ generate_project(
   SOURCES ${SOURCES}
   HEADERS ${HEADERS}
   PY      ${PY}
-  LINK    Math
-          Common
+  LINK    Rendering
+            Common
+            Geometry
           Visual
-          Primitives
+            Math
 )

@@ -32,7 +32,7 @@ class TestColorOperations(unittest.TestCase):
         self.assertEqual(actual, expected)
         
         actual= color * -2
-        expected = Color(0,0,0)
+        expected = Color()
         self.assertEqual(actual, expected)
         
         actual= color * 100
@@ -94,7 +94,7 @@ class TestColorProperties(unittest.TestCase):
         self.assertEqual(color.red,   18)
         self.assertEqual(color.green, 52)
         self.assertEqual(color.blue,  86)
-        self.assertEqual(str(color), "0xff563412")
+        self.assertEqual(str(color), "0x00563412")
         
         with self.assertRaises(TypeError):
             color.red = 1000

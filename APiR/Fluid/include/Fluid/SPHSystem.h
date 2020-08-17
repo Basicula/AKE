@@ -1,5 +1,5 @@
 #pragma once
-#include <Common/PointNeighborSearcher.h>
+#include <Fluid/PointNeighborSearcher.h>
 
 #include <Fluid/FluidConstants.h>
 #include <Fluid/ParticleSystem.h>

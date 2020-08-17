@@ -47,7 +47,6 @@ static void AddFluid(py::module& io_module)
     .def("update", &Fluid::Update)
     .def("fromDict", [](py::dict i_dict)
       {
-      auto common_m = py::module::import("engine.Common");
       auto inner = i_dict["Fluid"];
       std::size_t num_of_particles =
         inner["NumOfParticles"].cast<std::size_t>();

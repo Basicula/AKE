@@ -5,10 +5,10 @@ import random
 from engine import Scene
 from engine.Math.Vector import Vector3d
 from engine.Visual import *
-from engine.Primitives import *
+from engine.Geometry import *
 from engine.Visual.Light import *
 from engine.Visual.Material import *
-from engine.Visual.Renderable import RenderableObject
+from engine.Rendering import *
 
 class TestScenePerformance(unittest.TestCase):
     def test_simple_scene(self):

@@ -14,6 +14,7 @@ generate_project(
   STATIC
   SOURCES ${SOURCES}
   HEADERS ${HEADERS}
-  LINK    Math
-          Visual
+  LINK    Rendering
+            Visual
+              Math
 )

@@ -1,7 +1,7 @@
 #pragma once
-#include <Common/BoundingBox.h>
+#include <Geometry/BoundingBox.h>
 #include <Fluid/SPHSimulation.h>
-#include <Visual/IRenderable.h>
+#include <Rendering/IRenderable.h>
 
 class Fluid : public IRenderable
   {

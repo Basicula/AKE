@@ -1,6 +1,6 @@
 #pragma once
 #include <OpenCLCore/Kernel.h>
-#include <Visual/Image.h>
+#include <Rendering/Image.h>
 
 #include <CL/cl.h>
 
@@ -17,7 +17,7 @@ class MandelbrotSetKernel : public Kernel
       int m_origin_y;
       double m_scale;
 
-      MandelbrotSet::MandelbrotSet(
+      MandelbrotSet(
         std::size_t i_width,
         std::size_t i_height,
         std::size_t i_iterations);

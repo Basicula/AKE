@@ -1,5 +1,5 @@
 #pragma once
-#include <Visual/Image.h>
+#include <Rendering/Image.h>
 
 class BMPWriter
 {

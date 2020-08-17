@@ -3,6 +3,8 @@ set(
   
   Fluid.cpp
   
+  BFPointSearcher.cpp
+  
   ParticleSystem.cpp
   SPHSystem.cpp
   
@@ -17,6 +19,9 @@ set(
   HEADERS
   
   Fluid.h
+  
+  PointNeighborSearcher.h
+  BFPointSearcher.h
   
   ParticleSystem.h
   SPHSystem.h
@@ -42,9 +47,10 @@ generate_project(
   SOURCES ${SOURCES}
   HEADERS ${HEADERS}
   PY      ${PY}
-  LINK    Math
-          Common
+  LINK    Common
+          Geometry
+          Math
           Physics
-          Primitives
-          Visual
+          Rendering
+            Visual
 )

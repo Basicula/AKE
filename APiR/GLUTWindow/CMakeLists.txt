@@ -17,7 +17,8 @@ generate_project(
   SOURCES ${SOURCES}
   HEADERS ${HEADERS}
   PY      ${PY}
-  LINK    Math
-          Visual
+  LINK    Rendering
+            Math
+            Visual
           ${GLUT_LIBRARIES}
 )

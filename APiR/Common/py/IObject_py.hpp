@@ -22,7 +22,7 @@ static void AddIObject(py::module& io_module)
     .def("__repr__", &IObject::Serialize)
     .def("fromDict", [](py::dict i_dict)
       {
-      auto primitives_m = py::module::import("engine.Primitives");
+      auto primitives_m = py::module::import("engine.Geometry");
       if (i_dict.contains("Sphere"))
         return primitives_m.attr("Sphere").attr("fromDict")(i_dict).cast<std::shared_ptr<IObject>>();
       return std::shared_ptr<IObject>();

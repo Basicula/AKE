@@ -1,6 +1,6 @@
 #pragma once
 #include <GLUTWindow/FPSCounter.h>
-#include <Visual/Image.h>
+#include <Rendering/Image.h>
 
 #pragma warning(push)
 #pragma warning(disable:4505)
