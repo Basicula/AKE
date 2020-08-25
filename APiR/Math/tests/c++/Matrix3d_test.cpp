@@ -70,3 +70,25 @@ TEST(Matrix3dMultiplicationSuite, Rotate45)
   for (auto i = 0u; i < 3; ++i)
     EXPECT_DOUBLE_EQ(expected[i], actual[i]);
   }
+
+TEST(Matrix3dMultiplicationSuite, ApplyToVector)
+  {
+  Matrix3d matrix
+    {
+    1.0, 2.0, 3.0,
+    4.0, 5.0, 6.0,
+    7.0, 8.0, 9.0
+    };
+
+  Vector3d vec1(1.0, 2.0, 3.0);
+  matrix.ApplyLeft(vec1);
+  const Vector3d expected1(14.0, 32.0, 50.0);
+  for (auto i = 0u; i < 3; ++i)
+    EXPECT_DOUBLE_EQ(expected1[i], vec1[i]);
+
+  Vector3d vec2(1.0, 2.0, 3.0);
+  matrix.ApplyRight(vec2);
+  const Vector3d expected2(30.0, 36.0, 42.0);
+  for (auto i = 0u; i < 3; ++i)
+    EXPECT_DOUBLE_EQ(expected2[i], vec2[i]);
+  }

@@ -27,7 +27,11 @@ class Matrix3
     Matrix3 Transposed() const;
 
   private:
-    ElementType m_matrix[9];
+    union
+      {
+      ElementType m_matrix[3][3];
+      ElementType m_elements[9];
+      };
     static const std::size_t m_element_cnt = 9;
     static const std::size_t m_matrix_dim = 3;
   };
