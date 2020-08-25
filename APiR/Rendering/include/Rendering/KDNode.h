@@ -5,7 +5,7 @@
 #include <vector>
 #include <memory>
 
-using Objects = std::vector<IRenderableSPtr>;
+using KDTreeObjects = std::vector<IRenderableSPtr>;
 
 class KDNode
   {
@@ -26,7 +26,7 @@ class KDNode
 
   public:
     KDNode();
-    KDNode(const Objects& i_objects);
+    KDNode(const KDTreeObjects& i_objects);
 
     void UpdateBBox();
     bool IntersectWithRay(
@@ -34,9 +34,9 @@ class KDNode
       const Ray& i_ray) const;
 
     void Clear();
+    void Build(const KDTreeObjects& i_objects);
 
   private:
-    void _Build(const Objects& i_objects);
     void _Reset();
 
     static KDNode::Axis _DetectSplitingAxis(const BoundingBox& i_current_bbox);
@@ -49,7 +49,7 @@ class KDNode
   private:
     NodeType m_type;
     BoundingBox m_bounding_box;
-    Objects m_objects;
+    KDTreeObjects m_objects;
     std::unique_ptr<KDNode> m_left;
     std::unique_ptr<KDNode> m_right;
   };

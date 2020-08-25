@@ -6,9 +6,9 @@ KDNode::KDNode()
   _Reset();
   }
 
-KDNode::KDNode(const Objects& i_objects)
+KDNode::KDNode(const KDTreeObjects& i_objects)
   {
-  _Build(i_objects);
+  Build(i_objects);
   }
 
 void KDNode::UpdateBBox()
@@ -80,7 +80,7 @@ bool KDNode::_LeafIntersectWithRay(IntersectionRecord& io_intersection, const Ra
   return is_intersected;
   }
 
-void KDNode::_Build(const Objects& i_objects)
+void KDNode::Build(const KDTreeObjects& i_objects)
   {
   _Reset();
   if (i_objects.empty())
@@ -109,7 +109,7 @@ void KDNode::_Build(const Objects& i_objects)
     {
     return i_first.second < i_second.second;
     });
-  Objects left, right;
+  KDTreeObjects left, right;
   const auto half = box_center_axis_values.size() / 2;
   for (std::size_t i = 0; i < box_center_axis_values.size(); ++i)
     if (i < half)
@@ -118,8 +118,8 @@ void KDNode::_Build(const Objects& i_objects)
       right.push_back(m_objects[box_center_axis_values[i].first]);
 
   m_type = NodeType::INTERNAL;
-  m_left->_Build(left);
-  m_right->_Build(right);
+  m_left->Build(left);
+  m_right->Build(right);
   }
 
 void KDNode::_Reset()

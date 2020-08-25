@@ -2,10 +2,10 @@
 
 KDTree::KDTree()
   : m_objects()
-  , m_root(new KDNode())
+  , m_root()
   {}
 
-KDTree::KDTree(Objects&& i_objects)
+KDTree::KDTree(KDTreeObjects&& i_objects)
   : m_objects(i_objects)
-  , m_root(new KDNode(m_objects))
+  , m_root(m_objects)
   {}
