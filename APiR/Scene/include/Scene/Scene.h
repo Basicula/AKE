@@ -44,6 +44,12 @@ class Scene
     std::size_t GetFrameHeight() const;
     void SetFrameHeight(std::size_t i_frame_height);
 
+    Color GetBackGroundColor() const;
+    void SetBackGroundColor(const Color& i_color);
+
+    std::size_t GetRenderingDepth() const;
+    void SetRenderingDepth(std::size_t i_depth);
+
     bool RenderFrame(
       Image& o_image,
       int i_offset_x = 0,
@@ -81,22 +87,18 @@ class Scene
     void _UpdateRaysForActiveCamera();
 
   private:
-    std::size_t m_active_camera;
     std::string m_name;
+
+    std::size_t m_active_camera;
     std::size_t m_frame_width;
     std::size_t m_frame_height;
-    Color m_background_color;
-    KDTree m_object_tree;
-    std::vector<Camera> m_cameras;
-    std::vector<std::shared_ptr<ILight>> m_lights;
-
     std::size_t m_max_depth;
 
-    // cache intersection record 
-    // for cases when we need to know intersection 
-    // but intrsection details don't interested for us
-    // to decrease time and memory
-    //std::vector<IntersectionRecord> m_dummy_intersections;
+    Color m_background_color;
+    KDTree m_object_tree;
+
+    std::vector<Camera> m_cameras;
+    std::vector<std::shared_ptr<ILight>> m_lights;
 
     // we can create all rays for camera image
     // only once and then if it needed
@@ -243,4 +245,24 @@ inline std::size_t Scene::GetFrameHeight() const
 inline void Scene::SetFrameHeight(std::size_t i_frame_height)
   {
   m_frame_height = i_frame_height;
+  }
+
+inline void Scene::SetBackGroundColor(const Color& i_color)
+  {
+  m_background_color = i_color;
+  }
+
+inline std::size_t Scene::GetRenderingDepth() const
+  {
+  return m_max_depth;
+  }
+
+inline void Scene::SetRenderingDepth(std::size_t i_depth)
+  {
+  m_max_depth = i_depth;
+  }
+
+inline Color Scene::GetBackGroundColor() const
+  {
+  return m_background_color;
   }
