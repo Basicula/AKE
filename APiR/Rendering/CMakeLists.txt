@@ -3,7 +3,6 @@ set(
   
   Camera.cpp
   Image.cpp
-  KDNode.cpp
   KDTree.cpp
   RenderableObject.cpp
 )
@@ -14,7 +13,6 @@ set(
   Camera.h
   Image.h
   IRenderable.h
-  KDNode.h
   KDTree.h
   RenderableObject.h
 )

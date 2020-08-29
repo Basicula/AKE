@@ -1,11 +1,214 @@
 #include <Rendering/KDTree.h>
 
-KDTree::KDTree()
-  : m_objects()
-  , m_root()
-  {}
+namespace
+  {
+  double Volume(const BoundingBox& i_bbox)
+    {
+    return i_bbox.DeltaX() * i_bbox.DeltaY() * i_bbox.DeltaZ();
+    }
+
+  struct SAHSplittingInfo
+    {
+    std::size_t axis;
+    std::size_t left_count;
+    std::size_t right_count;
+    double split;
+    double sah;
+    };
+
+  bool comparator_bbox_min(
+    const IRenderableSPtr& i_first,
+    const IRenderableSPtr& i_second)
+    {
+    const auto& bbox_first = i_first->GetBoundingBox();
+    const auto& bbox_second = i_second->GetBoundingBox();
+    return bbox_first.GetMin() < bbox_second.GetMin();
+    };
+
+  bool comparator_bbox_max(
+    const IRenderableSPtr& i_first,
+    const IRenderableSPtr& i_second)
+    {
+    const auto& bbox_first = i_first->GetBoundingBox();
+    const auto& bbox_second = i_second->GetBoundingBox();
+    return bbox_first.GetMax() < bbox_second.GetMax();
+    };
+
+  void UpdateSAH(
+    SAHSplittingInfo& o_splitting_info,
+    const BoundingBox& i_bbox,
+    double i_split,
+    std::size_t i_axis,
+    std::size_t i_left_cnt,
+    std::size_t i_right_cnt)
+    {
+    const double volume = Volume(i_bbox);
+    const double left_to_right_ratio = (i_split - i_bbox.GetMin()[i_axis]) / (i_bbox.GetMax()[i_axis] - i_split);
+    const double volume_right = volume / (1 + left_to_right_ratio);
+    const double volume_left = volume - volume_right;
+    const double sah = i_left_cnt * volume_left + i_right_cnt * volume_right;
+    if (sah < o_splitting_info.sah)
+      {
+      o_splitting_info.sah = sah;
+      o_splitting_info.split = i_split;
+      o_splitting_info.axis = i_axis;
+      o_splitting_info.left_count = i_left_cnt;
+      o_splitting_info.right_count = i_right_cnt;
+      }
+    };
+  }
 
 KDTree::KDTree(KDTreeObjects&& i_objects)
-  : m_objects(i_objects)
-  , m_root(m_objects)
-  {}
+  : m_objects(std::move(i_objects))
+  , m_nodes()
+  {
+  _Build(0, m_objects.size());
+  }
+
+void KDTree::_Build(
+  std::size_t i_start,
+  std::size_t i_end)
+  {
+  m_nodes.emplace_back();
+  auto& curr_node = m_nodes.back();
+
+  const auto curr_bbox = _BoundingBox(i_start, i_end);
+  curr_node.bounding_box = curr_bbox;
+  curr_node.start_obj_id = i_start;
+  curr_node.end_obj_id = i_end;
+
+  if (i_end == i_start + 1)
+    {
+    curr_node.type = KDNodeType::LEAF;
+    return;
+    }
+
+  SAHSplittingInfo splitting_info{ 0, 0, 0, INFINITY, INFINITY };
+  for (auto axis = 0u; axis < 3; ++axis)
+    {
+    std::sort(m_objects.begin() + i_start, m_objects.begin() + i_end, comparator_bbox_min);
+    for (auto i = i_start + 1; i < i_end; ++i)
+      {
+      const std::size_t left_side_cnt = i - i_start;
+      const std::size_t right_side_cnt = i_end - i;
+      double split = m_objects[i]->GetBoundingBox().GetMin()[axis];
+      if (split == curr_bbox.GetMin()[axis])
+        continue;
+
+      UpdateSAH(
+        splitting_info,
+        curr_bbox,
+        split,
+        axis,
+        left_side_cnt,
+        right_side_cnt);
+      }
+
+    std::sort(m_objects.begin() + i_start, m_objects.begin() + i_end, comparator_bbox_max);
+    for (long long i = i_end - 2; i >= static_cast<long long>(i_start); --i)
+      {
+      const std::size_t left_side_cnt = i + 1 - i_start;
+      const std::size_t right_side_cnt = i_end - i - 1;
+      double split = m_objects[i]->GetBoundingBox().GetMax()[axis];
+      if (split == curr_bbox.GetMax()[axis])
+        continue;
+
+      UpdateSAH(
+        splitting_info,
+        curr_bbox,
+        split,
+        axis,
+        left_side_cnt,
+        right_side_cnt);
+      }
+    }
+
+  curr_node.left = static_cast<std::int64_t>(m_nodes.size());
+  _Build(i_start, i_start + splitting_info.left_count);
+  m_nodes[curr_node.left].parent = curr_node.left - 1;
+
+  curr_node.right = static_cast<std::int64_t>(m_nodes.size());
+  _Build(i_start + splitting_info.left_count, i_end);
+  m_nodes[curr_node.right].parent = curr_node.left - 1;
+  }
+
+BoundingBox KDTree::_BoundingBox(
+  std::size_t i_start,
+  std::size_t i_end)
+  {
+  auto res = BoundingBox();
+  for (auto i = i_start; i < i_end; ++i)
+    res.Merge(m_objects[i]->GetBoundingBox());
+  return res;
+  }
+
+bool KDTree::IntersectWithRay(
+  IntersectionRecord& io_intersection,
+  const Ray& i_ray) const
+  {
+  bool is_intersected = false;
+  long long prev_id = -1, curr_id = 0;
+  while (curr_id != -1)
+    {
+    auto& node = m_nodes[curr_id];
+    // came from child
+    if (curr_id < prev_id)
+      {
+      if (prev_id == node.left)
+        {
+        prev_id = curr_id;
+        curr_id = node.right;
+        }
+      else if (prev_id == node.right)
+        {
+        prev_id = curr_id;
+        curr_id = node.parent;
+        }
+      continue;
+      }
+
+    RayBoxIntersectionRecord ray_box_intersection;
+    RayBoxIntersection(i_ray, node.bounding_box, ray_box_intersection);
+    if ((ray_box_intersection.m_tmin < 0.0 && ray_box_intersection.m_tmax < 0.0) ||
+        !ray_box_intersection.m_intersected ||
+        ray_box_intersection.m_tmin > io_intersection.m_distance)
+      {
+      prev_id = curr_id;
+      curr_id = node.parent;
+      continue;
+      }
+
+    if (node.type == KDNodeType::LEAF)
+      {
+      for (auto i = node.start_obj_id; i < node.end_obj_id; ++i)
+        is_intersected |= m_objects[i]->IntersectWithRay(io_intersection, i_ray);
+      prev_id = curr_id;
+      curr_id = node.parent;
+      continue;
+      }
+    prev_id = curr_id;
+    curr_id = node.left;
+    }
+  return is_intersected;
+  }
+
+void KDTree::Clear()
+  {
+  m_objects.clear();
+  m_nodes.clear();
+  }
+
+void KDTree::AddObject(IRenderableSPtr i_object)
+  {
+  m_objects.push_back(i_object);
+  m_nodes.clear();
+  _Build(0, m_objects.size());
+  }
+
+void KDTree::Update()
+  {
+  for (auto& object : m_objects)
+    object->Update();
+  m_nodes.clear();
+  _Build(0, m_objects.size());
+  }

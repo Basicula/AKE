@@ -1,63 +1,63 @@
 #pragma once
-#include <Rendering/KDNode.h>
+#include <Rendering/IRenderable.h>
+#include <Geometry/BoundingBox.h>
+
+#include <vector>
 
 class KDTree
   {
+  private:
+    enum class KDNodeType
+      {
+      INTERNAL = 0,
+      LEAF = 1,
+      EMPTY = 2,
+      };
+
+    struct KDNode
+      {
+      std::size_t start_obj_id;
+      std::size_t end_obj_id;
+      std::int64_t parent = -1;
+      std::int64_t left;
+      std::int64_t right;
+      KDNodeType type;
+      BoundingBox bounding_box;
+      };
+
+    using KDTreeObjects = std::vector<IRenderableSPtr>;
+    using Nodes = std::vector<KDNode>;
+
   public:
-    KDTree();
+    KDTree() = default;
     KDTree(KDTreeObjects&& i_objects);
 
     bool IntersectWithRay(
-      IntersectionRecord& io_intersection, 
+      IntersectionRecord& io_intersection,
       const Ray& i_ray) const;
 
-    std::size_t Size() const;
-    void Clear();
-    KDTreeObjects GetObjects() const;
+    std::size_t KDTree::Size() const;
 
     void AddObject(IRenderableSPtr i_object);
 
     void Update();
+    void Clear();
 
   private:
-    KDNode m_root;
+    void _Build(
+      std::size_t i_start,
+      std::size_t i_end);
+
+    BoundingBox _BoundingBox(
+      std::size_t i_start,
+      std::size_t i_end);
+
+  private:
+    Nodes m_nodes;
     KDTreeObjects m_objects;
   };
-
-inline bool KDTree::IntersectWithRay(
-  IntersectionRecord& io_intersection, 
-  const Ray& i_ray) const
-  {
-  return m_root.IntersectWithRay(io_intersection, i_ray);
-  }
 
 inline std::size_t KDTree::Size() const
   {
   return m_objects.size();
-  }
-
-inline void KDTree::Clear()
-  {
-  m_objects.clear();
-  m_root.Clear();
-  }
-
-inline KDTreeObjects KDTree::GetObjects() const
-  {
-  return m_objects;
-  }
-
-inline void KDTree::AddObject(IRenderableSPtr i_object)
-  {
-  m_objects.push_back(i_object);
-  m_root.Clear();
-  m_root.Build(m_objects);
-  }
-
-inline void KDTree::Update()
-  {
-  for (auto& object : m_objects)
-    object->Update();
-  m_root.Clear();
-  m_root.Build(m_objects);
   }
