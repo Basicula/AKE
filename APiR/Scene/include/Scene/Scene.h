@@ -195,14 +195,8 @@ inline std::string Scene::Serialize() const
   std::string res = "{ \"Scene\" : { ";
   res += "\"Name\" : \"" + m_name + "\", ";
 
-  const auto& objects = m_object_tree.GetObjects();
-  const auto object_cnt = m_object_tree.Size();
-  if (object_cnt != 0)
-    {
-    res += "\"Objects\" : [ ";
-    for (auto i = 0u; i < object_cnt; ++i)
-      res += objects[i]->Serialize() + (i == object_cnt - 1 ? " ], " : ", ");
-    }
+  // TODO
+  //m_object_tree.Serialize();
 
   const auto cameras_cnt = m_cameras.size();
   if (cameras_cnt != 0)
