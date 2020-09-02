@@ -1,22 +1,14 @@
-find_package(OpenCL QUIET)
-
+find_package(OpenCL QUIET) # check if already exists on pc
+# init chache variables for cmake to correct OpenCL processing
 if(NOT OpenCL_FOUND)
-	message("Installing OpenCL...")
-	
-	set(OpenCLPath "${THIRD_PARTIES}/OpenCL")
-	
-	set(OPENCL_INCLUDE_DIRS "${OpenCLPath}/include" PARENT_SCOPE)
-	if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-		set(OPENCL_LIBRARY_DIRS "${OpenCLPath}/lib/x64" PARENT_SCOPE)
-		set(OPENCL_LIBRARIES OpenCL.lib PARENT_SCOPE)
-		#file(	COPY "${OpenCLPath}/bin/x64/.dll"
-		#	DESTINATION "${CMAKE_BINARY_DIR}"
-		#)
+  message("OpenCL has not be found, using OpenCL from ThirdParties")
+  set(OpenCLPath "${THIRD_PARTIES}/OpenCL" CACHE PATH "" FORCE)
+  set(OpenCL_INCLUDE_DIR "${OpenCLPath}/include" CACHE PATH "" FORCE)
+  if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+		set(OpenCL_LIBRARY "${OpenCLPath}/lib/x64/OpenCL.lib" CACHE PATH "" FORCE)
 	else()
-		set(OPENCL_LIBRARY_DIRS "${OpenCLPath}/lib/x32" PARENT_SCOPE)
-    set(OPENCL_LIBRARIES OpenCL.lib PARENT_SCOPE)
-		#file(	COPY "${OpenCLPath}/bin/.dll"
-		#	DESTINATION "${CMAKE_BINARY_DIR}"
-		#)
+		set(OpenCL_LIBRARY "${OpenCLPath}/lib/x32/OpenCL.lib" CACHE PATH "" FORCE)
 	endif()
 endif()
+find_package(OpenCL REQUIRED) # let CMake do other work
+include_directories(${OpenCL_INCLUDE_DIRS}) # include OpenCL dirs after all

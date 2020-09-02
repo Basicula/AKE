@@ -8,3 +8,9 @@
 
 **Actual progress**
 ![](States/actual_state.png)
+
+**Instalation**
+Next thirdparties must be installed before configuring cmake
+or they will be taken from ThirdParties folder instead
+1. OpenCL
+2. GLUT

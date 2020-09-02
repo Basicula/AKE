@@ -20,4 +20,5 @@ generate_project(
           Scene
           Visual
 )
+file(COPY ${GLUT_BINARY} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 endif()

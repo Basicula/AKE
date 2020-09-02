@@ -11,19 +11,19 @@ else()
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -pthread -lGL -lGLU -lglut")
 endif()
 
-set(THIRD_PARTIES "${CMAKE_CURRENT_SOURCE_DIR}/ThirdParties")
+set(THIRD_PARTIES "${CMAKE_CURRENT_SOURCE_DIR}/ThirdParties" CACHE PATH "" FORCE)
+set(CMAKE_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/cmake" CACHE PATH "" FORCE)
+
+# find all needed packages
+find_package(OpenGL REQUIRED)
+include("${CMAKE_FOLDER}/glut.cmake")
+include("${CMAKE_FOLDER}/OpenCL.cmake")
 
 # for python integration
 add_subdirectory(pybind11)
 
 # aditional packages
 add_subdirectory(cmake)
-
-include_directories(${OPENCL_INCLUDE_DIRS})
-link_directories(${OPENCL_LIBRARY_DIRS})
-
-include_directories(${GLUT_INCLUDE_DIRS})
-link_directories(${GLUT_LIBRARY_DIRS})
 
 # to future testing libs
 enable_testing()
