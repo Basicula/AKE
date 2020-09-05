@@ -96,7 +96,11 @@ cl_int OpenCLEnvironment::_InitContext()
   m_queue_count = m_number_of_devices[m_platform_idx];
   for(auto i = 0u; i < m_queue_count; ++i)
     {
+#if CL_VERSION_2_0
+    m_queues[i] =  clCreateCommandQueueWithProperties(m_context, m_devices[m_platform_idx][i], nullptr, &rc);
+#else
     m_queues[i] = clCreateCommandQueue(m_context, m_devices[m_platform_idx][i], 0, &rc);
+#endif
 
     if (m_enable_logging)
       OpenCLUtils::CheckSuccess("Create queue", rc);
@@ -123,18 +127,13 @@ bool OpenCLEnvironment::Init()
 
 bool OpenCLEnvironment::Build(Kernel& io_kernel)
   {
-  io_kernel.InitProgramForContext(m_context);
-  const auto& program = io_kernel.GetProgram();
-
-  cl_int rc = clBuildProgram(program, m_number_of_devices[m_platform_idx], m_devices[m_platform_idx], "", 0, nullptr);
-  
-  if (m_enable_logging)
-    OpenCLUtils::CheckSuccess("Building program", rc);
-
-  io_kernel.InitKernelsForProgram();
+  bool ok = true;
+  ok &= io_kernel.InitProgramForContext(m_context);
+  ok &= io_kernel.BuildProgram(m_number_of_devices[m_platform_idx], m_devices[m_platform_idx]);
+  ok &= io_kernel.InitKernelsForProgram();
   io_kernel.UpdateKernelSizeInfo(m_number_of_devices[m_platform_idx]);
 
-  return (rc == CL_SUCCESS);
+  return ok;
   }
 
 bool OpenCLEnvironment::Execute(Kernel& io_kernel)

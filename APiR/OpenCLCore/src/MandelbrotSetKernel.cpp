@@ -47,7 +47,6 @@ MandelbrotSetKernel::MandelbrotSetKernel(
     "mandelbrot_set")
   , m_mandelbrot_set(i_width, i_height, i_max_iterations)
   , mp_output_image(nullptr)
-  , m_dimensions(2)
   , mk_mandelbrot()
   , md_image()
   , md_color_map()
@@ -66,6 +65,24 @@ bool MandelbrotSetKernel::InitKernelsForProgram()
   mk_mandelbrot = clCreateKernel(m_program, m_main_func_name.c_str(), &rc);
   if (m_enable_logging)
     OpenCLUtils::CheckSuccess("Mandelbrot kernel creation", rc);
+
+  return (rc == CL_SUCCESS);
+  }
+
+bool MandelbrotSetKernel::BuildProgram(
+  cl_uint i_num_of_devices, 
+  const cl_device_id* i_device_ids) const
+  {
+  cl_int rc = clBuildProgram(
+    m_program, 
+    i_num_of_devices, 
+    i_device_ids, 
+    "",
+    0, 
+    nullptr);
+
+  if (m_enable_logging)
+    OpenCLUtils::CheckSuccess("Building program", rc);
 
   return (rc == CL_SUCCESS);
   }
@@ -95,7 +112,7 @@ bool MandelbrotSetKernel::SetKernelArgs() const
 
 void MandelbrotSetKernel::UpdateDeviceOffset(std::size_t i_queue_id)
   {
-  m_device_offset = KernelSize(0, m_device_size[m_dimensions - 1] * i_queue_id);
+  m_device_offset = KernelSize(0, m_device_size[m_kernel_dimensions - 1] * i_queue_id);
   }
 
 bool MandelbrotSetKernel::WriteBuffers(
@@ -140,7 +157,7 @@ bool MandelbrotSetKernel::CollectResults(
   const cl_command_queue& i_queue)
   {
   const size_t offset = 
-    m_device_offset[m_dimensions - 1] * 
+    m_device_offset[m_kernel_dimensions - 1] * 
     mp_output_image->GetDepth() * 
     m_mandelbrot_set.m_width;
 
@@ -192,6 +209,7 @@ bool MandelbrotSetKernel::_InitBuffers()
 
 void MandelbrotSetKernel::UpdateKernelSizeInfo(std::size_t i_device_cnt)
   {
+  m_kernel_dimensions = 2;
   m_global_size = KernelSize(
     m_mandelbrot_set.m_width, 
     m_mandelbrot_set.m_height);

@@ -18,7 +18,9 @@ class Kernel
     bool InitProgramForContext(const cl_context& io_context);
     /// Get kernel program to environment 
     /// Need for building on specific platform and devices
-    cl_program GetProgram() const;
+    virtual bool BuildProgram(
+      cl_uint i_num_of_devices, 
+      const cl_device_id* i_device_ids) const = 0;
     /// Creating kernels from given source code
     virtual bool InitKernelsForProgram() = 0;
     /// Updates all information about different sizes for kernels
@@ -56,16 +58,12 @@ class Kernel
     std::string m_main_func_name;
     std::string m_source_code;
 
+    std::size_t m_kernel_dimensions;
     KernelSize m_global_size;
     KernelSize m_local_size;
     KernelSize m_device_size;
     KernelSize m_device_offset;
   };
-
-inline cl_program Kernel::GetProgram() const
-  {
-  return m_program;
-  }
 
 inline void Kernel::SetLoggingState(bool i_is_on)
   {

@@ -2,8 +2,6 @@
 #include <OpenCLCore/Kernel.h>
 #include <Rendering/Image.h>
 
-#include <CL/cl.h>
-
 class MandelbrotSetKernel : public Kernel
   {
   public:
@@ -31,6 +29,9 @@ class MandelbrotSetKernel : public Kernel
     ~MandelbrotSetKernel();
 
     virtual bool InitKernelsForProgram() override;
+    virtual bool BuildProgram(
+      cl_uint i_num_of_devices, 
+      const cl_device_id* i_device_ids) const override;
     virtual void UpdateKernelSizeInfo(std::size_t i_device_cnt) override;
     virtual bool SetKernelArgs() const override;
     virtual void UpdateDeviceOffset(std::size_t i_queue_id) override;
@@ -49,8 +50,6 @@ class MandelbrotSetKernel : public Kernel
     MandelbrotSet m_mandelbrot_set;
 
     Image* mp_output_image;
-
-    std::size_t m_dimensions;
 
     cl_kernel mk_mandelbrot;
     cl_mem md_image;
