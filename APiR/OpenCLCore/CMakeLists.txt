@@ -32,5 +32,5 @@ generate_project(
   LINK    Rendering
             Math
             Visual
-          ${OPENCL_LIBRARIES}
+          ${OpenCL_LIBRARIES}
 )
