@@ -37,7 +37,8 @@ void GLUTWindow::_DisplayFunc()
   glClearColor(0.0, 0.0, 0.0, 1.0);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  m_update_function();
+  if (m_update_function)
+    m_update_function();
   m_fps_counter.Update();
 
   glBindTexture(GL_TEXTURE_2D, m_main_screen);
@@ -96,13 +97,16 @@ void GLUTWindow::SetImageSource(const Image* ip_source)
   glBindTexture(GL_TEXTURE_2D, 0);
   }
 
-void GLUTWindow::_PressButton(unsigned char /*i_key*/, int /*i_x*/, int /*i_y*/)
+void GLUTWindow::_PressButton(unsigned char i_key, int i_x, int i_y)
   {
-
+  if (m_keyboard_function)
+    mg_instance->m_keyboard_function(i_key, i_x, i_y);
   }
 
-void GLUTWindow::_MouseEvent(int /*i_button*/, int /*i_state*/, int /*i_x*/, int /*i_y*/)
+void GLUTWindow::_MouseEvent(int i_button, int i_state, int i_x, int i_y)
   {
+  if (m_mouse_function)
+    mg_instance->m_mouse_function(i_button, i_state, i_x, i_y);
   }
 
 void GLUTWindow::_DisplayFuncWrapper()
