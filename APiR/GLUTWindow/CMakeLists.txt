@@ -16,7 +16,6 @@ generate_project(
   STATIC
   SOURCES ${SOURCES}
   HEADERS ${HEADERS}
-  PY      ${PY}
   LINK    Rendering
             Math
             Visual

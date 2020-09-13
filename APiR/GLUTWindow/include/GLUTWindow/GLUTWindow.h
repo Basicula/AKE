@@ -13,10 +13,17 @@
 class GLUTWindow
   {
   public:
+    using UpdateFunction = std::function<void()>;
+    using KeyBoardFunction = std::function<void(unsigned char, int, int)>;
+    using MouseFunction = std::function<void(int, int, int, int)>;
+
+  public:
     GLUTWindow(int i_width, int i_height, const char* i_title = "New window");
 
     void SetImageSource(const Image* ip_source);
-    void SetUpdateFunction(std::function<void()> i_func);
+    void SetUpdateFunction(UpdateFunction i_func);
+    void SetKeyBoardFunction(KeyBoardFunction i_func);
+    void SetMouseFunction(MouseFunction i_func);
     void Open();
 
   private:
@@ -38,12 +45,24 @@ class GLUTWindow
     const Image* mp_source;
     FPSCounter m_fps_counter;
 
-    std::function<void()> m_update_function;
+    UpdateFunction m_update_function;
+    KeyBoardFunction m_keyboard_function;
+    MouseFunction m_mouse_function;
   };
 
-inline void GLUTWindow::SetUpdateFunction(std::function<void()> i_func)
+inline void GLUTWindow::SetUpdateFunction(UpdateFunction i_func)
   {
   m_update_function = i_func;
   }
 
- static GLUTWindow* mg_instance;
+inline void GLUTWindow::SetKeyBoardFunction(KeyBoardFunction i_func)
+  {
+  m_keyboard_function = i_func;
+  }
+
+inline void GLUTWindow::SetMouseFunction(MouseFunction i_func)
+  {
+  m_mouse_function = i_func;
+  }
+
+static GLUTWindow* mg_instance;
