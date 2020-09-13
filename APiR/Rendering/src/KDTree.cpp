@@ -123,13 +123,15 @@ void KDTree::_Build(
       }
     }
 
-  curr_node.left = static_cast<std::int64_t>(m_nodes.size());
+  const auto left = static_cast<std::int64_t>(m_nodes.size());
   _Build(i_start, i_start + splitting_info.left_count);
-  m_nodes[curr_node.left].parent = curr_node.left - 1;
+  curr_node.left = left;
+  m_nodes[left].parent = left - 1;
 
-  curr_node.right = static_cast<std::int64_t>(m_nodes.size());
+  const auto right = static_cast<std::int64_t>(m_nodes.size());
   _Build(i_start + splitting_info.left_count, i_end);
-  m_nodes[curr_node.right].parent = curr_node.left - 1;
+  curr_node.right = right;
+  m_nodes[right].parent = left - 1;
   }
 
 BoundingBox KDTree::_BoundingBox(
