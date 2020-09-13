@@ -1,5 +1,14 @@
 #include <Visual/Color.h>
 
+#include <time.h>
+
+const Color Color::White  = Color(255, 255, 255);
+const Color Color::Black  = Color(0, 0, 0);
+const Color Color::Blue   = Color(0, 0, 255);
+const Color Color::Green  = Color(0, 255, 0);
+const Color Color::Red    = Color(255, 0, 0);
+const Color Color::Yellow = Color(255, 255, 0);
+
 Color::Color()
   : m_rgba(0)
   {};
@@ -81,4 +90,13 @@ Color& Color::operator+=(const Color& i_other)
   rgba_data[2] = static_cast<std::uint8_t>(std::min(255, int(GetBlue()) + int(i_other.GetBlue())));
   rgba_data[3] = static_cast<std::uint8_t>(std::min(255, int(GetAlpha()) + int(i_other.GetAlpha())));
   return *this;
+  }
+
+Color Color::RandomColor()
+  {
+  srand(rand() % RAND_MAX);
+  return Color(
+    rand() % UINT8_MAX, 
+    rand() % UINT8_MAX, 
+    rand() % UINT8_MAX);
   }

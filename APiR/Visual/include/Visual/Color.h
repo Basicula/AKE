@@ -38,6 +38,17 @@ public:
   void SetRGBA(std::uint32_t i_rgba);
 
   std::string Serialize() const;
+
+public:
+  static Color RandomColor();
+
+  static const Color White;
+  static const Color Black;
+  static const Color Red;
+  static const Color Green;
+  static const Color Blue;
+  static const Color Yellow;
+
 private:
   std::uint32_t m_rgba;
 };
