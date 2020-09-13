@@ -5,23 +5,6 @@
 class MandelbrotSetKernel : public Kernel
   {
   public:
-    struct MandelbrotSet
-      {
-      static const std::uint8_t m_color_map[17 * 3];
-      std::size_t m_width;
-      std::size_t m_height;
-      std::size_t m_max_iterations = 1000;
-      int m_origin_x;
-      int m_origin_y;
-      double m_scale;
-
-      MandelbrotSet(
-        std::size_t i_width,
-        std::size_t i_height,
-        std::size_t i_iterations);
-      };
-
-  public:
     MandelbrotSetKernel(
       std::size_t i_width,
       std::size_t i_height,
@@ -47,7 +30,9 @@ class MandelbrotSetKernel : public Kernel
     virtual bool _InitBuffers() override;
 
   private:
-    MandelbrotSet m_mandelbrot_set;
+    std::size_t m_width;
+    std::size_t m_height;
+    std::size_t m_max_iterations;
 
     Image* mp_output_image;
 
@@ -58,7 +43,7 @@ class MandelbrotSetKernel : public Kernel
 
 inline void MandelbrotSetKernel::SetMaxIterations(std::size_t i_iterations)
   {
-  m_mandelbrot_set.m_max_iterations = i_iterations;
+  m_max_iterations = i_iterations;
   }
 
 inline void MandelbrotSetKernel::SetOutput(Image& o_image)
