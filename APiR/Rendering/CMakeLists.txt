@@ -29,11 +29,13 @@ set(
 
 generate_project(
   STATIC
+  SUPPORT_CUDA
   SOURCES ${SOURCES}
   HEADERS ${HEADERS}
   PY      ${PY}
   LINK    Common
+          CUDACore
           Geometry
           Math
-          Visual  
+          Visual
 )

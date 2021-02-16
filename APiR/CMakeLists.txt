@@ -1,5 +1,7 @@
-add_subdirectory(Math)
+add_subdirectory(CUDACore)
 add_subdirectory(Common)
+add_subdirectory(Math)
+add_subdirectory(Fractal)
 add_subdirectory(Rendering)
 add_subdirectory(Visual)
 add_subdirectory(BMPWriter)
@@ -11,12 +13,15 @@ add_subdirectory(Scene)
 add_subdirectory(GLUTWindow)
 add_subdirectory(Main)
 
+add_subdirectory(CUDATest)
+
 pybind11_add_module(engine engine_module.cpp)
 target_link_libraries(
   engine
   
   PRIVATE
   
+  CUDACore
   Common
   Fluid
   Geometry

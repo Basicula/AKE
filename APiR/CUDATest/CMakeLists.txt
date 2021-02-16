@@ -1,19 +1,13 @@
 set(
   SOURCES
   
-  BMPWriter.cpp
-)
-
-set(
-  HEADERS
-  
-  BMPWriter.h
+  main.cu
 )
 
 generate_project(
-  STATIC
+  EXECUTABLE
+  SUPPORT_CUDA
   SOURCES ${SOURCES}
-  HEADERS ${HEADERS}
   LINK    CUDACore
           Rendering
             Visual

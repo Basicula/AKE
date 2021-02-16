@@ -13,7 +13,8 @@ LyapunovFractal::LyapunovFractal(
 
 Color LyapunovFractal::GetColor(int i_x, int i_y) const
   {
-  auto [zx, zy] = _MapCoordinate(i_x, i_y);
+  double zx, zy;
+  _MapCoordinate(zx, zy, i_x, i_y);
   auto exponent = _ComputeLyapunovExponent(zx, zy) * 255;
   if (exponent < 0.0)
     {

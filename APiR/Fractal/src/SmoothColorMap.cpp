@@ -7,7 +7,7 @@ SmoothColorMap::SmoothColorMap()
   {
   }
 
-SmoothColorMap::SmoothColorMap(const std::vector<Color>& i_colors)
+SmoothColorMap::SmoothColorMap(const HostDeviceBuffer<Color>& i_colors)
   : ColorMap(i_colors)
   {
   }

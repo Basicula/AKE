@@ -12,7 +12,8 @@ JuliaSet::JuliaSet(
 
 Color JuliaSet::GetColor(int i_x, int i_y) const
   {
-  auto [zx, zy] = _MapCoordinate(i_x, i_y);
+  double zx, zy;
+  _MapCoordinate(zx, zy, i_x, i_y);
   int iter = 0;
   while (iter < m_max_iterations)
     {

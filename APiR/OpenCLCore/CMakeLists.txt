@@ -29,7 +29,8 @@ generate_project(
   STATIC
   SOURCES ${SOURCES}
   HEADERS ${HEADERS}
-  LINK    Rendering
+  LINK    CUDACore
+          Rendering
             Math
             Visual
           ${OpenCL_LIBRARIES}

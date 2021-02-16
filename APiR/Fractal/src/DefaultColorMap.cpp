@@ -1,6 +1,6 @@
 #include <Fractal/DefaultColorMap.h>
 
-DefaultColorMap::DefaultColorMap(const std::vector<Color>& i_colors)
+DefaultColorMap::DefaultColorMap(const HostDeviceBuffer<Color>& i_colors)
   : ColorMap(i_colors)
   {
   }

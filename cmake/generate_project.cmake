@@ -10,6 +10,24 @@ function(source_groups)
   endforeach()
 endfunction()
 
+function(add_pch tgt pchH pchCpp)
+  set( pchObj "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/${tgt}.pch" )
+  
+  if (MSVC)      
+    set_property(TARGET ${tgt} APPEND_STRING PROPERTY COMPILE_FLAGS
+        " /Fp\"${pchObj}\" /FI\"${pchH}\"")
+        
+    set_source_files_properties( ${pchCpp} PROPERTIES
+      COMPILE_FLAGS "/Yc\"${pchH}\" /Fp\"${pchObj}\""
+      OBJECT_OUTPUTS "${pchObj}" )
+    
+    set_source_files_properties( ${ARGN} PROPERTIES
+      COMPILE_FLAGS "/Yu\"${pchH}\" /Fp\"${pchObj}\"" 
+      OBJECT_DEPENDS "${pchObj}" )
+          
+  endif(MSVC)
+endfunction()
+
 # supposed file locations per subfolder:
 #   headers                               - "include/${PROJECT_NAME}"
 #   sources                               - "src"
@@ -24,9 +42,10 @@ function(generate_project)
     TESTS
     LINK
   )
-  cmake_parse_arguments(ARG "STATIC;SHARED;EXECUTABLE;SUPPORT_MFC;ENABLE_PCH;WIN32_EXE;" "" "${KEYWORDS}" ${ARGN})
+  cmake_parse_arguments(ARG "STATIC;SHARED;EXECUTABLE;SUPPORT_MFC;ENABLE_PCH;WIN32_EXE;SUPPORT_CUDA" "" "${KEYWORDS}" ${ARGN})
   get_filename_component(NAME "${CMAKE_CURRENT_SOURCE_DIR}" NAME)
   
+  set(PCH_FILES)
   if (ARG_ENABLE_PCH)
     set(PCH_FILES src/pch.h src/pch.cpp)
   endif()
@@ -82,9 +101,14 @@ function(generate_project)
   endif()
   
   source_groups(${FILES})
+  source_group("config" FILES ${PCH_FILES})
   if(ARG_ENABLE_PCH)
-    source_group("config" FILES ${PCH_FILES})
     add_pch(${NAME} ${PCH_FILES} ${FILES})
+  endif()
+  
+  if(ARG_SUPPORT_CUDA AND ENABLE_CUDA)
+    #set_target_properties(${NAME} PROPERTIES CUDA_RESOLVE_DEVICE_SYMBOLS ON)
+    set_target_properties(${NAME} PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
   endif()
   
   target_include_directories(${NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
