@@ -5,8 +5,8 @@ set(
   DefaultColorMap.cpp
   SmoothColorMap.cpp
   
-  Fractal.cpp
-  MandelbrotSet.cpp
+  Fractal.cu
+  MandelbrotSet.cu
   JuliaSet.cpp
   LyapunovFractal.cpp
 )
@@ -26,8 +26,10 @@ set(
 
 generate_project(
   STATIC
+  SUPPORT_CUDA
   SOURCES ${SOURCES}
   HEADERS ${HEADERS}
-  LINK    Visual
+  LINK    CUDACore
+          Visual
             Math
 )

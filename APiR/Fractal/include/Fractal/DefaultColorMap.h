@@ -4,7 +4,7 @@
 class DefaultColorMap : public ColorMap
   {
   public:
-    DefaultColorMap(const std::vector<Color>& i_colors);
+    DefaultColorMap(const HostDeviceBuffer<Color>& i_colors);
 
     virtual Color operator()(
       std::size_t i_val,

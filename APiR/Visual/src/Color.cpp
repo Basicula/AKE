@@ -13,7 +13,7 @@ Color::Color()
   : m_rgba(0)
   {};
 
-Color::Color(std::uint32_t i_abgr)
+HOSTDEVICE Color::Color(std::uint32_t i_abgr)
   : m_rgba(i_abgr)
   {};
 

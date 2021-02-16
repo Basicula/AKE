@@ -1,11 +1,13 @@
 #pragma once
+#include <Macro/CudaMacro.h>
+
 #include <Math/Vector.h>
 
 class Color
 {
 public:
   Color();
-  Color(std::uint32_t i_abgr);
+  HOSTDEVICE Color(std::uint32_t i_abgr);
   Color(
     std::uint8_t i_red, 
     std::uint8_t i_green, 
@@ -33,7 +35,7 @@ public:
   void SetBlue(std::uint8_t i_blue);
   void SetAlpha(std::uint8_t i_alpha);
   
-  operator std::uint32_t() const;
+  HOSTDEVICE operator std::uint32_t() const;
   std::uint32_t GetRGBA() const;
   void SetRGBA(std::uint32_t i_rgba);
 
@@ -92,7 +94,7 @@ inline void Color::SetAlpha(std::uint8_t i_alpha)
   reinterpret_cast<std::uint8_t*>(&m_rgba)[3] = i_alpha;
   }
   
-inline Color::operator std::uint32_t() const
+HOSTDEVICE inline Color::operator std::uint32_t() const
   {
   return m_rgba;
   }
