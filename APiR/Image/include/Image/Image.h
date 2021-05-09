@@ -1,8 +1,7 @@
 #pragma once
-#include <Macro/CudaMacro.h>
+#include <Macros.h>
 
-#include <CUDACore/HostDeviceBuffer.h>
-
+#include <Memory/MemoryManager.h>
 #include <Visual/Color.h>
 
 class Image
@@ -18,10 +17,10 @@ class Image
     void GetPixelRGBA(
       std::size_t i_x, 
       std::size_t i_y,
-      std::uint8_t& o_red,
-      std::uint8_t& o_green,
-      std::uint8_t& o_blue,
-      std::uint8_t& o_alpha) const;
+      uint8_t& o_red,
+      uint8_t& o_green,
+      uint8_t& o_blue,
+      uint8_t& o_alpha) const;
     HOSTDEVICE void SetPixel(
       std::size_t i_x, 
       std::size_t i_y, 
@@ -29,19 +28,19 @@ class Image
     void SetPixelRGBA(
       std::size_t i_x, 
       std::size_t i_y, 
-      std::uint8_t i_red,
-      std::uint8_t i_green,
-      std::uint8_t i_blue,
-      std::uint8_t i_alpha = 255);
+      uint8_t i_red,
+      uint8_t i_green,
+      uint8_t i_blue,
+      uint8_t i_alpha = 255);
 
-    HOSTDEVICE std::size_t GetWidth() const;
-    HOSTDEVICE std::size_t GetHeight() const;
+    std::size_t GetWidth() const;
+    std::size_t GetHeight() const;
     std::size_t GetDepth() const;
     std::size_t GetSize() const;
     std::size_t GetBytesCount() const;
 
     std::uint32_t* GetData() const;
-    std::uint8_t* GetRGBAData() const;
+    uint8_t* GetRGBAData() const;
 
   private:
     HOSTDEVICE std::size_t _ID(std::size_t i_x, std::size_t i_y) const;
@@ -50,7 +49,7 @@ class Image
     std::size_t m_width;
     std::size_t m_height;
     std::size_t m_size;
-    HostDeviceBuffer<std::uint32_t> mp_pixels;
+    MemoryManager::pointer<std::uint32_t> m_pixels;
 
     static const unsigned char m_bytes_per_pixel = 4;
   };
@@ -62,18 +61,18 @@ inline std::size_t Image::_ID(std::size_t i_x, std::size_t i_y) const
 
 inline std::uint32_t Image::GetPixel(std::size_t i_x, std::size_t i_y) const
   {
-  return mp_pixels[_ID(i_x, i_y)];
+  return m_pixels.mp_data[_ID(i_x, i_y)];
   }
 
 inline void Image::GetPixelRGBA(
   std::size_t i_x, 
   std::size_t i_y, 
-  std::uint8_t& o_red, 
-  std::uint8_t& o_green, 
-  std::uint8_t& o_blue, 
-  std::uint8_t& o_alpha) const
+  uint8_t& o_red, 
+  uint8_t& o_green, 
+  uint8_t& o_blue, 
+  uint8_t& o_alpha) const
   {
-  auto rgba_data = reinterpret_cast<const std::uint8_t*>(&mp_pixels[_ID(i_x, i_y)]);
+  auto rgba_data = reinterpret_cast<const uint8_t*>(&m_pixels.mp_data[_ID(i_x, i_y)]);
   o_red   = rgba_data[0];
   o_green = rgba_data[1];
   o_blue  = rgba_data[2];
@@ -85,7 +84,7 @@ inline void Image::SetPixel(
   std::size_t i_y, 
   std::uint32_t i_color)
   {
-  mp_pixels[_ID(i_x, i_y)] = i_color;
+  m_pixels.mp_data[_ID(i_x, i_y)] = i_color;
   }
 
 inline std::size_t Image::GetWidth() const
@@ -115,5 +114,5 @@ inline std::size_t Image::GetDepth() const
 
 inline std::uint32_t* Image::GetData() const
   {
-  return mp_pixels.data();
+  return m_pixels.mp_data;
   }

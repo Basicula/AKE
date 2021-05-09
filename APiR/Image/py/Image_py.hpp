@@ -1,4 +1,4 @@
-#include <Rendering/Image.h>
+#include <Image/Image.h>
 
 static void AddImage(py::module& io_module)
   {
@@ -25,7 +25,7 @@ static void AddImage(py::module& io_module)
     .def("rgbData",
          [](const Image& i_image)
          {
-         return std::vector<std::uint8_t>(
+         return std::vector<uint8_t>(
            i_image.GetRGBAData(),
            i_image.GetRGBAData() + i_image.GetSize() * 4);
          })

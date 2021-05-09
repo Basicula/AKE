@@ -2,7 +2,6 @@ set(
   SOURCES
   
   Camera.cpp
-  Image.cpp
   KDTree.cpp
   RenderableObject.cpp
 )
@@ -11,7 +10,6 @@ set(
   HEADERS
   
   Camera.h
-  Image.h
   IRenderable.h
   KDTree.h
   RenderableObject.h
@@ -21,7 +19,6 @@ set(
   PY
   
   Camera_py.hpp
-  Image_py.hpp
   IRenderable_py.hpp
   RenderableObject_py.hpp
   rendering_py.hpp
@@ -37,5 +34,6 @@ generate_project(
           CUDACore
           Geometry
           Math
+          Memory
           Visual
 )
