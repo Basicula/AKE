@@ -1,16 +1,15 @@
 #include <CUDACore/CUDAUtils.h>
 
+#include <cuda_runtime.h>
 #include <iostream>
 
 void check_cuda(
   cudaError_t result,
   char const* const func,
   const char* const file,
-  int const line)
-  {
-  if (result)
-    {
-    std::cerr << "CUDA error : " << static_cast<unsigned int>(result) << " at "
+  int const line) {
+  if (result) {
+    std::cerr << "CUDA error : " << static_cast<unsigned int>( result ) << " at "
       << file << ":" << line << " '" << func << std::endl;
     std::cerr << cudaGetErrorString(result) << std::endl;
     }
