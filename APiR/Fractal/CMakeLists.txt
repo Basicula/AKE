@@ -1,12 +1,10 @@
 set(
   SOURCES
   
-  ColorMap.cpp
-  DefaultColorMap.cpp
-  SmoothColorMap.cpp
+  MappingFunctions.cpp
   
-  Fractal.cu
-  MandelbrotSet.cu
+  Fractal.cpp
+  MandelbrotSet.cpp
   JuliaSet.cpp
   LyapunovFractal.cpp
 )
@@ -14,9 +12,7 @@ set(
 set(
   HEADERS
   
-  ColorMap.h
-  DefaultColorMap.h
-  SmoothColorMap.h
+  MappingFunctions.h
   
   Fractal.h
   MandelbrotSet.h
@@ -24,12 +20,26 @@ set(
   LyapunovFractal.h
 )
 
+set(
+  CUDA_FILES
+  
+  src/MappingFunctions.cpp
+  
+  src/Fractal.cpp
+  src/MandelbrotSet.cpp
+  src/JuliaSet.cpp
+  src/LyapunovFractal.cpp
+)
+
 generate_project(
   STATIC
   SUPPORT_CUDA
+  CUDA_FILES ${CUDA_FILES}
   SOURCES ${SOURCES}
   HEADERS ${HEADERS}
-  LINK    CUDACore
+  LINK    Common
+          CUDACore
+          Memory
           Visual
             Math
 )

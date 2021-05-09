@@ -10,11 +10,11 @@ JuliaSet::JuliaSet(
   _ResetStart();
   }
 
-Color JuliaSet::GetColor(int i_x, int i_y) const
+size_t JuliaSet::GetValue(int i_x, int i_y) const
   {
   double zx, zy;
   _MapCoordinate(zx, zy, i_x, i_y);
-  int iter = 0;
+  size_t iter = 0;
   while (iter < m_max_iterations)
     {
     const double tempzx = zx * zx - zy * zy + m_cx;
@@ -24,7 +24,7 @@ Color JuliaSet::GetColor(int i_x, int i_y) const
       break;
     ++iter;
     }
-  return (*m_color_map)(iter, m_max_iterations);
+  return iter;
   }
 
 void JuliaSet::SetType(JuliaSetType i_type)

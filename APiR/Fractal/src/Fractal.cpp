@@ -1,6 +1,6 @@
 #include <Fractal/Fractal.h>
 
-HOSTDEVICE Fractal::Fractal(
+Fractal::Fractal(
   std::size_t i_width,
   std::size_t i_height, 
   std::size_t i_max_iterations)
@@ -16,7 +16,7 @@ HOSTDEVICE Fractal::Fractal(
   , m_y_max(0.0)
   {}
 
-HOSTDEVICE void Fractal::_MapCoordinate(double& o_x, double& o_y, int i_x, int i_y) const
+void Fractal::_MapCoordinate(double& o_x, double& o_y, int i_x, int i_y) const
   {
   o_x = ((m_x_max - m_x_min) * i_x / m_width + m_x_min) / m_scale + m_origin_x;
   o_y = ((m_y_max - m_y_min) * i_y / m_height + m_y_min) / m_scale + m_origin_y;

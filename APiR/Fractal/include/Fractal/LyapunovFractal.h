@@ -10,7 +10,7 @@ class LyapunovFractal : public Fractal
       std::size_t i_height,
       std::size_t i_max_iterations = 1000);
 
-    virtual Color GetColor(int i_x, int i_y) const override;
+    virtual size_t GetValue(int i_x, int i_y) const override;
 
   protected:
     virtual void _InitFractalRange();

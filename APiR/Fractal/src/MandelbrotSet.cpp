@@ -1,6 +1,6 @@
 #include <Fractal/MandelbrotSet.h>
 
-HOSTDEVICE MandelbrotSet::MandelbrotSet(
+MandelbrotSet::MandelbrotSet(
   std::size_t i_width,
   std::size_t i_height,
   std::size_t i_iterations)
@@ -9,13 +9,13 @@ HOSTDEVICE MandelbrotSet::MandelbrotSet(
   _InitFractalRange();
   }
 
-HOSTDEVICE Color MandelbrotSet::GetColor(int i_x, int i_y) const
+size_t MandelbrotSet::GetValue(int i_x, int i_y) const
   {
   double zx, zy, cx, cy;
   _MapCoordinate(zx, zy, i_x, i_y);
   cx = zx;
   cy = zy;
-  int iter = 0;
+  size_t iter = 0;
   while (iter < m_max_iterations)
     {
     const double tempzx = zx * zx - zy * zy + cx;
@@ -25,10 +25,10 @@ HOSTDEVICE Color MandelbrotSet::GetColor(int i_x, int i_y) const
       break;
     ++iter;
     }
-  return (*m_color_map)(iter, m_max_iterations);
+  return iter;
   }
 
-HOSTDEVICE void MandelbrotSet::_InitFractalRange()
+void MandelbrotSet::_InitFractalRange()
   {
   m_x_min = -2.0;
   m_x_max = 1.0;

@@ -1,5 +1,5 @@
 #pragma once
-#include <Macro/CudaMacro.h>
+#include <Macros.h>
 #include <Fractal/ColorMap.h>
 
 #include <memory>
@@ -9,9 +9,8 @@ class Fractal
   public:
     virtual ~Fractal() = default;
 
-    HOSTDEVICE virtual Color GetColor(int i_x, int i_y) const = 0;
+    HOSTDEVICE virtual size_t GetValue(int i_x, int i_y) const = 0;
 
-    void SetColorMap(const ColorMap* i_color_map);
     void SetMaxIterations(std::size_t i_max_iterations);
     void SetScale(double i_scale);
     void SetOrigin(double i_origin_x, double i_origin_y);
@@ -19,7 +18,7 @@ class Fractal
   protected:
     HOSTDEVICE Fractal(
       std::size_t i_width,
-      std::size_t i_height, 
+      std::size_t i_height,
       std::size_t i_max_iterations = 1000);
 
     HOSTDEVICE void _MapCoordinate(double& o_x, double& o_y, int i_x, int i_y) const;
@@ -38,14 +37,7 @@ class Fractal
     double m_x_max;
     double m_y_min;
     double m_y_max;
-
-    const ColorMap* m_color_map;
   };
-
-inline void Fractal::SetColorMap(const ColorMap* ip_color_map)
-  {
-  m_color_map = ip_color_map;
-  }
 
 inline void Fractal::SetMaxIterations(std::size_t i_max_iterations)
   {
