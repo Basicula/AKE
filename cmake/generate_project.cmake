@@ -109,7 +109,7 @@ function(generate_project)
   endif()
   
   if(ARG_SUPPORT_CUDA AND ENABLE_CUDA)
-    #set_target_properties(${NAME} PROPERTIES CUDA_RESOLVE_DEVICE_SYMBOLS ON)
+    set_target_properties(${NAME} PROPERTIES CUDA_RESOLVE_DEVICE_SYMBOLS ON)
     set_target_properties(${NAME} PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
     set_source_files_properties(${ARG_CUDA_FILES} PROPERTIES LANGUAGE CUDA)
   endif()

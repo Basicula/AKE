@@ -1,6 +1,5 @@
 #pragma once
 #include <Macros.h>
-#include <Fractal/ColorMap.h>
 
 #include <memory>
 
