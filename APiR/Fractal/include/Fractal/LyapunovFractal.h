@@ -1,6 +1,8 @@
 #pragma once
 #include <Fractal/Fractal.h>
 
+#include <string>
+
 class LyapunovFractal : public Fractal
   {
   public:
@@ -10,14 +12,14 @@ class LyapunovFractal : public Fractal
       std::size_t i_height,
       std::size_t i_max_iterations = 1000);
 
-    virtual size_t GetValue(int i_x, int i_y) const override;
+    HOSTDEVICE virtual size_t GetValue(int i_x, int i_y) const override;
 
   protected:
-    virtual void _InitFractalRange();
+    HOSTDEVICE virtual void _InitFractalRange();
 
   private:
-    double _ComputeLyapunovExponent(double i_zx, double i_zy) const;
-    double _MainFunc(std::size_t i_n, double i_zx, double i_zy) const;
+    HOSTDEVICE double _ComputeLyapunovExponent(double i_zx, double i_zy) const;
+    HOSTDEVICE double _MainFunc(std::size_t i_n, double i_zx, double i_zy) const;
 
   private:
     std::string m_fractal_string;

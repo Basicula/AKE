@@ -1,5 +1,4 @@
 #pragma once
-#include <Fractal/ColorMap.h>
 #include <Fractal/Fractal.h>
 
 #include <cstdio>

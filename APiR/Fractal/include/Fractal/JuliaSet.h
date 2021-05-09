@@ -18,14 +18,14 @@ class JuliaSet : public Fractal
       std::size_t i_height,
       std::size_t i_iterations = 1000);
 
-    virtual size_t GetValue(int i_x, int i_y) const override;
+    HOSTDEVICE virtual size_t GetValue(int i_x, int i_y) const override;
 
     void SetType(JuliaSetType i_type);
 
     void SetCustomStart(double i_cx, double i_cy);
 
   protected:
-    virtual void _InitFractalRange() override;
+    HOSTDEVICE virtual void _InitFractalRange() override;
 
     void _ResetStart();
 
