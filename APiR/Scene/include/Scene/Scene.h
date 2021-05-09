@@ -1,6 +1,7 @@
 #pragma once
+#include <Image/Image.h>
+
 #include <Rendering/Camera.h>
-#include <Rendering/Image.h>
 #include <Rendering/IRenderable.h>
 #include <Rendering/KDTree.h>
 

@@ -23,9 +23,11 @@ generate_project(
   HEADERS ${HEADERS}
   PY      ${PY}
   LINK    CUDACore
+          Image
           Rendering
             Common
             Geometry
           Visual
             Math
+          Memory
 )

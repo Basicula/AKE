@@ -190,13 +190,13 @@ Color Scene::_ProcessLightInfluence(
   if (active_lights_cnt > 0)
     {
     //result_pixel_color += Color(
-    //  static_cast<std::uint8_t>(red / active_lights_cnt),
-    //  static_cast<std::uint8_t>(green / active_lights_cnt),
-    //  static_cast<std::uint8_t>(blue / active_lights_cnt));
+    //  static_cast<uint8_t>(red / active_lights_cnt),
+    //  static_cast<uint8_t>(green / active_lights_cnt),
+    //  static_cast<uint8_t>(blue / active_lights_cnt));
     result_pixel_color += Color(
-      static_cast<std::uint8_t>(red > 255 ? 255 : red),
-      static_cast<std::uint8_t>(green > 255 ? 255 : green),
-      static_cast<std::uint8_t>(blue > 255 ? 255 : blue));
+      static_cast<uint8_t>(red > 255 ? 255 : red),
+      static_cast<uint8_t>(green > 255 ? 255 : green),
+      static_cast<uint8_t>(blue > 255 ? 255 : blue));
     }
   return result_pixel_color;
   }
