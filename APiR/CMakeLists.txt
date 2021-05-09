@@ -1,6 +1,14 @@
+if (ENABLE_OPENCL)
+add_subdirectory(OpenCLCore)
+add_subdirectory(OpenCLKernels)
+endif()
+if (ENABLE_CUDA)
 add_subdirectory(CUDACore)
+endif()
+add_subdirectory(Memory)
 add_subdirectory(Common)
 add_subdirectory(Math)
+add_subdirectory(Image)
 add_subdirectory(Fractal)
 add_subdirectory(Rendering)
 add_subdirectory(Visual)
@@ -8,12 +16,9 @@ add_subdirectory(BMPWriter)
 add_subdirectory(Physics)
 add_subdirectory(Geometry)
 add_subdirectory(Fluid)
-add_subdirectory(OpenCLCore)
 add_subdirectory(Scene)
 add_subdirectory(GLUTWindow)
 add_subdirectory(Main)
-
-add_subdirectory(CUDATest)
 
 pybind11_add_module(engine engine_module.cpp)
 target_link_libraries(
@@ -25,7 +30,9 @@ target_link_libraries(
   Common
   Fluid
   Geometry
+  Image
   Math
+  Memory
   Physics
   Rendering
   Scene
