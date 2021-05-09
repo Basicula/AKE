@@ -1,4 +1,6 @@
 #pragma once
+#include <Macros.h>
+
 #include <type_traits>
 #include <string>
 
@@ -22,8 +24,8 @@ class Vector
     Vector(ElementType i_elem);
     Vector(const Vector& i_other) = default;
 
-    ElementType& operator[](std::size_t i_index);
-    const ElementType& operator[](std::size_t i_index) const;
+    HOSTDEVICE ElementType& operator[](std::size_t i_index);
+    HOSTDEVICE const ElementType& operator[](std::size_t i_index) const;
     
     bool operator==(const Vector& i_other) const;
     bool operator!=(const Vector& i_other) const;
