@@ -16,9 +16,9 @@ generate_project(
   STATIC
   SOURCES ${SOURCES}
   HEADERS ${HEADERS}
-  LINK    CUDACore
-          Rendering
-            Math
-            Visual
+  LINK    Image
+          Math
+          Memory
+          Visual
           ${GLUT_LIBRARIES}
 )
