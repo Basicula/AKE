@@ -36,11 +36,19 @@ set(
   visual_py.hpp
 )
 
+set(
+  CUDA_FILES
+  
+  src/Color.cpp
+)
+
 generate_project(
   STATIC
   SUPPORT_CUDA
-  SOURCES ${SOURCES}
-  HEADERS ${HEADERS}
-  PY      ${PY}
-  LINK    Math
+  CUDA_FILES ${CUDA_FILES}
+  SOURCES    ${SOURCES}
+  HEADERS    ${HEADERS}
+  PY         ${PY}
+  LINK       Math
+             Common
 )
