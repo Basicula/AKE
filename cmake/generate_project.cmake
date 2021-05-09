@@ -36,11 +36,13 @@ endfunction()
 #   precompile headers(pch.h and pch.cpp) - "src" 
 function(generate_project)
   set (KEYWORDS
+    CUDA_FILES
     SOURCES
     HEADERS
     PY
     TESTS
     LINK
+    PUBLIC_LINK
   )
   cmake_parse_arguments(ARG "STATIC;SHARED;EXECUTABLE;SUPPORT_MFC;ENABLE_PCH;WIN32_EXE;SUPPORT_CUDA" "" "${KEYWORDS}" ${ARGN})
   get_filename_component(NAME "${CMAKE_CURRENT_SOURCE_DIR}" NAME)
@@ -88,7 +90,7 @@ function(generate_project)
       ${FILES}
       ${PCH_FILES}
     )
-   SET_TARGET_PROPERTIES(${NAME} PROPERTIES LINK_FLAGS "/ENTRY:wWinMainCRTStartup")
+    set_target_properties(${NAME} PROPERTIES LINK_FLAGS "/ENTRY:wWinMainCRTStartup")
   elseif(ARG_STATIC)
     add_library(
       ${NAME}
@@ -109,11 +111,13 @@ function(generate_project)
   if(ARG_SUPPORT_CUDA AND ENABLE_CUDA)
     #set_target_properties(${NAME} PROPERTIES CUDA_RESOLVE_DEVICE_SYMBOLS ON)
     set_target_properties(${NAME} PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+    set_source_files_properties(${ARG_CUDA_FILES} PROPERTIES LANGUAGE CUDA)
   endif()
   
   target_include_directories(${NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
   target_include_directories(${NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/py")
   target_link_libraries(${NAME} PRIVATE ${ARG_LINK})
+  target_link_libraries(${NAME} PUBLIC ${ARG_PUBLIC_LINK})
   
   set_property(TARGET ${NAME} PROPERTY FOLDER "APiR")
   
@@ -128,6 +132,7 @@ function(generate_project)
     )
     target_link_libraries(${NAME}.Tests PRIVATE ${NAME})
     target_link_libraries(${NAME}.Tests PRIVATE ${ARG_LINK})
+    target_link_libraries(${NAME}.Tests PUBLIC  ${ARG_PUBLIC_LINK})
     target_link_libraries(${NAME}.Tests PRIVATE gtest_main)
     add_test(
       NAME
