@@ -7,8 +7,10 @@ set(
 set(
   HEADERS
   
-  
   CUDAUtils.h
+  
+  KernelHandler.h
+  impl/KernelHandler_impl.h
 )
 
 generate_project(
