@@ -109,9 +109,11 @@ function(generate_project)
   endif()
   
   if(ARG_SUPPORT_CUDA AND ENABLE_CUDA)
-    set_target_properties(${NAME} PROPERTIES CUDA_RESOLVE_DEVICE_SYMBOLS ON)
+    #set_target_properties(${NAME} PROPERTIES CUDA_RESOLVE_DEVICE_SYMBOLS ON)
     set_target_properties(${NAME} PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+    set_target_properties(${NAME} PROPERTIES POSITION_INDEPENDENT_CODE  ON)
     set_source_files_properties(${ARG_CUDA_FILES} PROPERTIES LANGUAGE CUDA)
+    set_property(TARGET ${NAME} PROPERTY CUDA_ARCHITECTURES 61-real 61-virtual)
   endif()
   
   target_include_directories(${NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")

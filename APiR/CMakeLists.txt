@@ -26,7 +26,6 @@ target_link_libraries(
   
   PRIVATE
   
-  CUDACore
   Common
   Fluid
   Geometry

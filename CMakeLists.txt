@@ -27,20 +27,18 @@ find_package(OpenGL REQUIRED)
 include_directories(${CMAKE_FOLDER}/include)
 
 include("${CMAKE_FOLDER}/glut.cmake")
+include("${CMAKE_FOLDER}/gtest.cmake")
 if (ENABLE_OPENCL)
   add_definitions(-DENABLED_OPENCL)
   include("${CMAKE_FOLDER}/OpenCL.cmake")
 endif()
 if (ENABLE_CUDA)
   add_definitions(-DENABLED_CUDA)
-  include("${CMAKE_FOLDER}/CUDA.cmake") 
+  include("${CMAKE_FOLDER}/CUDA.cmake")
 endif()
 
 # for python integration
 add_subdirectory(pybind11)
-
-# aditional packages
-add_subdirectory(cmake)
 
 # to future testing libs
 enable_testing()
