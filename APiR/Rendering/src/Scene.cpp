@@ -1,4 +1,4 @@
-#include <Scene/Scene.h>
+#include <Rendering/Scene.h>
 #include <Common/ThreadPool.h>
 
 Scene::Scene(

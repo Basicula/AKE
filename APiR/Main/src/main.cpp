@@ -24,8 +24,6 @@
 #include <Geometry/Cylinder.h>
 #include <Geometry/Torus.h>
 
-#include <Scene/Scene.h>
-
 #include <Image/Image.h>
 
 #include <Memory/custom_vector.h>
@@ -34,6 +32,7 @@
 #include <Visual/ColorMaterial.h>
 
 #include <Rendering/RenderableObject.h>
+#include <Rendering/Scene.h>
 
 #include <GLUTWindow/GLUTWindow.h>
 

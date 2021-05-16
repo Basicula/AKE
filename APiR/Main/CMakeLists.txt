@@ -25,7 +25,6 @@ set(
   Memory
   Rendering
   Common
-  Scene
   Visual
 )
 

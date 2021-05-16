@@ -2,8 +2,12 @@ set(
   SOURCES
   
   Camera.cpp
-  KDTree.cpp
+  
   RenderableObject.cpp
+  
+  KDTree.cpp
+  
+  Scene.cpp
 )
 
 set(
@@ -11,8 +15,11 @@ set(
   
   Camera.h
   IRenderable.h
-  KDTree.h
   RenderableObject.h
+  
+  KDTree.h
+  
+  Scene.h
 )
 
 set(
@@ -21,6 +28,7 @@ set(
   Camera_py.hpp
   IRenderable_py.hpp
   RenderableObject_py.hpp
+  Scene_py.hpp
   rendering_py.hpp
 )
 
