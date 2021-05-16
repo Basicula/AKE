@@ -22,8 +22,7 @@ generate_project(
   SOURCES ${SOURCES}
   HEADERS ${HEADERS}
   PY      ${PY}
-  LINK    CUDACore
-          Image
+  LINK    Image
           Rendering
             Common
             Geometry

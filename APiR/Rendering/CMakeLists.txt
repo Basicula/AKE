@@ -31,7 +31,6 @@ generate_project(
   HEADERS ${HEADERS}
   PY      ${PY}
   LINK    Common
-          CUDACore
           Geometry
           Math
           Memory
