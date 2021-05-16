@@ -12,32 +12,20 @@ set(
   
   default_allocator.h
   impl/default_allocator_impl.h
-  device_allocator.h
-  impl/device_allocator_impl.h
-  managed_allocator.h
-  impl/managed_allocator_impl.h
   
   base_ptr.h
   impl/base_ptr_impl.h
-  device_ptr.h
-  impl/device_ptr_impl.h
-  managed_ptr.h
-  impl/managed_ptr_impl.h
   
   MemoryManager.h
-  impl/MemoryManager_impl
+  impl/MemoryManager_impl.h
 )
 
 set(
   TESTS
   
-  custom_vector_test.cpp
+  Utils.h
   
-  TestKernels.h
-  TestKernels.cu
-
-  device_ptr_test.cpp
-  managed_ptr_test.cpp
+  custom_vector_test.cpp
 )
 
 set(
@@ -49,6 +37,31 @@ set(
   tests/c++/managed_ptr_test.cpp
 )
 
+set(
+  PUBLIC_LINK
+)
+
+if(ENABLE_CUDA)
+list(APPEND HEADERS  device_allocator.h
+                        impl/device_allocator_impl.h
+                        managed_allocator.h
+                        impl/managed_allocator_impl.h
+                        device_ptr.h
+                        impl/device_ptr_impl.h
+                        managed_ptr.h
+                        impl/managed_ptr_impl.h
+)
+
+list(APPEND TESTS  TestKernels.h
+                      TestKernels.cu
+                      device_ptr_test.cpp
+                      managed_ptr_test.cpp
+                      custom_vector_cuda_test.cpp
+)
+
+list(APPEND PUBLIC_LINK CUDACore)
+endif()
+
 generate_project(
   STATIC
   SUPPORT_CUDA
@@ -56,5 +69,5 @@ generate_project(
   SOURCES       ${SOURCES}
   HEADERS       ${HEADERS}
   TESTS         ${TESTS}
-  PUBLIC_LINK   CUDACore
+  PUBLIC_LINK   ${PUBLIC_LINK}
 )

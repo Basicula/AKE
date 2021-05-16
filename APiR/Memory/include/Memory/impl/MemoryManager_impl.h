@@ -25,6 +25,7 @@ inline MemoryManager::pointer<T> MemoryManager::allocate(const size_t i_count) {
 template<class T>
 inline void MemoryManager::allocate(pointer<T>& io_pointer, const size_t i_count) {
   switch (io_pointer.m_allocate_type) {
+#if ENABLED_CUDA
       case MemoryManager::AllocateType::CudaDevice:
         io_pointer.mp_data = device_allocator<T>::allocate(i_count);
         cudaDeviceSynchronize();
@@ -33,6 +34,7 @@ inline void MemoryManager::allocate(pointer<T>& io_pointer, const size_t i_count
         io_pointer.mp_data = managed_allocator<T>::allocate(i_count);
         cudaDeviceSynchronize();
         break;
+#endif
       case MemoryManager::AllocateType::Default:
         io_pointer.mp_data = default_allocator<T>::allocate(i_count);
         break;
@@ -49,6 +51,7 @@ MemoryManager::pointer<T> MemoryManager::create_new(AllocateType i_allocate_type
   const auto old_allocate_type = m_current_allocate_type;
   m_current_allocate_type = i_allocate_type;
   switch (i_allocate_type) {
+#if ENABLED_CUDA
       case MemoryManager::AllocateType::CudaDevice:
         pointer.mp_data = device_allocator<T>::create_new(i_args...);
         cudaDeviceSynchronize();
@@ -57,6 +60,7 @@ MemoryManager::pointer<T> MemoryManager::create_new(AllocateType i_allocate_type
         pointer.mp_data = managed_allocator<T>::create_new(i_args...);
         cudaDeviceSynchronize();
         break;
+#endif
       case MemoryManager::AllocateType::Default:
         pointer.mp_data = default_allocator<T>::create_new(i_args...);
         break;
@@ -73,6 +77,7 @@ inline void MemoryManager::create_new(AllocateType i_allocate_type, T* iop_at_po
   const auto old_allocate_type = m_current_allocate_type;
   m_current_allocate_type = i_allocate_type;
   switch (i_allocate_type) {
+#if ENABLED_CUDA
       case MemoryManager::AllocateType::CudaDevice:
         device_allocator<T>::create_new(iop_at_pointer, i_args...);
         cudaDeviceSynchronize();
@@ -81,6 +86,7 @@ inline void MemoryManager::create_new(AllocateType i_allocate_type, T* iop_at_po
         managed_allocator<T>::create_new(iop_at_pointer, i_args...);
         cudaDeviceSynchronize();
         break;
+#endif
       case MemoryManager::AllocateType::Default:
         default_allocator<T>::create_new(iop_at_pointer, i_args...);
         break;
@@ -98,10 +104,12 @@ inline void MemoryManager::clean(MemoryManager::pointer<T>& ip_data) {
 template<class T>
 inline void MemoryManager::clean(AllocateType i_allocate_type, T* ip_data) {
   switch (i_allocate_type) {
+#if ENABLED_CUDA
       case MemoryManager::AllocateType::CudaDevice:
         return device_allocator<T>::clean(ip_data);
       case MemoryManager::AllocateType::CudaManaged:
         return managed_allocator<T>::clean(ip_data);
+#endif
       case MemoryManager::AllocateType::Default:
         return default_allocator<T>::clean(ip_data);
       default:
@@ -114,17 +122,16 @@ inline void MemoryManager::copy(const pointer<T>& i_begin, size_t i_size, pointe
   if (i_begin.m_allocate_type != o_out.m_allocate_type)
     return; // "Wrong pointers for copiyng"
   switch (o_out.m_allocate_type) {
+#if ENABLED_CUDA
       case MemoryManager::AllocateType::CudaDevice:
-#ifdef __CUDA_ARCH__
-#else
         cudaMemcpy(o_out.mp_data, i_begin.mp_data, i_size, cudaMemcpyKind::cudaMemcpyDeviceToDevice);
         cudaDeviceSynchronize();
-#endif
         break;
       case MemoryManager::AllocateType::CudaManaged:
         cudaMemcpy(o_out.mp_data, i_begin.mp_data, i_size, cudaMemcpyKind::cudaMemcpyDefault);
         cudaDeviceSynchronize();
         break;
+#endif
       case MemoryManager::AllocateType::Default:
         std::copy(i_begin.mp_data, i_begin.mp_data + i_size, o_out.mp_data);
         break;

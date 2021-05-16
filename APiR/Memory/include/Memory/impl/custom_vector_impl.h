@@ -1,5 +1,9 @@
 #include <algorithm>
 
+#if defined(__CUDACC__)
+#include <device_launch_parameters.h>
+#endif
+
 // Iterator start
 template<class T>
 inline custom_vector<T>::iterator::iterator(T* ip_pointer)
@@ -75,6 +79,55 @@ inline custom_vector<T>::~custom_vector() {
     m_data.mp_data = nullptr;
     }
   }
+
+#if defined(__CUDACC__)
+template<class T>
+__global__ void set_up_vector(MemoryManager::pointer<T>* iop_pointer, size_t* iop_size, size_t* iop_capacity, size_t i_size, T* ip_pointer_to_data) {
+  iop_pointer->m_allocate_type = MemoryManager::AllocateType::CudaDevice;
+  iop_pointer->mp_data = ip_pointer_to_data;
+  *iop_size = i_size;
+  *iop_capacity = i_size;
+  }
+
+template<class T>
+__global__ void fill_data(T* iop_data, const T* ip_init_value) {
+  int i = threadIdx.x;
+  iop_data[i] = *ip_init_value;
+  }
+
+template<class T>
+inline device_ptr<custom_vector<T>> custom_vector<T>::device_vector_ptr(size_t i_size) {
+  device_ptr<custom_vector<T>> result;
+  T* data_ptr = MemoryManager::allocate<T>(MemoryManager::AllocateType::CudaDevice, i_size).mp_data;
+  set_up_vector<T> << <1, 1 >> > (&result->m_data, &result->m_size, &result->m_capacity, i_size, data_ptr);
+  CheckCudaErrors(cudaDeviceSynchronize());
+  return result;
+  }
+
+template<class T>
+inline device_ptr<custom_vector<T>> custom_vector<T>::device_vector_ptr(size_t i_size, const T& i_init_value) {
+  device_ptr<custom_vector<T>> result;
+  T* data_ptr = MemoryManager::allocate<T>(MemoryManager::AllocateType::CudaDevice, i_size).mp_data;
+  T* d_init_value;
+  CheckCudaErrors(cudaMemcpy(d_init_value, &i_init_value, sizeof(T), cudaMemcpyKind::cudaMemcpyHostToDevice));
+  fill_data<T> << <1, i_size >> > (data_ptr, d_init_value);
+  CheckCudaErrors(cudaDeviceSynchronize());
+  set_up_vector<T> << <1, 1 >> > (&result->m_data, &result->m_size, &result->m_capacity, i_size, data_ptr);
+  CheckCudaErrors(cudaDeviceSynchronize());
+  return result;
+  }
+
+template<class T>
+inline device_ptr<custom_vector<T>> custom_vector<T>::device_vector_ptr(const std::initializer_list<T>& i_list) {
+  device_ptr<custom_vector<T>> result;
+  const size_t size = i_list.size();
+  T* data_ptr = MemoryManager::allocate<T>(MemoryManager::AllocateType::CudaDevice, size).mp_data;
+  CheckCudaErrors(cudaMemcpy(data_ptr, i_list.begin(), sizeof(T) * size, cudaMemcpyKind::cudaMemcpyHostToDevice));
+  set_up_vector<T> << <1, 1 >> > (&result->m_data, &result->m_size, &result->m_capacity, size, data_ptr);
+  CheckCudaErrors(cudaDeviceSynchronize());
+  return result;
+  }
+#endif
 
 template<class T>
 inline custom_vector<T>& custom_vector<T>::operator=(const custom_vector<T>& i_other) {
