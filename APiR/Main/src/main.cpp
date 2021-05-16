@@ -33,6 +33,7 @@
 
 #include <Rendering/RenderableObject.h>
 #include <Rendering/Scene.h>
+#include <Rendering/CPURenderer.h>
 
 #include <GLUTWindow/GLUTWindow.h>
 
@@ -60,8 +61,10 @@ void test_fluid()
   const std::size_t width = 640;
   const std::size_t height = 480;
 
-  Scene scene("Fluid test", width, height);
+  Scene scene("Fluid test");
   Image image(width, height, 0xffaaaaaa);
+  CPURenderer renderer;
+  renderer.SetOutputImage(&image);
 
   scene.AddCamera(
     Camera(
@@ -77,7 +80,7 @@ void test_fluid()
 
   auto update_func = [&]()
     {
-    scene.RenderFrame(image);
+    renderer.Render(scene);
     scene.Update();
     };
 #ifdef _DEBUG
@@ -103,7 +106,7 @@ void test_advanced_scene(bool i_dump_bmp = false)
   const std::size_t width = 800;
   const std::size_t height = 600;
 
-  Scene scene("Complex scene", width, height);
+  Scene scene("Complex scene");
 
   auto pure_mirror = std::make_shared<ColorMaterial>(Color(0, 0, 0), Vector3d(0.0, 0.0, 0.0), Vector3d(1.0, 1.0, 1.0), Vector3d(1.0, 1.0, 1.0), 1, 1);
   auto more_real_mirror = std::make_shared<ColorMaterial>(Color(255, 255, 255), Vector3d(0.0, 0.0, 0.0), Vector3d(0.75, 0.75, 0.75), Vector3d(1.0, 1.0, 1.0), 1, 0.75);
@@ -180,11 +183,13 @@ void test_advanced_scene(bool i_dump_bmp = false)
   scene.AddCamera(Camera(Vector3d(-5, 5, -5), Vector3d(0, 0, 0), Vector3d(1 / SQRT_3, 1 / SQRT_3, 1 / SQRT_3), 75, 1.0 * width / height, 0.5), true);
 
   Image image(width, height);
+  CPURenderer renderer;
+  renderer.SetOutputImage(&image);
 
   if (i_dump_bmp)
     {
     BMPWriter writer;
-    scene.RenderFrame(image);
+    renderer.Render(scene);
     writer.Write("D:\\Study\\RayTracing\\test.bmp", image);
     }
 
@@ -198,7 +203,7 @@ void test_advanced_scene(bool i_dump_bmp = false)
 
   auto scene_update = [&]()
     {
-    scene.RenderFrame(image);
+    renderer.Render(scene);
 
     auto sphere_x = cos(angle - PI / 2) * 3;
     auto sphere_y = sin(angle - PI / 2) * 3;
@@ -379,12 +384,12 @@ void test_fractals()
 int main()
   {
   //test_fluid();
-  //test_advanced_scene();
+  test_advanced_scene();
   //test();
   //test_opencl();
   //test_bmp_writer();
 #ifdef ENABLED_CUDA
-  test_cuda();
+  //test_cuda();
 #endif
   //test_fractals();
   return 0;

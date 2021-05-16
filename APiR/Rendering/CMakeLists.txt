@@ -7,6 +7,10 @@ set(
   
   KDTree.cpp
   
+  IRenderer.cpp
+  CPURenderer.cpp
+  CUDARenderer.cpp
+  
   Scene.cpp
 )
 
@@ -18,6 +22,10 @@ set(
   RenderableObject.h
   
   KDTree.h
+  
+  IRenderer.h
+  CPURenderer.h
+  CUDARenderer.h
   
   Scene.h
 )
@@ -40,6 +48,7 @@ generate_project(
   PY      ${PY}
   LINK    Common
           Geometry
+          Image
           Math
           Memory
           Visual

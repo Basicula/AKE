@@ -5,18 +5,13 @@
 static void AddScene(py::module& io_module)
   {
   py::class_<Scene, std::shared_ptr<Scene>>(io_module, "Scene")
-    .def(py::init<
-      const std::string&, 
-      std::size_t, 
-      std::size_t>(),
-      py::arg("name") = "unnamed",
-      py::arg("frameWidth") = 800,
-      py::arg("frameHeight") = 600)
+    .def(py::init<const std::string&>(),
+      py::arg("name") = "unnamed")
     .def_property("name",
       &Scene::GetName,
       &Scene::SetName)
     .def_property("activeCamera",
-      &Scene::GetActiveCamera,
+      &Scene::GetActiveCameraId,
       &Scene::SetActiveCamera)
     .def_property_readonly("objCnt", &Scene::GetNumObjects)
     .def_property_readonly("camCnt", &Scene::GetNumCameras)
@@ -31,37 +26,14 @@ static void AddScene(py::module& io_module)
     .def("clearCameras", &Scene::ClearCameras)
     .def("clearLights", &Scene::ClearLights)
     .def("setOnOffLight", &Scene::SetOnOffLight)
-    .def(
-      "getFrame", 
-      &Scene::RenderFrame,
-      py::arg("image"),
-      py::arg("x_offset") = 0,
-      py::arg("y_offset") = 0)
-    .def(
-      "getCameraFrame",
-      &Scene::RenderCameraFrame,
-      py::arg("image"),
-      py::arg("camera_id"),
-      py::arg("x_offset") = 0,
-      py::arg("y_offset") = 0)
     .def("update", &Scene::Update)
-    .def_property(
-      "frameWidth",
-      &Scene::GetFrameWidth,
-      &Scene::SetFrameWidth)
-    .def_property(
-      "frameHeight",
-      &Scene::GetFrameHeight,
-      &Scene::SetFrameHeight)
     .def("__repr__", &Scene::Serialize)
     .def("fromDict", [](py::dict i_dict)
       {
       auto scene = i_dict["Scene"];
       auto name = scene["Name"].cast<std::string>();
-      auto frameWidth = scene["FrameWidth"].cast<std::size_t>();
-      auto frameHeight = scene["FrameHeight"].cast<std::size_t>();
         
-      Scene res(name,frameWidth,frameHeight);
+      Scene res(name);
 
       if (scene.contains("Objects"))
         {
