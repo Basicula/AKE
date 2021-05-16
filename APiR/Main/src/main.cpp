@@ -1,18 +1,22 @@
 #include <Common/ThreadPool.h>
 
+#ifdef ENABLED_CUDA
 #include <CUDACore/CUDAUtils.h>
-#include <CUDACore/HostDevicePtr.h>
+#include <CUDACore/KernelHandler.h>
+
+#include <Memory/device_ptr.h>
+#include <Memory/managed_ptr.h>
+#endif
 
 #include <Math/Constants.h>
 #include <Math/Vector.h>
 
 #include <Fluid/Fluid.h>
 
-#include <Fractal/DefaultColorMap.h>
-#include <Fractal/SmoothColorMap.h>
 #include <Fractal/MandelbrotSet.h>
 #include <Fractal/JuliaSet.h>
 #include <Fractal/LyapunovFractal.h>
+#include <Fractal/MappingFunctions.h>
 
 #include <Geometry/BoundingBox.h>
 #include <Geometry/Sphere.h>
@@ -22,22 +26,35 @@
 
 #include <Scene/Scene.h>
 
-#include <Rendering/Image.h>
+#include <Image/Image.h>
+
+#include <Memory/custom_vector.h>
+
 #include <Visual/SpotLight.h>
 #include <Visual/ColorMaterial.h>
+
 #include <Rendering/RenderableObject.h>
 
 #include <GLUTWindow/GLUTWindow.h>
 
 #include <BMPWriter/BMPWriter.h>
 
+#ifdef ENABLED_OPENCL
 #include <OpenCLCore/OpenCLEnvironment.h>
-#include <OpenCLCore/MandelbrotSetKernel.h>
+#include <OpenCLKernels/MandelbrotSetKernel.h>
+#endif
 
 #include "CudaTest.h"
 
 #include <iostream>
 #include <chrono>
+
+void test_bmp_writer()
+  {
+  Image image(800, 600, 0xff00ffff);
+  BMPWriter writer;
+  writer.Write("D:/Study/RayTracing/test.bmp", image);
+  }
 
 void test_fluid()
   {
@@ -233,22 +250,7 @@ void test_advanced_scene(bool i_dump_bmp = false)
 #endif
   }
 
-void test()
-  {
-  //Sphere sphere(Vector3d(0, -5, 0), 2);
-  //Plane plane(Vector3d(0, -10, 0), Vector3d(0, 1, 0));
-  //IntersectionRecord hit;
-  //Ray ray(Vector3d(0, 0, -5), Vector3d(2, -10, 2) - Vector3d(0,0,-5));
-  //plane.IntersectWithRay(hit, ray);
-  //Ray to_light(hit.m_intersection, Vector3d(0, 10, 0) - hit.m_intersection);
-  //sphere.IntersectWithRay(hit, to_light);
-
-  Cylinder cylinder(Vector3d(0, 0, 0), 2, 2);
-  IntersectionRecord hit;
-  Ray ray(Vector3d(0, 0, -3), Vector3d(0, 0, 1));
-  cylinder.IntersectWithRay(hit, ray);
-  }
-
+#ifdef ENABLED_OPENCL
 void test_opencl()
   {
   const std::size_t width = 1024;
@@ -278,30 +280,7 @@ void test_opencl()
   window.Open();
 #endif
   }
-
-void test_bmp_writer()
-  {
-  Image image(800, 600, 0xff00ffff);
-  BMPWriter writer;
-  writer.Write("D:/Study/RayTracing/test.bmp", image);
-  }
-
-void test_cuda()
-  {
-  test_cuda_kernel();
-  const std::size_t width = 1024;
-  const std::size_t height = 768;
-  managed_ptr<Image> image(width, height);
-  host_ptr<MandelbrotSet> mandelbrot_set(width, height, 100);
-  auto update_func = [&]()
-    {
-    cuda_fractal(image.get(), mandelbrot_set.get());
-    };
-  GLUTWindow window(width, height, "CudaTest");
-  window.SetImageSource(image.get());
-  window.SetUpdateFunction(update_func);
-  window.Open();
-  }
+#endif
 
 void test_fractals()
   {
@@ -310,8 +289,8 @@ void test_fractals()
   Image image(width, height);
   std::size_t max_iterations = 100;
   MandelbrotSet mandelbrot_set(width, height, max_iterations);
-  JuliaSet julia_set(width, height, max_iterations);
-  HostDeviceBuffer<Color> color_map
+  //JuliaSet julia_set(width, height, max_iterations);
+  custom_vector<Color> color_map
     {
     Color(0, 0, 0),
     Color(66, 45, 15),
@@ -338,13 +317,11 @@ void test_fractals()
   //  Color(0, 255, 0),
   //  Color(255, 0, 0),
   //  };
-  SmoothColorMap smooth_color_map(color_map);
-  mandelbrot_set.SetColorMap(&smooth_color_map);
   //julia_set.SetColorMap(std::make_unique<SmoothColorMap>(color_map));
   //julia_set.SetType(JuliaSet::JuliaSetType::WhiskeryDragon);
-  const double delta = 0.1;
-  double origin_x = 0.0, origin_y = 0.0;
-  double scale = 1.0;
+  const float delta = 0.1f;
+  float origin_x = 0.0f, origin_y = 0.0f;
+  float scale = 1.0f;
   auto keyboard_function = [&](unsigned char i_key, int /*i_x*/, int /*i_y*/)
     {
     switch (i_key)
@@ -389,7 +366,7 @@ void test_fractals()
       {
       int x = static_cast<int>(i % width);
       int y = static_cast<int>(i / width);
-      image.SetPixel(x, y, mandelbrot_set.GetColor(x, y));
+      image.SetPixel(x, y, FractalMapping::Default(mandelbrot_set.GetValue(x, y), color_map));
       //image.SetPixel(x, y, julia_set.GetColor(x, y));
       });
     };
@@ -407,7 +384,9 @@ int main()
   //test();
   //test_opencl();
   //test_bmp_writer();
+#ifdef ENABLED_CUDA
   test_cuda();
+#endif
   //test_fractals();
   return 0;
   }
