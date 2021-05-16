@@ -11,7 +11,6 @@ namespace py = pybind11;
 #include <image_module_py.hpp>
 #include <math_py.hpp>
 #include <rendering_py.hpp>
-#include <scene_module_py.hpp>
 #include <visual_py.hpp>
 
 PYBIND11_MODULE(engine, m)
@@ -24,7 +23,6 @@ PYBIND11_MODULE(engine, m)
   AddImageSubmodule(m);
   AddMathSubmodule(m);
   AddRenderingSubmodule(m);
-  AddSceneSubmodule(m);
   AddVisualSubmodule(m);
   AddFluidSubmodule(m);
   }

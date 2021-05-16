@@ -16,7 +16,6 @@ add_subdirectory(BMPWriter)
 add_subdirectory(Physics)
 add_subdirectory(Geometry)
 add_subdirectory(Fluid)
-add_subdirectory(Scene)
 add_subdirectory(GLUTWindow)
 add_subdirectory(Main)
 
@@ -34,7 +33,6 @@ target_link_libraries(
   Memory
   Physics
   Rendering
-  Scene
   Visual
   
   pybind11
@@ -47,5 +45,4 @@ set_target_properties(Geometry PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 set_target_properties(Math PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 set_target_properties(Physics PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 set_target_properties(Rendering PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
-set_target_properties(Scene PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 set_target_properties(Visual PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
