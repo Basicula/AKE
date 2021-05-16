@@ -38,7 +38,6 @@ generate_project(
   SOURCES ${SOURCES}
   HEADERS ${HEADERS}
   LINK    Common
-          CUDACore
           Memory
           Visual
             Math

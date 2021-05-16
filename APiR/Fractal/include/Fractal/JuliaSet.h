@@ -22,7 +22,7 @@ class JuliaSet : public Fractal
 
     void SetType(JuliaSetType i_type);
 
-    void SetCustomStart(double i_cx, double i_cy);
+    void SetCustomStart(float i_cx, float i_cy);
 
   protected:
     HOSTDEVICE virtual void _InitFractalRange() override;
@@ -32,11 +32,11 @@ class JuliaSet : public Fractal
   private:
     JuliaSetType m_type;
 
-    double m_cx;
-    double m_cy;
+    float m_cx;
+    float m_cy;
   };
 
-inline void JuliaSet::SetCustomStart(double i_cx, double i_cy)
+inline void JuliaSet::SetCustomStart(float i_cx, float i_cy)
   {
   m_cx = i_cx;
   m_cy = i_cy;
