@@ -1,23 +1,9 @@
-#include "TestKernels.h"
-
+#include "Utils.h"
 #include <Memory/custom_vector.h>
-#include <Memory/managed_ptr.h>
-#include <Memory/device_ptr.h>
 
 #include <gtest/gtest.h>
 
-#include <numeric>
 #include <vector>
-
-namespace {
-  template<class T>
-  void is_equal(const std::vector<T>& std_vec, const custom_vector<T>& vec) {
-    ASSERT_EQ(std_vec.size(), vec.size());
-    ASSERT_EQ(std_vec.capacity(), vec.capacity());
-    for (size_t i = 0; i < std_vec.size(); ++i)
-      EXPECT_EQ(std_vec[i], vec[i]);
-    }
-  }
 
 TEST(custom_vector, default_constructor) {
   custom_vector<int> vec;
@@ -131,14 +117,4 @@ TEST(custom_vector, initializer_list) {
   std::vector<int> std_vec{ 1,2,3,4 };
   custom_vector<int> vec{ 1,2,3,4 };
   is_equal(std_vec, vec);
-  }
-
-TEST(custom_vector, managed_ptr_vector) {
-  const size_t size = 10;
-  managed_ptr<custom_vector<int>> managed_vector(size, 123);
-  std::vector<int> vec(size, 123);
-  is_equal(vec, *managed_vector.get());
-  fill_vector(managed_vector.get(), size);
-  std::iota(vec.begin(), vec.end(), 0);
-  is_equal(vec, *managed_vector.get());
   }

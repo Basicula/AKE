@@ -5,9 +5,9 @@ template<class T>
 class device_ptr : public base_ptr<T>
   {
   public:
-    device_ptr();
+    explicit device_ptr();
     template<class... Args>
-    device_ptr(Args&&... i_args);
+    explicit device_ptr(Args&&... i_args);
     ~device_ptr();
 
     T get_host_copy() const;

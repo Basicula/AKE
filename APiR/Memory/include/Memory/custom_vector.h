@@ -2,6 +2,10 @@
 #include <Macros.h>
 
 #include <Memory/MemoryManager.h>
+#if defined(ENABLED_CUDA)
+#include <Memory/device_ptr.h>
+#include <Memory/managed_ptr.h>
+#endif
 
 #include <initializer_list>
 
@@ -51,6 +55,10 @@ class custom_vector
     HOSTDEVICE iterator begin() const;
     HOSTDEVICE iterator end() const;
 
+    static device_ptr<custom_vector<T>> device_vector_ptr(size_t i_size);
+    static device_ptr<custom_vector<T>> device_vector_ptr(size_t i_size, const T& i_init_value);
+    static device_ptr<custom_vector<T>> device_vector_ptr(const std::initializer_list<T>& i_list);
+
   private:
     void resize(size_t i_new_size, const T* ip_init_value);
     void destroy_range(T* i_start, T* i_end);
@@ -61,5 +69,14 @@ class custom_vector
     size_t m_capacity;
     MemoryManager::pointer<T> m_data;
   };
+
+#if defined(ENABLED_CUDA)
+template<class T>
+using device_vector_ptr = device_ptr<custom_vector<T>>;
+
+template<class T>
+using managed_vector_ptr = managed_ptr<custom_vector<T>>;
+
+#endif
 
 #include "impl/custom_vector_impl.h"
