@@ -11,16 +11,16 @@ MandelbrotSet::MandelbrotSet(
 
 size_t MandelbrotSet::GetValue(int i_x, int i_y) const
   {
-  double zx, zy, cx, cy;
+  float zx, zy, cx, cy;
   _MapCoordinate(zx, zy, i_x, i_y);
-  double zx2 = zx * zx;
-  double zy2 = zy * zy;
+  float zx2 = zx * zx;
+  float zy2 = zy * zy;
   cx = zx;
   cy = zy;
   size_t iter = 0;
-  while (iter < m_max_iterations && zx2 + zy2 < 4.0)
+  while (iter < m_max_iterations && zx2 + zy2 < 4.0f)
     {
-    zy = 2.0 * zx * zy + cy;
+    zy = 2.0f * zx * zy + cy;
     zx = zx2 - zy2 + cx;
     zx2 = zx * zx;
     zy2 = zy * zy;

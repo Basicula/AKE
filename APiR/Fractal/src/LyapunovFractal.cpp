@@ -14,7 +14,7 @@ LyapunovFractal::LyapunovFractal(
 
 size_t LyapunovFractal::GetValue(int i_x, int i_y) const
   {
-  double zx, zy;
+  float zx, zy;
   _MapCoordinate(zx, zy, i_x, i_y);
   return static_cast<size_t>(abs(_ComputeLyapunovExponent(zx, zy) * 255));
   //if (exponent < 0.0)
