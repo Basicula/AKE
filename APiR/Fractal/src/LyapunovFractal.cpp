@@ -1,4 +1,5 @@
 #include <Fractal/LyapunovFractal.h>
+#include <Memory/custom_vector.h>
 
 LyapunovFractal::LyapunovFractal(
   const std::string& i_fractal_string,
@@ -11,22 +12,23 @@ LyapunovFractal::LyapunovFractal(
   _InitFractalRange();
   }
 
-Color LyapunovFractal::GetColor(int i_x, int i_y) const
+size_t LyapunovFractal::GetValue(int i_x, int i_y) const
   {
-  auto [zx, zy] = _MapCoordinate(i_x, i_y);
-  auto exponent = _ComputeLyapunovExponent(zx, zy) * 255;
-  if (exponent < 0.0)
-    {
-    const auto exp = static_cast<uint8_t>(abs(exponent));
-    return Color(exp, exp, 0);
-    }
-  else if (exponent == 0.0)
-    return Color(255, 255, 0);
-  else
-    {
-    auto exp = static_cast<uint8_t>(exponent);
-    return Color(0, exp / 2, exp);
-    }
+  float zx, zy;
+  _MapCoordinate(zx, zy, i_x, i_y);
+  return static_cast<size_t>(abs(_ComputeLyapunovExponent(zx, zy) * 255));
+  //if (exponent < 0.0)
+  //  {
+  //  const auto exp = static_cast<uint8_t>(abs(exponent));
+  //  return Color(exp, exp, 0);
+  //  }
+  //else if (exponent == 0.0)
+  //  return Color(255, 255, 0);
+  //else
+  //  {
+  //  auto exp = static_cast<uint8_t>(exponent);
+  //  return Color(0, exp / 2, exp);
+  //  }
   }
 
 void LyapunovFractal::_InitFractalRange()
@@ -39,7 +41,7 @@ void LyapunovFractal::_InitFractalRange()
 
 double LyapunovFractal::_ComputeLyapunovExponent(double i_zx, double i_zy) const
   {
-  std::vector<double> sequence(m_max_iterations);
+  custom_vector<double> sequence(m_max_iterations);
   sequence[0] = 0.5;
 
   for (std::size_t i = 1; i < m_max_iterations; i++)

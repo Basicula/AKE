@@ -2,6 +2,8 @@ set(
   SOURCES
   
   ThreadPool.cpp
+  
+  Utils.cpp
 )
 
 set(
@@ -10,6 +12,7 @@ set(
   ThreadPool.h
   impl/ThreadPool_impl.h
   ParallelUtils.h
+  Utils.h
   
   IObject.h
   

@@ -18,25 +18,25 @@ class JuliaSet : public Fractal
       std::size_t i_height,
       std::size_t i_iterations = 1000);
 
-    virtual Color GetColor(int i_x, int i_y) const override;
+    HOSTDEVICE virtual size_t GetValue(int i_x, int i_y) const override;
 
     void SetType(JuliaSetType i_type);
 
-    void SetCustomStart(double i_cx, double i_cy);
+    void SetCustomStart(float i_cx, float i_cy);
 
   protected:
-    virtual void _InitFractalRange() override;
+    HOSTDEVICE virtual void _InitFractalRange() override;
 
     void _ResetStart();
 
   private:
     JuliaSetType m_type;
 
-    double m_cx;
-    double m_cy;
+    float m_cx;
+    float m_cy;
   };
 
-inline void JuliaSet::SetCustomStart(double i_cx, double i_cy)
+inline void JuliaSet::SetCustomStart(float i_cx, float i_cy)
   {
   m_cx = i_cx;
   m_cy = i_cy;

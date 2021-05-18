@@ -2,38 +2,54 @@ set(
   SOURCES
   
   Camera.cpp
-  Image.cpp
-  KDTree.cpp
+  
   RenderableObject.cpp
+  
+  KDTree.cpp
+  
+  IRenderer.cpp
+  CPURayTracer.cpp
+  CUDARenderer.cpp
+  
+  Scene.cpp
 )
 
 set(
   HEADERS
   
   Camera.h
-  Image.h
   IRenderable.h
-  KDTree.h
   RenderableObject.h
+  
+  KDTree.h
+  
+  IRenderer.h
+  CPURayTracer.h
+  CUDARenderer.h
+  
+  Scene.h
 )
 
 set(
   PY
   
   Camera_py.hpp
-  Image_py.hpp
   IRenderable_py.hpp
   RenderableObject_py.hpp
+  Scene_py.hpp
   rendering_py.hpp
 )
 
 generate_project(
   STATIC
+  SUPPORT_CUDA
   SOURCES ${SOURCES}
   HEADERS ${HEADERS}
   PY      ${PY}
   LINK    Common
           Geometry
+          Image
           Math
-          Visual  
+          Memory
+          Visual
 )

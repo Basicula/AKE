@@ -1,0 +1,9 @@
+enable_language(CUDA)
+include(CheckLanguage)
+check_language(CUDA)
+
+set(CMAKE_CUDA_STANDARD 17)
+
+#set(CMAKE_CUDA_STANDARD_REQUIRED ON)
+#set(CMAKE_CUDA_SEPARABLE_COMPILATION ON)
+#set(CUDA_PROPAGATE_HOST_FLAGS ON)

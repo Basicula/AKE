@@ -10,6 +10,24 @@ function(source_groups)
   endforeach()
 endfunction()
 
+function(add_pch tgt pchH pchCpp)
+  set( pchObj "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/${tgt}.pch" )
+  
+  if (MSVC)      
+    set_property(TARGET ${tgt} APPEND_STRING PROPERTY COMPILE_FLAGS
+        " /Fp\"${pchObj}\" /FI\"${pchH}\"")
+        
+    set_source_files_properties( ${pchCpp} PROPERTIES
+      COMPILE_FLAGS "/Yc\"${pchH}\" /Fp\"${pchObj}\""
+      OBJECT_OUTPUTS "${pchObj}" )
+    
+    set_source_files_properties( ${ARGN} PROPERTIES
+      COMPILE_FLAGS "/Yu\"${pchH}\" /Fp\"${pchObj}\"" 
+      OBJECT_DEPENDS "${pchObj}" )
+          
+  endif(MSVC)
+endfunction()
+
 # supposed file locations per subfolder:
 #   headers                               - "include/${PROJECT_NAME}"
 #   sources                               - "src"
@@ -18,15 +36,18 @@ endfunction()
 #   precompile headers(pch.h and pch.cpp) - "src" 
 function(generate_project)
   set (KEYWORDS
+    CUDA_FILES
     SOURCES
     HEADERS
     PY
     TESTS
     LINK
+    PUBLIC_LINK
   )
-  cmake_parse_arguments(ARG "STATIC;SHARED;EXECUTABLE;SUPPORT_MFC;ENABLE_PCH;WIN32_EXE;" "" "${KEYWORDS}" ${ARGN})
+  cmake_parse_arguments(ARG "STATIC;SHARED;EXECUTABLE;SUPPORT_MFC;ENABLE_PCH;WIN32_EXE;SUPPORT_CUDA" "" "${KEYWORDS}" ${ARGN})
   get_filename_component(NAME "${CMAKE_CURRENT_SOURCE_DIR}" NAME)
   
+  set(PCH_FILES)
   if (ARG_ENABLE_PCH)
     set(PCH_FILES src/pch.h src/pch.cpp)
   endif()
@@ -69,7 +90,7 @@ function(generate_project)
       ${FILES}
       ${PCH_FILES}
     )
-   SET_TARGET_PROPERTIES(${NAME} PROPERTIES LINK_FLAGS "/ENTRY:wWinMainCRTStartup")
+    set_target_properties(${NAME} PROPERTIES LINK_FLAGS "/ENTRY:wWinMainCRTStartup")
   elseif(ARG_STATIC)
     add_library(
       ${NAME}
@@ -82,14 +103,23 @@ function(generate_project)
   endif()
   
   source_groups(${FILES})
+  source_group("config" FILES ${PCH_FILES})
   if(ARG_ENABLE_PCH)
-    source_group("config" FILES ${PCH_FILES})
     add_pch(${NAME} ${PCH_FILES} ${FILES})
+  endif()
+  
+  if(ARG_SUPPORT_CUDA AND ENABLE_CUDA)
+    #set_target_properties(${NAME} PROPERTIES CUDA_RESOLVE_DEVICE_SYMBOLS ON)
+    set_target_properties(${NAME} PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+    set_target_properties(${NAME} PROPERTIES POSITION_INDEPENDENT_CODE  ON)
+    set_source_files_properties(${ARG_CUDA_FILES} PROPERTIES LANGUAGE CUDA)
+    set_property(TARGET ${NAME} PROPERTY CUDA_ARCHITECTURES 61-real 61-virtual)
   endif()
   
   target_include_directories(${NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
   target_include_directories(${NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/py")
   target_link_libraries(${NAME} PRIVATE ${ARG_LINK})
+  target_link_libraries(${NAME} PUBLIC ${ARG_PUBLIC_LINK})
   
   set_property(TARGET ${NAME} PROPERTY FOLDER "APiR")
   
@@ -104,6 +134,7 @@ function(generate_project)
     )
     target_link_libraries(${NAME}.Tests PRIVATE ${NAME})
     target_link_libraries(${NAME}.Tests PRIVATE ${ARG_LINK})
+    target_link_libraries(${NAME}.Tests PUBLIC  ${ARG_PUBLIC_LINK})
     target_link_libraries(${NAME}.Tests PRIVATE gtest_main)
     add_test(
       NAME

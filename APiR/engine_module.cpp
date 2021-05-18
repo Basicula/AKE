@@ -8,9 +8,9 @@ namespace py = pybind11;
 #include <common_py.hpp>
 #include <fluid_module_py.hpp>
 #include <geometry_py.hpp>
+#include <image_module_py.hpp>
 #include <math_py.hpp>
 #include <rendering_py.hpp>
-#include <scene_module_py.hpp>
 #include <visual_py.hpp>
 
 PYBIND11_MODULE(engine, m)
@@ -20,9 +20,9 @@ PYBIND11_MODULE(engine, m)
   // because Fluid depends on Rendering
   AddCommonSubmodule(m);
   AddGeometrySubmodule(m);
+  AddImageSubmodule(m);
   AddMathSubmodule(m);
   AddRenderingSubmodule(m);
-  AddSceneSubmodule(m);
   AddVisualSubmodule(m);
   AddFluidSubmodule(m);
   }
