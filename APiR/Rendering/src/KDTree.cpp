@@ -204,6 +204,7 @@ void KDTree::AddObject(IRenderableSPtr i_object)
   {
   m_objects.push_back(i_object);
   m_nodes.clear();
+  m_nodes.reserve(static_cast<size_t>(1 + m_objects.size() * log2(static_cast<double>(m_objects.size()))));
   _Build(0, m_objects.size());
   }
 
@@ -212,5 +213,6 @@ void KDTree::Update()
   for (auto& object : m_objects)
     object->Update();
   m_nodes.clear();
+  m_nodes.reserve(static_cast<size_t>(1 + m_objects.size() * log2(static_cast<double>(m_objects.size()))));
   _Build(0, m_objects.size());
   }
