@@ -8,7 +8,7 @@ set(
   KDTree.cpp
   
   IRenderer.cpp
-  CPURenderer.cpp
+  CPURayTracer.cpp
   CUDARenderer.cpp
   
   Scene.cpp
@@ -24,7 +24,7 @@ set(
   KDTree.h
   
   IRenderer.h
-  CPURenderer.h
+  CPURayTracer.h
   CUDARenderer.h
   
   Scene.h

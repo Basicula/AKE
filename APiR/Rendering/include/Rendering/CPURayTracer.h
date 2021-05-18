@@ -1,10 +1,10 @@
 #pragma once
 #include <Rendering/IRenderer.h>
 
-class CPURenderer : public IRenderer
+class CPURayTracer : public IRenderer
   {
   public:
-    CPURenderer();
+    CPURayTracer();
 
     virtual void Render(const Scene& i_scene) override;
 
