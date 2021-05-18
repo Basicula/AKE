@@ -1,14 +1,15 @@
-#include <Rendering/CPURenderer.h>
+#include <Rendering/CPURayTracer.h>
 
 #include <Common/ThreadPool.h>
 
-CPURenderer::CPURenderer() 
+CPURayTracer::CPURayTracer() 
   : m_active_camera(nullptr){
   }
 
-void CPURenderer::Render(const Scene& i_scene) {
+void CPURayTracer::Render(const Scene& i_scene) {
   if (m_active_camera == nullptr || &i_scene.GetActiveCamera() != m_active_camera)
     _UpdateRaysForActiveCamera(i_scene);
+  //for(auto i_pixel_id = 0; i_pixel_id < mp_frame_image->GetSize(); ++i_pixel_id)
   ThreadPool::GetInstance()->ParallelFor(
     static_cast<std::size_t>(0),
     mp_frame_image->GetSize(),
@@ -21,12 +22,12 @@ void CPURenderer::Render(const Scene& i_scene) {
   );
   }
 
-void CPURenderer::_OutputImageWasSet() {
+void CPURayTracer::_OutputImageWasSet() {
   m_rays.resize(mp_frame_image->GetSize(), Ray(Vector3d(0), Vector3d(0)));
   m_intersection_records.resize(mp_frame_image->GetSize());
   }
 
-void CPURenderer::_UpdateRaysForActiveCamera(const Scene& i_scene)   {
+void CPURayTracer::_UpdateRaysForActiveCamera(const Scene& i_scene)   {
   m_rays.clear();
   m_active_camera = &i_scene.GetActiveCamera();
 
@@ -40,7 +41,7 @@ void CPURenderer::_UpdateRaysForActiveCamera(const Scene& i_scene)   {
       }
   }
 
-Color CPURenderer::_TraceRay(const Scene& i_scene, std::size_t i_ray_id)   {
+Color CPURayTracer::_TraceRay(const Scene& i_scene, std::size_t i_ray_id)   {
   auto& hit = m_intersection_records[i_ray_id];
   const auto& camera_ray = m_rays[i_ray_id];
 
@@ -53,7 +54,7 @@ Color CPURenderer::_TraceRay(const Scene& i_scene, std::size_t i_ray_id)   {
   return _ProcessIntersection(i_scene, hit, camera_ray);
   }
 
-Color CPURenderer::_ProcessIntersection(
+Color CPURayTracer::_ProcessIntersection(
   const Scene& i_scene,
   const IntersectionRecord& i_intersection,
   const Ray& i_camera_ray)   {
@@ -69,7 +70,7 @@ Color CPURenderer::_ProcessIntersection(
   return light_influence + reflected_color;
   }
 
-Color CPURenderer::_ProcessReflection(
+Color CPURayTracer::_ProcessReflection(
   const Scene& i_scene,
   const IntersectionRecord& i_intersection,
   const Ray& i_camera_ray)   {
@@ -90,7 +91,7 @@ Color CPURenderer::_ProcessReflection(
   return _ProcessLightInfluence(i_scene, local_record, i_camera_ray) * i_intersection.m_material->ReflectionInfluence();
   }
 
-Color CPURenderer::_ProcessRefraction(
+Color CPURayTracer::_ProcessRefraction(
   const Scene& /*i_scene*/,
   const IntersectionRecord& /*i_intersection*/,
   const Ray& /*i_camera_ray*/)   {
@@ -108,7 +109,7 @@ Color CPURenderer::_ProcessRefraction(
   return Color();
   }
 
-Color CPURenderer::_ProcessLightInfluence(
+Color CPURayTracer::_ProcessLightInfluence(
   const Scene& i_scene,
   const IntersectionRecord& i_intersection,
   const Ray& i_camera_ray)   {
