@@ -1,4 +1,4 @@
-#include "CudaTest.h"
+#include <Main/CudaTest.h>
 
 #include <CUDACore/KernelHandler.h>
 
@@ -37,13 +37,13 @@ void test_cuda() {
     Color(22, 81, 175),
     Color(56, 124, 209),
     Color(132, 181, 229),
-     Color(209, 234, 247),
-     Color(239, 232, 191),
-     Color(247, 201, 94),
-     Color(255, 170, 0),
-     Color(204, 127, 0),
-     Color(153, 86, 0),
-     Color(104, 51, 2) });
+    Color(209, 234, 247),
+    Color(239, 232, 191),
+    Color(247, 201, 94),
+    Color(255, 170, 0),
+    Color(204, 127, 0),
+    Color(153, 86, 0),
+    Color(104, 51, 2) });
 
   KernelHandler<decltype(mandelbrot_set_kernel)> mandelbrot_set_kernel(mandelbrot_set_kernel);
   mandelbrot_set_kernel.SetNumberOfBlocks(height);
