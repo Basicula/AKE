@@ -7,12 +7,6 @@ docker run -it basicula/fsgw:<tag>                          - run interactive (w
 docker run -it basicula/fsgw:<tag> bash                     - run bush on VM (winpty <command> for windows)
 docker run --env PARCS_ARGS=master -it basicula/fsgw:05     - run with environment variables
 
-
-------------------------------------------------Parcs-----------------------------------------------------
-python3 start.py -config master.config                      - run master node
-python3 start.py -config worker.config                      - run worker node
-
-
 ------------------------------------------------Main------------------------------------------------------
 pip3 install APiR/                                          - install as python lib
 python3 run_all_py_tests.py <ProjectName or for all tests>  - run tests
