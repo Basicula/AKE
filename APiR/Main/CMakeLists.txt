@@ -2,8 +2,15 @@ set(
   SOURCES
   
   main.cpp
+  
+  SceneExamples.cpp
 )
 
+set(
+  HEADERS
+  
+  SceneExamples.h
+)
 
 set(
   CUDA_FILES
@@ -29,9 +36,8 @@ set(
 )
 
 if(ENABLE_CUDA)
-list(APPEND SOURCES CudaTest.h
-                    CudaTest.cpp
-)
+list(APPEND SOURCES CudaTest.cpp)
+list(APPEND HEADERS CudaTest.h)
 endif()
 
 if(ENABLED_OPENCL)
@@ -45,6 +51,7 @@ generate_project(
   SUPPORT_CUDA
   CUDA_FILES ${CUDA_FILES}
   SOURCES    ${SOURCES}
+  HEADERS    ${HEADERS}
   LINK       ${LINKS}
 )
 file(COPY ${GLUT_BINARY} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
