@@ -25,10 +25,6 @@ class Scene
     std::size_t GetNumLights() const;
     std::size_t GetNumCameras() const;
 
-    void ClearObjects();
-    void ClearCameras();
-    void ClearLights();
-
     std::shared_ptr<ILight> GetLight(size_t i_id) const;
 
     bool TraceRay(IntersectionRecord& o_hit, const Ray& i_ray) const;

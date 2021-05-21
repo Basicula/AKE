@@ -59,18 +59,6 @@ void Scene::SetName(const std::string& i_name)   {
   m_name = i_name;
   }
 
-void Scene::ClearObjects()   {
-  m_object_tree.Clear();
-  }
-
-void Scene::ClearCameras()   {
-  m_cameras.clear();
-  }
-
-void Scene::ClearLights()   {
-  m_lights.clear();
-  }
-
 bool Scene::SetOnOffLight(std::size_t i_id, bool i_state)   {
   if (i_id < m_lights.size())     {
     m_lights[i_id]->SetState(i_state);
