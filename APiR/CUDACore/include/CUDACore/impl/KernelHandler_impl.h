@@ -7,12 +7,14 @@ KernelHandler<Kernel>::KernelHandler(Kernel& i_kernel)
   : m_kernel(i_kernel) {
   }
 
+#if defined(__CUDACC__)
 template<class Kernel>
 template<class... Args>
 void KernelHandler<Kernel>::Run(Args&&...i_args) {
   m_kernel<<<m_number_of_blocks, m_threads_per_block>>>(std::forward<Args>(i_args)...);
   CheckCudaErrors(cudaDeviceSynchronize());
   }
+#endif
 
 template<class Kernel>
 void KernelHandler<Kernel>::SetNumberOfBlocks(dim3 i_number_of_blocks) {
@@ -24,8 +26,10 @@ void KernelHandler<Kernel>::SetThreadsPerBlock(dim3 i_threads_per_block) {
   m_threads_per_block = i_threads_per_block;
   };
 
+#if defined(__CUDACC__)
 template<class Kernel, class ...Args>
 inline void LaunchCUDAKernel(Kernel& i_kernel, Args&&...i_args, dim3 i_number_of_blocks, dim3 i_threads_per_block) {
   m_kernel << <i_number_of_blocks, i_threads_per_block >> > (std::forward<Args>(i_args)...);
   CheckCudaErrors(cudaDeviceSynchronize());
   }
+#endif
