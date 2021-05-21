@@ -58,13 +58,6 @@ namespace
     };
   }
 
-KDTree::KDTree(KDTreeObjects&& i_objects)
-  : m_objects(std::move(i_objects))
-  , m_nodes()
-  {
-  _Build(0, m_objects.size());
-  }
-
 void KDTree::_Build(
   std::size_t i_start,
   std::size_t i_end)
@@ -194,24 +187,8 @@ bool KDTree::IntersectWithRay(
   return is_intersected;
   }
 
-void KDTree::Clear()
-  {
-  m_objects.clear();
-  m_nodes.clear();
-  }
-
-void KDTree::AddObject(IRenderableSPtr i_object)
-  {
-  m_objects.push_back(i_object);
-  m_nodes.clear();
-  m_nodes.reserve(static_cast<size_t>(1 + m_objects.size() * log2(static_cast<double>(m_objects.size()))));
-  _Build(0, m_objects.size());
-  }
-
 void KDTree::Update()
   {
-  for (auto& object : m_objects)
-    object->Update();
   m_nodes.clear();
   m_nodes.reserve(static_cast<size_t>(1 + m_objects.size() * log2(static_cast<double>(m_objects.size()))));
   _Build(0, m_objects.size());

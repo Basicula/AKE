@@ -5,11 +5,11 @@ set(
   
   RenderableObject.cpp
   
+  Container.cpp
   KDTree.cpp
   
   IRenderer.cpp
   CPURayTracer.cpp
-  CUDARenderer.cpp
   
   Scene.cpp
 )
@@ -21,11 +21,11 @@ set(
   IRenderable.h
   RenderableObject.h
   
+  Container.h
   KDTree.h
   
   IRenderer.h
   CPURayTracer.h
-  CUDARenderer.h
   
   Scene.h
 )
@@ -40,16 +40,27 @@ set(
   rendering_py.hpp
 )
 
+set(
+  CUDA_FILES
+)
+
+if(ENABLE_CUDA)
+list(APPEND HEADERS CUDARayTracer.h)
+list(APPEND SOURCES CUDARayTracer.cpp)
+list(APPEND CUDA_FILES CUDARayTracer.cpp)
+endif()
+
 generate_project(
   STATIC
   SUPPORT_CUDA
-  SOURCES ${SOURCES}
-  HEADERS ${HEADERS}
-  PY      ${PY}
-  LINK    Common
-          Geometry
-          Image
-          Math
-          Memory
-          Visual
+  CUDA_FILES ${CUDA_FILES}
+  SOURCES    ${SOURCES}
+  HEADERS    ${HEADERS}
+  PY         ${PY}
+  LINK       Common
+             Geometry
+             Image
+             Math
+             Memory
+             Visual
 )

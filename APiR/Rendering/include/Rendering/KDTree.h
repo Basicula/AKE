@@ -1,10 +1,11 @@
 #pragma once
-#include <Rendering/IRenderable.h>
 #include <Geometry/BoundingBox.h>
+#include <Rendering/IRenderable.h>
+#include <Rendering/Container.h>
 
 #include <vector>
 
-class KDTree
+class KDTree : public Container
   {
   private:
     enum class KDNodeType
@@ -30,18 +31,12 @@ class KDTree
 
   public:
     KDTree() = default;
-    KDTree(KDTreeObjects&& i_objects);
 
     bool IntersectWithRay(
       IntersectionRecord& io_intersection,
       const Ray& i_ray) const;
 
-    std::size_t KDTree::Size() const;
-
-    void AddObject(IRenderableSPtr i_object);
-
-    void Update();
-    void Clear();
+    virtual void Update() override;
 
   private:
     void _Build(
@@ -54,10 +49,4 @@ class KDTree
 
   private:
     Nodes m_nodes;
-    KDTreeObjects m_objects;
   };
-
-inline std::size_t KDTree::Size() const
-  {
-  return m_objects.size();
-  }
