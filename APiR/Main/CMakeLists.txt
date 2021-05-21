@@ -40,7 +40,7 @@ list(APPEND SOURCES CudaTest.cpp)
 list(APPEND HEADERS CudaTest.h)
 endif()
 
-if(ENABLED_OPENCL)
+if(ENABLE_OPENCL)
   list(APPEND LINKS OpenCLCore
                     OpenCLKernels)
 endif()
