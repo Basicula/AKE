@@ -14,8 +14,6 @@ class RenderableObject : public IRenderable
 
     virtual BoundingBox GetBoundingBox() const override;
 
-    virtual void Update() override;
-
     virtual std::string Serialize() const override;
   private:
     ISurfaceSPtr mp_surface;
@@ -34,9 +32,4 @@ inline std::string RenderableObject::Serialize() const
   res += " \"Material\" : " + mp_material->Serialize();
   res += "} }";
   return res;
-  }
-
-inline void RenderableObject::Update()
-  {
-
   }

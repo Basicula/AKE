@@ -13,8 +13,6 @@ class IRenderable : public IObject
       const Ray& i_ray) const = 0;
 
     virtual BoundingBox GetBoundingBox() const = 0;
-
-    virtual void Update() = 0;
   };
 
 using IRenderableSPtr = std::shared_ptr<IRenderable>;
