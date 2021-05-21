@@ -14,7 +14,7 @@ class Fluid : public IRenderable
     virtual std::string Serialize() const override;
     virtual BoundingBox GetBoundingBox() const override;
     
-    virtual void Update() override;
+    void Update();
 
     double GetTimeStep();
     std::size_t GetNumParticles() const;
