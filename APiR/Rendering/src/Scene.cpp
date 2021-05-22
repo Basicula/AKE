@@ -11,6 +11,16 @@ Scene::Scene(const std::string& i_name)
   mp_object_container = new KDTree;
   }
 
+Scene::Scene(Scene&& i_other) noexcept
+  : m_name(i_other.m_name)
+  , m_active_camera(i_other.m_active_camera)
+  , m_background_color(i_other.m_background_color)
+  , mp_object_container(i_other.mp_object_container)
+  , m_cameras(std::move(i_other.m_cameras))
+  , m_lights(std::move(i_other.m_lights)) {
+  i_other.mp_object_container = nullptr;
+  }
+
 Scene::~Scene() {
   if (mp_object_container)
     delete mp_object_container;

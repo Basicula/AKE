@@ -10,12 +10,18 @@ set(
   BMPWriter.h
 )
 
+set(
+  LINKS
+  
+  Image
+  Math
+  Memory
+  Visual
+)
+
 generate_project(
   STATIC
   SOURCES ${SOURCES}
   HEADERS ${HEADERS}
-  LINK    Image
-          Math
-          Memory
-          Visual
+  LINK    ${LINKS}
 )

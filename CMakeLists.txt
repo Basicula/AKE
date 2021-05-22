@@ -19,6 +19,7 @@ set(CMAKE_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/cmake" CACHE PATH "" FORCE)
 
 option(ENABLE_CUDA "Turn on/off CUDA usage")
 option(ENABLE_OPENCL "Turn on/off CUDA usage")
+option(ENABLE_PYTHON_WRAPPER "Turn on/off Python wrappers")
 
 # find all needed packages
 find_package(OpenGL REQUIRED)
@@ -37,8 +38,10 @@ if (ENABLE_CUDA)
   include("${CMAKE_FOLDER}/CUDA.cmake")
 endif()
 
+if (ENABLE_PYTHON_WRAPPER)
 # for python integration
 add_subdirectory(pybind11)
+endif()
 
 # to future testing libs
 enable_testing()

@@ -23,14 +23,20 @@ set(
   src/Image.cpp
 )
 
+set(
+  LINKS
+  
+  Math
+  Memory
+  Visual
+)
+
 generate_project(
   STATIC
   SUPPORT_CUDA
-  CUDA_FILES ${CUDA_FILES}
-  SOURCES    ${SOURCES}
-  HEADERS    ${HEADERS}
-  PY         ${PY}
-  LINK       Math
-             Memory
-             Visual
+  CUDA_FILES    ${CUDA_FILES}
+  SOURCES       ${SOURCES}
+  HEADERS       ${HEADERS}
+  PY            ${PY}
+  LINK          ${LINKS}
 )

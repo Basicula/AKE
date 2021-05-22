@@ -10,18 +10,18 @@ class Vector
   public:
     template<std::size_t D = Dimension, 
       typename T = typename std::enable_if<D == 2>::type >
-    Vector(ElementType i_x, ElementType i_y);
+    HOSTDEVICE Vector(ElementType i_x, ElementType i_y);
   
     template<std::size_t D = Dimension, 
       typename T = typename std::enable_if<D == 3>::type >
-    Vector(ElementType i_x, ElementType i_y, ElementType i_z);
+    HOSTDEVICE Vector(ElementType i_x, ElementType i_y, ElementType i_z);
     
     template<std::size_t D = Dimension, 
       typename T = typename std::enable_if<D == 4>::type >
-    Vector(ElementType i_x, ElementType i_y, ElementType i_z, ElementType i_w);
+    HOSTDEVICE Vector(ElementType i_x, ElementType i_y, ElementType i_z, ElementType i_w);
 
-    Vector();
-    Vector(ElementType i_elem);
+    HOSTDEVICE Vector();
+    HOSTDEVICE Vector(ElementType i_elem);
     Vector(const Vector& i_other) = default;
 
     HOSTDEVICE ElementType& operator[](std::size_t i_index);

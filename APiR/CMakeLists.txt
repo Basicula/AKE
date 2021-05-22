@@ -19,25 +19,27 @@ add_subdirectory(Fluid)
 add_subdirectory(GLUTWindow)
 add_subdirectory(Main)
 
-pybind11_add_module(engine engine_module.cpp)
-target_link_libraries(
-  engine
-  
-  PRIVATE
-  
-  Common
-  Fluid
-  Geometry
-  Image
-  Math
-  Memory
-  Physics
-  Rendering
-  Visual
-  
-  pybind11
-)
-set_property(TARGET engine PROPERTY FOLDER "APiR")
+if(ENABLE_PYTHON_WRAPPER)
+  pybind11_add_module(engine engine_module.cpp)
+  target_link_libraries(
+    engine
+    
+    PRIVATE
+    
+    Common
+    Fluid
+    Geometry
+    Image
+    Math
+    Memory
+    Physics
+    Rendering
+    Visual
+    
+    pybind11
+  )
+  set_property(TARGET engine PROPERTY FOLDER "APiR")
+endif()
 
 set_target_properties(Common PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 set_target_properties(Fluid PROPERTIES POSITION_INDEPENDENT_CODE TRUE)

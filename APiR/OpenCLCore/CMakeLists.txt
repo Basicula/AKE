@@ -20,9 +20,15 @@ set(
   OpenCLUtils.h
 )
 
+set(
+  LINKS
+  
+  ${OpenCL_LIBRARIES}
+)
+
 generate_project(
   STATIC
   SOURCES ${SOURCES}
   HEADERS ${HEADERS}
-  LINK    ${OpenCL_LIBRARIES}
+  LINK    ${LINKS}
 )
