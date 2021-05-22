@@ -16,6 +16,7 @@ class Scene final
   {
   public:
     Scene(const std::string& i_name = "Unnamed");
+    Scene(Scene&& i_other) noexcept;
     ~Scene();
 
     void AddObject(IRenderableSPtr i_object);
