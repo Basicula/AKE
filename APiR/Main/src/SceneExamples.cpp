@@ -27,7 +27,7 @@ namespace ExampleScene {
 
     scene.AddCamera(Camera(Vector3d(0, 0, -1), Vector3d(0, 0, 0), Vector3d(0, 1, 0), 75, 16.0 / 9.0, 0.5), true);
 
-    return scene;
+    return std::move(scene);
     }
 
   Scene NineSpheres() {
@@ -50,7 +50,7 @@ namespace ExampleScene {
 
     scene.AddCamera(Camera(Vector3d(0, 0, -5), Vector3d(0, 0, 0), Vector3d(0, 1, 0), 75, 16.0 / 9.0, 0.5), true);
 
-    return scene;
+    return std::move(scene);
     }
 
   Scene EmptyRoom() {
@@ -65,7 +65,7 @@ namespace ExampleScene {
 
     scene.AddCamera(Camera(Vector3d(0, 0, -5), Vector3d(0, 0, 0), Vector3d(0, 1, 0), 75, 16.0 / 9.0, 0.5), true);
 
-    return scene;
+    return std::move(scene);
     }
 
   Scene RotatableTorus() {
@@ -78,7 +78,7 @@ namespace ExampleScene {
 
     scene.AddCamera(Camera(Vector3d(0, 0, -5), Vector3d(0, 0, 0), Vector3d(0, 1, 0), 75, 16.0 / 9.0, 0.5), true);
 
-    return scene;
+    return std::move(scene);
     }
 
   Scene ComplexScene() {
@@ -99,6 +99,6 @@ namespace ExampleScene {
 
     scene.AddLight(std::make_shared<SpotLight>(Vector3d(3, 3, -3)));
 
-    return scene;
+    return std::move(scene);
     }
   }
