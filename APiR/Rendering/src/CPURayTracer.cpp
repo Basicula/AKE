@@ -46,7 +46,7 @@ Color CPURayTracer::_TraceRay(std::size_t i_ray_id)   {
   hit.Reset();
   bool intersected = mp_scene->TraceRay(hit, camera_ray);
 
-  if (!intersected || !hit.m_material)
+  if (!intersected || !hit.mp_material)
     return mp_scene->GetBackGroundColor();
 
   return _ProcessIntersection(hit, camera_ray);
@@ -56,11 +56,11 @@ Color CPURayTracer::_ProcessIntersection(
   const IntersectionRecord& i_intersection,
   const Ray& i_camera_ray)   {
   Color reflected_color;
-  if (i_intersection.m_material->IsReflectable())
+  if (i_intersection.mp_material->IsReflectable())
     reflected_color = _ProcessReflection(i_intersection, i_camera_ray);
 
   Color refracted_color;
-  if (i_intersection.m_material->IsRefractable())
+  if (i_intersection.mp_material->IsRefractable())
     refracted_color = _ProcessRefraction(i_intersection, i_camera_ray);
 
   Color light_influence = _ProcessLightInfluence(i_intersection, i_camera_ray);
@@ -73,9 +73,9 @@ Color CPURayTracer::_ProcessReflection(
   std::size_t depth = 0;
   IntersectionRecord local_record(i_intersection);
   Ray local_ray(i_camera_ray);
-  while (local_record.m_material->IsReflectable() && depth < m_depth)     {
+  while (local_record.mp_material->IsReflectable() && depth < m_depth)     {
     const auto reflected_direction =
-      local_record.m_material->ReflectedDirection(local_record.m_normal, i_camera_ray.GetDirection());
+      local_record.mp_material->ReflectedDirection(local_record.m_normal, i_camera_ray.GetDirection());
     local_ray.SetOrigin(local_record.m_intersection);
     local_ray.SetDirection(reflected_direction);
     local_record.Reset();
@@ -84,7 +84,7 @@ Color CPURayTracer::_ProcessReflection(
     else
       return mp_scene->GetBackGroundColor();
     }
-  return _ProcessLightInfluence(local_record, i_camera_ray) * i_intersection.m_material->ReflectionInfluence();
+  return _ProcessLightInfluence(local_record, i_camera_ray) * i_intersection.mp_material->ReflectionInfluence();
   }
 
 Color CPURayTracer::_ProcessRefraction(
@@ -108,7 +108,7 @@ Color CPURayTracer::_ProcessLightInfluence(
   const IntersectionRecord& i_intersection,
   const Ray& i_camera_ray)   {
   const auto& view_direction = i_camera_ray.GetDirection();
-  Color result_pixel_color = i_intersection.m_material->GetPrimitiveColor();
+  Color result_pixel_color = i_intersection.mp_material->GetPrimitiveColor();
   std::size_t red, green, blue, active_lights_cnt;
   red = green = blue = active_lights_cnt = 0;
   Ray to_light(i_intersection.m_intersection + i_intersection.m_normal * 1e-10, Vector3d(0, 1, 0));
@@ -123,7 +123,7 @@ Color CPURayTracer::_ProcessLightInfluence(
     const bool is_intersected = mp_scene->TraceRay(temp_intersection, to_light);
     if (!is_intersected || light_direction.Dot(light->GetDirection(temp_intersection.m_intersection)) < 0.0)       {
       Color light_influence =
-        i_intersection.m_material->GetLightInfluence(
+        i_intersection.mp_material->GetLightInfluence(
           i_intersection.m_intersection,
           i_intersection.m_normal,
           view_direction,

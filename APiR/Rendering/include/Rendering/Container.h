@@ -8,8 +8,12 @@ class Container
   public:
     void AddObject(IRenderableSPtr i_object);
 
+    HOSTDEVICE virtual bool TraceRay(
+      IntersectionRecord& io_intersection,
+      const Ray& i_ray) const;
+
     // Update internal object structure
-    virtual void Update() = 0;
+    virtual void Update();
 
     std::size_t Size() const;
 

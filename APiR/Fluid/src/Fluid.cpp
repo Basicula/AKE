@@ -79,6 +79,6 @@ bool Fluid::IntersectWithRay(IntersectionRecord& o_intersection, const Ray& i_ra
     ray_origin += ray_dir * sqrt(dist_to_fluid);
     }
   if (intersected)
-    o_intersection.m_material = m_material;
+    o_intersection.mp_material = m_material;
   return intersected;
   }

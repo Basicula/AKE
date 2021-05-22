@@ -6,7 +6,7 @@ class Ray
 public:
   Ray() = delete;
   Ray(const Ray& i_other);
-  Ray(const Vector3d& i_origin, const Vector3d& i_dir);
+  HOSTDEVICE Ray(const Vector3d& i_origin, const Vector3d& i_dir);
 
   const Vector3d& GetOrigin() const;
   void SetOrigin(const Vector3d& i_origin);

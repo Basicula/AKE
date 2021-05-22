@@ -36,6 +36,7 @@
 #include <Rendering/RenderableObject.h>
 #include <Rendering/Scene.h>
 #include <Rendering/CPURayTracer.h>
+#include <Rendering/CUDARayTracer.h>
 
 #include <GLUTWindow/GLUTWindow.h>
 
@@ -58,8 +59,6 @@ void test_fluid()
 
   Scene scene("Fluid test");
   Image image(width, height, 0xffaaaaaa);
-  CPURayTracer renderer;
-  renderer.SetOutputImage(&image);
 
   scene.AddCamera(
     Camera(
@@ -73,10 +72,13 @@ void test_fluid()
   auto fluid = std::make_shared<Fluid>(48);
   scene.AddObject(fluid);
 
+  CPURayTracer renderer;
+  renderer.SetOutputImage(&image);
+  renderer.SetScene(&scene);
   auto update_func = [&]()
     {
-    renderer.Render(scene);
-    scene.Update();
+    renderer.Render();
+    fluid->Update();
     };
 #ifdef _DEBUG
   for (int i = 0; i < 5; ++i)
@@ -101,15 +103,16 @@ void test_scene()
   const std::size_t width = 800;
   const std::size_t height = 600;
 
-  Scene scene = ExampleScene::OneSphere();
+  Scene scene = ExampleScene::ComplexScene();
 
   Image image(width, height);
   CPURayTracer renderer;
   renderer.SetOutputImage(&image);
+  renderer.SetScene(&scene);
 
   auto update_func = [&]()
     {
-    renderer.Render(scene);
+    renderer.Render();
     };
   GLUTWindow window(width, height, scene.GetName().c_str());
   window.SetImageSource(&image);

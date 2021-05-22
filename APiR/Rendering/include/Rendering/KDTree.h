@@ -32,7 +32,7 @@ class KDTree : public Container
   public:
     KDTree() = default;
 
-    bool IntersectWithRay(
+    HOSTDEVICE bool TraceRay(
       IntersectionRecord& io_intersection,
       const Ray& i_ray) const;
 

@@ -5,12 +5,19 @@ Scene::Scene(const std::string& i_name)
   : m_name(i_name)
   , m_active_camera(static_cast<std::size_t>(-1))
   , m_background_color(0xffffccaa)
-  , m_object_tree()
+  , mp_object_container(nullptr)
   {
+  //mp_object_container = new Container;
+  mp_object_container = new KDTree;
+  }
+
+Scene::~Scene() {
+  if (mp_object_container)
+    delete mp_object_container;
   }
 
  void Scene::AddObject(IRenderableSPtr i_object)   {
-  m_object_tree.AddObject(i_object);
+  mp_object_container->AddObject(i_object);
   }
 
 void Scene::AddCamera(const Camera& i_camera, bool i_set_active)   {
@@ -24,7 +31,7 @@ void Scene::AddCamera(const Camera& i_camera, bool i_set_active)   {
   }
 
 std::size_t Scene::GetNumObjects() const   {
-  return m_object_tree.Size();
+  return mp_object_container->Size();
   }
 
 std::size_t Scene::GetNumLights() const   {
@@ -72,7 +79,7 @@ std::string Scene::Serialize() const   {
   res += "\"Name\" : \"" + m_name + "\", ";
 
   // TODO
-  //m_object_tree.Serialize();
+  //mp_object_container->Serialize();
 
   const auto cameras_cnt = m_cameras.size();
   if (cameras_cnt != 0)     {
@@ -106,10 +113,10 @@ std::shared_ptr<ILight> Scene::GetLight(size_t i_id) const {
   }
 
 bool Scene::TraceRay(IntersectionRecord& o_hit, const Ray& i_ray) const {
-  return m_object_tree.IntersectWithRay(o_hit, i_ray);;
+  return mp_object_container->TraceRay(o_hit, i_ray);;
   }
 
 void Scene::Update()
   {
-  m_object_tree.Update();
+  mp_object_container->Update();
   }

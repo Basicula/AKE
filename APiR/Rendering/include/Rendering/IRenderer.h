@@ -8,6 +8,7 @@
 class IRenderer
   {
   public:
+    ~IRenderer() = default;
 
     void SetOutputImage(Image* iop_image);
     void SetScene(const Scene* ip_scene);

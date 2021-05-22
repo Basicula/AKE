@@ -12,10 +12,11 @@
 #include <memory>
 #include <string>
 
-class Scene
+class Scene final
   {
   public:
     Scene(const std::string& i_name = "Unnamed");
+    ~Scene();
 
     void AddObject(IRenderableSPtr i_object);
     void AddCamera(const Camera& i_camera, bool i_set_active = false);
@@ -27,11 +28,11 @@ class Scene
 
     std::shared_ptr<ILight> GetLight(size_t i_id) const;
 
-    bool TraceRay(IntersectionRecord& o_hit, const Ray& i_ray) const;
+    HOSTDEVICE bool TraceRay(IntersectionRecord& o_hit, const Ray& i_ray) const;
 
     bool SetActiveCamera(std::size_t i_id);
     std::size_t GetActiveCameraId() const;
-    const Camera& GetActiveCamera() const;
+    HOSTDEVICE const Camera& GetActiveCamera() const;
 
     bool SetOnOffLight(std::size_t i_id, bool i_state);
 
@@ -51,7 +52,7 @@ class Scene
     std::size_t m_active_camera;
 
     Color m_background_color;
-    KDTree m_object_tree;
+    Container* mp_object_container;
 
     std::vector<Camera> m_cameras;
     std::vector<std::shared_ptr<ILight>> m_lights;

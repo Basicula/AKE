@@ -47,13 +47,13 @@ IntersectionRecord::IntersectionRecord()
   : m_distance(MAX_DOUBLE)
   , m_intersection(0)
   , m_normal(0)
-  , m_material(nullptr)
+  , mp_material(nullptr)
   {}
 
 IntersectionRecord::IntersectionRecord(const IntersectionRecord& i_other)
   : m_distance(i_other.m_distance)
   , m_intersection(i_other.m_intersection)
-  , m_material(i_other.m_material)
+  , mp_material(i_other.mp_material)
   , m_normal(i_other.m_normal)
   {}
 
