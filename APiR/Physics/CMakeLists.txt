@@ -12,9 +12,15 @@ set(
   Simulation.h
 )
 
+set(
+  LINKS
+  
+  Math
+)
+
 generate_project(
   STATIC
   SOURCES ${SOURCES}
   HEADERS ${HEADERS}
-  LINK    Math
+  LINK    ${LINKS}
 )

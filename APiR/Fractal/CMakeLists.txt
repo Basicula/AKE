@@ -31,14 +31,20 @@ set(
   src/LyapunovFractal.cpp
 )
 
+set(
+  LINKS
+  
+  Common
+  Memory
+  Visual
+  Math
+)
+
 generate_project(
   STATIC
   SUPPORT_CUDA
-  CUDA_FILES ${CUDA_FILES}
-  SOURCES ${SOURCES}
-  HEADERS ${HEADERS}
-  LINK    Common
-          Memory
-          Visual
-            Math
+  CUDA_FILES    ${CUDA_FILES}
+  SOURCES       ${SOURCES}
+  HEADERS       ${HEADERS}
+  LINK          ${LINKS}
 )

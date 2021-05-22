@@ -64,7 +64,7 @@ function(generate_project)
   foreach(FILE ${ARG_SOURCES})
     list(APPEND FILES "src/${FILE}")
   endforeach()
-  if (DEFINED ARG_PY)
+  if (DEFINED ARG_PY AND ENABLE_PYTHON_WRAPPERS)
     foreach(FILE ${ARG_PY})
       list(APPEND FILES "py/${FILE}")
     endforeach()
@@ -109,10 +109,11 @@ function(generate_project)
   endif()
   
   if(ARG_SUPPORT_CUDA AND ENABLE_CUDA)
+    set_source_files_properties(${CUDA_FILES} PROPERTIES LANGUAGE CUDA)
+    
     #set_target_properties(${NAME} PROPERTIES CUDA_RESOLVE_DEVICE_SYMBOLS ON)
     set_target_properties(${NAME} PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
     set_target_properties(${NAME} PROPERTIES POSITION_INDEPENDENT_CODE  ON)
-    set_source_files_properties(${ARG_CUDA_FILES} PROPERTIES LANGUAGE CUDA)
     set_property(TARGET ${NAME} PROPERTY CUDA_ARCHITECTURES 61-real 61-virtual)
   endif()
   
@@ -132,6 +133,13 @@ function(generate_project)
       ${NAME}.Tests
       ${TEST_FILES}
     )
+    
+    if(ARG_SUPPORT_CUDA AND ENABLE_CUDA)
+      set_target_properties(${NAME}.Tests PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+      set_target_properties(${NAME}.Tests PROPERTIES POSITION_INDEPENDENT_CODE  ON)
+      set_property(TARGET ${NAME}.Tests PROPERTY CUDA_ARCHITECTURES 61-real 61-virtual)
+    endif()
+    
     target_link_libraries(${NAME}.Tests PRIVATE ${NAME})
     target_link_libraries(${NAME}.Tests PRIVATE ${ARG_LINK})
     target_link_libraries(${NAME}.Tests PUBLIC  ${ARG_PUBLIC_LINK})
