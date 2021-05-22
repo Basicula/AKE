@@ -34,38 +34,36 @@ class Vector
     bool operator>(const Vector& i_other) const;
     bool operator>=(const Vector& i_other) const;
 
-    Vector operator-() const;
-    Vector operator-(const Vector& i_other) const;
-    Vector& operator-=(const Vector& i_other);
+    HOSTDEVICE Vector operator-() const;
+    HOSTDEVICE Vector operator-(const Vector& i_other) const;
+    HOSTDEVICE Vector& operator-=(const Vector& i_other);
 
-    Vector operator+(const Vector& i_other) const;
-    Vector& operator+=(const Vector& i_other);
-
-    template<class Factor>
-    Vector operator*(Factor i_factor) const;
-    Vector operator*(const Vector& i_other) const;
-    template<class Factor>
-    Vector& operator*=(Factor i_factor);
-    Vector operator*=(const Vector& i_other);
+    HOSTDEVICE Vector operator+(const Vector& i_other) const;
+    HOSTDEVICE Vector& operator+=(const Vector& i_other);
 
     template<class Factor>
-    Vector operator/(Factor i_factor) const;
-    Vector operator/(const Vector& i_other) const;
+    HOSTDEVICE Vector operator*(Factor i_factor) const;
+    HOSTDEVICE Vector operator*(const Vector& i_other) const;
     template<class Factor>
-    Vector& operator/=(Factor i_factor);
-    Vector operator/=(const Vector& i_other);
+    HOSTDEVICE Vector& operator*=(Factor i_factor);
+    HOSTDEVICE Vector operator*=(const Vector& i_other);
 
-    template<std::size_t D = Dimension, 
-      typename T = typename std::enable_if<D == 3>::type >
-    Vector<ElementType, Dimension> CrossProduct(
-      const Vector<ElementType, Dimension>& i_other) const;
-    ElementType Dot(const Vector& i_other) const;
-    void Normalize();
-    Vector Normalized() const;
-    double Length() const;
-    ElementType SquareLength() const;
-    double Distance(const Vector& i_other) const;
-    ElementType SquareDistance(const Vector& i_other) const;
+    template<class Factor>
+    HOSTDEVICE Vector operator/(Factor i_factor) const;
+    HOSTDEVICE Vector operator/(const Vector& i_other) const;
+    template<class Factor>
+    HOSTDEVICE Vector& operator/=(Factor i_factor);
+    HOSTDEVICE Vector operator/=(const Vector& i_other);
+
+    template<std::size_t D = Dimension, typename T = typename std::enable_if<D == 3>::type >
+    HOSTDEVICE Vector<ElementType, Dimension> CrossProduct(const Vector<ElementType, Dimension>& i_other) const;
+    HOSTDEVICE ElementType Dot(const Vector& i_other) const;
+    HOSTDEVICE void Normalize();
+    HOSTDEVICE Vector Normalized() const;
+    HOSTDEVICE double Length() const;
+    HOSTDEVICE ElementType SquareLength() const;
+    HOSTDEVICE double Distance(const Vector& i_other) const;
+    HOSTDEVICE ElementType SquareDistance(const Vector& i_other) const;
 
     std::string Serialize() const;
   protected:

@@ -137,7 +137,7 @@ BoundingBox KDTree::_BoundingBox(
   return res;
   }
 
-bool KDTree::IntersectWithRay(
+bool KDTree::TraceRay(
   IntersectionRecord& io_intersection,
   const Ray& i_ray) const
   {

@@ -9,7 +9,7 @@ namespace
       .def_readonly("intersection", &IntersectionRecord::m_intersection)
       .def_readonly("normal", &IntersectionRecord::m_normal)
       .def_readonly("distance", &IntersectionRecord::m_distance)
-      .def_readonly("material", &IntersectionRecord::m_material);
+      .def_readonly("material", &IntersectionRecord::mp_material);
     }
 
   static void AddRayBoxIntersectionRecord(py::module& io_module)

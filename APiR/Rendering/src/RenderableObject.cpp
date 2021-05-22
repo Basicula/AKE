@@ -13,7 +13,7 @@ bool RenderableObject::IntersectWithRay(
   {
   if (mp_surface->IntersectWithRay(o_intersection, i_ray))
     {
-    o_intersection.m_material = mp_material;
+    o_intersection.mp_material = mp_material;
     return true;
     }
 

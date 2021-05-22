@@ -59,3 +59,6 @@ void test_cuda() {
   window.SetUpdateFunction(update_func);
   window.Open();
   }
+
+void test_cuda_rendering() {
+  }

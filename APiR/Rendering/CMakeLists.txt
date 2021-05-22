@@ -47,7 +47,7 @@ set(
 if(ENABLE_CUDA)
 list(APPEND HEADERS CUDARayTracer.h)
 list(APPEND SOURCES CUDARayTracer.cpp)
-list(APPEND CUDA_FILES CUDARayTracer.cpp)
+list(APPEND CUDA_FILES src/CUDARayTracer.cpp)
 endif()
 
 generate_project(

@@ -10,9 +10,9 @@ struct IntersectionRecord
   double m_distance;
   Vector3d m_intersection;
   Vector3d m_normal;
-  std::shared_ptr<IMaterial> m_material;
+  std::shared_ptr<IMaterial> mp_material;
 
-  IntersectionRecord();
+  HOSTDEVICE IntersectionRecord();
   IntersectionRecord(const IntersectionRecord& i_other);
 
   // updates current if other is closer

@@ -17,10 +17,10 @@ class Camera
       double i_aspect,
       double i_focusDist);
 
-    const Vector3d& GetLocation() const;
+    HOSTDEVICE const Vector3d& GetLocation() const;
     void SetLocation(const Vector3d& i_location);
 
-    Vector3d GetDirection(double i_u, double i_v) const;
+    HOSTDEVICE Vector3d GetDirection(double i_u, double i_v) const;
 
     std::string Serialize() const;
   private:
