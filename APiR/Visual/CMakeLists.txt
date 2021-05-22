@@ -42,13 +42,19 @@ set(
   src/Color.cpp
 )
 
+set(
+  LINKS
+  
+  Math
+  Common
+)
+
 generate_project(
   STATIC
   SUPPORT_CUDA
-  CUDA_FILES ${CUDA_FILES}
-  SOURCES    ${SOURCES}
-  HEADERS    ${HEADERS}
-  PY         ${PY}
-  LINK       Math
-             Common
+  CUDA_FILES    ${CUDA_FILES}
+  SOURCES       ${SOURCES}
+  HEADERS       ${HEADERS}
+  PY            ${PY}
+  LINK          ${LINKS}
 )

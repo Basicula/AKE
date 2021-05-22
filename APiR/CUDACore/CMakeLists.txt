@@ -16,6 +16,6 @@ set(
 generate_project(
   STATIC
   SUPPORT_CUDA
-  SOURCES ${SOURCES}
-  HEADERS ${HEADERS}
+  SOURCES       ${SOURCES}
+  HEADERS       ${HEADERS}
 )

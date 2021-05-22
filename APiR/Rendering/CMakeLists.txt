@@ -44,6 +44,17 @@ set(
   CUDA_FILES
 )
 
+set(
+  LINKS
+  
+  Common
+  Geometry
+  Image
+  Math
+  Memory
+  Visual
+)
+
 if(ENABLE_CUDA)
 list(APPEND HEADERS CUDARayTracer.h)
 list(APPEND SOURCES CUDARayTracer.cpp)
@@ -53,14 +64,9 @@ endif()
 generate_project(
   STATIC
   SUPPORT_CUDA
-  CUDA_FILES ${CUDA_FILES}
-  SOURCES    ${SOURCES}
-  HEADERS    ${HEADERS}
-  PY         ${PY}
-  LINK       Common
-             Geometry
-             Image
-             Math
-             Memory
-             Visual
+  CUDA_FILES  ${CUDA_FILES}
+  SOURCES     ${SOURCES}
+  HEADERS     ${HEADERS}
+  PY          ${PY}
+  LINK        ${LINKS}
 )

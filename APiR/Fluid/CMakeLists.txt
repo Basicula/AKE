@@ -42,15 +42,21 @@ set(
   Fluid_py.hpp
 )
 
+set(
+  LINKS
+
+  Common
+  Geometry
+  Math
+  Physics
+  Rendering
+  Visual
+)
+
 generate_project(
   STATIC
   SOURCES ${SOURCES}
   HEADERS ${HEADERS}
   PY      ${PY}
-  LINK    Common
-          Geometry
-          Math
-          Physics
-          Rendering
-            Visual
+  LINK    ${LINKS}
 )
