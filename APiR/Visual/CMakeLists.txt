@@ -5,7 +5,7 @@ set(
   
   SpotLight.cpp
   
-  ColorMaterial.cpp  
+  PhongMaterial.cpp  
 )
 
 set(
@@ -16,8 +16,8 @@ set(
   ILight.h
   SpotLight.h
   
-  IMaterial.h
-  ColorMaterial.h
+  IVisualMaterial.h
+  PhongMaterial.h
 )
 
 set(

@@ -14,16 +14,20 @@ class CPURayTracer : public IRenderer
 
     Color _TraceRay(std::size_t i_ray_id);
     Color _ProcessIntersection(
-      const IntersectionRecord& i_intersection,
+      const Object* ip_intersected_object,
+      const double i_distance,
       const Ray& i_camera_ray);
     Color _ProcessReflection(
-      const IntersectionRecord& i_intersection,
+      const Object* ip_intersected_object,
+      const double i_distance,
       const Ray& i_camera_ray);
     Color _ProcessRefraction(
-      const IntersectionRecord& i_intersection,
+      const Object* ip_intersected_object,
+      const double i_distance,
       const Ray& i_camera_ray);
     Color _ProcessLightInfluence(
-      const IntersectionRecord& i_intersection,
+      const Object* ip_intersected_object,
+      const double i_distance,
       const Ray& i_camera_ray);
 
   private:
@@ -32,5 +36,4 @@ class CPURayTracer : public IRenderer
     // only once and then if it needed
     // reset their origin and dirs
     std::vector<Ray> m_rays;
-    std::vector<IntersectionRecord> m_intersection_records;
   };

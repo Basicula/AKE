@@ -1,35 +1,23 @@
 #pragma once
 #include <Geometry/ISurface.h>
-#include <Rendering/IRenderable.h>
-#include <Visual/IMaterial.h>
+#include <Rendering/Object.h>
+#include <Visual/IVisualMaterial.h>
 
-class RenderableObject : public IRenderable
+class RenderableObject : public Object
   {
   public:
-    RenderableObject(ISurfaceSPtr i_surface, IMaterialSPtr i_material);
+    RenderableObject(ISurface* i_surface, IVisualMaterial* i_material);
+    ~RenderableObject();
 
     virtual bool IntersectWithRay(
-      IntersectionRecord& o_intersection,
-      const Ray& i_ray) const override;
+      double& o_distance,
+      const Ray& i_ray,
+      const double i_far) const override;
 
     virtual BoundingBox GetBoundingBox() const override;
 
-    virtual std::string Serialize() const override;
+    virtual Vector3d GetNormalAtPoint(const Vector3d& i_point) const override;
+
   private:
-    ISurfaceSPtr mp_surface;
-    IMaterialSPtr mp_material;
+    ISurface* mp_surface;
   };
-
-inline BoundingBox RenderableObject::GetBoundingBox() const
-  {
-  return mp_surface->GetBoundingBox();
-  }
-
-inline std::string RenderableObject::Serialize() const
-  {
-  std::string res = "{ \"RenderableObject\" : { ";
-  res += " \"Surface\" : " + mp_surface->Serialize() + ", ";
-  res += " \"Material\" : " + mp_material->Serialize();
-  res += "} }";
-  return res;
-  }

@@ -43,35 +43,51 @@ Transformation Transformation::GetInversed() const
 Vector3d Transformation::PointToLocal(const Vector3d& i_world_point) const
   {
   Vector3d local_point = i_world_point;
-  local_point -= m_translation; // translation
-  m_inverse_rotation.ApplyLeft(local_point); // rotation
-  local_point /= m_scale; // scaling
+  PointToLocal(local_point);
   return local_point;
-  }
+ }
+
+void Transformation::PointToLocal(Vector3d& io_point) const
+{
+  io_point -= m_translation; // translation
+  m_inverse_rotation.ApplyLeft(io_point); // rotation
+  io_point /= m_scale; // scaling
+}
 
 Vector3d Transformation::PointToWorld(const Vector3d& i_local_point) const
   {
   Vector3d world_point = i_local_point;
-  world_point *= m_scale; // scaling
-  m_rotation.ApplyLeft(world_point); // rotation
-  world_point += m_translation; // translation
+  PointToWorld(world_point);
   return world_point;
   }
+
+void Transformation::PointToWorld(Vector3d& io_point) const
+{
+  io_point *= m_scale; // scaling
+  m_rotation.ApplyLeft(io_point); // rotation
+  io_point += m_translation; // translation
+}
 
 Vector3d Transformation::DirectionToLocal(const Vector3d& i_world_dir) const
   {
   Vector3d local_direction = i_world_dir;
-  m_inverse_rotation.ApplyLeft(local_direction); // rotation
-  local_direction /= m_scale; // scaling
-  local_direction.Normalize(); // keep normalized after scaling
+  DirectionToLocal(local_direction);
   return local_direction;
   }
+
+void Transformation::DirectionToLocal(Vector3d& i_direction) const
+{
+  m_inverse_rotation.ApplyLeft(i_direction); // rotation
+}
 
 Vector3d Transformation::DirectionToWorld(const Vector3d& i_local_dir) const
   {
   Vector3d world_direction = i_local_dir;
-  world_direction *= m_scale; // scaling
-  m_rotation.ApplyLeft(world_direction); // rotation
-  world_direction.Normalize(); // keep normalized after scaling
+  DirectionToWorld(world_direction);
   return world_direction;
   }
+
+void Transformation::DirectionToWorld(Vector3d& io_direction) const
+{
+  m_rotation.ApplyLeft(io_direction); // rotation
+}

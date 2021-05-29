@@ -5,6 +5,7 @@ set(
   
   RenderableObject.cpp
   
+  Object.cpp
   Container.cpp
   KDTree.cpp
   
@@ -18,7 +19,8 @@ set(
   HEADERS
   
   Camera.h
-  IRenderable.h
+ 
+  Object.h
   RenderableObject.h
   
   Container.h
@@ -52,6 +54,7 @@ set(
   Image
   Math
   Memory
+  Physics
   Visual
 )
 

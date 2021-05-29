@@ -24,10 +24,12 @@ Scene::Scene(Scene&& i_other) noexcept
 Scene::~Scene() {
   if (mp_object_container)
     delete mp_object_container;
+  for (auto& light : m_lights)
+    delete light;
   }
 
- void Scene::AddObject(IRenderableSPtr i_object)   {
-  mp_object_container->AddObject(i_object);
+ void Scene::AddObject(Object* ip_object)   {
+  mp_object_container->AddObject(ip_object);
   }
 
 void Scene::AddCamera(const Camera& i_camera, bool i_set_active)   {
@@ -36,8 +38,8 @@ void Scene::AddCamera(const Camera& i_camera, bool i_set_active)   {
     SetActiveCamera(m_cameras.size() - 1);
   }
 
- void Scene::AddLight(std::shared_ptr<ILight> i_light)   {
-  m_lights.push_back(i_light);
+ void Scene::AddLight(ILight* ip_light)   {
+  m_lights.push_back(ip_light);
   }
 
 std::size_t Scene::GetNumObjects() const   {
@@ -118,12 +120,13 @@ Color Scene::GetBackGroundColor() const   {
   return m_background_color;
   }
 
-std::shared_ptr<ILight> Scene::GetLight(size_t i_id) const {
+const ILight* Scene::GetLight(size_t i_id) const {
   return m_lights[i_id];
   }
 
-bool Scene::TraceRay(IntersectionRecord& o_hit, const Ray& i_ray) const {
-  return mp_object_container->TraceRay(o_hit, i_ray);;
+const Object* Scene::TraceRay(double& o_hit, const Ray& i_ray) const {
+  // TODO: implement far distance logic
+  return mp_object_container->TraceRay(o_hit, i_ray, 1000);
   }
 
 void Scene::Update()

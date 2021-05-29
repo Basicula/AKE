@@ -1,19 +1,22 @@
 #pragma once
 #include <Geometry/BoundingBox.h>
 #include <Fluid/SPHSimulation.h>
-#include <Rendering/IRenderable.h>
+#include <Rendering/Object.h>
+#include <Visual/IVisualMaterial.h>
 
-class Fluid : public IRenderable
+class Fluid : public Object
   {
   public:
     Fluid(std::size_t i_num_particles);
 
     virtual bool IntersectWithRay(
-      IntersectionRecord& o_intersection,
-      const Ray& i_ray) const override;
-    virtual std::string Serialize() const override;
+      double& o_distance,
+      const Ray& i_ray,
+      const double i_far) const override;
+    virtual std::string Serialize() const;
     virtual BoundingBox GetBoundingBox() const override;
-    
+    virtual Vector3d GetNormalAtPoint(const Vector3d& i_point) const override;
+
     void Update();
 
     double GetTimeStep();
@@ -25,8 +28,6 @@ class Fluid : public IRenderable
   private:
     BoundingBox m_bbox;
     SPHSimulation m_simulation;
-
-    std::shared_ptr<IMaterial> m_material;
   };
 
 inline std::string Fluid::Serialize() const

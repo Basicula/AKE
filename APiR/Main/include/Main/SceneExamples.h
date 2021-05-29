@@ -8,15 +8,19 @@
 #include <Rendering/RenderableObject.h>
 #include <Rendering/Scene.h>
 
-#include <Visual/ColorMaterial.h>
+#include <Visual/PhongMaterial.h>
 #include <Visual/SpotLight.h>
 
 
 
 namespace ExampleScene {
   Scene OneSphere();
+  Scene OnePlane();
+  Scene OneCylinder();
+  Scene OneTorus();
+
   Scene NineSpheres();
   Scene EmptyRoom();
-  Scene RotatableTorus();
   Scene ComplexScene();
+  Scene InfinityMirror();
   }

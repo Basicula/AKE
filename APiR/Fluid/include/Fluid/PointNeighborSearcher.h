@@ -23,11 +23,9 @@ class PointNeighborSearcher
       double i_search_radius,
       const ForEachNearbyPointFunc& i_callback) = 0;
     
-    ~PointNeighborSearcher() = default;
+    virtual ~PointNeighborSearcher() = default;
   protected:
     virtual void _Build(const Points& i_points) = 0;
 
   private:
   };
-
-using PointNeighborSearcherPtr = std::shared_ptr<PointNeighborSearcher>;

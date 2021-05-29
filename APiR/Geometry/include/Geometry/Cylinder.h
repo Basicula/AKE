@@ -32,8 +32,9 @@ class Cylinder : public ISurface
     virtual void _CalculateBoundingBox() override;
     virtual Vector3d _NormalAtLocalPoint(const Vector3d& i_local_point) const override;
     virtual bool _IntersectWithRay(
-      double& io_nearest_intersection_dist,
-      const Ray& i_ray) const override;
+      double& o_intersection_dist,
+      const Ray& i_ray,
+      const double i_far) const override;
   private:
     double m_radius;
     double m_height;

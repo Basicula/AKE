@@ -44,8 +44,6 @@ class Transformable
   protected:
     virtual void _OnTransformationChange() = 0;
 
-    void _LocalIntersectionToWorld(IntersectionRecord& io_intersection) const;
-
   private:
     Transformation m_transformation;
   };

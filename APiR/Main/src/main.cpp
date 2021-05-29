@@ -31,12 +31,11 @@
 #include <Memory/custom_vector.h>
 
 #include <Visual/SpotLight.h>
-#include <Visual/ColorMaterial.h>
+#include <Visual/PhongMaterial.h>
 
 #include <Rendering/RenderableObject.h>
 #include <Rendering/Scene.h>
 #include <Rendering/CPURayTracer.h>
-#include <Rendering/CUDARayTracer.h>
 
 #include <GLUTWindow/GLUTWindow.h>
 
@@ -68,8 +67,8 @@ void test_fluid()
       75,
       width * 1.0 / height,
       2), true);
-  scene.AddLight(std::make_shared<SpotLight>(Vector3d(0, 10, 0)));
-  auto fluid = std::make_shared<Fluid>(48);
+  scene.AddLight(new SpotLight(Vector3d(0, 10, 0)));
+  auto fluid = new Fluid(48);
   scene.AddObject(fluid);
 
   CPURayTracer renderer;
@@ -103,7 +102,7 @@ void test_scene()
   const std::size_t width = 800;
   const std::size_t height = 600;
 
-  Scene scene = ExampleScene::ComplexScene();
+  Scene scene = ExampleScene::InfinityMirror();
 
   Image image(width, height);
   CPURayTracer renderer;
