@@ -8,7 +8,7 @@
 #include <Rendering/RenderableObject.h>
 #include <Rendering/Scene.h>
 
-#include <Visual/ColorMaterial.h>
+#include <Visual/PhongMaterial.h>
 #include <Visual/SpotLight.h>
 
 

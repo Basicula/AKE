@@ -5,7 +5,7 @@
 #include <Rendering/IRenderable.h>
 #include <Rendering/KDTree.h>
 
-#include <Visual/IMaterial.h>
+#include <Visual/IVisualMaterial.h>
 #include <Visual/ILight.h>
 
 #include <vector>

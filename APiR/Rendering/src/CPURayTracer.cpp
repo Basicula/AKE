@@ -143,11 +143,10 @@ Color CPURayTracer::_ProcessLightInfluence(
     const auto local_intersection = to_light.GetPoint(distance);
     if (!p_intersected_object || light_direction.Dot(light->GetDirection(local_intersection)) < 0.0) {
       Color light_influence =
-        ip_intersected_object->GetMaterial()->GetLightInfluence(
-          intersection_point,
+        ip_intersected_object->GetMaterial()->CalculateColor(
           normal,
           view_direction,
-          light);
+          light_direction) * light->GetIntensityAtPoint(intersection_point);
       red += light_influence.GetRed();
       green += light_influence.GetGreen();
       blue += light_influence.GetBlue();
@@ -158,7 +157,7 @@ Color CPURayTracer::_ProcessLightInfluence(
     //  static_cast<uint8_t>(red / active_lights_cnt),
     //  static_cast<uint8_t>(green / active_lights_cnt),
     //  static_cast<uint8_t>(blue / active_lights_cnt));
-    result_pixel_color += Color(
+    result_pixel_color = Color(
       static_cast<uint8_t>(red > 255 ? 255 : red),
       static_cast<uint8_t>(green > 255 ? 255 : green),
       static_cast<uint8_t>(blue > 255 ? 255 : blue));

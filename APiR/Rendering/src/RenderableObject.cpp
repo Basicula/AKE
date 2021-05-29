@@ -2,7 +2,7 @@
 
 RenderableObject::RenderableObject(
   ISurface* i_surface,
-  IMaterial* i_material)
+  IVisualMaterial* i_material)
   : mp_surface(i_surface)
   , mp_material(i_material) {
   }
@@ -26,7 +26,7 @@ inline Vector3d RenderableObject::GetNormalAtPoint(const Vector3d& i_point) cons
   return mp_surface->NormalAtPoint(i_point);
   }
 
-const IMaterial* RenderableObject::GetMaterial() const {
+const IVisualMaterial* RenderableObject::GetMaterial() const {
   return mp_material;
   }
 
@@ -36,8 +36,7 @@ BoundingBox RenderableObject::GetBoundingBox() const {
 
 std::string RenderableObject::Serialize() const {
   std::string res = "{ \"RenderableObject\" : { ";
-  res += " \"Surface\" : " + mp_surface->Serialize() + ", ";
-  res += " \"Material\" : " + mp_material->Serialize();
+  res += " \"Surface\" : " + mp_surface->Serialize();
   res += "} }";
   return res;
   }

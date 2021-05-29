@@ -4,7 +4,7 @@
 #include <Geometry/BoundingBox.h>
 #include <Geometry/Ray.h>
 
-#include <Visual/IMaterial.h>
+#include <Visual/IVisualMaterial.h>
 
 #include <memory>
 
@@ -24,5 +24,5 @@ class IRenderable : public IObject
     virtual Vector3d GetNormalAtPoint(const Vector3d& i_point) const = 0;
 
     // renderable onject can't be rendered without material it's just have no sense
-    virtual const IMaterial* GetMaterial() const = 0;
+    virtual const IVisualMaterial* GetMaterial() const = 0;
   };

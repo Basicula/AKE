@@ -4,7 +4,7 @@
 #include <Fluid/Fluid.h>
 #include <Fluid/FluidConstants.h>
 
-#include <Visual/ColorMaterial.h>
+#include <Visual/PhongMaterial.h>
 
 namespace
   {
@@ -28,7 +28,7 @@ namespace
 Fluid::Fluid(std::size_t i_num_particles)
   : m_bbox()
   , m_simulation(i_num_particles)
-  , mp_material(new ColorMaterial(Color(0xffff0000)))
+  , mp_material(new PhongMaterial(Color(0xffff0000)))
   {
   _UpdateBBox();
   }
@@ -94,6 +94,6 @@ inline Vector3d Fluid::GetNormalAtPoint(const Vector3d& /*i_point*/) const {
   return Vector3d();
   }
 
-const IMaterial* Fluid::GetMaterial() const {
+const IVisualMaterial* Fluid::GetMaterial() const {
   return mp_material;
   }

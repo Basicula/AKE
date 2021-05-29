@@ -31,12 +31,11 @@
 #include <Memory/custom_vector.h>
 
 #include <Visual/SpotLight.h>
-#include <Visual/ColorMaterial.h>
+#include <Visual/PhongMaterial.h>
 
 #include <Rendering/RenderableObject.h>
 #include <Rendering/Scene.h>
 #include <Rendering/CPURayTracer.h>
-#include <Rendering/CUDARayTracer.h>
 
 #include <GLUTWindow/GLUTWindow.h>
 

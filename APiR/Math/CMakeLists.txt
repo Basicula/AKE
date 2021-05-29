@@ -17,6 +17,8 @@ set(
   impl/VectorImpl.h
   impl/Vector2dImpl.h
   impl/Vector3dImpl.h
+  VectorOperations.h
+  impl/VectorOperationsImpl.h
   
   Matrix.h
   Matrix3.h

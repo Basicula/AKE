@@ -1,39 +1,39 @@
 #include <Main/SceneExamples.h>
 
 namespace ExampleMaterials {
-  ColorMaterial* pure_mirror() { 
-    return new ColorMaterial(Color(0, 0, 0), Vector3d(0.0, 0.0, 0.0), Vector3d(1.0, 1.0, 1.0), Vector3d(1.0, 1.0, 1.0), 1, 1);
+  PhongMaterial* pure_mirror() { 
+    return new PhongMaterial(Color(0, 0, 0), Vector3d(0.0, 0.0, 0.0), Vector3d(1.0, 1.0, 1.0), Vector3d(1.0, 1.0, 1.0), 1, 1);
     }
-  ColorMaterial* more_real_mirror() { 
-    return new ColorMaterial(Color(255, 255, 255), Vector3d(0.0, 0.0, 0.0), Vector3d(0.75, 0.75, 0.75), Vector3d(1.0, 1.0, 1.0), 1, 0.75);
+  PhongMaterial* more_real_mirror() { 
+    return new PhongMaterial(Color(255, 255, 255), Vector3d(0.0, 0.0, 0.0), Vector3d(0.75, 0.75, 0.75), Vector3d(1.0, 1.0, 1.0), 1, 0.75);
     }
-  ColorMaterial* half_mirror() { 
-    return new ColorMaterial(Color(0, 0, 0), Vector3d(0.0, 0.0, 0.0), Vector3d(0.5, 0.5, 0.5), Vector3d(1.0, 1.0, 1.0), 1, 0.5);
-    }
-
-  ColorMaterial* ruby() { 
-    return new ColorMaterial(Color(255, 0, 0), Vector3d(0.1745, 0.01175, 0.01175), Vector3d(0.61424, 0.04136, 0.04136), Vector3d(0.727811, 0.626959, 0.626959), 76.8);
+  PhongMaterial* half_mirror() { 
+    return new PhongMaterial(Color(0, 0, 0), Vector3d(0.0, 0.0, 0.0), Vector3d(0.5, 0.5, 0.5), Vector3d(1.0, 1.0, 1.0), 1, 0.5);
     }
 
-  ColorMaterial* green_plastic() { 
-    return new ColorMaterial(Color(0, 255, 0), Vector3d(0.0, 0.05, 0.0), Vector3d(0.1, 0.35, 0.1), Vector3d(0.45, 0.55, 0.45), 32);
-    }
-  ColorMaterial* blue_plastic() { 
-    return new ColorMaterial(Color(0, 0, 255), Vector3d(0.0, 0.0, 0.05), Vector3d(0.1, 0.1, 0.35), Vector3d(0.45, 0.45, 0.55), 32);
-    }
-  ColorMaterial* red_plastic() { 
-    return new ColorMaterial(Color(255, 0, 0), Vector3d(0.05, 0.0, 0.0), Vector3d(0.5, 0.0, 0.0), Vector3d(0.7, 0.6, 0.6), 32);
-    }
-  ColorMaterial* yellow_plastic() { 
-    return new ColorMaterial(Color(255, 255, 0), Vector3d(0.05, 0.05, 0.0), Vector3d(0.5, 0.5, 0.0), Vector3d(0.7, 0.6, 0.6), 32);
+  PhongMaterial* ruby() { 
+    return new PhongMaterial(Color(255, 0, 0), Vector3d(0.1745, 0.01175, 0.01175), Vector3d(0.61424, 0.04136, 0.04136), Vector3d(0.727811, 0.626959, 0.626959), 76.8);
     }
 
-  ColorMaterial* pure_glass() { 
-    return new ColorMaterial(Color(255, 255, 255), Vector3d(0.0, 0.0, 0.0), Vector3d(0.0, 0.0, 0.0), Vector3d(0.0, 0.0, 0.0), 1, 0, 1.5);
+  PhongMaterial* green_plastic() { 
+    return new PhongMaterial(Color(0, 255, 0), Vector3d(0.0, 0.05, 0.0), Vector3d(0.1, 0.35, 0.1), Vector3d(0.45, 0.55, 0.45), 32);
+    }
+  PhongMaterial* blue_plastic() { 
+    return new PhongMaterial(Color(0, 0, 255), Vector3d(0.0, 0.0, 0.05), Vector3d(0.1, 0.1, 0.35), Vector3d(0.45, 0.45, 0.55), 32);
+    }
+  PhongMaterial* red_plastic() { 
+    return new PhongMaterial(Color(255, 0, 0), Vector3d(0.05, 0.0, 0.0), Vector3d(0.5, 0.0, 0.0), Vector3d(0.7, 0.6, 0.6), 32);
+    }
+  PhongMaterial* yellow_plastic() { 
+    return new PhongMaterial(Color(255, 255, 0), Vector3d(0.05, 0.05, 0.0), Vector3d(0.5, 0.5, 0.0), Vector3d(0.7, 0.6, 0.6), 32);
     }
 
-  ColorMaterial* water() { 
-    return new ColorMaterial(Color(255, 255, 255), Vector3d(0.0, 0.0, 0.0), Vector3d(0.0, 0.0, 0.0), Vector3d(0.0, 0.0, 0.0), 1, 0.25, 1.33);
+  PhongMaterial* pure_glass() { 
+    return new PhongMaterial(Color(255, 255, 255), Vector3d(0.0, 0.0, 0.0), Vector3d(0.0, 0.0, 0.0), Vector3d(0.0, 0.0, 0.0), 1, 0, 1.5);
+    }
+
+  PhongMaterial* water() { 
+    return new PhongMaterial(Color(255, 255, 255), Vector3d(0.0, 0.0, 0.0), Vector3d(0.0, 0.0, 0.0), Vector3d(0.0, 0.0, 0.0), 1, 0.25, 1.33);
     }
   }
 
@@ -142,7 +142,7 @@ namespace ExampleScene {
 
     scene.AddCamera(Camera(Vector3d(-5, 5, -5), Vector3d(0, 0, 0), Vector3d(1 / SQRT_3, 1 / SQRT_3, 1 / SQRT_3), 75, 16.0 / 9.0, 0.5), true);
 
-    scene.AddLight(new SpotLight(Vector3d(3, 3, -3)));
+    scene.AddLight(new SpotLight(Vector3d(3, 3, -3), Color::White, 0.75));
 
     return std::move(scene);
     }

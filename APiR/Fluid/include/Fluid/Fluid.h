@@ -2,7 +2,7 @@
 #include <Geometry/BoundingBox.h>
 #include <Fluid/SPHSimulation.h>
 #include <Rendering/IRenderable.h>
-#include <Visual/IMaterial.h>
+#include <Visual/IVisualMaterial.h>
 
 class Fluid : public IRenderable
   {
@@ -17,7 +17,7 @@ class Fluid : public IRenderable
     virtual std::string Serialize() const override;
     virtual BoundingBox GetBoundingBox() const override;
     virtual Vector3d GetNormalAtPoint(const Vector3d& i_point) const override;
-    virtual const IMaterial* GetMaterial() const override;
+    virtual const IVisualMaterial* GetMaterial() const override;
 
     void Update();
 
@@ -31,7 +31,7 @@ class Fluid : public IRenderable
     BoundingBox m_bbox;
     SPHSimulation m_simulation;
 
-    IMaterial* mp_material;
+    IVisualMaterial* mp_material;
   };
 
 inline std::string Fluid::Serialize() const
