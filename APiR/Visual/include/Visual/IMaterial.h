@@ -15,7 +15,7 @@ class IMaterial
       const Vector3d& i_point,
       const Vector3d& i_normal,
       const Vector3d& i_view_direction,
-      std::shared_ptr<ILight> i_light) const = 0;
+      const ILight* ip_light) const = 0;
 
     // number in interval [0,1]
     // where 0 means no reflection
@@ -32,6 +32,3 @@ class IMaterial
 
     virtual ~IMaterial() = default;
   };
-
-using IMaterialSPtr = std::shared_ptr<IMaterial>;
-using IMaterialUPtr = std::unique_ptr<IMaterial>;

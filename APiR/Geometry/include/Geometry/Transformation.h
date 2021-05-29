@@ -25,10 +25,14 @@ class Transformation
     Transformation GetInversed() const;
 
     Vector3d PointToLocal(const Vector3d& i_world_point) const;
+    void PointToLocal(Vector3d& io_point) const;
     Vector3d PointToWorld(const Vector3d& i_local_point) const;
+    void PointToWorld(Vector3d& io_point) const;
 
     Vector3d DirectionToLocal(const Vector3d& i_world_dir) const;
+    void DirectionToLocal(Vector3d& io_direction) const;
     Vector3d DirectionToWorld(const Vector3d& i_local_dir) const;
+    void DirectionToWorld(Vector3d& io_direction) const;
 
   private:    
     Vector3d m_translation;

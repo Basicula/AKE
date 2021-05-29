@@ -13,6 +13,7 @@ class SPHSystem : public ParticleSystem
       double i_viscosity = VISCOSITY,
       double i_radius = SMOOTHING_RADIUS,
       double i_mass = PARTICLE_MASS);
+    ~SPHSystem();
 
     VectorDataIteratorC BeginPositions() const;
     VectorDataIteratorC EndPositions() const;
@@ -75,7 +76,7 @@ class SPHSystem : public ParticleSystem
     double m_radius;
     double m_mass;
 
-    PointNeighborSearcherPtr mp_neighbor_searcher;
+    PointNeighborSearcher* mp_neighbor_searcher;
     std::vector<std::vector<std::size_t>> m_neighbors_list;
   };
 

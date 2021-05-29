@@ -16,18 +16,13 @@ class ColorMaterial : public IMaterial
       double i_reflection = 0.0,
       double i_refraction = 0.0);
 
-    Color GetResultColor(
-      const Vector3d& i_normal, 
-      const Vector3d& i_light, 
-      const Vector3d& i_view) const;
-
     virtual Color GetPrimitiveColor() const override;
 
     virtual Color GetLightInfluence(
       const Vector3d& i_point,
       const Vector3d& i_normal,
       const Vector3d& i_view_direction,
-      std::shared_ptr<ILight> i_light) const override;
+      const ILight* ip_light) const override;
 
     virtual bool IsReflectable() const override;
     virtual Vector3d ReflectedDirection(

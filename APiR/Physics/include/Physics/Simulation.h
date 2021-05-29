@@ -30,5 +30,3 @@ inline double Simulation::GetTimeStep() const
   {
   return m_time_step;
   }
-
-using SimulationPtr = std::shared_ptr<Simulation>;

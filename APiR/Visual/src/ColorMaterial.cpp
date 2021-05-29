@@ -22,15 +22,15 @@ Color ColorMaterial::GetLightInfluence(
   const Vector3d& i_point,
   const Vector3d& i_normal,
   const Vector3d& i_view_direction,
-  std::shared_ptr<ILight> i_light) const
+  const ILight* ip_light) const
   {
-  if (!i_light->GetState())
+  if (!ip_light->GetState())
     return m_color * m_ambient;
-  const auto& light_direction = i_light->GetDirection(i_point);
+  const auto& light_direction = ip_light->GetDirection(i_point);
   const double diffuse_coef = std::max(0.0, -i_normal.Dot(light_direction));
   const auto light_reflected_direction = ReflectedDirection(i_normal, -light_direction);
   const double specular_coef = pow(std::max(0.0, light_reflected_direction.Dot(i_view_direction)), m_shinines);
-  const double light_intensity = i_light->GetIntensityAtPoint(i_point);
+  const double light_intensity = ip_light->GetIntensityAtPoint(i_point);
   return m_color * (m_ambient + m_diffuse * diffuse_coef + m_specular * specular_coef) * light_intensity;
   }
 
@@ -42,17 +42,4 @@ Vector3d ColorMaterial::ReflectedDirection(const Vector3d& i_normal_at_point, co
 Vector3d ColorMaterial::RefractedDirection() const
   {
   return Vector3d();
-  }
-
-Color ColorMaterial::GetResultColor(
-  const Vector3d& i_normal, 
-  const Vector3d& i_light, 
-  const Vector3d& i_view) const
-  {
-  double diffuse = std::max(0.0, i_normal.Dot(i_light));
-  double specular = pow(std::max(0.0, (i_normal * i_normal.Dot(i_light) * 2 - i_light).Dot(i_view)), m_shinines);
-  double red_factor = m_ambient[0] + m_diffuse[0] * diffuse + m_specular[0] * specular;
-  double green_factor = m_ambient[1] + m_diffuse[1] * diffuse + m_specular[1] * specular;
-  double blue_factor = m_ambient[2] + m_diffuse[2] * diffuse + m_specular[2] * specular;
-  return m_color * Vector3d(red_factor, green_factor, blue_factor);
   }

@@ -2,29 +2,36 @@ set(
   SOURCES
   
   BoundingBox.cpp
-  Cylinder.cpp
-  Intersection.cpp
-  Plane.cpp
-  Ray.cpp
-  Sphere.cpp
-  Torus.cpp
+  
   Transformable.cpp
   Transformation.cpp
+  
+  ISurface.cpp
+  Sphere.cpp
+  Torus.cpp
+  Cylinder.cpp
+  Plane.cpp
+  Ray.cpp
+  
+  Intersection.cpp
 )
 
 set(
   HEADERS
   
   BoundingBox.h
+  
+  Transformable.h
+  Transformation.h
+  
   Cylinder.h
-  Intersection.h
   ISurface.h
   Plane.h
   Ray.h
   Sphere.h
   Torus.h
-  Transformable.h
-  Transformation.h
+  
+  Intersection.h
 )
 
 set(

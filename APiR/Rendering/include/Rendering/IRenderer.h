@@ -24,7 +24,7 @@ class IRenderer
     virtual void _SceneWasSet() = 0;
 
   protected:
-    size_t m_depth;
+    size_t m_depth = 10;
     Image* mp_frame_image;
     const Scene* mp_scene;
   };

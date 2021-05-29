@@ -28,10 +28,16 @@ namespace
 Fluid::Fluid(std::size_t i_num_particles)
   : m_bbox()
   , m_simulation(i_num_particles)
-  , m_material(std::make_shared<ColorMaterial>(Color(0xffff0000)))
+  , mp_material(new ColorMaterial(Color(0xffff0000)))
   {
   _UpdateBBox();
   }
+
+Fluid::~Fluid()
+{
+  if (mp_material)
+    delete mp_material;
+}
 
 void Fluid::_UpdateBBox()
   {
@@ -45,7 +51,7 @@ void Fluid::_UpdateBBox()
     }
   }
 
-bool Fluid::IntersectWithRay(IntersectionRecord& o_intersection, const Ray& i_ray) const
+bool Fluid::IntersectWithRay(double& o_distance, const Ray& i_ray, const double /*i_far*/) const
   {
   static const auto& system = m_simulation.GetParticleSystem();
   static const auto start = system.BeginPositions();
@@ -68,17 +74,26 @@ bool Fluid::IntersectWithRay(IntersectionRecord& o_intersection, const Ray& i_ra
     };
   auto ray_origin = i_ray.GetOrigin();
   const auto& ray_dir = i_ray.GetDirection();
+  o_distance = 0.0;
   for (auto it = 0; it < 10; ++it)
     {
     auto dist_to_fluid = sdf(ray_origin);
-    if (dist_to_fluid <= 0)
+    o_distance += dist_to_fluid;
+    if (dist_to_fluid <= 0.0)
       {
       intersected = true;
       break;
       }
     ray_origin += ray_dir * sqrt(dist_to_fluid);
     }
-  if (intersected)
-    o_intersection.mp_material = m_material;
   return intersected;
+  }
+
+inline Vector3d Fluid::GetNormalAtPoint(const Vector3d& /*i_point*/) const {
+  // TODO implement
+  return Vector3d();
+  }
+
+const IMaterial* Fluid::GetMaterial() const {
+  return mp_material;
   }

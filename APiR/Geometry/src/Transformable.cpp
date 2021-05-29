@@ -66,9 +66,3 @@ BoundingBox Transformable::BBoxToWorld(const BoundingBox& i_local_bbox) const
     res.AddPoint(PointToWorld(i_local_bbox.GetCorner(corner_id)));
   return res;
   }
-
-void Transformable::_LocalIntersectionToWorld(IntersectionRecord& io_intersection) const
-  {
-  io_intersection.m_intersection = PointToWorld(io_intersection.m_intersection);
-  io_intersection.m_normal = DirectionToWorld(io_intersection.m_normal);
-  }

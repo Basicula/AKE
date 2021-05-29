@@ -1,4 +1,5 @@
 #include <Rendering/KDTree.h>
+#include <Geometry/Intersection.h>
 
 namespace
   {
@@ -17,8 +18,8 @@ namespace
     };
 
   bool comparator_bbox_min(
-    const IRenderableSPtr& i_first,
-    const IRenderableSPtr& i_second)
+    const IRenderable* i_first,
+    const IRenderable* i_second)
     {
     const auto& bbox_first = i_first->GetBoundingBox();
     const auto& bbox_second = i_second->GetBoundingBox();
@@ -26,8 +27,8 @@ namespace
     };
 
   bool comparator_bbox_max(
-    const IRenderableSPtr& i_first,
-    const IRenderableSPtr& i_second)
+    const IRenderable* i_first,
+    const IRenderable* i_second)
     {
     const auto& bbox_first = i_first->GetBoundingBox();
     const auto& bbox_second = i_second->GetBoundingBox();
@@ -137,12 +138,14 @@ BoundingBox KDTree::_BoundingBox(
   return res;
   }
 
-bool KDTree::TraceRay(
-  IntersectionRecord& io_intersection,
-  const Ray& i_ray) const
+const IRenderable* KDTree::TraceRay(
+  double& o_distance,
+  const Ray& i_ray,
+  const double i_far) const
   {
-  bool is_intersected = false;
+  const IRenderable* intersected_object = nullptr;
   long long prev_id = -1, curr_id = 0;
+  auto far = i_far;
   while (curr_id != -1)
     {
     auto& node = m_nodes[curr_id];
@@ -166,7 +169,7 @@ bool KDTree::TraceRay(
     RayBoxIntersection(i_ray, node.bounding_box, ray_box_intersection);
     if ((ray_box_intersection.m_tmin < 0.0 && ray_box_intersection.m_tmax < 0.0) ||
         !ray_box_intersection.m_intersected ||
-        ray_box_intersection.m_tmin > io_intersection.m_distance)
+        ray_box_intersection.m_tmin > far)
       {
       prev_id = curr_id;
       curr_id = node.parent;
@@ -176,7 +179,12 @@ bool KDTree::TraceRay(
     if (node.type == KDNodeType::LEAF)
       {
       for (auto i = node.start_obj_id; i < node.end_obj_id; ++i)
-        is_intersected |= m_objects[i]->IntersectWithRay(io_intersection, i_ray);
+        if (m_objects[i]->IntersectWithRay(o_distance, i_ray, far)) {
+          if (o_distance < far) {
+            intersected_object = m_objects[i];
+            far = o_distance;
+            }
+          }
       prev_id = curr_id;
       curr_id = node.parent;
       continue;
@@ -184,7 +192,7 @@ bool KDTree::TraceRay(
     prev_id = curr_id;
     curr_id = node.left;
     }
-  return is_intersected;
+  return intersected_object;
   }
 
 void KDTree::Update()

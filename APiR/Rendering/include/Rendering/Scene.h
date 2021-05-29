@@ -19,17 +19,17 @@ class Scene final
     Scene(Scene&& i_other) noexcept;
     ~Scene();
 
-    void AddObject(IRenderableSPtr i_object);
+    void AddObject(IRenderable* i_object);
     void AddCamera(const Camera& i_camera, bool i_set_active = false);
-    void AddLight(std::shared_ptr<ILight> i_light);
+    void AddLight(ILight* i_light);
 
     std::size_t GetNumObjects() const;
     std::size_t GetNumLights() const;
     std::size_t GetNumCameras() const;
 
-    std::shared_ptr<ILight> GetLight(size_t i_id) const;
+    const ILight* GetLight(size_t i_id) const;
 
-    HOSTDEVICE bool TraceRay(IntersectionRecord& o_hit, const Ray& i_ray) const;
+    HOSTDEVICE const IRenderable* TraceRay(double& o_distance, const Ray& i_ray) const;
 
     bool SetActiveCamera(std::size_t i_id);
     std::size_t GetActiveCameraId() const;
@@ -54,7 +54,6 @@ class Scene final
 
     Color m_background_color;
     Container* mp_object_container;
-
     std::vector<Camera> m_cameras;
-    std::vector<std::shared_ptr<ILight>> m_lights;
+    std::vector<ILight*> m_lights;
   };

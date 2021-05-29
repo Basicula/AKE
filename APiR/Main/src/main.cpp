@@ -68,8 +68,8 @@ void test_fluid()
       75,
       width * 1.0 / height,
       2), true);
-  scene.AddLight(std::make_shared<SpotLight>(Vector3d(0, 10, 0)));
-  auto fluid = std::make_shared<Fluid>(48);
+  scene.AddLight(new SpotLight(Vector3d(0, 10, 0)));
+  auto fluid = new Fluid(48);
   scene.AddObject(fluid);
 
   CPURayTracer renderer;

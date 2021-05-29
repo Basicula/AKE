@@ -1,7 +1,12 @@
 #pragma once
 #include <Common/IObject.h>
-#include <Geometry/Intersection.h>
+
+#include <Geometry/BoundingBox.h>
 #include <Geometry/Ray.h>
+
+#include <Visual/IMaterial.h>
+
+#include <memory>
 
 class IRenderable : public IObject
   {
@@ -9,11 +14,15 @@ class IRenderable : public IObject
     virtual ~IRenderable() = default;
 
     virtual bool IntersectWithRay(
-      IntersectionRecord& o_intersection,
-      const Ray& i_ray) const = 0;
+      double& o_distance,
+      const Ray& i_ray,
+      const double i_far) const = 0;
 
     virtual BoundingBox GetBoundingBox() const = 0;
-  };
 
-using IRenderableSPtr = std::shared_ptr<IRenderable>;
-using IRenderableUPtr = std::unique_ptr<IRenderable>;
+    // for rendering often also need normal at intersection point
+    virtual Vector3d GetNormalAtPoint(const Vector3d& i_point) const = 0;
+
+    // renderable onject can't be rendered without material it's just have no sense
+    virtual const IMaterial* GetMaterial() const = 0;
+  };

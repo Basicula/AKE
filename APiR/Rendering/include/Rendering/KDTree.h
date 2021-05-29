@@ -26,15 +26,13 @@ class KDTree : public Container
       BoundingBox bounding_box;
       };
 
-    using KDTreeObjects = std::vector<IRenderableSPtr>;
-    using Nodes = std::vector<KDNode>;
-
   public:
     KDTree() = default;
 
-    HOSTDEVICE bool TraceRay(
-      IntersectionRecord& io_intersection,
-      const Ray& i_ray) const;
+    HOSTDEVICE const IRenderable* TraceRay(
+      double& o_distance,
+      const Ray& i_ray,
+      const double i_far) const override;
 
     virtual void Update() override;
 
@@ -48,5 +46,5 @@ class KDTree : public Container
       std::size_t i_end);
 
   private:
-    Nodes m_nodes;
+    std::vector<KDNode> m_nodes;
   };

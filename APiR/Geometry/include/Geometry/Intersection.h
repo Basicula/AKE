@@ -3,24 +3,6 @@
 
 #include <memory>
 
-class IMaterial;
-
-struct IntersectionRecord
-  {
-  double m_distance;
-  Vector3d m_intersection;
-  Vector3d m_normal;
-  std::shared_ptr<IMaterial> mp_material;
-
-  HOSTDEVICE IntersectionRecord();
-  IntersectionRecord(const IntersectionRecord& i_other);
-
-  // updates current if other is closer
-  //void Update(const IntersectionRecord& i_other);
-
-  void Reset();
-  };
-
 struct RayBoxIntersectionRecord
   {
   bool m_intersected;

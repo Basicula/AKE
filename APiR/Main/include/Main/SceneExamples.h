@@ -15,8 +15,12 @@
 
 namespace ExampleScene {
   Scene OneSphere();
+  Scene OnePlane();
+  Scene OneCylinder();
+  Scene OneTorus();
+
   Scene NineSpheres();
   Scene EmptyRoom();
-  Scene RotatableTorus();
   Scene ComplexScene();
+  Scene InfinityMirror();
   }

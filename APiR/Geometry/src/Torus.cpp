@@ -24,8 +24,9 @@ Vector3d Torus::_NormalAtLocalPoint(const Vector3d& i_local_point) const
   }
 
 bool Torus::_IntersectWithRay(
-  double& io_nearest_intersection_dist,
-  const Ray & i_local_ray) const
+  double& o_intersection_dist,
+  const Ray & i_local_ray,
+  const double i_far) const
   {
   /*
   Let's make intersection equation by putting ray point into torus equation
@@ -59,10 +60,15 @@ bool Torus::_IntersectWithRay(
   if (roots_count == 0)
     return false;
   //find smallest positive if exist temp solution
+  double smallest_root = i_far;
   for (const auto& root : roots)
-    if (root > 0.0 && root < io_nearest_intersection_dist)
-      io_nearest_intersection_dist = root;
-  return true;
+    if (root > 0.0 && root < smallest_root)
+      smallest_root = root;
+  if (smallest_root < i_far && smallest_root > 0.0) {
+    o_intersection_dist = smallest_root;
+    return true;
+    }
+  return false;
   }
 
 void Torus::_CalculateBoundingBox()

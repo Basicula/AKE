@@ -26,10 +26,15 @@ SPHSystem::SPHSystem(
   m_pressures_id = AddScalarData();
   }
 
+SPHSystem::~SPHSystem()
+{
+  if (mp_neighbor_searcher)
+    delete mp_neighbor_searcher;
+}
+
 void SPHSystem::BuildNeighborSearcher()
   {
-  mp_neighbor_searcher = std::make_shared<BFPointSearcher>(
-    BeginPositions(), m_num_particles);
+  mp_neighbor_searcher = new BFPointSearcher(BeginPositions(), m_num_particles);
   }
 
 void SPHSystem::BuildNeighborsList()
