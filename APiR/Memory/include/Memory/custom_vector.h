@@ -55,9 +55,11 @@ class custom_vector
     HOSTDEVICE iterator begin() const;
     HOSTDEVICE iterator end() const;
 
+#if defined(ENABLED_CUDA)
     static device_ptr<custom_vector<T>> device_vector_ptr(size_t i_size);
     static device_ptr<custom_vector<T>> device_vector_ptr(size_t i_size, const T& i_init_value);
     static device_ptr<custom_vector<T>> device_vector_ptr(const std::initializer_list<T>& i_list);
+#endif
 
   private:
     void resize(size_t i_new_size, const T* ip_init_value);
