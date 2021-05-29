@@ -5,7 +5,7 @@ namespace ExampleMaterials {
     return new PhongMaterial(Color(0, 0, 0), Vector3d(0.0, 0.0, 0.0), Vector3d(1.0, 1.0, 1.0), Vector3d(1.0, 1.0, 1.0), 1, 1);
     }
   PhongMaterial* more_real_mirror() { 
-    return new PhongMaterial(Color(255, 255, 255), Vector3d(0.0, 0.0, 0.0), Vector3d(0.75, 0.75, 0.75), Vector3d(1.0, 1.0, 1.0), 1, 0.75);
+    return new PhongMaterial(Color(255, 255, 255), Vector3d(0.0, 0.0, 0.0), Vector3d(0.05, 0.05, 0.05), Vector3d(0.1, 0.1, 0.1), 50, 0.75);
     }
   PhongMaterial* half_mirror() { 
     return new PhongMaterial(Color(0, 0, 0), Vector3d(0.0, 0.0, 0.0), Vector3d(0.5, 0.5, 0.5), Vector3d(1.0, 1.0, 1.0), 1, 0.5);
@@ -153,8 +153,8 @@ namespace ExampleScene {
     scene.AddObject(new RenderableObject(new Sphere(Vector3d(2, 0, 0), 0.5), ExampleMaterials::ruby()));
     scene.AddObject(new RenderableObject(new Plane(Vector3d(0, -3, 0), Vector3d(0, 1, 0)), ExampleMaterials::blue_plastic()));
 
-    scene.AddObject(new RenderableObject(new Plane(Vector3d(0, 0, 2), Vector3d(0, 0, -1)), ExampleMaterials::pure_mirror()));
-    scene.AddObject(new RenderableObject(new Plane(Vector3d(0, 0, -2), Vector3d(0, 0, 1)), ExampleMaterials::pure_mirror()));
+    scene.AddObject(new RenderableObject(new Plane(Vector3d(0, 0, 2), Vector3d(0, 0, -1)), ExampleMaterials::more_real_mirror()));
+    scene.AddObject(new RenderableObject(new Plane(Vector3d(0, 0, -2), Vector3d(0, 0, 1)), ExampleMaterials::more_real_mirror()));
 
     scene.AddLight(new SpotLight(Vector3d(0, 3, 0), Color::White, 0.25));
 

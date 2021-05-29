@@ -86,7 +86,9 @@ Color CPURayTracer::_ProcessReflection(
   Ray local_ray(i_camera_ray);
   auto* p_intersected_object = ip_intersected_object;
   auto distance = i_distance;
+  double reflection = 1.0;
   while (p_intersected_object->VisualRepresentation()->IsReflectable() && depth < m_depth) {
+    reflection *= ip_intersected_object->VisualRepresentation()->ReflectionInfluence();
     const auto intersection_point = local_ray.GetPoint(distance);
     const auto normal = p_intersected_object->GetNormalAtPoint(intersection_point);
     const auto reflected_direction =
@@ -99,7 +101,7 @@ Color CPURayTracer::_ProcessReflection(
     else
       return mp_scene->GetBackGroundColor();
     }
-  return _ProcessLightInfluence(p_intersected_object, distance, local_ray) * ip_intersected_object->VisualRepresentation()->ReflectionInfluence();
+  return _ProcessLightInfluence(p_intersected_object, distance, local_ray) * reflection;
   }
 
 Color CPURayTracer::_ProcessRefraction(

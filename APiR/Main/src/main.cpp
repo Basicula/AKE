@@ -102,7 +102,7 @@ void test_scene()
   const std::size_t width = 800;
   const std::size_t height = 600;
 
-  Scene scene = ExampleScene::ComplexScene();
+  Scene scene = ExampleScene::InfinityMirror();
 
   Image image(width, height);
   CPURayTracer renderer;
