@@ -18,8 +18,8 @@ namespace
     };
 
   bool comparator_bbox_min(
-    const IRenderable* i_first,
-    const IRenderable* i_second)
+    const Object* i_first,
+    const Object* i_second)
     {
     const auto& bbox_first = i_first->GetBoundingBox();
     const auto& bbox_second = i_second->GetBoundingBox();
@@ -27,8 +27,8 @@ namespace
     };
 
   bool comparator_bbox_max(
-    const IRenderable* i_first,
-    const IRenderable* i_second)
+    const Object* i_first,
+    const Object* i_second)
     {
     const auto& bbox_first = i_first->GetBoundingBox();
     const auto& bbox_second = i_second->GetBoundingBox();
@@ -138,12 +138,12 @@ BoundingBox KDTree::_BoundingBox(
   return res;
   }
 
-const IRenderable* KDTree::TraceRay(
+const Object* KDTree::TraceRay(
   double& o_distance,
   const Ray& i_ray,
   const double i_far) const
   {
-  const IRenderable* intersected_object = nullptr;
+  const Object* intersected_object = nullptr;
   long long prev_id = -1, curr_id = 0;
   auto far = i_far;
   while (curr_id != -1)

@@ -1,9 +1,9 @@
 #pragma once
 #include <Geometry/ISurface.h>
-#include <Rendering/IRenderable.h>
+#include <Rendering/Object.h>
 #include <Visual/IVisualMaterial.h>
 
-class RenderableObject : public IRenderable
+class RenderableObject : public Object
   {
   public:
     RenderableObject(ISurface* i_surface, IVisualMaterial* i_material);
@@ -18,11 +18,6 @@ class RenderableObject : public IRenderable
 
     virtual Vector3d GetNormalAtPoint(const Vector3d& i_point) const override;
 
-    virtual const IVisualMaterial* GetMaterial() const override;
-
-    virtual std::string Serialize() const override;
-
   private:
     ISurface* mp_surface;
-    IVisualMaterial* mp_material;
   };

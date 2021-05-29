@@ -26,18 +26,13 @@ namespace
   }
 
 Fluid::Fluid(std::size_t i_num_particles)
-  : m_bbox()
+  : Object()
+  , m_bbox()
   , m_simulation(i_num_particles)
-  , mp_material(new PhongMaterial(Color(0xffff0000)))
   {
+  mp_visual_material = new PhongMaterial(Color(0xffff0000));
   _UpdateBBox();
   }
-
-Fluid::~Fluid()
-{
-  if (mp_material)
-    delete mp_material;
-}
 
 void Fluid::_UpdateBBox()
   {
@@ -92,8 +87,4 @@ bool Fluid::IntersectWithRay(double& o_distance, const Ray& i_ray, const double 
 inline Vector3d Fluid::GetNormalAtPoint(const Vector3d& /*i_point*/) const {
   // TODO implement
   return Vector3d();
-  }
-
-const IVisualMaterial* Fluid::GetMaterial() const {
-  return mp_material;
   }

@@ -3,16 +3,15 @@
 RenderableObject::RenderableObject(
   ISurface* i_surface,
   IVisualMaterial* i_material)
-  : mp_surface(i_surface)
-  , mp_material(i_material) {
+  : Object()
+  , mp_surface(i_surface) {
+  mp_visual_material = i_material;
   }
 
 RenderableObject::~RenderableObject()
 {
   if (mp_surface)
     delete mp_surface;
-  if (mp_material)
-    delete mp_material;
 }
 
 bool RenderableObject::IntersectWithRay(
@@ -26,17 +25,6 @@ inline Vector3d RenderableObject::GetNormalAtPoint(const Vector3d& i_point) cons
   return mp_surface->NormalAtPoint(i_point);
   }
 
-const IVisualMaterial* RenderableObject::GetMaterial() const {
-  return mp_material;
-  }
-
 BoundingBox RenderableObject::GetBoundingBox() const {
   return mp_surface->GetBoundingBox();
-  }
-
-std::string RenderableObject::Serialize() const {
-  std::string res = "{ \"RenderableObject\" : { ";
-  res += " \"Surface\" : " + mp_surface->Serialize();
-  res += "} }";
-  return res;
   }

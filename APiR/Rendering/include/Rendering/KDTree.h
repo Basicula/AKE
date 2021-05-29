@@ -1,6 +1,5 @@
 #pragma once
 #include <Geometry/BoundingBox.h>
-#include <Rendering/IRenderable.h>
 #include <Rendering/Container.h>
 
 #include <vector>
@@ -29,7 +28,7 @@ class KDTree : public Container
   public:
     KDTree() = default;
 
-    HOSTDEVICE const IRenderable* TraceRay(
+    HOSTDEVICE const Object* TraceRay(
       double& o_distance,
       const Ray& i_ray,
       const double i_far) const override;

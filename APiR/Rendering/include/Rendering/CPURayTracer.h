@@ -14,19 +14,19 @@ class CPURayTracer : public IRenderer
 
     Color _TraceRay(std::size_t i_ray_id);
     Color _ProcessIntersection(
-      const IRenderable* ip_intersected_object,
+      const Object* ip_intersected_object,
       const double i_distance,
       const Ray& i_camera_ray);
     Color _ProcessReflection(
-      const IRenderable* ip_intersected_object,
+      const Object* ip_intersected_object,
       const double i_distance,
       const Ray& i_camera_ray);
     Color _ProcessRefraction(
-      const IRenderable* ip_intersected_object,
+      const Object* ip_intersected_object,
       const double i_distance,
       const Ray& i_camera_ray);
     Color _ProcessLightInfluence(
-      const IRenderable* ip_intersected_object,
+      const Object* ip_intersected_object,
       const double i_distance,
       const Ray& i_camera_ray);
 

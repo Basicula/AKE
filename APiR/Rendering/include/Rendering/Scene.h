@@ -2,7 +2,7 @@
 #include <Image/Image.h>
 
 #include <Rendering/Camera.h>
-#include <Rendering/IRenderable.h>
+#include <Rendering/Object.h>
 #include <Rendering/KDTree.h>
 
 #include <Visual/IVisualMaterial.h>
@@ -19,7 +19,7 @@ class Scene final
     Scene(Scene&& i_other) noexcept;
     ~Scene();
 
-    void AddObject(IRenderable* i_object);
+    void AddObject(Object* i_object);
     void AddCamera(const Camera& i_camera, bool i_set_active = false);
     void AddLight(ILight* i_light);
 
@@ -29,7 +29,7 @@ class Scene final
 
     const ILight* GetLight(size_t i_id) const;
 
-    HOSTDEVICE const IRenderable* TraceRay(double& o_distance, const Ray& i_ray) const;
+    HOSTDEVICE const Object* TraceRay(double& o_distance, const Ray& i_ray) const;
 
     bool SetActiveCamera(std::size_t i_id);
     std::size_t GetActiveCameraId() const;

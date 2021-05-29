@@ -6,13 +6,13 @@ Container::~Container()
     delete object;
 }
 
-void Container::AddObject(IRenderable* ip_object) {
+void Container::AddObject(Object* ip_object) {
   m_objects.emplace_back(ip_object);
   Update();
   }
 
-const IRenderable* Container::TraceRay(double& o_distance, const Ray& i_ray, const double i_far) const {
-  const IRenderable* p_intersected_object = nullptr;
+const Object* Container::TraceRay(double& o_distance, const Ray& i_ray, const double i_far) const {
+  const Object* p_intersected_object = nullptr;
   double dist;
   o_distance = i_far;
   for (const auto& object : m_objects)

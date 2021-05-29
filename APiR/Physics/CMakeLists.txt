@@ -10,6 +10,8 @@ set(
   Constants.h
   
   Simulation.h
+  
+  IPhysicMaterial.h
 )
 
 set(

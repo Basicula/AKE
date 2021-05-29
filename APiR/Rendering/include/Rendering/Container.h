@@ -1,5 +1,5 @@
 #pragma once
-#include <Rendering/IRenderable.h>
+#include <Rendering/Object.h>
 
 #include <vector>
 
@@ -8,9 +8,9 @@ class Container
   public:
     ~Container();
 
-    void AddObject(IRenderable* ip_object);
+    void AddObject(Object* ip_object);
 
-    HOSTDEVICE virtual const IRenderable* TraceRay(
+    HOSTDEVICE virtual const Object* TraceRay(
       double& o_distance,
       const Ray& i_ray,
       const double i_far) const;
@@ -21,5 +21,5 @@ class Container
     std::size_t Size() const;
 
   protected:
-    std::vector<IRenderable*> m_objects;
+    std::vector<Object*> m_objects;
   };

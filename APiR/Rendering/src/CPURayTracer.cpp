@@ -63,15 +63,15 @@ Color CPURayTracer::_TraceRay(std::size_t i_ray_id)   {
   }
 
 Color CPURayTracer::_ProcessIntersection(
-  const IRenderable* ip_intersected_object,
+  const Object* ip_intersected_object,
   const double i_distance,
   const Ray& i_camera_ray)   {
   Color reflected_color;
-  if (ip_intersected_object->GetMaterial()->IsReflectable())
+  if (ip_intersected_object->VisualRepresentation()->IsReflectable())
     reflected_color = _ProcessReflection(ip_intersected_object, i_distance, i_camera_ray);
 
   Color refracted_color;
-  if (ip_intersected_object->GetMaterial()->IsRefractable())
+  if (ip_intersected_object->VisualRepresentation()->IsRefractable())
     refracted_color = _ProcessRefraction(ip_intersected_object, i_distance, i_camera_ray);
 
   Color light_influence = _ProcessLightInfluence(ip_intersected_object, i_distance, i_camera_ray);
@@ -79,18 +79,18 @@ Color CPURayTracer::_ProcessIntersection(
   }
 
 Color CPURayTracer::_ProcessReflection(
-  const IRenderable* ip_intersected_object,
+  const Object* ip_intersected_object,
   const double i_distance,
   const Ray& i_camera_ray)   {
   std::size_t depth = 0;
   Ray local_ray(i_camera_ray);
   auto* p_intersected_object = ip_intersected_object;
   auto distance = i_distance;
-  while (p_intersected_object->GetMaterial()->IsReflectable() && depth < m_depth) {
+  while (p_intersected_object->VisualRepresentation()->IsReflectable() && depth < m_depth) {
     const auto intersection_point = local_ray.GetPoint(distance);
     const auto normal = p_intersected_object->GetNormalAtPoint(intersection_point);
     const auto reflected_direction =
-      p_intersected_object->GetMaterial()->ReflectedDirection(normal, local_ray.GetDirection());
+      p_intersected_object->VisualRepresentation()->ReflectedDirection(normal, local_ray.GetDirection());
     local_ray.SetOrigin(intersection_point);
     local_ray.SetDirection(reflected_direction);
     p_intersected_object = mp_scene->TraceRay(distance, local_ray);
@@ -99,11 +99,11 @@ Color CPURayTracer::_ProcessReflection(
     else
       return mp_scene->GetBackGroundColor();
     }
-  return _ProcessLightInfluence(p_intersected_object, distance, local_ray) * ip_intersected_object->GetMaterial()->ReflectionInfluence();
+  return _ProcessLightInfluence(p_intersected_object, distance, local_ray) * ip_intersected_object->VisualRepresentation()->ReflectionInfluence();
   }
 
 Color CPURayTracer::_ProcessRefraction(
-  const IRenderable* /*ip_intersected_object*/,
+  const Object* /*ip_intersected_object*/,
   const double /*i_distance*/,
   const Ray& /*i_camera_ray*/)   {
   //double refraction_coef = i_ray.GetEnvironment() / object->GetMaterial().GetRefraction();
@@ -121,11 +121,11 @@ Color CPURayTracer::_ProcessRefraction(
   }
 
 Color CPURayTracer::_ProcessLightInfluence(
-  const IRenderable* ip_intersected_object,
+  const Object* ip_intersected_object,
   const double i_distance,
   const Ray& i_camera_ray)   {
   const auto& view_direction = i_camera_ray.GetDirection();
-  Color result_pixel_color = ip_intersected_object->GetMaterial()->GetPrimitiveColor();
+  Color result_pixel_color = ip_intersected_object->VisualRepresentation()->GetPrimitiveColor();
   std::size_t red, green, blue, active_lights_cnt;
   red = green = blue = active_lights_cnt = 0;
   const auto intersection_point = i_camera_ray.GetPoint(i_distance);
@@ -143,7 +143,7 @@ Color CPURayTracer::_ProcessLightInfluence(
     const auto local_intersection = to_light.GetPoint(distance);
     if (!p_intersected_object || light_direction.Dot(light->GetDirection(local_intersection)) < 0.0) {
       Color light_influence =
-        ip_intersected_object->GetMaterial()->CalculateColor(
+        ip_intersected_object->VisualRepresentation()->CalculateColor(
           normal,
           view_direction,
           light_direction) * light->GetIntensityAtPoint(intersection_point);

@@ -28,7 +28,7 @@ Scene::~Scene() {
     delete light;
   }
 
- void Scene::AddObject(IRenderable* ip_object)   {
+ void Scene::AddObject(Object* ip_object)   {
   mp_object_container->AddObject(ip_object);
   }
 
@@ -124,7 +124,7 @@ const ILight* Scene::GetLight(size_t i_id) const {
   return m_lights[i_id];
   }
 
-const IRenderable* Scene::TraceRay(double& o_hit, const Ray& i_ray) const {
+const Object* Scene::TraceRay(double& o_hit, const Ray& i_ray) const {
   // TODO: implement far distance logic
   return mp_object_container->TraceRay(o_hit, i_ray, 1000);
   }
