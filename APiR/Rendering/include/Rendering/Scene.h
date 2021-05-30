@@ -33,6 +33,7 @@ class Scene final
 
     bool SetActiveCamera(std::size_t i_id);
     std::size_t GetActiveCameraId() const;
+    HOSTDEVICE Camera& GetActiveCamera();
     HOSTDEVICE const Camera& GetActiveCamera() const;
 
     bool SetOnOffLight(std::size_t i_id, bool i_state);

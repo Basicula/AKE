@@ -66,9 +66,13 @@ std::size_t Scene::GetActiveCameraId() const   {
   return m_active_camera;
   }
 
-const Camera& Scene::GetActiveCamera() const {
+Camera& Scene::GetActiveCamera() {
   return m_cameras[m_active_camera];
   }
+
+HOSTDEVICE const Camera& Scene::GetActiveCamera() const {
+  return m_cameras[m_active_camera];
+}
 
 std::string Scene::GetName() const   {
   return m_name;
