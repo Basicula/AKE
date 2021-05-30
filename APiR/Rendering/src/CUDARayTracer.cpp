@@ -7,7 +7,7 @@ namespace {
     //double x = threadIdx.x;
     //double y = blockIdx.x;
     //const auto& camera = ip_scene->GetActiveCamera();
-    //Ray camera_ray(camera.GetLocation(), camera.GetDirection(x / iop_image->GetWidth(), y / iop_image->GetHeight()));
+    //Ray camera_ray(camera.GetLocation(), camera.CameraRay(x / iop_image->GetWidth(), y / iop_image->GetHeight()));
     //IntersectionRecord hit;
     //ip_scene->TraceRay(hit, camera_ray);
     }
