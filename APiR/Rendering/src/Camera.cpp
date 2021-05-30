@@ -26,3 +26,15 @@ Camera::Camera(
   m_u = m_right * halfWidth * 2;
   m_v = m_up * halfHeight * 2;
   }
+
+const Vector3d& Camera::GetDirection() const {
+  return m_direction;
+}
+
+const Vector3d& Camera::GetUpVector() const {
+  return m_up;
+}
+
+const Vector3d& Camera::GetRight() const {
+  return m_right;
+}
