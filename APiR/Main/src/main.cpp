@@ -28,6 +28,7 @@
 
 #include <Main/SceneExamples.h>
 #include <Main/ConsoleLogEventListner.h>
+#include <Main/SimpleCameraController.h>
 
 #include <Memory/custom_vector.h>
 
@@ -104,7 +105,7 @@ void test_scene()
   const std::size_t width = 800;
   const std::size_t height = 600;
 
-  Scene scene = ExampleScene::InfinityMirror();
+  Scene scene = ExampleScene::OneTorus();
 
   Image image(width, height);
   CPURayTracer renderer;
@@ -118,6 +119,7 @@ void test_scene()
   GLUTWindow window(width, height, scene.GetName());
   window.SetImageSource(&image);
   window.SetUpdateFunction(update_func);
+  window.SetEventListner(new SimpleCameraController(&scene.GetActiveCamera()));
   window.Open();
   }
 
@@ -198,22 +200,22 @@ void test_fractals()
         return;
       const auto& key_pressed_event = static_cast<const KeyPressedEvent&>(i_event);
       switch (key_pressed_event.Key()) {
-        case 'w':
+        case KeyboardButton::KEY_W:
           origin_y += delta / scale;
           break;
-        case 's':
+        case KeyboardButton::KEY_S:
           origin_y -= delta / scale;
           break;
-        case 'd':
+        case KeyboardButton::KEY_D:
           origin_x += delta / scale;
           break;
-        case 'a':
+        case KeyboardButton::KEY_A:
           origin_x -= delta / scale;
           break;
-        case 'q':
+        case KeyboardButton::KEY_Q:
           scale *= 1.5;
           break;
-        case 'e':
+        case KeyboardButton::KEY_E:
           scale /= 1.5;
           break;
         default:

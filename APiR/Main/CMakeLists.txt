@@ -6,6 +6,7 @@ set(
   SceneExamples.cpp
   
   ConsoleLogEventListner.cpp
+  SimpleCameraController.cpp
 )
 
 set(
@@ -14,6 +15,7 @@ set(
   SceneExamples.h
   
   ConsoleLogEventListner.h
+  SimpleCameraController.h
 )
 
 set(
