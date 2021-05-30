@@ -4,12 +4,16 @@ set(
   main.cpp
   
   SceneExamples.cpp
+  
+  ConsoleLogEventListner.cpp
 )
 
 set(
   HEADERS
   
   SceneExamples.h
+  
+  ConsoleLogEventListner.h
 )
 
 set(
@@ -26,7 +30,7 @@ set(
   Physics
   Fractal
   Geometry
-  GLUTWindow
+  Window
   Image
   Math
   Memory

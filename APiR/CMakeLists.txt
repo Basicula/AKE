@@ -16,7 +16,7 @@ add_subdirectory(BMPWriter)
 add_subdirectory(Physics)
 add_subdirectory(Geometry)
 add_subdirectory(Fluid)
-add_subdirectory(GLUTWindow)
+add_subdirectory(Window)
 add_subdirectory(Main)
 
 if(ENABLE_PYTHON_WRAPPER)
