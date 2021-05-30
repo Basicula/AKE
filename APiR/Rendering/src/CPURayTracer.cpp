@@ -4,7 +4,7 @@
 #include <Common/ThreadPool.h>
 
 CPURayTracer::CPURayTracer() 
-  : m_active_camera(nullptr){
+  : mp_active_camera(nullptr){
   }
 
 void CPURayTracer::Render() {
@@ -14,52 +14,42 @@ void CPURayTracer::Render() {
     mp_frame_image->GetSize(),
     [&](std::size_t i_pixel_id)
     {
-    auto x = i_pixel_id % mp_frame_image->GetWidth();
-    auto y = i_pixel_id / mp_frame_image->GetWidth();
+    const auto x = i_pixel_id % mp_frame_image->GetWidth();
+    const auto y = i_pixel_id / mp_frame_image->GetWidth();
+    const auto u = 1.0 * x / mp_frame_image->GetWidth();
+    const auto v = 1.0 * y / mp_frame_image->GetHeight();
     //if (x == mp_frame_image->GetWidth() / 2 && y == mp_frame_image->GetHeight() / 2)
-    mp_frame_image->SetPixel(x, y, _TraceRay(i_pixel_id));
+    mp_frame_image->SetPixel(x, y, _TraceRay(mp_active_camera->CameraRay(u, v)));
     }
   );
 #else
   for (auto y = 0; y < mp_frame_image->GetHeight(); ++y) {
     for (auto x = 0; x < mp_frame_image->GetWidth(); ++x) {
-      const auto pixel_id = y * mp_frame_image->GetWidth() + x;
-      //if (!(x == mp_frame_image->GetWidth() / 2 - 20 && y == mp_frame_image->GetHeight() / 2 - 20))
-      //  continue;
-      mp_frame_image->SetPixel(x, y, _TraceRay(pixel_id));
+      if (!(x == mp_frame_image->GetWidth() / 2 && y == mp_frame_image->GetHeight() / 2))
+        continue;
+      const auto u = 1.0 * x / mp_frame_image->GetWidth();
+      const auto v = 1.0 * y / mp_frame_image->GetHeight();
+      mp_frame_image->SetPixel(x, y, _TraceRay(mp_active_camera->CameraRay(u, v)));
       }
   }
 #endif
   }
 
 void CPURayTracer::_OutputImageWasSet() {
-  m_rays.resize(mp_frame_image->GetSize(), Ray(Vector3d(0), Vector3d(0)));
   }
 
 void CPURayTracer::_SceneWasSet() {
-  m_rays.clear();
-  m_active_camera = &mp_scene->GetActiveCamera();
-
-  const auto& ray_origin = m_active_camera->GetLocation();
-  for (auto y = 0.0; y < mp_frame_image->GetHeight(); ++y)
-    for (auto x = 0.0; x < mp_frame_image->GetWidth(); ++x) {
-      const auto& ray_dir = m_active_camera->GetDirection(
-        x / mp_frame_image->GetWidth(),
-        y / mp_frame_image->GetHeight());
-      m_rays.emplace_back(ray_origin, ray_dir);
-      }
+  mp_active_camera = &mp_scene->GetActiveCamera();
   }
 
-Color CPURayTracer::_TraceRay(std::size_t i_ray_id)   {
-  const auto& camera_ray = m_rays[i_ray_id];
-
+Color CPURayTracer::_TraceRay(const Ray& i_camera_ray) {
   double distance;
-  auto* p_intersected_object = mp_scene->TraceRay(distance, camera_ray);
+  auto* p_intersected_object = mp_scene->TraceRay(distance, i_camera_ray);
 
   if (!p_intersected_object)
     return mp_scene->GetBackGroundColor();
 
-  return _ProcessIntersection(p_intersected_object, distance, camera_ray);
+  return _ProcessIntersection(p_intersected_object, distance, i_camera_ray);
   }
 
 Color CPURayTracer::_ProcessIntersection(

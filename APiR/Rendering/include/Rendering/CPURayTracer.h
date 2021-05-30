@@ -12,7 +12,7 @@ class CPURayTracer : public IRenderer
     virtual void _OutputImageWasSet() override;
     virtual void _SceneWasSet() override;
 
-    Color _TraceRay(std::size_t i_ray_id);
+    Color _TraceRay(const Ray& i_ray);
     Color _ProcessIntersection(
       const Object* ip_intersected_object,
       const double i_distance,
@@ -31,9 +31,5 @@ class CPURayTracer : public IRenderer
       const Ray& i_camera_ray);
 
   private:
-    const Camera* m_active_camera;
-    // we can create all rays for camera image
-    // only once and then if it needed
-    // reset their origin and dirs
-    std::vector<Ray> m_rays;
+    const Camera* mp_active_camera;
   };
