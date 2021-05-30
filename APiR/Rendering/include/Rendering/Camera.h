@@ -1,4 +1,6 @@
 #pragma once
+#include <Geometry/Ray.h>
+
 #include <Math/Vector.h>
 
 #include <string>
@@ -20,7 +22,11 @@ class Camera
     HOSTDEVICE const Vector3d& GetLocation() const;
     void SetLocation(const Vector3d& i_location);
 
-    HOSTDEVICE Vector3d GetDirection(double i_u, double i_v) const;
+    const Vector3d& GetDirection() const;
+    const Vector3d& GetUpVector() const;
+    const Vector3d& GetRight() const;
+
+    HOSTDEVICE Ray CameraRay(double i_u, double i_v) const;
 
     std::string Serialize() const;
   private:
@@ -47,9 +53,9 @@ inline void Camera::SetLocation(const Vector3d& i_location)
   m_location = i_location;
   }
 
-inline Vector3d Camera::GetDirection(double i_u, double i_v) const
+inline Ray Camera::CameraRay(double i_u, double i_v) const
   {
-  return (m_u * i_u + m_v * i_v - m_corner).Normalized();
+  return { m_location, (m_u * i_u + m_v * i_v - m_corner).Normalized() };
   }
 
 inline std::string Camera::Serialize() const
