@@ -92,12 +92,12 @@ void Window::_Display() {
   }
 }
 
-void Window::_OnMouseButtonPressed(const int i_button) {
+void Window::_OnMouseButtonPressed(const MouseButton i_button) {
   if (mp_event_listner)
     mp_event_listner->ProcessEvent(MouseButtonPressedEvent(i_button));
 }
 
-void Window::_OnMouseButtonReleased(const int i_button) {
+void Window::_OnMouseButtonReleased(const MouseButton i_button) {
   if (mp_event_listner)
     mp_event_listner->ProcessEvent(MouseButtonReleasedEvent(i_button));
 }
@@ -112,17 +112,17 @@ void Window::_OnMouseScroll(const double i_offset) {
     mp_event_listner->ProcessEvent(MouseScrollEvent(i_offset));
 }
 
-void Window::_OnKeyPressed(const unsigned char i_key) {
+void Window::_OnKeyPressed(const KeyboardButton i_key) {
   if (mp_event_listner)
     mp_event_listner->ProcessEvent(KeyPressedEvent(i_key));
 }
 
-void Window::_OnKeyRepeat(const unsigned char i_key) {
+void Window::_OnKeyRepeat(const KeyboardButton i_key) {
   if (mp_event_listner)
     mp_event_listner->ProcessEvent(KeyRepeatEvent(i_key));
 }
 
-void Window::_OnKeyReleased(const unsigned char i_key) {
+void Window::_OnKeyReleased(const KeyboardButton i_key) {
   if (mp_event_listner)
     mp_event_listner->ProcessEvent(KeyReleasedEvent(i_key));
 }

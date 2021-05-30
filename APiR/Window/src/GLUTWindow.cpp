@@ -49,13 +49,13 @@ void GLUTWindow::_DisplayFuncWrapper()
 
 void GLUTWindow::_PressButtonWrapper(unsigned char i_key, int /*i_x*/, int /*i_y*/)
   {
-  mg_instance->_OnKeyPressed(i_key);
+  mg_instance->_OnKeyPressed(static_cast<KeyboardButton>(i_key));
   }
 
 void GLUTWindow::_MouseEventWrapper(int i_button, int i_state, int /*i_x*/, int /*i_y*/)
   {
   if (i_state == GLUT_UP)
-    mg_instance->_OnMouseButtonReleased(i_button);
+    mg_instance->_OnMouseButtonReleased(static_cast<MouseButton>(i_button));
   if (i_state == GLUT_DOWN)
-    mg_instance->_OnMouseButtonPressed(i_button);
+    mg_instance->_OnMouseButtonPressed(static_cast<MouseButton>(i_button));
   }

@@ -7,27 +7,27 @@ Event::EventType Event::Type() const {
   return m_type;
 }
 
-KeyPressedEvent::KeyPressedEvent(const unsigned char i_key) 
+KeyPressedEvent::KeyPressedEvent(const KeyboardButton i_key)
   : Event(EventType::KEY_PRESSED_EVENT)
   , m_key(i_key) {}
 
-unsigned char KeyPressedEvent::Key() const {
+KeyboardButton KeyPressedEvent::Key() const {
   return m_key;
 }
 
-MouseButtonPressedEvent::MouseButtonPressedEvent(const int i_button)
+MouseButtonPressedEvent::MouseButtonPressedEvent(const MouseButton i_button)
   : Event(EventType::MOUSE_BUTTON_PRESSED_EVENT)
   , m_button(i_button) {}
 
-int MouseButtonPressedEvent::Button() const {
+MouseButton MouseButtonPressedEvent::Button() const {
   return m_button;
 }
 
-MouseButtonReleasedEvent::MouseButtonReleasedEvent(const int i_button) 
+MouseButtonReleasedEvent::MouseButtonReleasedEvent(const MouseButton i_button)
   : Event(EventType::MOUSE_BUTTON_RELEASED_EVENT)
   , m_button(i_button) {}
 
-int MouseButtonReleasedEvent::Button() const {
+MouseButton MouseButtonReleasedEvent::Button() const {
   return m_button;
 }
 
@@ -40,11 +40,11 @@ std::pair<double, double> MouseMovedEvent::Position() const {
   return std::pair<double, double>(m_x, m_y);
 }
 
-KeyReleasedEvent::KeyReleasedEvent(const unsigned char i_key) 
+KeyReleasedEvent::KeyReleasedEvent(const KeyboardButton i_key)
   : Event(EventType::KEY_RELEASED_EVENT)
   , m_key(i_key) {}
 
-unsigned char KeyReleasedEvent::Key() const {
+KeyboardButton KeyReleasedEvent::Key() const {
   return m_key;
 }
 
@@ -56,11 +56,11 @@ double MouseScrollEvent::Offset() const {
   return m_offset;
 }
 
-KeyRepeatEvent::KeyRepeatEvent(const unsigned char i_key) 
+KeyRepeatEvent::KeyRepeatEvent(const KeyboardButton i_key)
   : Event(EventType::KEY_REPEAT_EVENT)
   , m_key(i_key) {}
 
-unsigned char KeyRepeatEvent::Key() const {
+KeyboardButton KeyRepeatEvent::Key() const {
   return m_key;
 }
 

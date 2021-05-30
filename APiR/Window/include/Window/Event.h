@@ -1,4 +1,6 @@
 #pragma once
+#include <Window/Keys.h>
+
 #include <utility>
 
 class Event {
@@ -29,52 +31,52 @@ private:
 
 class KeyPressedEvent : public Event {
 public:
-  KeyPressedEvent(const unsigned char i_key);
+  KeyPressedEvent(const KeyboardButton i_key);
 
-  unsigned char Key() const;
+  KeyboardButton Key() const;
 
 private:
-  unsigned char m_key;
+  KeyboardButton m_key;
 };
 
 class KeyRepeatEvent : public Event {
 public:
-  KeyRepeatEvent(const unsigned char i_key);
+  KeyRepeatEvent(const KeyboardButton i_key);
 
-  unsigned char Key() const;
+  KeyboardButton Key() const;
 
 private:
-  unsigned char m_key;
+  KeyboardButton m_key;
 };
 
 class KeyReleasedEvent : public Event {
 public:
-  KeyReleasedEvent(const unsigned char i_key);
+  KeyReleasedEvent(const KeyboardButton i_key);
 
-  unsigned char Key() const;
+  KeyboardButton Key() const;
 
 private:
-  unsigned char m_key;
+  KeyboardButton m_key;
 };
 
 class MouseButtonPressedEvent : public Event {
 public:
-  MouseButtonPressedEvent(const int i_button);
+  MouseButtonPressedEvent(const MouseButton i_button);
 
-  int Button() const;
+  MouseButton Button() const;
 
 private:
-  int m_button;
+  MouseButton m_button;
 };
 
 class MouseButtonReleasedEvent : public Event {
 public:
-  MouseButtonReleasedEvent(const int i_button);
+  MouseButtonReleasedEvent(const MouseButton i_button);
 
-  int Button() const;
+  MouseButton Button() const;
 
 private:
-  int m_button;
+  MouseButton m_button;
 };
 
 class MouseMovedEvent : public Event {

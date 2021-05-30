@@ -3,9 +3,9 @@ set(
   
   Window.cpp
   GLFWWindow.cpp
-	GLUTWindow.cpp
+  GLUTWindow.cpp
   Event.cpp
-	FPSCounter.cpp
+  FPSCounter.cpp
 )
 
 set(
@@ -13,10 +13,14 @@ set(
   
   Window.h
   GLFWWindow.h
-	GLUTWindow.h
+  GLUTWindow.h
+  
   EventListner.h
   Event.h
-	FPSCounter.h
+  
+  Keys.h
+  
+  FPSCounter.h
 )
 
 set(
