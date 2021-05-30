@@ -27,6 +27,7 @@
 #include <Image/Image.h>
 
 #include <Main/SceneExamples.h>
+#include <Main/ConsoleLogEventListner.h>
 
 #include <Memory/custom_vector.h>
 
@@ -37,7 +38,8 @@
 #include <Rendering/Scene.h>
 #include <Rendering/CPURayTracer.h>
 
-#include <GLUTWindow/GLUTWindow.h>
+#include <Window/GLUTWindow.h>
+#include <Window/GLFWWindow.h>
 
 #include <BMPWriter/BMPWriter.h>
 
@@ -113,7 +115,7 @@ void test_scene()
     {
     renderer.Render();
     };
-  GLUTWindow window(width, height, scene.GetName().c_str());
+  GLUTWindow window(width, height, scene.GetName());
   window.SetImageSource(&image);
   window.SetUpdateFunction(update_func);
   window.Open();
@@ -188,46 +190,46 @@ void test_fractals()
   //  };
   //julia_set.SetColorMap(std::make_unique<SmoothColorMap>(color_map));
   //julia_set.SetType(JuliaSet::JuliaSetType::WhiskeryDragon);
-  const float delta = 0.1f;
-  float origin_x = 0.0f, origin_y = 0.0f;
-  float scale = 1.0f;
-  auto keyboard_function = [&](unsigned char i_key, int /*i_x*/, int /*i_y*/)
-    {
-    switch (i_key)
-      {
-      case 'w':
-        origin_y += delta / scale;
-        break;
-      case 's':
-        origin_y -= delta / scale;
-        break;
-      case 'd':
-        origin_x += delta / scale;
-        break;
-      case 'a':
-        origin_x -= delta / scale;
-        break;
-      case 'q':
-        scale *= 1.5;
-        break;
-      case 'e':
-        scale /= 1.5;
-        break;
-      case 'f':
-        max_iterations += 10;
-        break;
-      default:
-        break;
+  class FractalChangeEventListner : public EventListner {
+  public:
+    FractalChangeEventListner(Fractal* ip_fractal) : mp_fractal(ip_fractal) {}
+    virtual void ProcessEvent(const Event& i_event) override {
+      if (i_event.Type() != Event::EventType::KEY_PRESSED_EVENT)
+        return;
+      const auto& key_pressed_event = static_cast<const KeyPressedEvent&>(i_event);
+      switch (key_pressed_event.Key()) {
+        case 'w':
+          origin_y += delta / scale;
+          break;
+        case 's':
+          origin_y -= delta / scale;
+          break;
+        case 'd':
+          origin_x += delta / scale;
+          break;
+        case 'a':
+          origin_x -= delta / scale;
+          break;
+        case 'q':
+          scale *= 1.5;
+          break;
+        case 'e':
+          scale /= 1.5;
+          break;
+        default:
+          break;
       }
-    };
+      mp_fractal->SetOrigin(origin_x, origin_y);
+      mp_fractal->SetScale(scale);
+    }
+  private:
+    Fractal* mp_fractal;
+    const float delta = 0.1f;
+    float origin_x = 0.0f, origin_y = 0.0f;
+    float scale = 1.0f;
+  } event_listner(&mandelbrot_set);
   auto update_func = [&]()
     {
-    mandelbrot_set.SetOrigin(origin_x, origin_y);
-    mandelbrot_set.SetScale(scale);
-    mandelbrot_set.SetMaxIterations(max_iterations);
-    //julia_set.SetOrigin(origin_x, origin_y);
-    //julia_set.SetScale(scale);
-    //julia_set.SetMaxIterations(max_iterations);
     ThreadPool::GetInstance()->ParallelFor(
       static_cast<std::size_t>(0),
       width * height,
@@ -239,12 +241,21 @@ void test_fractals()
       //image.SetPixel(x, y, julia_set.GetColor(x, y));
       });
     };
-  GLUTWindow window(width, height, "OpenCLTest");
+  GLUTWindow window(width, height, "FracralsTest");
   window.SetImageSource(&image);
   window.SetUpdateFunction(update_func);
-  window.SetKeyBoardFunction(keyboard_function);
+  window.SetEventListner(&event_listner);
   window.Open();
   }
+
+void test_event_listner() {
+  const std::size_t width = 1024;
+  const std::size_t height = 768;
+  //GLUTWindow window(width, height, "EventListnerTest");
+  GLFWWindow window(width, height, "EventListnerTest");
+  window.SetEventListner(new ConsoleLogEventListner);
+  window.Open();
+}
 
 int main()
   {
@@ -256,5 +267,6 @@ int main()
   //test_cuda();
 #endif
   //test_fractals();
+  //test_event_listner();
   return 0;
   }

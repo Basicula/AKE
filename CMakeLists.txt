@@ -28,6 +28,7 @@ find_package(OpenGL REQUIRED)
 include_directories(${CMAKE_FOLDER}/include)
 
 include("${CMAKE_FOLDER}/glut.cmake")
+include("${CMAKE_FOLDER}/glfw.cmake")
 include("${CMAKE_FOLDER}/gtest.cmake")
 if (ENABLE_OPENCL)
   add_definitions(-DENABLED_OPENCL)

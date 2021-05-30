@@ -50,3 +50,18 @@ or they will be taken from ThirdParties folder instead
     - [x] Spot light
     - [ ] Direction light
     - [ ] Object light emmiter
+- [x] Window
+    - [x] Events
+        - [x] Mouse
+            - [x] Button pressed
+            - [x] Button released
+            - [x] Scroll
+        - [x] Keyboard
+            - [x] Key pressed
+            - [x] Key repeat
+            - [x] Key released
+        - [x] Window
+            - [x] Window close
+            - [x] Window resize
+    - [x] GLUT window
+    - [x] GLFW window
