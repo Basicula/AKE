@@ -5,19 +5,19 @@
 void ConsoleLogEventListner::ProcessEvent(const Event& i_event) {
   switch (i_event.Type()) {
     case Event::EventType::KEY_PRESSED_EVENT:
-      std::cout << "Key pressed " << static_cast<const KeyPressedEvent&>(i_event).Key() << std::endl;
+      std::cout << "Key pressed " << static_cast<char>(static_cast<const KeyPressedEvent&>(i_event).Key()) << std::endl;
       return;
     case Event::EventType::KEY_REPEAT_EVENT:
-      std::cout << "Key repeat " << static_cast<const KeyPressedEvent&>(i_event).Key() << std::endl;
+      std::cout << "Key repeat " << static_cast<char>(static_cast<const KeyPressedEvent&>(i_event).Key()) << std::endl;
       return;
     case Event::EventType::KEY_RELEASED_EVENT:
-      std::cout << "Key released " << static_cast<const KeyReleasedEvent&>(i_event).Key() << std::endl;
+      std::cout << "Key released " << static_cast<char>(static_cast<const KeyReleasedEvent&>(i_event).Key()) << std::endl;
       return;
     case Event::EventType::MOUSE_BUTTON_PRESSED_EVENT:
-      std::cout << "Mouse button pressed " << static_cast<const MouseButtonPressedEvent&>(i_event).Button() << std::endl;
+      std::cout << "Mouse button pressed " << static_cast<int>(static_cast<const MouseButtonPressedEvent&>(i_event).Button()) << std::endl;
       return;
     case Event::EventType::MOUSE_BUTTON_RELEASED_EVENT:
-      std::cout << "Mouse button released " << static_cast<const MouseButtonReleasedEvent&>(i_event).Button() << std::endl;
+      std::cout << "Mouse button released " << static_cast<int>(static_cast<const MouseButtonReleasedEvent&>(i_event).Button()) << std::endl;
       return;
     case Event::EventType::MOUSE_MOVED_EVENT:
     {
