@@ -64,10 +64,12 @@ or they will be taken from ThirdParties folder instead
             - [x] Scroll
         - [x] Keyboard
             - [x] Key pressed
-            - [x] Key repeat
             - [x] Key released
         - [x] Window
             - [x] Window close
             - [x] Window resize
+    - [x] Event listener
     - [x] GLUT window
     - [x] GLFW window
+    - [ ] SDL2 window
+    - [ ] ImGui functionality
