@@ -13,7 +13,8 @@ Window::Window(const size_t i_width, const size_t i_height, const std::string& i
   , m_frame_binding(0)
   , m_fps_counter(1)
   , mp_source(nullptr)
-  , mp_event_listner(nullptr) {}
+  , mp_event_listner(nullptr) {
+}
 
 Window::~Window() {
   if (mp_event_listner)
@@ -53,6 +54,8 @@ void Window::SetUpdateFunction(UpdateFunction i_func) {
 }
 
 void Window::_RenderFrame() {
+  if (mp_event_listner)
+    mp_event_listner->PollEvents();
   _PreDisplay();
   _Display();
   _PostDisplay();
@@ -115,11 +118,6 @@ void Window::_OnMouseScroll(const double i_offset) {
 void Window::_OnKeyPressed(const KeyboardButton i_key) {
   if (mp_event_listner)
     mp_event_listner->ProcessEvent(KeyPressedEvent(i_key));
-}
-
-void Window::_OnKeyRepeat(const KeyboardButton i_key) {
-  if (mp_event_listner)
-    mp_event_listner->ProcessEvent(KeyRepeatEvent(i_key));
 }
 
 void Window::_OnKeyReleased(const KeyboardButton i_key) {

@@ -43,11 +43,9 @@ protected:
   void _OnMouseMoved(const double i_x, const double i_y);
   void _OnMouseScroll(const double i_offset);
   void _OnKeyPressed(const KeyboardButton i_key);
-  void _OnKeyRepeat(const KeyboardButton i_key);
   void _OnKeyReleased(const KeyboardButton i_key);
   void _OnWindowResized(const int i_width, const int i_height);
   void _OnWindowClosed();
-
 
 protected:
   std::string m_title;

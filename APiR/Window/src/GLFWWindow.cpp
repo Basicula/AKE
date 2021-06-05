@@ -126,8 +126,6 @@ void GLFWWindow::_KeyboardCallback(GLFWwindow* /*ip_window*/, const int i_key, c
     return;
   if (i_action == GLFW_PRESS)
     mg_instance->_OnKeyPressed(GLFWIntToKeyboardButton(i_key));
-  else if (i_action == GLFW_REPEAT)
-    mg_instance->_OnKeyRepeat(GLFWIntToKeyboardButton(i_key));
   else if (i_action == GLFW_RELEASE)
     mg_instance->_OnKeyReleased(GLFWIntToKeyboardButton(i_key));
 }
