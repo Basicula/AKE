@@ -1,11 +1,13 @@
 #include <Geometry/Transformation.h>
+#include <Math/Constants.h>
 
 #include <Main/SimpleCameraController.h>
 
 SimpleCameraController::SimpleCameraController(Camera* ip_camera)
   : EventListner()
   , mp_camera(ip_camera)
-  , m_movement_step(0.1)
+  , m_movement_step(1)
+  , m_angular_speed(PI / 45)
   , m_prev_mouse_position()
   , m_rotation_enabled(false) {}
 
@@ -41,27 +43,21 @@ void SimpleCameraController::_MoveCamera() {
     direction += -mp_camera->GetUpVector();
   if (_IsKeyPressed(KeyboardButton::KEY_Z))
     direction += mp_camera->GetUpVector();
-  direction.Normalize();
-  mp_camera->SetLocation(mp_camera->GetLocation() + direction * m_movement_step);
+  mp_camera->Move(direction * m_movement_step);
 }
 
 void SimpleCameraController::_RotateCamera() {
   if (m_rotation_enabled) {
-    const auto angle = atan2(m_mouse_position.second - m_prev_mouse_position[1], m_mouse_position.first - m_prev_mouse_position[0]);
+    const auto dx = m_mouse_position.first - m_prev_mouse_position[0];
+    const auto dy = m_mouse_position.second - m_prev_mouse_position[1];
+    const auto angle = atan2(dy, -dx);
     auto camera_direction = mp_camera->GetDirection();
     Transformation rotation;
     rotation.SetRotation(camera_direction, angle);
-    auto rotation_matrix = rotation.GetRotation();
     auto new_camera_right = mp_camera->GetRight();
-    rotation_matrix.ApplyLeft(new_camera_right);
+    rotation.Rotate(new_camera_right);
     const auto rotation_axis = new_camera_right.CrossProduct(camera_direction);
-    rotation.SetRotation(rotation_axis, 0.1);
-    rotation_matrix = rotation.GetRotation();
-    rotation_matrix.ApplyLeft(camera_direction);
-    mp_camera->SetDirection(camera_direction);
-    auto up_vector = mp_camera->GetUpVector();
-    rotation_matrix.ApplyLeft(up_vector);
-    mp_camera->SetUpVector(up_vector);
+    mp_camera->Rotate(rotation_axis, m_angular_speed);
   }
   m_prev_mouse_position[0] = m_mouse_position.first;
   m_prev_mouse_position[1] = m_mouse_position.second;
