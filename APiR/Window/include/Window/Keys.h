@@ -1,7 +1,8 @@
 #pragma once
 // Keys are custom for more consistent event handling due to fact that some windows has own and different key codes for same keys
 
-enum class KeyboardButton : char {
+// Some printable keys are mapped to actual key code
+enum class KeyboardButton : unsigned int {
   KEY_Q = 'q',
   KEY_W = 'w',
   KEY_E = 'e',
@@ -28,6 +29,7 @@ enum class KeyboardButton : char {
   KEY_B = 'b',
   KEY_N = 'n',
   KEY_M = 'm',
+
   KEY_1 = '1',
   KEY_2 = '2',
   KEY_3 = '3',
@@ -38,10 +40,36 @@ enum class KeyboardButton : char {
   KEY_8 = '8',
   KEY_9 = '9',
   KEY_0 = '0',
+
+  KEY_SPACE = ' ',
+  KEY_TAB = '\t',
+  KEY_LEFT_SHIFT = 256,
+  KEY_LEFT_CTRL = 257,
+  KEY_LEFT_ALT = 258,
+  KEY_RIGHT_SHIFT = 259,
+  KEY_RIGHT_CTRL = 260,
+  KEY_RIGHT_ALT = 261,
+  KEY_ESCAPE = 262,
+  KEY_CAPS = 263,
+  KEY_ENTER = 264,
+
+  KEY_F1 = 265,
+  KEY_F2 = 266,
+  KEY_F3 = 267,
+  KEY_F4 = 268,
+  KEY_F5 = 269,
+  KEY_F6 = 270,
+  KEY_F7 = 271,
+  KEY_F8 = 272,
+  KEY_F9 = 273,
+  KEY_F10 = 274,
+  KEY_F11 = 275,
+  KEY_F12 = 276,
+
   KEY_UNDEFINED = '\0',
 };
 
-enum class MouseButton : char
+enum class MouseButton : unsigned char
 {
   MOUSE_LEFT_BUTTON = 0,
   MOUSE_MIDDLE_BUTTON = 1,
