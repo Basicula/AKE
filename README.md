@@ -35,12 +35,18 @@ or they will be taken from ThirdParties folder instead
     - [ ] RayTracing
         - [x] CPU version
         - [ ] CUDA version
+        - [ ] Techniques
+            - [ ] Soft shadows
+            - [ ] TAA (temporal anti aliasing)
     - [ ] RayMarching
     - [ ] PathTracing
+    - [ ] Rasterizer
 - [ ] Physic
 - [ ] Serialization
 - [ ] Python wrapper
-- [ ] Camera controller
+- [ ] Camera
+    - [x] Simple controller
+    - [ ] Lens
 - [ ] Memory
     - [x] Custom vector
     - [x] CUDA managed memory pointer/allocator
