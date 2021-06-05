@@ -19,6 +19,7 @@ private:
 private:
   Camera* mp_camera;
   double m_movement_step;
+  double m_angular_speed;
   Vector2d m_prev_mouse_position;
   bool m_rotation_enabled;
 };
