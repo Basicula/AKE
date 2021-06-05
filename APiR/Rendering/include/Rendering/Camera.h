@@ -26,9 +26,18 @@ class Camera
     const Vector3d& GetUpVector() const;
     const Vector3d& GetRight() const;
 
+    // Move camera location at some vector
+    // i.e. camera_location + i_displacement_vector
+    void Move(const Vector3d& i_displacement_vector);
+    void Rotate(const Vector3d& i_rotation_axis, const double i_angle_in_rad);
+
     HOSTDEVICE Ray CameraRay(double i_u, double i_v) const;
 
     std::string Serialize() const;
+
+  private:
+    void _Init();
+
   private:
     Vector3d m_location;
     Vector3d m_direction;
