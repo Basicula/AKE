@@ -24,17 +24,24 @@ class Transformation
     void Inverse();
     Transformation GetInversed() const;
 
-    Vector3d PointToLocal(const Vector3d& i_world_point) const;
-    void PointToLocal(Vector3d& io_point) const;
-    Vector3d PointToWorld(const Vector3d& i_local_point) const;
-    void PointToWorld(Vector3d& io_point) const;
+    // Transforms i_vector
+    // if i_is_vector is true then i_vector treats as vector(direction)
+    // i.e. only rotation applies to vector
+    // if i_is_vector is false then i_vector treats as point
+    Vector3d Transform(const Vector3d& i_vector, const bool i_is_vector = false) const;
+    void Transform(Vector3d& io_vector, const bool i_is_vector = false) const;
 
-    Vector3d DirectionToLocal(const Vector3d& i_world_dir) const;
-    void DirectionToLocal(Vector3d& io_direction) const;
-    Vector3d DirectionToWorld(const Vector3d& i_local_dir) const;
-    void DirectionToWorld(Vector3d& io_direction) const;
+    Vector3d InverseTransform(const Vector3d& i_vector, const bool i_is_vector = false) const;
+    void InverseTransform(Vector3d& io_vector, const bool i_is_vector = false) const;
 
-  private:    
+    Vector3d Rotate(const Vector3d& i_vector) const;
+    void Rotate(Vector3d& io_vector) const;
+    Vector3d Translate(const Vector3d& i_vector) const;
+    void Translate(Vector3d& io_vector) const;
+    Vector3d Scale(const Vector3d& i_vector) const;
+    void Scale(Vector3d& io_vector) const;
+
+  private:
     Vector3d m_translation;
     Vector3d m_scale;
 
