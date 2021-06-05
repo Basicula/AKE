@@ -4,7 +4,13 @@ set(
   Window.cpp
   GLFWWindow.cpp
   GLUTWindow.cpp
+  
+  EventListner.cpp
   Event.cpp
+  KeyboardEvent.cpp
+  MouseEvent.cpp
+  WindowEvent.cpp
+  
   FPSCounter.cpp
 )
 
@@ -17,6 +23,9 @@ set(
   
   EventListner.h
   Event.h
+  KeyboardEvent.h
+  MouseEvent.h
+  WindowEvent.h
   
   Keys.h
   
