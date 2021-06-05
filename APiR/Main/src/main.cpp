@@ -105,7 +105,7 @@ void test_scene()
   const std::size_t width = 800;
   const std::size_t height = 600;
 
-  Scene scene = ExampleScene::OneTorus();
+  Scene scene = ExampleScene::EmptyRoom();
 
   Image image(width, height);
   CPURayTracer renderer;
@@ -116,7 +116,8 @@ void test_scene()
     {
     renderer.Render();
     };
-  GLUTWindow window(width, height, scene.GetName());
+  //GLUTWindow window(width, height, scene.GetName());
+  GLFWWindow window(width, height, scene.GetName());
   window.SetImageSource(&image);
   window.SetUpdateFunction(update_func);
   window.SetEventListner(new SimpleCameraController(&scene.GetActiveCamera()));
@@ -195,7 +196,11 @@ void test_fractals()
   class FractalChangeEventListner : public EventListner {
   public:
     FractalChangeEventListner(Fractal* ip_fractal) : mp_fractal(ip_fractal) {}
-    virtual void ProcessEvent(const Event& i_event) override {
+
+    virtual void PollEvents() override {};
+
+  protected:
+    virtual void _ProcessEvent(const Event& i_event) override {
       if (i_event.Type() != Event::EventType::KEY_PRESSED_EVENT)
         return;
       const auto& key_pressed_event = static_cast<const KeyPressedEvent&>(i_event);
