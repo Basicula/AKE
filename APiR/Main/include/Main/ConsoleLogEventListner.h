@@ -3,5 +3,8 @@
 
 class ConsoleLogEventListner : public EventListner {
 public:
-  virtual void ProcessEvent(const Event& i_event) override;
+  virtual void PollEvents() override;
+
+protected:
+  virtual void _ProcessEvent(const Event& i_event) override;
 };
