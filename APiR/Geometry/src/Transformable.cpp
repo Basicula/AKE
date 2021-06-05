@@ -55,8 +55,8 @@ Vector3d Transformable::ApplyTranslation(const Vector3d& i_point) const
 Ray Transformable::RayToLocal(const Ray& i_ray) const
   {
   return Ray(
-    m_transformation.PointToLocal(i_ray.GetOrigin()),
-    m_transformation.DirectionToLocal(i_ray.GetDirection()));
+    m_transformation.InverseTransform(i_ray.GetOrigin()),
+    m_transformation.InverseTransform(i_ray.GetDirection(), true));
   }
 
 BoundingBox Transformable::BBoxToWorld(const BoundingBox& i_local_bbox) const

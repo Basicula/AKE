@@ -40,54 +40,62 @@ Transformation Transformation::GetInversed() const
   return temp;
   }
 
-Vector3d Transformation::PointToLocal(const Vector3d& i_world_point) const
+Vector3d Transformation::Transform(const Vector3d& i_vector, const bool i_is_vector) const
   {
-  Vector3d local_point = i_world_point;
-  PointToLocal(local_point);
-  return local_point;
- }
-
-void Transformation::PointToLocal(Vector3d& io_point) const
-{
-  io_point -= m_translation; // translation
-  m_inverse_rotation.ApplyLeft(io_point); // rotation
-  io_point /= m_scale; // scaling
-}
-
-Vector3d Transformation::PointToWorld(const Vector3d& i_local_point) const
-  {
-  Vector3d world_point = i_local_point;
-  PointToWorld(world_point);
-  return world_point;
+  Vector3d vector = i_vector;
+  Transform(vector, i_is_vector);
+  return vector;
   }
 
-void Transformation::PointToWorld(Vector3d& io_point) const
+void Transformation::Transform(Vector3d& io_vector, const bool i_is_vector) const
 {
-  io_point *= m_scale; // scaling
-  m_rotation.ApplyLeft(io_point); // rotation
-  io_point += m_translation; // translation
+  if (i_is_vector)
+    m_rotation.ApplyLeft(io_vector); // rotation
+  else {
+    io_vector *= m_scale; // scaling
+    m_rotation.ApplyLeft(io_vector); // rotation
+    io_vector += m_translation; // translation
+  }
 }
 
-Vector3d Transformation::DirectionToLocal(const Vector3d& i_world_dir) const
-  {
-  Vector3d local_direction = i_world_dir;
-  DirectionToLocal(local_direction);
-  return local_direction;
-  }
-
-void Transformation::DirectionToLocal(Vector3d& i_direction) const
-{
-  m_inverse_rotation.ApplyLeft(i_direction); // rotation
+Vector3d Transformation::InverseTransform(const Vector3d& i_vector, const bool i_is_vector) const {
+  Vector3d vector = i_vector;
+  InverseTransform(vector, i_is_vector);
+  return vector;
 }
 
-Vector3d Transformation::DirectionToWorld(const Vector3d& i_local_dir) const
-  {
-  Vector3d world_direction = i_local_dir;
-  DirectionToWorld(world_direction);
-  return world_direction;
+void Transformation::InverseTransform(Vector3d& io_vector, const bool i_is_vector) const {
+  if (i_is_vector)
+    m_inverse_rotation.ApplyLeft(io_vector); // rotation
+  else {
+    io_vector -= m_translation; // translation
+    m_inverse_rotation.ApplyLeft(io_vector); // rotation
+    io_vector /= m_scale; // scaling
   }
+}
 
-void Transformation::DirectionToWorld(Vector3d& io_direction) const
-{
-  m_rotation.ApplyLeft(io_direction); // rotation
+Vector3d Transformation::Rotate(const Vector3d& i_vector) const {
+  Vector3d result = i_vector;
+  m_rotation.ApplyLeft(result);
+  return result;
+}
+
+void Transformation::Rotate(Vector3d& io_vector) const {
+  m_rotation.ApplyLeft(io_vector);
+}
+
+Vector3d Transformation::Translate(const Vector3d& i_vector) const {
+  return i_vector + m_translation;
+}
+
+void Transformation::Translate(Vector3d& io_vector) const {
+  io_vector += m_translation;
+}
+
+Vector3d Transformation::Scale(const Vector3d& i_vector) const {
+  return i_vector * m_scale;
+}
+
+void Transformation::Scale(Vector3d& io_vector) const {
+  io_vector *= m_scale;
 }

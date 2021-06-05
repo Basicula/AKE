@@ -55,22 +55,22 @@ inline Transformation Transformable::GetTransformation() const
 
 inline Vector3d Transformable::PointToLocal(const Vector3d& i_world_point) const
   {
-  return m_transformation.PointToLocal(i_world_point);
+  return m_transformation.InverseTransform(i_world_point);
   }
 
 inline Vector3d Transformable::PointToWorld(const Vector3d& i_local_point) const
   {
-  return m_transformation.PointToWorld(i_local_point);
+  return m_transformation.Transform(i_local_point);
   }
 
 inline Vector3d Transformable::DirectionToLocal(const Vector3d& i_world_dir) const
   {
-  return m_transformation.DirectionToLocal(i_world_dir);
+  return m_transformation.InverseTransform(i_world_dir, true);
   }
 
 inline Vector3d Transformable::DirectionToWorld(const Vector3d& i_local_dir) const
   {
-  return m_transformation.DirectionToWorld(i_local_dir);
+  return m_transformation.Transform(i_local_dir, true);
   }
 
 inline Vector3d Transformable::GetScale() const
