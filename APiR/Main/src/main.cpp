@@ -38,6 +38,7 @@
 #include <Rendering/RenderableObject.h>
 #include <Rendering/Scene.h>
 #include <Rendering/CPURayTracer.h>
+#include <Rendering/SimpleCamera.h>
 
 #include <Window/GLUTWindow.h>
 #include <Window/GLFWWindow.h>
@@ -63,13 +64,12 @@ void test_fluid()
   Image image(width, height, 0xffaaaaaa);
 
   scene.AddCamera(
-    Camera(
-      Vector3d(0, 5, 7),
-      Vector3d(0, 0, 0),
+    new SimpleCamera(
+      Vector3d(0, 5, 5),
+      Vector3d(0, -1, -1),
       Vector3d(0, sqrt(2) / 2, -sqrt(2) / 2),
       75,
-      width * 1.0 / height,
-      2), true);
+      width * 1.0 / height), true);
   scene.AddLight(new SpotLight(Vector3d(0, 10, 0)));
   auto fluid = new Fluid(48);
   scene.AddObject(fluid);
@@ -105,7 +105,7 @@ void test_scene()
   const std::size_t width = 800;
   const std::size_t height = 600;
 
-  Scene scene = ExampleScene::EmptyRoom();
+  Scene scene = ExampleScene::RandomSpheres(20);
 
   Image image(width, height);
   CPURayTracer renderer;
@@ -120,7 +120,7 @@ void test_scene()
   GLFWWindow window(width, height, scene.GetName());
   window.SetImageSource(&image);
   window.SetUpdateFunction(update_func);
-  window.SetEventListner(new SimpleCameraController(&scene.GetActiveCamera()));
+  window.SetEventListner(new SimpleCameraController(scene.GetActiveCamera()));
   window.Open();
   }
 

@@ -19,9 +19,9 @@ class Scene final
     Scene(Scene&& i_other) noexcept;
     ~Scene();
 
-    void AddObject(Object* i_object);
-    void AddCamera(const Camera& i_camera, bool i_set_active = false);
-    void AddLight(ILight* i_light);
+    void AddObject(Object* ip_object);
+    void AddCamera(Camera* ip_camera, bool i_set_active = false);
+    void AddLight(ILight* ip_light);
 
     std::size_t GetNumObjects() const;
     std::size_t GetNumLights() const;
@@ -33,8 +33,8 @@ class Scene final
 
     bool SetActiveCamera(std::size_t i_id);
     std::size_t GetActiveCameraId() const;
-    HOSTDEVICE Camera& GetActiveCamera();
-    HOSTDEVICE const Camera& GetActiveCamera() const;
+    HOSTDEVICE Camera* GetActiveCamera();
+    HOSTDEVICE const Camera* GetActiveCamera() const;
 
     bool SetOnOffLight(std::size_t i_id, bool i_state);
 
@@ -55,6 +55,6 @@ class Scene final
 
     Color m_background_color;
     Container* mp_object_container;
-    std::vector<Camera> m_cameras;
+    std::vector<Camera*> m_cameras;
     std::vector<ILight*> m_lights;
   };

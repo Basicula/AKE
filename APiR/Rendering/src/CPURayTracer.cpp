@@ -19,7 +19,8 @@ void CPURayTracer::Render() {
     const auto u = 1.0 * x / mp_frame_image->GetWidth();
     const auto v = 1.0 * y / mp_frame_image->GetHeight();
     //if (x == mp_frame_image->GetWidth() / 2 && y == mp_frame_image->GetHeight() / 2)
-    mp_frame_image->SetPixel(x, y, _TraceRay(mp_active_camera->CameraRay(u, v)));
+    const auto color = _TraceRay(mp_active_camera->CameraRay(u, v));
+    mp_frame_image->SetPixel(x, y, color);
     }
   );
 #else
@@ -39,7 +40,7 @@ void CPURayTracer::_OutputImageWasSet() {
   }
 
 void CPURayTracer::_SceneWasSet() {
-  mp_active_camera = &mp_scene->GetActiveCamera();
+  mp_active_camera = mp_scene->GetActiveCamera();
   }
 
 Color CPURayTracer::_TraceRay(const Ray& i_camera_ray) {

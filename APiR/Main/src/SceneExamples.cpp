@@ -1,4 +1,5 @@
 #include <Main/SceneExamples.h>
+#include <Rendering/SimpleCamera.h>
 
 namespace ExampleMaterials {
   PhongMaterial* pure_mirror() { 
@@ -45,7 +46,7 @@ namespace ExampleScene {
 
     scene.AddLight(new SpotLight(Vector3d(0, 3, 0)));
 
-    scene.AddCamera(Camera(Vector3d(0, 0, -1), Vector3d(0, 0, 0), Vector3d(0, 1, 0), 75, 16.0 / 9.0, 0.5), true);
+    scene.AddCamera(new SimpleCamera(Vector3d(0, 0, -1), Vector3d(0, 0, 1), Vector3d(0, 1, 0), 75, 16.0 / 9.0), true);
 
     return std::move(scene);
     }
@@ -68,10 +69,26 @@ namespace ExampleScene {
 
     scene.AddLight(new SpotLight(Vector3d(9, 9, -5)));
 
-    scene.AddCamera(Camera(Vector3d(0, 0, -5), Vector3d(0, 0, 0), Vector3d(0, 1, 0), 75, 16.0 / 9.0, 0.5), true);
+    scene.AddCamera(new SimpleCamera(Vector3d(0, 0, -15), Vector3d(0, 0, 1), Vector3d(0, 1, 0), 90, 16.0 / 9.0), true);
 
     return std::move(scene);
     }
+
+  Scene RandomSpheres(const size_t i_count) {
+    Scene scene("Random spheres");
+
+    for (size_t i = 0; i < i_count; ++i)
+      scene.AddObject(
+        new RenderableObject(
+          new Sphere(Vector3d(rand() % 100 - 50, rand() % 100 - 50, rand() % 100 - 50),2),
+          ExampleMaterials::ruby()));
+
+    scene.AddLight(new SpotLight(Vector3d(9, 9, -5)));
+
+    scene.AddCamera(new SimpleCamera(Vector3d(0, 0, -15), Vector3d(0, 0, 1), Vector3d(0, 1, 0), 90, 16.0 / 9.0), true);
+
+    return std::move(scene);
+  }
 
   Scene EmptyRoom() {
     Scene scene("Empty room");
@@ -83,7 +100,7 @@ namespace ExampleScene {
 
     scene.AddLight(new SpotLight(Vector3d(0, 0, 0)));
 
-    scene.AddCamera(Camera(Vector3d(0, 0, -5), Vector3d(0, 0, 0), Vector3d(0, 1, 0), 75, 16.0 / 9.0, 0.5), true);
+    scene.AddCamera(new SimpleCamera(Vector3d(0, 0, -5), Vector3d(0, 0, 1), Vector3d(0, 1, 0), 75, 16.0 / 9.0), true);
 
     return std::move(scene);
     }
@@ -95,7 +112,7 @@ namespace ExampleScene {
 
     scene.AddLight(new SpotLight(Vector3d(0, 0, 0)));
 
-    scene.AddCamera(Camera(Vector3d(0, 0, -5), Vector3d(0, 0, 0), Vector3d(0, 1, 0), 75, 16.0 / 9.0, 0.5), true);
+    scene.AddCamera(new SimpleCamera(Vector3d(0, 0, -5), Vector3d(0, 0, 1), Vector3d(0, 1, 0), 75, 16.0 / 9.0), true);
 
     return std::move(scene);
     }
@@ -108,7 +125,7 @@ namespace ExampleScene {
 
     scene.AddLight(new SpotLight(Vector3d(0, 3, -2.4)));
 
-    scene.AddCamera(Camera(Vector3d(0, 0, -3), Vector3d(0, 0, 0), Vector3d(0, 1, 0), 75, 16.0 / 9.0, 0.5), true);
+    scene.AddCamera(new SimpleCamera(Vector3d(0, 0, -3), Vector3d(0, 0, 1), Vector3d(0, 1, 0), 75, 16.0 / 9.0), true);
 
     return scene;
     }
@@ -121,7 +138,7 @@ namespace ExampleScene {
 
     scene.AddLight(new SpotLight(Vector3d(0, 3, -3)));
 
-    scene.AddCamera(Camera(Vector3d(0, 0, -5), Vector3d(0, 0, 0), Vector3d(0, 1, 0), 75, 16.0 / 9.0, 0.5), true);
+    scene.AddCamera(new SimpleCamera(Vector3d(0, 0, -5), Vector3d(0, 0, 1), Vector3d(0, 1, 0), 75, 16.0 / 9.0), true);
 
     return std::move(scene);
     }
@@ -140,7 +157,9 @@ namespace ExampleScene {
     const auto cylinder = new Cylinder(Vector3d(0, -2, 0), 0.5, 5);
     scene.AddObject(new RenderableObject(cylinder, ExampleMaterials::ruby()));
 
-    scene.AddCamera(Camera(Vector3d(-5, 5, -5), Vector3d(0, 0, 0), Vector3d(1 / SQRT_3, 1 / SQRT_3, 1 / SQRT_3), 75, 16.0 / 9.0, 0.5), true);
+    //scene.AddCamera(new SimpleCamera(Vector3d(-5, 5, -5), Vector3d(0, 0, 0), Vector3d(1 / SQRT_3, 1 / SQRT_3, 1 / SQRT_3), 75, 16.0 / 9.0, 0.5), true);
+    
+    scene.AddCamera(new SimpleCamera(Vector3d(0, 0, -5), Vector3d(0, 0, 1), Vector3d(0, 1, 0), 75, 16.0 / 9.0), true);
 
     scene.AddLight(new SpotLight(Vector3d(3, 3, -3), Color::White, 0.75));
 
@@ -158,7 +177,7 @@ namespace ExampleScene {
 
     scene.AddLight(new SpotLight(Vector3d(0, 3, 0), Color::White, 0.25));
 
-    scene.AddCamera(Camera(Vector3d(-1, 1, -1), Vector3d(0, 0, 0), Vector3d(1 / SQRT_3, 1 / SQRT_3, 1 / SQRT_3), 75, 16.0 / 9.0, 0.5), true);
+    scene.AddCamera(new SimpleCamera(Vector3d(-1, 1, -1), Vector3d(1, -1, 1), Vector3d(1 / SQRT_3, 1 / SQRT_3, 1 / SQRT_3), 75, 16.0 / 9.0), true);
 
     return scene;
     }

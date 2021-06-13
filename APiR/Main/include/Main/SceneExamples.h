@@ -20,6 +20,7 @@ namespace ExampleScene {
   Scene OneTorus();
 
   Scene NineSpheres();
+  Scene RandomSpheres(const size_t i_count);
   Scene EmptyRoom();
   Scene ComplexScene();
   Scene InfinityMirror();

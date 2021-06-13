@@ -26,14 +26,16 @@ Scene::~Scene() {
     delete mp_object_container;
   for (auto& light : m_lights)
     delete light;
+  for (auto& camera : m_cameras)
+    delete camera;
   }
 
  void Scene::AddObject(Object* ip_object)   {
   mp_object_container->AddObject(ip_object);
   }
 
-void Scene::AddCamera(const Camera& i_camera, bool i_set_active)   {
-  m_cameras.push_back(i_camera);
+void Scene::AddCamera(Camera* ip_camera, bool i_set_active)   {
+  m_cameras.push_back(ip_camera);
   if (i_set_active)
     SetActiveCamera(m_cameras.size() - 1);
   }
@@ -66,11 +68,11 @@ std::size_t Scene::GetActiveCameraId() const   {
   return m_active_camera;
   }
 
-Camera& Scene::GetActiveCamera() {
+Camera* Scene::GetActiveCamera() {
   return m_cameras[m_active_camera];
   }
 
-HOSTDEVICE const Camera& Scene::GetActiveCamera() const {
+HOSTDEVICE const Camera* Scene::GetActiveCamera() const {
   return m_cameras[m_active_camera];
 }
 
@@ -96,13 +98,12 @@ std::string Scene::Serialize() const   {
 
   // TODO
   //mp_object_container->Serialize();
-
-  const auto cameras_cnt = m_cameras.size();
-  if (cameras_cnt != 0)     {
-    res += "\"Cameras\" : [ ";
-    for (auto i = 0u; i < cameras_cnt; ++i)
-      res += m_cameras[i].Serialize() + (i == cameras_cnt - 1 ? " ], " : ", ");
-    }
+  //const auto cameras_cnt = m_cameras.size();
+  //if (cameras_cnt != 0)     {
+  //  res += "\"Cameras\" : [ ";
+  //  for (auto i = 0u; i < cameras_cnt; ++i)
+  //    res += m_cameras[i].Serialize() + (i == cameras_cnt - 1 ? " ], " : ", ");
+  //  }
 
   const auto lights_cnt = m_lights.size();
   if (lights_cnt != 0)     {
