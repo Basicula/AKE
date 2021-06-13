@@ -2,8 +2,6 @@ set(
   SOURCES
   
   Camera.cpp
-  CameraLens.cpp
-  CameraWithLens.cpp
   SimpleCamera.cpp
   
   RenderableObject.cpp
@@ -22,8 +20,6 @@ set(
   HEADERS
   
   Camera.h
-  CameraLens.h
-  CameraWithLens.h
   SimpleCamera.h
  
   Object.h
