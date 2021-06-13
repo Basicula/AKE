@@ -18,7 +18,7 @@ if(NOT GLUT_FOUND)
 	set(GLUT_INCLUDE_DIR "${GLUT_glut_LIBRARY}/include" CACHE PATH "")
   
 	set(GLUT_INCLUDE_DIRS "${GLUT_glut_LIBRARY}/include" CACHE PATH "")
-  set(GLUT_LIBRARIES freeglut.lib)
+  set(GLUT_LIBRARIES freeglut.lib CACHE PATH "")
 	if(CMAKE_SIZEOF_VOID_P EQUAL 8)
 		set(GLUT_LIBRARY_DIRS "${GLUT_glut_LIBRARY}/lib/x64" CACHE PATH "")
 		set(GLUT_BINARY "${GLUT_glut_LIBRARY}/bin/x64/freeglut.dll" CACHE PATH "")

@@ -39,13 +39,13 @@ set(
   Math
   Memory
   Visual
-  ${GLUT_LIBRARIES}
 )
 
 set(
   PUBLIC_LINKS
   
   glfw
+  ${GLUT_LIBRARIES}
 )
 
 generate_project(
