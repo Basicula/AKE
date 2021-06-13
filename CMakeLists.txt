@@ -21,28 +21,11 @@ option(ENABLE_CUDA "Turn on/off CUDA usage")
 option(ENABLE_OPENCL "Turn on/off CUDA usage")
 option(ENABLE_PYTHON_WRAPPER "Turn on/off Python wrappers")
 
-# find all needed packages
-find_package(OpenGL REQUIRED)
+# find/setuo all needed packages
+include("${THIRD_PARTIES}/ThirdParties.cmake")
 
 # Macros and other predefined stuff
 include_directories(${CMAKE_FOLDER}/include)
-
-include("${CMAKE_FOLDER}/glut.cmake")
-include("${CMAKE_FOLDER}/glfw.cmake")
-include("${CMAKE_FOLDER}/gtest.cmake")
-if (ENABLE_OPENCL)
-  add_definitions(-DENABLED_OPENCL)
-  include("${CMAKE_FOLDER}/OpenCL.cmake")
-endif()
-if (ENABLE_CUDA)
-  add_definitions(-DENABLED_CUDA)
-  include("${CMAKE_FOLDER}/CUDA.cmake")
-endif()
-
-if (ENABLE_PYTHON_WRAPPER)
-# for python integration
-add_subdirectory(pybind11)
-endif()
 
 # to future testing libs
 enable_testing()
