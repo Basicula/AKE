@@ -10,8 +10,12 @@ public:
 
   virtual void Open() override;
 
+  // Commonly used for different opengl calling functions (for instance imgui init functions)
+  GLFWwindow* GetOpenGLWindow() const;
+
 protected:
   virtual void _Init() override;
+
   virtual void _PreDisplay() override;
   virtual void _PostDisplay() override;
 

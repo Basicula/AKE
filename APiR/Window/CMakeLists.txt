@@ -5,6 +5,9 @@ set(
   GLFWWindow.cpp
   GLUTWindow.cpp
   
+  GLFWGUIView.cpp
+  GLFWDebugGUIView.cpp
+  
   EventListner.cpp
   Event.cpp
   KeyboardEvent.cpp
@@ -20,6 +23,10 @@ set(
   Window.h
   GLFWWindow.h
   GLUTWindow.h
+  
+  GUIView.h
+  GLFWGUIView.h
+  GLFWDebugGUIView.h
   
   EventListner.h
   Event.h
@@ -46,6 +53,7 @@ set(
   
   glfw
   ${GLUT_LIBRARIES}
+  imgui
 )
 
 generate_project(

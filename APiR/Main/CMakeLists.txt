@@ -60,5 +60,10 @@ generate_project(
   HEADERS       ${HEADERS}
   LINK          ${LINKS}
 )
-file(COPY ${GLUT_BINARY} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+add_custom_command(TARGET Main POST_BUILD
+                   COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${GLUT_BINARY}" "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>/"
+                   COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${GLEW_BINARY}" "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>/"
+)
+
 endif()

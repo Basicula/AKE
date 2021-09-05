@@ -3,8 +3,9 @@
 #if defined(WIN32)
 // need to include windows before gl for compiling gl stuff
 #include <Windows.h>
-#include <GL/gl.h>
 #endif
+
+#include <GL/gl.h>
 
 Window::Window(const size_t i_width, const size_t i_height, const std::string& i_title)
   : m_width(i_width)
@@ -13,16 +14,23 @@ Window::Window(const size_t i_width, const size_t i_height, const std::string& i
   , m_frame_binding(0)
   , m_fps_counter(1)
   , mp_source(nullptr)
-  , mp_event_listner(nullptr) {
+  , mp_event_listner(nullptr)
+  , mp_gui_view(nullptr) {
 }
 
 Window::~Window() {
   if (mp_event_listner)
     delete mp_event_listner;
+  if (mp_gui_view)
+    delete mp_gui_view;
 }
 
 void Window::SetEventListner(EventListner* ip_event_listner) {
   mp_event_listner = ip_event_listner;
+}
+
+void Window::SetGUIView(GUIView* ip_gui_view) {
+  mp_gui_view = ip_gui_view;
 }
 
 void Window::SetImageSource(const Image* ip_source) {
@@ -92,6 +100,12 @@ void Window::_Display() {
     glEnd();
 
     glDisable(GL_TEXTURE_2D);
+  }
+
+  if (mp_gui_view) {
+    mp_gui_view->NewFrame();
+    mp_gui_view->Render();
+    mp_gui_view->Display();
   }
 }
 

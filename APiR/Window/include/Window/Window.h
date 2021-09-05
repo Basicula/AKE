@@ -3,6 +3,7 @@
 
 #include <Window/EventListner.h>
 #include <Window/FPSCounter.h>
+#include <Window/GUIView.h>
 
 #include <functional>
 #include <string>
@@ -19,7 +20,11 @@ public:
   // Run main infinity loop for window
   virtual void Open() = 0;
 
+  // Set event listner to process different user inputs like keyboard button press etc
   void SetEventListner(EventListner* ip_event_listner);
+  // Set custom gui view
+  void SetGUIView(GUIView* ip_gui_view);
+
   // Image source - basically image that will be updated through update function
   // or can be static image to visualize
   void SetImageSource(const Image* ip_source);
@@ -60,4 +65,5 @@ protected:
 
   const Image* mp_source;
   EventListner* mp_event_listner;
+  GUIView* mp_gui_view;
 };
