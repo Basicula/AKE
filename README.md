@@ -72,4 +72,5 @@ or they will be taken from ThirdParties folder instead
     - [x] GLUT window
     - [x] GLFW window
     - [ ] SDL2 window
-    - [ ] ImGui functionality
+    - [x] ImGui functionality
+        - [x] Debug gui(fps etc)
