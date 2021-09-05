@@ -17,6 +17,7 @@ class GLUTWindow : public Window
 
   private:
     virtual void _Init() override;
+
     virtual void _PreDisplay() override;
     virtual void _PostDisplay() override;
 

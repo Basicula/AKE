@@ -83,6 +83,10 @@ void GLFWWindow::Open() {
     _RenderFrame();
 }
 
+GLFWwindow* GLFWWindow::GetOpenGLWindow() const{
+  return mp_window;
+}
+
 void GLFWWindow::_Init() {
   mg_instance = this;
   glfwInit();
