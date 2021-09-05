@@ -42,6 +42,7 @@
 
 #include <Window/GLUTWindow.h>
 #include <Window/GLFWWindow.h>
+#include <Window/GLFWDebugGUIView.h>
 
 #include <BMPWriter/BMPWriter.h>
 
@@ -121,6 +122,7 @@ void test_scene()
   window.SetImageSource(&image);
   window.SetUpdateFunction(update_func);
   window.SetEventListner(new SimpleCameraController(scene.GetActiveCamera()));
+  window.SetGUIView(new GLFWDebugGUIView(window.GetOpenGLWindow()));
   window.Open();
   }
 
@@ -264,6 +266,14 @@ void test_event_listner() {
   window.Open();
 }
 
+void test_gui_view() {
+  const std::size_t width = 1024;
+  const std::size_t height = 768;
+  GLFWWindow window(width, height, "GUIView");
+  window.SetGUIView(new GLFWDebugGUIView(window.GetOpenGLWindow()));
+  window.Open();
+}
+
 int main()
   {
   //test_fluid();
@@ -275,5 +285,6 @@ int main()
 #endif
   //test_fractals();
   //test_event_listner();
+  //test_gui_view();
   return 0;
   }
