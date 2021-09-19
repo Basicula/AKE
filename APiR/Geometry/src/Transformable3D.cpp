@@ -17,15 +17,6 @@ void Transformable3D::Scale(const Vector3d& i_factors)
   _OnTransformationChange();
   }
 
-Vector3d Transformable3D::ApplyScaling(const Vector3d& i_point) const
-  {
-  const auto& scaling = m_transformation.GetScale();
-  return Vector3d(
-    scaling[0] * i_point[0], 
-    scaling[1] * i_point[1], 
-    scaling[2] * i_point[2]);
-  }
-
 void Transformable3D::Rotate(const Vector3d& i_axis, double i_degree_in_rad)
   {
   const auto old_rotation = m_transformation.GetRotation();
@@ -35,23 +26,10 @@ void Transformable3D::Rotate(const Vector3d& i_axis, double i_degree_in_rad)
   _OnTransformationChange();
   }
 
-Vector3d Transformable3D::ApplyRotation(const Vector3d& i_point) const
-  {
-  const auto& rotation = m_transformation.GetRotation();
-  auto res = i_point;
-  rotation.ApplyLeft(res);
-  return res;
-  }
-
 void Transformable3D::Translate(const Vector3d& i_translation)
   {
   m_transformation.SetTranslation(m_transformation.GetTranslation() + i_translation);
   _OnTransformationChange();
-  }
-
-Vector3d Transformable3D::ApplyTranslation(const Vector3d& i_point) const
-  {
-  return i_point + m_transformation.GetTranslation();
   }
 
 Ray Transformable3D::RayToLocal(const Ray& i_ray) const
@@ -61,9 +39,9 @@ Ray Transformable3D::RayToLocal(const Ray& i_ray) const
     m_transformation.InverseTransform(i_ray.GetDirection(), true));
   }
 
-BoundingBox Transformable3D::BBoxToWorld(const BoundingBox& i_local_bbox) const
+BoundingBox3D Transformable3D::BBoxToWorld(const BoundingBox3D& i_local_bbox) const
   {
-  BoundingBox res;
+  BoundingBox3D res;
   for (auto corner_id = 0; corner_id < 8; ++corner_id)
     res.AddPoint(PointToWorld(i_local_bbox.GetCorner(corner_id)));
   return res;

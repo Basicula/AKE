@@ -51,7 +51,7 @@ inline void Sphere::SetRadius(double i_radius)
 inline std::string Sphere::Serialize() const
   {
   std::string res = "{ \"Sphere\" : { ";
-  res += "\"Center\" : " + ApplyTranslation(Vector3d(0)).Serialize() + ", ";
+  res += "\"Center\" : " + GetCenter().Serialize() + ", ";
   res += "\"Radius\" : " + std::to_string(m_radius);
   res += "} }";
   return res;

@@ -23,23 +23,20 @@ class Transformable3D
     void SetScale(const Vector3d& i_factors);
     void Scale(double i_factor);
     void Scale(const Vector3d& i_factors);
-    Vector3d ApplyScaling(const Vector3d& i_point) const;
 
     // Rotations
     Matrix3x3d GetRotation() const;
     void SetRotation(const Vector3d& i_axis, double i_degree_in_rad);
     void Rotate(const Vector3d& i_axis, double i_degree_in_rad);
-    Vector3d ApplyRotation(const Vector3d& i_point) const;
 
     // Translations
     Vector3d GetTranslation() const;
     void SetTranslation(const Vector3d& i_translation);
     void Translate(const Vector3d& i_translation);
-    Vector3d ApplyTranslation(const Vector3d& i_point) const;
 
     Ray RayToLocal(const Ray& i_world_ray) const;
 
-    BoundingBox BBoxToWorld(const BoundingBox& i_local_bbox) const;
+    BoundingBox3D BBoxToWorld(const BoundingBox3D& i_local_bbox) const;
 
   protected:
     virtual void _OnTransformationChange() = 0;
