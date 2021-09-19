@@ -17,8 +17,8 @@ class Transformation
     Vector3d GetTranslation() const;
     void SetTranslation(const Vector3d& i_translation);
 
-    Matrix3d GetRotation() const;
-    void SetRotation(const Matrix3d& i_rotation_matrix);
+    Matrix3x3d GetRotation() const;
+    void SetRotation(const Matrix3x3d& i_rotation_matrix);
     void SetRotation(const Vector3d& i_axis, double i_degree_in_rad);
 
     void Inverse();
@@ -45,8 +45,8 @@ class Transformation
     Vector3d m_translation;
     Vector3d m_scale;
 
-    Matrix3d m_rotation;
-    Matrix3d m_inverse_rotation;
+    Matrix3x3d m_rotation;
+    Matrix3x3d m_inverse_rotation;
   };
 
 inline Vector3d Transformation::GetScale() const
@@ -69,12 +69,12 @@ inline void Transformation::SetTranslation(const Vector3d& i_translation)
   m_translation = i_translation;
   }
 
-inline Matrix3d Transformation::GetRotation() const
+inline Matrix3x3d Transformation::GetRotation() const
   {
   return m_rotation;
   }
 
-inline void Transformation::SetRotation(const Matrix3d& i_rotation_matrix)
+inline void Transformation::SetRotation(const Matrix3x3d& i_rotation_matrix)
   {
   m_rotation = i_rotation_matrix;
   m_inverse_rotation = i_rotation_matrix.Transposed();

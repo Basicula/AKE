@@ -24,7 +24,7 @@ void Transformation::SetRotation(
   const double ux = i_axis[0];
   const double uy = i_axis[1];
   const double uz = i_axis[2];
-  m_rotation = Matrix3d
+  m_rotation = Matrix3x3d
     {
     cosine + ux * ux * one_minus_cos,     ux * uy * one_minus_cos - uz * sine,  ux * uz * one_minus_cos + uy * sine,
     uy * ux * one_minus_cos + uz * sine,  cosine + uy * uy * one_minus_cos,     uy * uz * one_minus_cos - ux * sine,

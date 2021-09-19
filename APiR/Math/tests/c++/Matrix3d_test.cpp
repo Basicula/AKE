@@ -5,15 +5,17 @@
 
 TEST(Matrix3dMultiplicationSuite, IdentityAndVector)
   {
-  Matrix3d matrix;
+  Matrix3x3d matrix;
   Vector3d vector(1, 2, 3);
-  EXPECT_EQ(vector, matrix * vector);
+  const Vector3d expected(1, 2, 3);
+  matrix.ApplyLeft(vector);
+  EXPECT_EQ(vector, expected);
   }
 
 TEST(Matrix3dMultiplicationSuite, MatrixAndMatrix)
   {
-  Matrix3d matrix1, matrix2;
-  const Matrix3d expected;
+  Matrix3x3d matrix1, matrix2;
+  const Matrix3x3d expected;
   const auto actual = matrix1 * matrix2;
   for (auto i = 0; i < 3; ++i)
     for (auto j = 0; j < 3; ++j)
@@ -22,7 +24,7 @@ TEST(Matrix3dMultiplicationSuite, MatrixAndMatrix)
 
 TEST(Matrix3dMultiplicationSuite, CheckRotationOrthogonality)
   {
-  Matrix3d matrix1
+  Matrix3x3d matrix1
     {
     0.0, -1.0, 0.0,
     1.0, 0.0, 0.0,
@@ -34,7 +36,7 @@ TEST(Matrix3dMultiplicationSuite, CheckRotationOrthogonality)
     -1.0, 0.0, 0.0,
     0.0, 0.0, 1.0
     };
-  const Matrix3d expected;
+  const Matrix3x3d expected;
   const auto actual = matrix1 * matrix2;
   for (auto i = 0; i < 3; ++i)
     for (auto j = 0; j < 3; ++j)
@@ -43,37 +45,37 @@ TEST(Matrix3dMultiplicationSuite, CheckRotationOrthogonality)
 
 TEST(Matrix3dMultiplicationSuite, Rotate90)
   {
-  Matrix3d matrix
+  Matrix3x3d matrix
     {
     0.0, -1.0, 0.0,
     1.0, 0.0, 0.0,
     0.0, 0.0, 1.0
     };
-  const Vector3d vector(1, 1, 0);
+  Vector3d vector(1, 1, 0);
   const Vector3d expected(-1, 1, 0);
-  const auto actual = matrix * vector;
-  EXPECT_EQ(expected, actual);
+  matrix.ApplyLeft(vector);
+  EXPECT_EQ(expected, vector);
   }
 
 TEST(Matrix3dMultiplicationSuite, Rotate45)
   {
   const double sqrt2 = sqrt(2);
-  Matrix3d matrix
+  Matrix3x3d matrix
     {
     1.0 / sqrt2, -1.0 / sqrt2, 0.0,
     1.0 / sqrt2, 1.0 / sqrt2, 0.0,
     0.0, 0.0, 1.0
     };
-  const Vector3d vector(1, 1, 0);
+  Vector3d vector(1, 1, 0);
   const Vector3d expected(0, sqrt2, 0);
-  const auto actual = matrix * vector;
+  matrix.ApplyLeft(vector);
   for (auto i = 0u; i < 3; ++i)
-    EXPECT_DOUBLE_EQ(expected[i], actual[i]);
+    EXPECT_DOUBLE_EQ(expected[i], vector[i]);
   }
 
 TEST(Matrix3dMultiplicationSuite, ApplyToVector)
   {
-  Matrix3d matrix
+  Matrix3x3d matrix
     {
     1.0, 2.0, 3.0,
     4.0, 5.0, 6.0,

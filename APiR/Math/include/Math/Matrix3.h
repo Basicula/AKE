@@ -15,7 +15,6 @@ class Matrix3
     ElementType operator()(std::size_t i, std::size_t j) const;
     ElementType& operator()(std::size_t i, std::size_t j);
 
-    Vector3d operator*(const Vector3d& i_vector) const;
     Matrix3 operator*(const Matrix3& i_other) const;
 
     // matrix * vector
@@ -36,6 +35,6 @@ class Matrix3
     static const std::size_t m_matrix_dim = 3;
   };
 
-using Matrix3d = Matrix3<double>;
+using Matrix3x3d = Matrix3<double>;
 
 #include <Math/impl/Matrix3Impl.h>

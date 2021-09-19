@@ -26,7 +26,7 @@ class Transformable
     Vector3d ApplyScaling(const Vector3d& i_point) const;
 
     // Rotations
-    Matrix3d GetRotation() const;
+    Matrix3x3d GetRotation() const;
     void SetRotation(const Vector3d& i_axis, double i_degree_in_rad);
     void Rotate(const Vector3d& i_axis, double i_degree_in_rad);
     Vector3d ApplyRotation(const Vector3d& i_point) const;
@@ -84,7 +84,7 @@ inline void Transformable::SetScale(const Vector3d& i_factors)
   _OnTransformationChange();
   }
 
-inline Matrix3d Transformable::GetRotation() const
+inline Matrix3x3d Transformable::GetRotation() const
   {
   return m_transformation.GetRotation();
   }

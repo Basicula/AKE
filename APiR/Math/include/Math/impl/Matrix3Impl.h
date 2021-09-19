@@ -43,24 +43,6 @@ inline ElementType& Matrix3<ElementType>::operator()(std::size_t i, std::size_t 
   }
 
 template<class ElementType>
-Vector3d Matrix3<ElementType>::operator*(const Vector3d& i_vector) const
-  {
-  const double x =
-    m_matrix[0][0] * i_vector[0] + 
-    m_matrix[0][1] * i_vector[1] + 
-    m_matrix[0][2] * i_vector[2];
-  const double y =
-    m_matrix[1][0] * i_vector[0] + 
-    m_matrix[1][1] * i_vector[1] + 
-    m_matrix[1][2] * i_vector[2];
-  const double z =
-    m_matrix[2][0] * i_vector[0] + 
-    m_matrix[2][1] * i_vector[1] + 
-    m_matrix[2][2] * i_vector[2];
-  return Vector3d(x, y, z);
-  }
-
-template<class ElementType>
 Matrix3<ElementType> Matrix3<ElementType>::operator*(const Matrix3& i_other) const
   {
   Matrix3 temp;
