@@ -82,7 +82,7 @@ std::string Fluid::Serialize() const
   return res;
 }
 
-BoundingBox Fluid::GetBoundingBox() const
+BoundingBox3D Fluid::GetBoundingBox() const
 {
   return m_bbox;
 }

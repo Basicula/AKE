@@ -1,7 +1,6 @@
-#include "Geometry/Cylinder.h"
+#include "Geometry.3D/Cylinder.h"
 
 #include "Common/Constants.h"
-#include "Math/SolveEquations.h"
 
 Cylinder::Cylinder(const Vector3d& i_center, double i_radius, double i_height)
   : ISurface()

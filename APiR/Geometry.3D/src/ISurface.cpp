@@ -1,6 +1,6 @@
 #include "Geometry.3D/ISurface.h"
 
-BoundingBox ISurface::GetBoundingBox() const
+BoundingBox3D ISurface::GetBoundingBox() const
 {
   return m_bounding_box;
 }

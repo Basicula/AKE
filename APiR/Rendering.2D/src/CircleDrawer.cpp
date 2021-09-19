@@ -23,7 +23,7 @@ void CircleDrawer::Draw() const
     glBegin(GL_LINE_LOOP);
   glColor3ub(m_color.GetRed(), m_color.GetGreen(), m_color.GetBlue());
   for (std::size_t segment_id = 0; segment_id <= segments_count; segment_id++) {
-    const auto angle = static_cast<double>(segment_id) * TWOPI / segments_count;
+    const auto angle = static_cast<double>(segment_id) * Math::Constants::TWOPI / segments_count;
     glVertex2d(x + radius * cos(angle), y + radius * sin(angle));
   }
   glEnd();

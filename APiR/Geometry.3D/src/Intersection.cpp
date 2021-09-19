@@ -1,18 +1,16 @@
 #include "Geometry.3D/Intersection.h"
 
-#include "Common/Constants.h"
-#include "Geometry/BoundingBox.h"
-#include "Geometry.3D/Ray.h"
-
-namespace {
-  void RayBoxIntersection(bool& o_is_intersected,
-                          double& o_near,
-                          double& o_far,
-                          const Ray& i_ray,
-                          const BoundingBox& i_box)
+namespace
   {
-    const auto& min_corner = i_box.GetMin();
-    const auto& max_corner = i_box.GetMax();
+  void RayBoxIntersection(
+    bool& o_is_intersected,
+    double& o_near,
+    double& o_far,
+    const Ray& i_ray,
+    const BoundingBox3D& i_box)
+    {
+    const auto& min_corner = i_box.m_min;
+    const auto& max_corner = i_box.m_max;
     const auto& origin = i_ray.GetOrigin();
     const auto& ray_direction = i_ray.GetDirection();
 
@@ -53,13 +51,23 @@ void RayBoxIntersectionRecord::Reset()
   m_tmin = MAX_DOUBLE;
 }
 
-void RayBoxIntersection(const Ray& i_ray, const BoundingBox& i_box, RayBoxIntersectionRecord& o_intersection)
-{
-  RayBoxIntersection(o_intersection.m_intersected, o_intersection.m_tmin, o_intersection.m_tmax, i_ray, i_box);
-}
+void RayBoxIntersection(
+  const Ray & i_ray,
+  const BoundingBox3D& i_box,
+  RayBoxIntersectionRecord& o_intersection)
+  {
+  RayBoxIntersection(
+    o_intersection.m_intersected,
+    o_intersection.m_tmin,
+    o_intersection.m_tmax,
+    i_ray,
+    i_box);
+  }
 
-bool RayIntersectBox(const Ray& i_ray, const BoundingBox& i_box)
-{
+bool RayIntersectBox(
+  const Ray& i_ray,
+  const BoundingBox3D& i_box)
+  {
   bool is_intersected;
   double temp_near, temp_far;
   RayBoxIntersection(is_intersected, temp_near, temp_far, i_ray, i_box);

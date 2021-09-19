@@ -52,9 +52,9 @@ Ray Transformable::RayToLocal(const Ray& i_ray) const
              m_transformation.InverseTransform(i_ray.GetDirection(), true));
 }
 
-BoundingBox Transformable::BBoxToWorld(const BoundingBox& i_local_bbox) const
+BoundingBox3D Transformable::BBoxToWorld(const BoundingBox3D& i_local_bbox) const
 {
-  BoundingBox res;
+  BoundingBox3D res;
   for (auto corner_id = 0; corner_id < 8; ++corner_id)
     res.AddPoint(PointToWorld(i_local_bbox.GetCorner(corner_id)));
   return res;
