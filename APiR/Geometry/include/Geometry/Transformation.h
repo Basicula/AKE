@@ -2,7 +2,7 @@
 #include <Geometry/BoundingBox.h>
 #include <Geometry/Ray.h>
 
-#include <Math/Matrix3.h>
+#include <Math/SquareMatrix.h>
 #include <Math/Vector.h>
 
 class Transformation

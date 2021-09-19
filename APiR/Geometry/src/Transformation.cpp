@@ -5,7 +5,10 @@ Transformation::Transformation()
   , m_scale(1.0)
   , m_rotation()
   , m_inverse_rotation()
-  {}
+  {
+  m_rotation.SetIdentity();
+  m_inverse_rotation.SetIdentity();
+  }
 
 Transformation::Transformation(const Transformation& i_other)
   : m_translation(i_other.m_translation)
