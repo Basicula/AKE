@@ -1,4 +1,4 @@
-#include <Geometry/Transformation.h>
+#include <Geometry/Transformation3D.h>
 #include <Math/Constants.h>
 
 #include <Main/SimpleCameraController.h>
@@ -52,7 +52,7 @@ void SimpleCameraController::_RotateCamera() {
     const auto dy = m_mouse_position.second - m_prev_mouse_position[1];
     const auto angle = atan2(dy, dx);
     const auto& camera_direction = mp_camera->GetDirection();
-    Transformation rotation;
+    Transformation3D rotation;
     rotation.SetRotation(camera_direction, angle);
     auto new_camera_right = mp_camera->GetRight();
     rotation.Rotate(new_camera_right);
