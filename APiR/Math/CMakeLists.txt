@@ -19,9 +19,7 @@ set(
   impl/VectorOperationsImpl.h
   
   SquareMatrix.h
-  Matrix3.h
   impl/SquareMatrixImpl.h
-  impl/Matrix3Impl.h
 )
 
 set(
@@ -37,7 +35,6 @@ set(
   Vector3d_test.cpp
   
   Matrix_test.cpp
-  Matrix3d_test.cpp
 )
 
 generate_project(
