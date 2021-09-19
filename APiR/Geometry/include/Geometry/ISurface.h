@@ -13,7 +13,7 @@ class ISurface : public Transformable3D
     ISurface() = default;
     virtual ~ISurface() = default;
 
-    BoundingBox GetBoundingBox() const;
+    BoundingBox3D GetBoundingBox() const;
     bool IntersectWithRay(
       double& o_distance,
       const Ray& i_ray,
@@ -34,5 +34,5 @@ class ISurface : public Transformable3D
     virtual void _OnTransformationChange() override;
 
   protected:
-    BoundingBox m_bounding_box;
+    BoundingBox3D m_bounding_box;
   };

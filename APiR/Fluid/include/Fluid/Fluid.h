@@ -14,7 +14,7 @@ class Fluid : public Object
       const Ray& i_ray,
       const double i_far) const override;
     virtual std::string Serialize() const;
-    virtual BoundingBox GetBoundingBox() const override;
+    virtual BoundingBox3D GetBoundingBox() const override;
     virtual Vector3d GetNormalAtPoint(const Vector3d& i_point) const override;
 
     void Update();
@@ -26,7 +26,7 @@ class Fluid : public Object
     void _UpdateBBox();
 
   private:
-    BoundingBox m_bbox;
+    BoundingBox3D m_bbox;
     SPHSimulation m_simulation;
   };
 
@@ -38,7 +38,7 @@ inline std::string Fluid::Serialize() const
   return res;
   }
 
-inline BoundingBox Fluid::GetBoundingBox() const
+inline BoundingBox3D Fluid::GetBoundingBox() const
   {
   return m_bbox;
   }

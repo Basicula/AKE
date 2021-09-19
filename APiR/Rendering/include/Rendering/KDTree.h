@@ -22,7 +22,7 @@ class KDTree : public Container
       std::int64_t left;
       std::int64_t right;
       KDNodeType type;
-      BoundingBox bounding_box;
+      BoundingBox3D bounding_box;
       };
 
   public:
@@ -40,7 +40,7 @@ class KDTree : public Container
       std::size_t i_start,
       std::size_t i_end);
 
-    BoundingBox _BoundingBox(
+    BoundingBox3D _BoundingBox(
       std::size_t i_start,
       std::size_t i_end);
 

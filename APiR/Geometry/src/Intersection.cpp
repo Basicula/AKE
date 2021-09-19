@@ -10,10 +10,10 @@ namespace
     double& o_near,
     double& o_far,
     const Ray& i_ray,
-    const BoundingBox& i_box)
+    const BoundingBox3D& i_box)
     {
-    const auto& min_corner = i_box.GetMin();
-    const auto& max_corner = i_box.GetMax();
+    const auto& min_corner = i_box.m_min;
+    const auto& max_corner = i_box.m_max;
     const auto& origin = i_ray.GetOrigin();
     const auto& ray_direction = i_ray.GetDirection();
 
@@ -58,7 +58,7 @@ void RayBoxIntersectionRecord::Reset()
 
 void RayBoxIntersection(
   const Ray & i_ray,
-  const BoundingBox & i_box, 
+  const BoundingBox3D& i_box,
   RayBoxIntersectionRecord& o_intersection)
   {
   RayBoxIntersection(
@@ -71,7 +71,7 @@ void RayBoxIntersection(
 
 bool RayIntersectBox(
   const Ray& i_ray,
-  const BoundingBox& i_box)
+  const BoundingBox3D& i_box)
   {
   bool is_intersected;
   double temp_near, temp_far;
