@@ -39,7 +39,7 @@ class Transformable
 
     Ray RayToLocal(const Ray& i_world_ray) const;
 
-    BoundingBox BBoxToWorld(const BoundingBox& i_local_bbox) const;
+    BoundingBox3D BBoxToWorld(const BoundingBox3D& i_local_bbox) const;
 
   protected:
     virtual void _OnTransformationChange() = 0;

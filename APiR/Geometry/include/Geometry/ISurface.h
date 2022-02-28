@@ -1,13 +1,11 @@
 #pragma once
 #include <Geometry/BoundingBox.h>
 #include <Geometry/Ray.h>
-#include <Geometry/Transformable3D.h>
+#include <Geometry/Transformable.h>
 
 #include <Common/Constants.h>
 
-#include <memory>
-
-class ISurface : public Transformable3D
+class ISurface : public Transformable
   {
   public:
     ISurface() = default;

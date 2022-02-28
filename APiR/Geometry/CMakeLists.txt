@@ -1,8 +1,6 @@
 set(
   SOURCES
   
-  BoundingBox.cpp
-  
   Transformable.cpp
   Transformation.cpp
   
