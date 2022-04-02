@@ -2,11 +2,12 @@ import os
 import sys
 
 def add_component(module, component):
+    project_folder_root = os.path.abspath("./APiR/")
     ok = True
-    include = "./"+module+"/include/"
-    sources = "./"+module+"/src/"
-    py = "./"+module+"/py/"
-    python_tests = "./"+module+"/tests/python/"
+    include = f"{project_folder_root}/{module}/include/{module}/"
+    sources = f"{project_folder_root}/{module}/src/"
+    py = f"{project_folder_root}/{module}/py/"
+    python_tests = f"{project_folder_root}/{module}/tests/python/"
     if not os.path.exists(include):
         ok = False
         print("Include directory missing")
