@@ -1,60 +1,58 @@
 #pragma once
 #include "Image/Image.h"
-
 #include "Rendering/Camera.h"
-#include "Rendering/Object.h"
 #include "Rendering/KDTree.h"
-
-#include "Visual/IVisualMaterial.h"
+#include "Rendering/Object.h"
 #include "Visual/ILight.h"
+#include "Visual/IVisualMaterial.h"
 
-#include <vector>
 #include <memory>
 #include <string>
+#include <vector>
 
 class Scene final
-  {
-  public:
-    Scene(const std::string& i_name = "Unnamed");
-    Scene(Scene&& i_other) noexcept;
-    ~Scene();
+{
+public:
+  Scene(const std::string& i_name = "Unnamed");
+  Scene(Scene&& i_other) noexcept;
+  ~Scene();
 
-    void AddObject(Object* ip_object);
-    void AddCamera(Camera* ip_camera, bool i_set_active = false);
-    void AddLight(ILight* ip_light);
+  void AddObject(Object* ip_object);
+  void AddCamera(Camera* ip_camera, bool i_set_active = false);
+  void AddLight(ILight* ip_light);
 
-    std::size_t GetNumObjects() const;
-    std::size_t GetNumLights() const;
-    std::size_t GetNumCameras() const;
+  std::size_t GetNumObjects() const;
+  std::size_t GetNumLights() const;
+  std::size_t GetNumCameras() const;
 
-    const ILight* GetLight(size_t i_id) const;
+  const ILight* GetLight(size_t i_id) const;
 
-    HOSTDEVICE const Object* TraceRay(double& o_distance, const Ray& i_ray) const;
+  HOSTDEVICE const Object* TraceRay(double& o_distance, const Ray& i_ray) const;
 
-    bool SetActiveCamera(std::size_t i_id);
-    std::size_t GetActiveCameraId() const;
-    HOSTDEVICE Camera* GetActiveCamera();
-    HOSTDEVICE const Camera* GetActiveCamera() const;
+  bool SetActiveCamera(std::size_t i_id);
+  std::size_t GetActiveCameraId() const;
+  HOSTDEVICE Camera* GetActiveCamera();
+  HOSTDEVICE const Camera* GetActiveCamera() const;
 
-    bool SetOnOffLight(std::size_t i_id, bool i_state);
+  bool SetOnOffLight(std::size_t i_id, bool i_state);
 
-    std::string GetName() const;
-    void SetName(const std::string& i_name);
+  std::string GetName() const;
+  void SetName(const std::string& i_name);
 
-    Color GetBackGroundColor() const;
-    void SetBackGroundColor(const Color& i_color);
+  Color GetBackGroundColor() const;
+  void SetBackGroundColor(const Color& i_color);
 
-    void Update();
+  void Update();
 
-    std::string Serialize() const;
+  std::string Serialize() const;
 
-  private:
-    std::string m_name;
+private:
+  std::string m_name;
 
-    std::size_t m_active_camera;
+  std::size_t m_active_camera;
 
-    Color m_background_color;
-    Container* mp_object_container;
-    std::vector<Camera*> m_cameras;
-    std::vector<ILight*> m_lights;
-  };
+  Color m_background_color;
+  Container* mp_object_container;
+  std::vector<Camera*> m_cameras;
+  std::vector<ILight*> m_lights;
+};

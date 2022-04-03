@@ -1,6 +1,5 @@
 #pragma once
 #include "Image/Image.h"
-
 #include "Window/EventListner.h"
 #include "Window/FPSCounter.h"
 #include "Window/GUIView.h"
@@ -8,7 +7,8 @@
 #include <functional>
 #include <string>
 
-class Window {
+class Window
+{
 public:
   // Lambda or function that need to be run each frame
   using UpdateFunction = std::function<void()>;

@@ -8,5 +8,5 @@
 // Force    F         newtons         kg * m / s^(-2)
 
 // All constants must be written in SI
-constexpr double DEFAULT_TIME_STEP    = 0.05;
-constexpr double GRAVITY_CONSTANT     = 9.8;
+constexpr double DEFAULT_TIME_STEP = 0.05;
+constexpr double GRAVITY_CONSTANT = 9.8;

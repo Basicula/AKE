@@ -10,7 +10,7 @@ public:
 
   const Vector3d& GetOrigin() const;
   void SetOrigin(const Vector3d& i_origin);
-  
+
   const Vector3d& GetDirection() const;
   void SetDirection(const Vector3d& i_direction);
 

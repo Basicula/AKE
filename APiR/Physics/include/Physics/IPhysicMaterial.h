@@ -1,6 +1,7 @@
 #pragma once
 
-class IPhysicMaterial {
+class IPhysicMaterial
+{
 public:
   virtual ~IPhysicMaterial() = default;
 };

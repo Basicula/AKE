@@ -1,8 +1,10 @@
 #pragma once
 
-class Event {
+class Event
+{
 public:
-  enum class EventType {
+  enum class EventType
+  {
     MOUSE_MOVED_EVENT,
     MOUSE_SCOLLED_EVENT,
     MOUSE_BUTTON_PRESSED_EVENT,

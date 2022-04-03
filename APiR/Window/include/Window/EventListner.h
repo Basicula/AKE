@@ -1,14 +1,14 @@
 #pragma once
-#include "Window/Keys.h"
-
 #include "Window/Event.h"
 #include "Window/KeyboardEvent.h"
+#include "Window/Keys.h"
 #include "Window/MouseEvent.h"
 #include "Window/WindowEvent.h"
 
 #include <utility>
 
-class EventListner {
+class EventListner
+{
 public:
   EventListner();
   virtual ~EventListner() = default;

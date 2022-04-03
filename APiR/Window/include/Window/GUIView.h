@@ -1,6 +1,7 @@
 #pragma once
 
-class GUIView {
+class GUIView
+{
 public:
   virtual ~GUIView() = default;
 

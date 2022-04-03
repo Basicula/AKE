@@ -4,7 +4,8 @@
 
 #include <utility>
 
-class MouseButtonPressedEvent : public Event {
+class MouseButtonPressedEvent : public Event
+{
 public:
   MouseButtonPressedEvent(const MouseButton i_button);
 
@@ -14,7 +15,8 @@ private:
   MouseButton m_button;
 };
 
-class MouseButtonReleasedEvent : public Event {
+class MouseButtonReleasedEvent : public Event
+{
 public:
   MouseButtonReleasedEvent(const MouseButton i_button);
 
@@ -24,7 +26,8 @@ private:
   MouseButton m_button;
 };
 
-class MouseMovedEvent : public Event {
+class MouseMovedEvent : public Event
+{
 public:
   MouseMovedEvent(const double i_x, const double i_y);
 
@@ -35,7 +38,8 @@ private:
   double m_y;
 };
 
-class MouseScrollEvent : public Event {
+class MouseScrollEvent : public Event
+{
 public:
   MouseScrollEvent(const double i_offset);
 

@@ -1,7 +1,7 @@
+#include "Main/SimpleCameraController.h"
+
 #include "Geometry/Transformation.h"
 #include "Math/Constants.h"
-
-#include "Main/SimpleCameraController.h"
 
 SimpleCameraController::SimpleCameraController(Camera* ip_camera)
   : EventListner()
@@ -9,13 +9,16 @@ SimpleCameraController::SimpleCameraController(Camera* ip_camera)
   , m_movement_step(1)
   , m_angular_speed(PI / 45)
   , m_prev_mouse_position()
-  , m_rotation_enabled(false) {}
+  , m_rotation_enabled(false)
+{}
 
-void SimpleCameraController::PollEvents() {
+void SimpleCameraController::PollEvents()
+{
   _MoveCamera();
 }
 
-void SimpleCameraController::_ProcessEvent(const Event& i_event) {
+void SimpleCameraController::_ProcessEvent(const Event& i_event)
+{
   const auto event_type = i_event.Type();
   if (event_type == Event::EventType::MOUSE_MOVED_EVENT)
     _RotateCamera();
@@ -23,13 +26,13 @@ void SimpleCameraController::_ProcessEvent(const Event& i_event) {
     const auto& mouse_event = static_cast<const MouseButtonPressedEvent&>(i_event);
     if (mouse_event.Button() == MouseButton::MOUSE_LEFT_BUTTON)
       m_rotation_enabled = true;
-  }
-  else if (event_type == Event::EventType::MOUSE_BUTTON_RELEASED_EVENT) {
+  } else if (event_type == Event::EventType::MOUSE_BUTTON_RELEASED_EVENT) {
     m_rotation_enabled = false;
   }
 }
 
-void SimpleCameraController::_MoveCamera() {
+void SimpleCameraController::_MoveCamera()
+{
   Vector3d direction;
   if (_IsKeyPressed(KeyboardButton::KEY_W))
     direction += mp_camera->GetDirection();
@@ -46,7 +49,8 @@ void SimpleCameraController::_MoveCamera() {
   mp_camera->Move(direction * m_movement_step);
 }
 
-void SimpleCameraController::_RotateCamera() {
+void SimpleCameraController::_RotateCamera()
+{
   if (m_rotation_enabled) {
     const auto dx = m_mouse_position.first - m_prev_mouse_position[0];
     const auto dy = m_mouse_position.second - m_prev_mouse_position[1];

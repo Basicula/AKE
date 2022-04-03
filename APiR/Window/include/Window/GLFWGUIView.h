@@ -3,7 +3,8 @@
 
 struct GLFWwindow;
 
-class GLFWGUIView : public GUIView {
+class GLFWGUIView : public GUIView
+{
 public:
   GLFWGUIView(GLFWwindow* ip_window);
 
