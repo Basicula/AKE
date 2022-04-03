@@ -2,8 +2,6 @@ set(
   SOURCES
   
   ThreadPool.cpp
-  
-  Utils.cpp
 )
 
 set(
@@ -32,8 +30,6 @@ set(
   TESTS
   
   ThreadPool_test.cpp
-  
-  Utils.h
 )
 
 generate_project(
