@@ -1,14 +1,14 @@
 #pragma once
 #include "Macros.h"
 
-#include <memory>
+#include <cstddef>
 
 class Fractal
 {
 public:
   virtual ~Fractal() = default;
 
-  HOSTDEVICE virtual size_t GetValue(int i_x, int i_y) const = 0;
+  HOSTDEVICE [[nodiscard]] virtual size_t GetValue(int i_x, int i_y) const = 0;
 
   void SetMaxIterations(std::size_t i_max_iterations);
   void SetScale(float i_scale);
@@ -34,19 +34,3 @@ protected:
   float m_y_min;
   float m_y_max;
 };
-
-inline void Fractal::SetMaxIterations(std::size_t i_max_iterations)
-{
-  m_max_iterations = i_max_iterations;
-}
-
-inline void Fractal::SetScale(float i_scale)
-{
-  m_scale = i_scale;
-}
-
-inline void Fractal::SetOrigin(float i_origin_x, float i_origin_y)
-{
-  m_origin_x = i_origin_x;
-  m_origin_y = i_origin_y;
-}

@@ -3,22 +3,22 @@
 
 #include <string>
 
-class LyapunovFractal : public Fractal
+class LyapunovFractal final : public Fractal
 {
 public:
-  LyapunovFractal(const std::string& i_fractal_string,
+  LyapunovFractal(std::string i_fractal_string,
                   std::size_t i_width,
                   std::size_t i_height,
                   std::size_t i_max_iterations = 1000);
 
-  HOSTDEVICE virtual size_t GetValue(int i_x, int i_y) const override;
+  HOSTDEVICE [[nodiscard]] size_t GetValue(int i_x, int i_y) const override;
 
 protected:
-  HOSTDEVICE virtual void _InitFractalRange();
+  HOSTDEVICE void _InitFractalRange() override;
 
 private:
-  HOSTDEVICE double _ComputeLyapunovExponent(double i_zx, double i_zy) const;
-  HOSTDEVICE double _MainFunc(std::size_t i_n, double i_zx, double i_zy) const;
+  HOSTDEVICE [[nodiscard]] float _ComputeLyapunovExponent(float i_zx, float i_zy) const;
+  HOSTDEVICE [[nodiscard]] float _MainFunc(std::size_t i_n, float i_zx, float i_zy) const;
 
 private:
   std::string m_fractal_string;

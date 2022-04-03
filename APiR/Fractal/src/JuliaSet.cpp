@@ -1,13 +1,17 @@
 #include "Fractal/JuliaSet.h"
 
-JuliaSet::JuliaSet(std::size_t i_width, std::size_t i_height, std::size_t i_iterations)
+JuliaSet::JuliaSet(const std::size_t i_width, const std::size_t i_height, const std::size_t i_iterations)
   : Fractal(i_width, i_height, i_iterations)
+  , m_type(JuliaSetType::SpirallyBlob)
+  , m_cx(-0.11f)
+  , m_cy(0.6557f)
+
 {
   _InitFractalRange();
   _ResetStart();
 }
 
-size_t JuliaSet::GetValue(int i_x, int i_y) const
+size_t JuliaSet::GetValue(const int i_x, const int i_y) const
 {
   float zx, zy;
   _MapCoordinate(zx, zy, i_x, i_y);
@@ -23,7 +27,7 @@ size_t JuliaSet::GetValue(int i_x, int i_y) const
   return iter;
 }
 
-void JuliaSet::SetType(JuliaSetType i_type)
+void JuliaSet::SetType(const JuliaSetType i_type)
 {
   m_type = i_type;
   _ResetStart();
@@ -40,25 +44,27 @@ void JuliaSet::_InitFractalRange()
 void JuliaSet::_ResetStart()
 {
   switch (m_type) {
-    case JuliaSet::JuliaSetType::SpirallyBlob:
+    case JuliaSetType::SpirallyBlob:
       m_cx = -0.11f;
       m_cy = 0.6557f;
       break;
-    case JuliaSet::JuliaSetType::WhiskeryDragon:
+    case JuliaSetType::WhiskeryDragon:
       m_cx = -0.8f;
       m_cy = 0.15f;
       break;
-    case JuliaSet::JuliaSetType::SeparatedWhorls:
+    case JuliaSetType::SeparatedWhorls:
       m_cx = -0.743643887037151f;
       m_cy = 0.131825904205330f;
       break;
-    case JuliaSet::JuliaSetType::RomanescoBroccoli:
+    case JuliaSetType::RomanescoBroccoli:
       m_cx = 0.0f;
       m_cy = -0.636f;
       break;
-    default:
-      m_cx = -0.11f;
-      m_cy = 0.6557f;
-      break;
   }
+}
+
+inline void JuliaSet::SetCustomStart(const float i_cx, const float i_cy)
+{
+  m_cx = i_cx;
+  m_cy = i_cy;
 }
