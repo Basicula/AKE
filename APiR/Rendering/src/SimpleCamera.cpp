@@ -10,11 +10,10 @@ SimpleCamera::SimpleCamera(const Vector3d& i_location,
   : Camera(i_location, i_direction, i_up_vector)
   , m_fov(i_fov)
   , m_aspect(i_aspect)
-{
-  m_view_angle = m_fov * PI / 180;
-  m_half_height = tan(m_view_angle / 2);
-  m_half_width = m_half_height * m_aspect;
-}
+  , m_view_angle(m_fov * Math::Constants::PI / 180)
+  , m_half_height(tan(m_view_angle / 2))
+  , m_half_width(m_half_height * m_aspect)
+{}
 
 Ray SimpleCamera::CameraRay(const double i_u, const double i_v) const
 {

@@ -10,7 +10,7 @@ CPURayTracer::CPURayTracer()
 void CPURayTracer::Render()
 {
 #if true
-  ThreadPool::GetInstance()->ParallelFor(
+  Parallel::ThreadPool::GetInstance()->ParallelFor(
     static_cast<std::size_t>(0), mp_frame_image->GetSize(), [&](std::size_t i_pixel_id) {
       const auto x = i_pixel_id % mp_frame_image->GetWidth();
       const auto y = i_pixel_id / mp_frame_image->GetWidth();
@@ -18,7 +18,7 @@ void CPURayTracer::Render()
       const auto v = 1.0 * y / mp_frame_image->GetHeight();
       // if (x == mp_frame_image->GetWidth() / 2 && y == mp_frame_image->GetHeight() / 2)
       const auto color = _TraceRay(mp_active_camera->CameraRay(u, v));
-      mp_frame_image->SetPixel(x, y, color);
+      mp_frame_image->SetPixel(x, y, static_cast<std::uint32_t>(color));
     });
 #else
   for (auto y = 0; y < mp_frame_image->GetHeight(); ++y) {

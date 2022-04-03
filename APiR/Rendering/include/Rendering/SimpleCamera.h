@@ -24,6 +24,6 @@ private:
   double m_aspect;
 
   double m_view_angle;
-  double m_half_width;
   double m_half_height;
+  double m_half_width;
 };
