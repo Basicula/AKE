@@ -52,7 +52,7 @@ float LyapunovFractal::_ComputeLyapunovExponent(const float i_zx, const float i_
 
   float result = 0.0f;
   for (std::size_t i = 1; i < m_max_iterations; i++)
-    result += log(abs(_MainFunc(i, i_zx, i_zy)) * sequence[i]);
+    result += logf(abs(_MainFunc(i, i_zx, i_zy)) * sequence[i]);
 
   return result / static_cast<float>(m_max_iterations);
 }
