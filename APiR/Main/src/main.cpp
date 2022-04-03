@@ -34,6 +34,7 @@
 #include "Window/GLFWDebugGUIView.h"
 #include "Window/GLFWWindow.h"
 #include "Window/GLUTWindow.h"
+#include "Window/KeyboardEvent.h"
 
 #include <Memory/custom_vector.h>
 
@@ -145,8 +146,8 @@ void test_fractals()
   const std::size_t height = 768;
   Image image(width, height);
   std::size_t max_iterations = 100;
-  MandelbrotSet mandelbrot_set(width, height, max_iterations);
-  // JuliaSet julia_set(width, height, max_iterations);
+  //std::unique_ptr<Fractal> p_fractal = std::make_unique<MandelbrotSet>(width, height, max_iterations);
+  std::unique_ptr<Fractal> p_fractal = std::make_unique<JuliaSet>(width, height, max_iterations);
   custom_vector<Color> color_map{
     Color(0, 0, 0),       Color(66, 45, 15),    Color(25, 7, 25),    Color(10, 0, 45),    Color(5, 5, 73),
     Color(0, 7, 99),      Color(12, 43, 137),   Color(22, 81, 175),  Color(56, 124, 209), Color(132, 181, 229),
@@ -208,12 +209,12 @@ void test_fractals()
     const float delta = 0.1f;
     float origin_x = 0.0f, origin_y = 0.0f;
     float scale = 1.0f;
-  } event_listner(&mandelbrot_set);
+  } event_listner(p_fractal.get());
   auto update_func = [&]() {
-    ThreadPool::GetInstance()->ParallelFor(static_cast<std::size_t>(0), width * height, [&](std::size_t i) {
+    Parallel::ThreadPool::GetInstance()->ParallelFor(static_cast<std::size_t>(0), width * height, [&](std::size_t i) {
       int x = static_cast<int>(i % width);
       int y = static_cast<int>(i / width);
-      image.SetPixel(x, y, FractalMapping::Default(mandelbrot_set.GetValue(x, y), color_map));
+      image.SetPixel(x, y, static_cast<std::uint32_t>(FractalMapping::Default(p_fractal->GetValue(x, y), color_map)));
       // image.SetPixel(x, y, julia_set.GetColor(x, y));
     });
   };
@@ -246,13 +247,13 @@ void test_gui_view()
 int main()
 {
   // test_fluid();
-  test_scene();
+  // test_scene();
   // test();
   // test_opencl();
 #ifdef ENABLED_CUDA
   // test_cuda();
 #endif
-  // test_fractals();
+   test_fractals();
   // test_event_listner();
   // test_gui_view();
   return 0;

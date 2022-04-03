@@ -2,12 +2,13 @@
 
 #include "Geometry/Transformation.h"
 #include "Math/Constants.h"
+#include "Window/MouseEvent.h"
 
 SimpleCameraController::SimpleCameraController(Camera* ip_camera)
   : EventListner()
   , mp_camera(ip_camera)
   , m_movement_step(1)
-  , m_angular_speed(PI / 45)
+  , m_angular_speed(Math::Constants::PI / 45)
   , m_prev_mouse_position()
   , m_rotation_enabled(false)
 {}

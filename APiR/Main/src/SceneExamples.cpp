@@ -214,9 +214,10 @@ namespace ExampleScene {
 
     scene.AddLight(new SpotLight(Vector3d(0, 3, 0), Color::White, 0.25));
 
+    constexpr auto inv_sqrt3 = 1.0 / Math::Constants::SQRT_3;
     scene.AddCamera(
       new SimpleCamera(
-        Vector3d(-1, 1, -1), Vector3d(1, -1, 1), Vector3d(1 / SQRT_3, 1 / SQRT_3, 1 / SQRT_3), 75, 16.0 / 9.0),
+        Vector3d(-1, 1, -1), Vector3d(1, -1, 1), Vector3d(inv_sqrt3, inv_sqrt3, inv_sqrt3), 75, 16.0 / 9.0),
       true);
 
     return scene;
