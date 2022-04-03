@@ -53,6 +53,7 @@ set(
   
   Common
   Geometry
+  Geometry.3D
   Image
   Math
   Memory

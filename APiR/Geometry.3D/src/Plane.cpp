@@ -1,4 +1,4 @@
-#include <Geometry/Plane.h>
+#include <Geometry.3D/Plane.h>
 
 Plane::Plane(
   const Vector3d& i_first, 

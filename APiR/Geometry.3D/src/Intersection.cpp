@@ -1,6 +1,6 @@
-#include <Geometry/Intersection.h>
+#include <Geometry.3D/Intersection.h>
 #include <Geometry/BoundingBox.h>
-#include <Geometry/Ray.h>
+#include <Geometry.3D/Ray.h>
 #include <Common/Constants.h>
 
 namespace

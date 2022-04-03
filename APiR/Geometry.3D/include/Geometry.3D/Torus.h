@@ -1,6 +1,6 @@
 #pragma once
 #include <Math/Vector.h>
-#include <Geometry/ISurface.h>
+#include <Geometry.3D/ISurface.h>
 
 //based on torus equation
 /*

@@ -1,4 +1,4 @@
-#include <Geometry/Transformable.h>
+#include <Geometry.3D/Transformable.h>
 
 void Transformable::Scale(double i_factor)
   {

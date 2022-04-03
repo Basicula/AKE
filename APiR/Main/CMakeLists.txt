@@ -32,6 +32,7 @@ set(
   Physics
   Fractal
   Geometry
+  Geometry.3D
   Window
   Image
   Math

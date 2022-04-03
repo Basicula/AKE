@@ -1,4 +1,4 @@
-#include <Geometry/Sphere.h>
+#include <Geometry.3D/Sphere.h>
 #include <Math/SolveEquations.h>
 
 Sphere::Sphere(const Vector3d& i_center, double i_radius)

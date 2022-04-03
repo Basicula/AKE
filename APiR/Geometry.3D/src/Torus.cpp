@@ -1,4 +1,4 @@
-#include <Geometry/Torus.h>
+#include <Geometry.3D/Torus.h>
 #include <Math/SolveEquations.h>
 
 Torus::Torus(

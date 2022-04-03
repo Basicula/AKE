@@ -1,7 +1,7 @@
 #pragma once
 #include <Geometry/BoundingBox.h>
-#include <Geometry/Ray.h>
-#include <Geometry/Transformable.h>
+#include <Geometry.3D/Transformable.h>
+#include <Geometry.3D/Ray.h>
 
 #include <Common/Constants.h>
 

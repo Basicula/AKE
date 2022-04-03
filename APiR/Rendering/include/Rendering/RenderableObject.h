@@ -1,5 +1,5 @@
 #pragma once
-#include <Geometry/ISurface.h>
+#include <Geometry.3D/ISurface.h>
 #include <Rendering/Object.h>
 #include <Visual/IVisualMaterial.h>
 

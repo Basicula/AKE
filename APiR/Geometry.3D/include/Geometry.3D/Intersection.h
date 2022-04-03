@@ -1,7 +1,7 @@
 #pragma once
 #include <Math/Vector.h>
 #include <Geometry/BoundingBox.h>
-#include <Geometry/Ray.h>
+#include <Geometry.3D/Ray.h>
 
 #include <memory>
 

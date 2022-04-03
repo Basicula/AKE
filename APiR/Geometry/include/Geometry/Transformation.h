@@ -1,7 +1,4 @@
 #pragma once
-#include <Geometry/BoundingBox.h>
-#include <Geometry/Ray.h>
-
 #include <Math/SquareMatrix.h>
 #include <Math/Vector.h>
 

@@ -19,10 +19,10 @@
 #include <Fractal/MappingFunctions.h>
 
 #include <Geometry/BoundingBox.h>
-#include <Geometry/Sphere.h>
-#include <Geometry/Plane.h>
-#include <Geometry/Cylinder.h>
-#include <Geometry/Torus.h>
+#include <Geometry.3D/Sphere.h>
+#include <Geometry.3D/Plane.h>
+#include <Geometry.3D/Cylinder.h>
+#include <Geometry.3D/Torus.h>
 
 #include <Image/Image.h>
 

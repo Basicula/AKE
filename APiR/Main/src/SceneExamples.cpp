@@ -1,6 +1,15 @@
 #include <Main/SceneExamples.h>
 #include <Rendering/SimpleCamera.h>
 
+#include "Geometry.3D/Cylinder.h"
+#include "Geometry.3D/Plane.h"
+#include "Geometry.3D/Sphere.h"
+#include "Geometry.3D/Torus.h"
+#include "Math/Constants.h"
+#include "Rendering/RenderableObject.h"
+#include "Visual/PhongMaterial.h"
+#include "Visual/SpotLight.h"
+
 namespace ExampleMaterials {
   PhongMaterial* pure_mirror() { 
     return new PhongMaterial(Color(0, 0, 0), Vector3d(0.0, 0.0, 0.0), Vector3d(1.0, 1.0, 1.0), Vector3d(1.0, 1.0, 1.0), 1, 1);

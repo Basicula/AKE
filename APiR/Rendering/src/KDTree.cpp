@@ -1,5 +1,5 @@
 #include <Rendering/KDTree.h>
-#include <Geometry/Intersection.h>
+#include <Geometry.3D/Intersection.h>
 
 namespace
   {

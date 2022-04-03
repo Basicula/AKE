@@ -1,4 +1,4 @@
-#include <Geometry/ISurface.h>
+#include <Geometry.3D/ISurface.h>
 
 BoundingBox3D ISurface::GetBoundingBox() const {
   return m_bounding_box;
