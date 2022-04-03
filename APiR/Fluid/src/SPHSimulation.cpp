@@ -5,11 +5,11 @@
 #include "Physics/Constants.h"
 
 namespace {
-  double ComputePressureFromEOS(double i_density,
-                                double i_system_density,
-                                double i_eos_scale,
-                                double i_eos_exponent,
-                                double i_negative_pressure_scale)
+  double ComputePressureFromEOS(const double i_density,
+                                const double i_system_density,
+                                const double i_eos_scale,
+                                const double i_eos_exponent,
+                                const double i_negative_pressure_scale)
   {
     // See Murnaghan-Tait equation of state from
     // https://en.wikipedia.org/wiki/Tait_equation
@@ -23,7 +23,7 @@ namespace {
   }
 }
 
-SPHSimulation::SPHSimulation(std::size_t i_num_particles)
+SPHSimulation::SPHSimulation(const std::size_t i_num_particles)
   : Simulation(0.04)
   , m_particle_system(i_num_particles)
   , m_new_positions(i_num_particles)
@@ -39,8 +39,8 @@ void SPHSimulation::_InitParticles()
   auto particles_positions = m_particle_system.BeginPositions();
   const auto num_of_particles = m_particle_system.GetNumOfParticles();
 
-  ThreadPool::GetInstance()->ParallelFor(
-    static_cast<std::size_t>(0), num_of_particles, [&particles_positions](std::size_t i) {
+  Parallel::ThreadPool::GetInstance()->ParallelFor(
+    static_cast<std::size_t>(0), num_of_particles, [&particles_positions](const std::size_t i) {
       particles_positions[i] = Vector3d(5 * static_cast<double>(rand()) / RAND_MAX - 2.5,
                                         static_cast<double>(rand()) / RAND_MAX,
                                         5 * static_cast<double>(rand()) / RAND_MAX - 2.5);
@@ -75,14 +75,16 @@ void SPHSimulation::_PostProcessing()
 
 void SPHSimulation::_AccumulateExternalForces()
 {
-  size_t num_of_particles = m_particle_system.GetNumOfParticles();
+  const size_t num_of_particles = m_particle_system.GetNumOfParticles();
   auto forces = m_particle_system.BeginForces();
   const double mass = m_particle_system.GetMass();
 
   const auto gravity_force = Vector3d(0, -GRAVITY_CONSTANT, 0) * mass;
 
-  ThreadPool::GetInstance()->ParallelFor(
-    static_cast<std::size_t>(0), num_of_particles, [&](std::size_t i_index) { forces[i_index] += gravity_force; });
+  Parallel::ThreadPool::GetInstance()->ParallelFor(
+    static_cast<std::size_t>(0), num_of_particles, [&](const std::size_t i_index) {
+      forces[i_index] += gravity_force;
+    });
 }
 
 void SPHSimulation::_AccumulateViscosityForce()
@@ -100,7 +102,7 @@ void SPHSimulation::_AccumulateViscosityForce()
 
   const double viscosity = m_particle_system.GetViscosity();
 
-  ThreadPool::GetInstance()->ParallelFor(static_cast<size_t>(0), num_of_particles, [&](size_t i) {
+  Parallel::ThreadPool::GetInstance()->ParallelFor(static_cast<size_t>(0), num_of_particles, [&](const size_t i) {
     const auto& neighbors = neigbors_list[i];
     for (auto j : neighbors) {
       double dist = positions[i].Distance(positions[j]);
@@ -124,10 +126,11 @@ void SPHSimulation::_ComputePressure()
   // TODO : understand this
   const double eos_scale = system_density * sqr_speed_of_sound / 1e6;
 
-  ThreadPool::GetInstance()->ParallelFor(static_cast<std::size_t>(0), num_of_particles, [&](std::size_t i) {
-    pressures[i] =
-      ComputePressureFromEOS(densities[i], system_density, eos_scale, m_eos_exponent, m_negative_pressure_scale);
-  });
+  Parallel::ThreadPool::GetInstance()->ParallelFor(
+    static_cast<std::size_t>(0), num_of_particles, [&](const std::size_t i) {
+      pressures[i] =
+        ComputePressureFromEOS(densities[i], system_density, eos_scale, m_eos_exponent, m_negative_pressure_scale);
+    });
 }
 
 void SPHSimulation::_AccumulatePressureForeces()
@@ -143,18 +146,19 @@ void SPHSimulation::_AccumulatePressureForeces()
   const auto& neigbors_list = m_particle_system.GetNeighborsList();
   const SPHSpikyKernel kernel(m_particle_system.GetRadius());
 
-  ThreadPool::GetInstance()->ParallelFor(static_cast<std::size_t>(0), num_of_particles, [&](std::size_t i) {
-    const auto& neighbors = neigbors_list[i];
-    for (auto j : neighbors) {
-      const double dist = positions[i].Distance(positions[j]);
+  Parallel::ThreadPool::GetInstance()->ParallelFor(
+    static_cast<std::size_t>(0), num_of_particles, [&](const std::size_t i) {
+      const auto& neighbors = neigbors_list[i];
+      for (auto j : neighbors) {
+        const double dist = positions[i].Distance(positions[j]);
 
-      if (dist > 0.0) {
-        const Vector3d dir = (positions[j] - positions[i]) / dist;
-        forces[i] -= kernel.Gradient(dist, dir) * square_mass *
-                     (pressures[i] / (densities[i] * densities[i]) + pressures[j] / (densities[j] * densities[j]));
+        if (dist > 0.0) {
+          const Vector3d dir = (positions[j] - positions[i]) / dist;
+          forces[i] -= kernel.Gradient(dist, dir) * square_mass *
+                       (pressures[i] / (densities[i] * densities[i]) + pressures[j] / (densities[j] * densities[j]));
+        }
       }
-    }
-  });
+    });
 }
 
 void SPHSimulation::_UpdatePositionsAndVelocities()
@@ -162,7 +166,7 @@ void SPHSimulation::_UpdatePositionsAndVelocities()
   size_t num_of_particles = m_particle_system.GetNumOfParticles();
   auto positions = m_particle_system.BeginPositions();
   auto velocities = m_particle_system.BeginVelocities();
-  ThreadPool::GetInstance()->ParallelFor(static_cast<std::size_t>(0), num_of_particles, [&](size_t i) {
+  Parallel::ThreadPool::GetInstance()->ParallelFor(static_cast<std::size_t>(0), num_of_particles, [&](const size_t i) {
     positions[i] = m_new_positions[i];
     velocities[i] = m_new_velocities[i];
   });
@@ -172,17 +176,18 @@ void SPHSimulation::_ResolveCollisions()
 {
   size_t num_of_particles = m_particle_system.GetNumOfParticles();
 
-  ThreadPool::GetInstance()->ParallelFor(static_cast<std::size_t>(0), num_of_particles, [&](std::size_t i) {
-    if (m_new_positions[i].SquareLength() < 9)
-      return;
-    const auto& normal = -m_new_positions[i].Normalized();
-    const double dot = normal.Dot(-m_new_velocities[i]);
-    const auto vel_normal_component = normal * dot;
-    const auto vel_tangent_component = m_new_velocities[i] - vel_normal_component;
-    m_new_positions[i] = -normal * (3 - m_particle_system.GetRadius());
-    m_new_velocities[i] = vel_normal_component * 0.75 + vel_tangent_component * 0.5 +
-                          Vector3d(normal[1], -normal[0], 0.1) * 3; // rotation component emulates sphere rotation
-  });
+  Parallel::ThreadPool::GetInstance()->ParallelFor(
+    static_cast<std::size_t>(0), num_of_particles, [&](const std::size_t i) {
+      if (m_new_positions[i].SquareLength() < 9)
+        return;
+      const auto& normal = -m_new_positions[i].Normalized();
+      const double dot = normal.Dot(-m_new_velocities[i]);
+      const auto vel_normal_component = normal * dot;
+      const auto vel_tangent_component = m_new_velocities[i] - vel_normal_component;
+      m_new_positions[i] = -normal * (3 - m_particle_system.GetRadius());
+      m_new_velocities[i] = vel_normal_component * 0.75 + vel_tangent_component * 0.5 +
+                            Vector3d(normal[1], -normal[0], 0.1) * 3; // rotation component emulates sphere rotation
+    });
 }
 
 void SPHSimulation::_TimeIntegration()
@@ -191,9 +196,35 @@ void SPHSimulation::_TimeIntegration()
   auto positions = m_particle_system.BeginPositions();
   auto velocities = m_particle_system.BeginVelocities();
   auto forces = m_particle_system.BeginForces();
-  ThreadPool::GetInstance()->ParallelFor(static_cast<std::size_t>(0), num_of_particles, [&](std::size_t i) {
-    m_new_velocities[i] = velocities[i] + forces[i] * GetTimeStep() / m_particle_system.GetMass();
+  Parallel::ThreadPool::GetInstance()->ParallelFor(
+    static_cast<std::size_t>(0), num_of_particles, [&](const std::size_t i) {
+      m_new_velocities[i] = velocities[i] + forces[i] * GetTimeStep() / m_particle_system.GetMass();
 
-    m_new_positions[i] = positions[i] + m_new_velocities[i] * GetTimeStep();
-  });
+      m_new_positions[i] = positions[i] + m_new_velocities[i] * GetTimeStep();
+    });
+}
+
+const SPHSystem& SPHSimulation::GetParticleSystem() const
+{
+  return m_particle_system;
+}
+
+double SPHSimulation::GetEOSExponent() const
+{
+  return m_eos_exponent;
+}
+
+void SPHSimulation::SetEOSExponent(const double i_eos_exponent)
+{
+  m_eos_exponent = i_eos_exponent;
+}
+
+double SPHSimulation::GetNegativePressureScale() const
+{
+  return m_negative_pressure_scale;
+}
+
+void SPHSimulation::SetNegativePressureScale(const double i_scale)
+{
+  m_negative_pressure_scale = i_scale;
 }

@@ -6,23 +6,22 @@
 #include "Visual/PhongMaterial.h"
 
 namespace {
-  inline double SmoothingMin(double i_first_sdf, double i_second_sdf, double i_k)
+  double SmoothingMin(const double i_first_sdf, const double i_second_sdf, const double i_k)
   {
     if (i_first_sdf < i_second_sdf) {
       const double temp = i_k + i_first_sdf - i_second_sdf;
       const double h = temp > 0.0 ? temp / i_k : 0.0;
       return i_first_sdf - h * h * i_k * 0.25;
-    } else {
-      const double temp = i_k + i_second_sdf - i_first_sdf;
-      const double h = temp > 0.0 ? temp / i_k : 0.0;
-      return i_second_sdf - h * h * i_k * 0.25;
     }
+
+    const double temp = i_k + i_second_sdf - i_first_sdf;
+    const double h = temp > 0.0 ? temp / i_k : 0.0;
+    return i_second_sdf - h * h * i_k * 0.25;
   }
 }
 
-Fluid::Fluid(std::size_t i_num_particles)
+Fluid::Fluid(const std::size_t i_num_particles)
   : Object()
-  , m_bbox()
   , m_simulation(i_num_particles)
 {
   mp_visual_material = new PhongMaterial(Color(0xffff0000));
@@ -32,7 +31,6 @@ Fluid::Fluid(std::size_t i_num_particles)
 void Fluid::_UpdateBBox()
 {
   const auto& system = m_simulation.GetParticleSystem();
-  const auto num_of_particles = system.GetNumOfParticles();
   m_bbox.Reset();
   for (auto pos = system.BeginPositions(); pos != system.EndPositions(); ++pos) {
     m_bbox.AddPoint(*pos + 1);
@@ -59,7 +57,7 @@ bool Fluid::IntersectWithRay(double& o_distance, const Ray& i_ray, const double 
   const auto& ray_dir = i_ray.GetDirection();
   o_distance = 0.0;
   for (auto it = 0; it < 10; ++it) {
-    auto dist_to_fluid = sdf(ray_origin);
+    const auto dist_to_fluid = sdf(ray_origin);
     o_distance += dist_to_fluid;
     if (dist_to_fluid <= 0.0) {
       intersected = true;
@@ -70,8 +68,37 @@ bool Fluid::IntersectWithRay(double& o_distance, const Ray& i_ray, const double 
   return intersected;
 }
 
-inline Vector3d Fluid::GetNormalAtPoint(const Vector3d& /*i_point*/) const
+Vector3d Fluid::GetNormalAtPoint(const Vector3d& /*i_point*/) const
 {
   // TODO implement
-  return Vector3d();
+  return {};
+}
+
+std::string Fluid::Serialize() const
+{
+  std::string res = "{ \"Fluid\" : { ";
+  res += "\"NumOfParticles\" : " + std::to_string(GetNumParticles());
+  res += "} }";
+  return res;
+}
+
+BoundingBox Fluid::GetBoundingBox() const
+{
+  return m_bbox;
+}
+
+double Fluid::GetTimeStep() const
+{
+  return m_simulation.GetTimeStep();
+}
+
+std::size_t Fluid::GetNumParticles() const
+{
+  return m_simulation.GetParticleSystem().GetNumOfParticles();
+}
+
+void Fluid::Update()
+{
+  m_simulation.Update();
+  _UpdateBBox();
 }

@@ -8,7 +8,7 @@ SPHKernel::SPHKernel()
   , m_h5(0)
 {}
 
-SPHKernel::SPHKernel(double i_kernel_radius)
+SPHKernel::SPHKernel(const double i_kernel_radius)
   : m_h(i_kernel_radius)
   , m_h2(m_h * m_h)
   , m_h3(m_h2 * m_h)
