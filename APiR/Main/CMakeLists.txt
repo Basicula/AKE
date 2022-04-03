@@ -32,12 +32,14 @@ set(
   Physics
   Fractal
   Geometry
+  Geometry.2D
   Geometry.3D
   Window
   Image
   Math
   Memory
   Rendering
+  Rendering.2D
   Common
   Visual
 )

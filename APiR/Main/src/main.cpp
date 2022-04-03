@@ -23,6 +23,7 @@
 #include <Geometry.3D/Plane.h>
 #include <Geometry.3D/Cylinder.h>
 #include <Geometry.3D/Torus.h>
+#include <Geometry.2D/Circle.h>
 
 #include <Image/Image.h>
 
@@ -39,6 +40,9 @@
 #include <Rendering/Scene.h>
 #include <Rendering/CPURayTracer.h>
 #include <Rendering/SimpleCamera.h>
+#include <Rendering.2D/Scene2D.h>
+#include <Rendering.2D/OpenGLRenderer.h>
+#include <Rendering.2D/CircleDrawer.h>
 
 #include <Window/GLUTWindow.h>
 #include <Window/GLFWWindow.h>
@@ -122,6 +126,34 @@ void test_scene()
   window.SetImageSource(&image);
   window.SetUpdateFunction(update_func);
   window.SetEventListner(new SimpleCameraController(scene.GetActiveCamera()));
+  window.SetGUIView(new GLFWDebugGUIView(window.GetOpenGLWindow()));
+  window.Open();
+  }
+
+void test_scene_2d()
+  {
+  constexpr std::size_t width = 400;
+  constexpr std::size_t height = 400;
+
+  Scene2D scene("Test 2D scene");
+  for (std::size_t circle_id = 0; circle_id < 10; ++circle_id) {
+    const auto x = static_cast<double>(rand()) / RAND_MAX;
+    const auto y = static_cast<double>(rand()) / RAND_MAX;
+    const auto radius = static_cast<double>(rand()) / RAND_MAX;
+    auto p_circle = std::make_shared<Circle>(Vector2d(x, y), radius);
+    auto p_circle_drawer = std::make_shared<CircleDrawer>(p_circle, Color::Blue, false);
+    auto p_object = std::make_unique<Scene2D::Object>();
+    p_object->mp_shape = p_circle;
+    p_object->mp_drawer = p_circle_drawer;
+    scene.AddObject(std::move(p_object));
+  }
+
+  const OpenGLRenderer renderer(scene);
+
+  auto update_func = [&]() { renderer.Render(); };
+
+  GLFWWindow window(width, height, scene.GetName());
+  window.SetUpdateFunction(update_func);
   window.SetGUIView(new GLFWDebugGUIView(window.GetOpenGLWindow()));
   window.Open();
   }
@@ -277,7 +309,8 @@ void test_gui_view() {
 int main()
   {
   //test_fluid();
-  test_scene();
+  //test_scene();
+  test_scene_2d();
   //test();
   //test_opencl();
 #ifdef ENABLED_CUDA
