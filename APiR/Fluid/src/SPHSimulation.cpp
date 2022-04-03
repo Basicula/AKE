@@ -79,7 +79,7 @@ void SPHSimulation::_AccumulateExternalForces()
   auto forces = m_particle_system.BeginForces();
   const double mass = m_particle_system.GetMass();
 
-  const auto gravity_force = Vector3d(0, -GRAVITY_CONSTANT, 0) * mass;
+  const auto gravity_force = Vector3d(0, -Physics::Constants::GRAVITY_CONSTANT, 0) * mass;
 
   Parallel::ThreadPool::GetInstance()->ParallelFor(
     static_cast<std::size_t>(0), num_of_particles, [&](const std::size_t i_index) {
