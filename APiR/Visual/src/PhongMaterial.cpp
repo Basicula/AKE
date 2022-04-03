@@ -6,9 +6,9 @@ PhongMaterial::PhongMaterial(const Color& i_color,
                              const Vector3d& i_ambient,
                              const Vector3d& i_diffuse,
                              const Vector3d& i_specular,
-                             double i_shinines,
-                             double i_reflection,
-                             double i_refraction)
+                             const double i_shinines,
+                             const double i_reflection,
+                             const double i_refraction)
   : m_color(i_color)
   , m_shinines(i_shinines)
   , m_ambient(i_ambient)
@@ -35,5 +35,45 @@ Vector3d PhongMaterial::ReflectedDirection(const Vector3d& i_normal_at_point, co
 
 Vector3d PhongMaterial::RefractedDirection() const
 {
-  return Vector3d();
+  return {};
+}
+
+Color PhongMaterial::GetAmbientColor() const
+{
+  return m_color * m_ambient;
+};
+
+Color PhongMaterial::GetDiffuseColor() const
+{
+  return m_color * m_diffuse;
+};
+
+Color PhongMaterial::GetSpecularColor() const
+{
+  return m_color * m_specular;
+};
+
+bool PhongMaterial::IsReflectable() const
+{
+  return m_reflection > 0.0;
+}
+
+double PhongMaterial::ReflectionInfluence() const
+{
+  return m_reflection;
+}
+
+bool PhongMaterial::IsRefractable() const
+{
+  return m_refraction > 0.0;
+}
+
+double PhongMaterial::RefractionInfluence() const
+{
+  return m_refraction;
+}
+
+Color PhongMaterial::GetPrimitiveColor() const
+{
+  return GetAmbientColor();
 }
