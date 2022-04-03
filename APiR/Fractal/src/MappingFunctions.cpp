@@ -1,4 +1,4 @@
-#include <Fractal/MappingFunctions.h>
+#include "Fractal/MappingFunctions.h"
 
 namespace FractalMapping {
   Color Default(size_t i_val, const custom_vector<Color>& i_colors) {

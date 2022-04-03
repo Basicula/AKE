@@ -1,57 +1,57 @@
-#include <Common/ThreadPool.h>
+#include "Common/ThreadPool.h"
 
 #ifdef ENABLED_CUDA
-#include <CUDACore/CUDAUtils.h>
-#include <CUDACore/KernelHandler.h>
+#include "CUDACore/CUDAUtils.h"
+#include "CUDACore/KernelHandler.h"
 
 #include <Memory/device_ptr.h>
 #include <Memory/managed_ptr.h>
 #endif
 
-#include <Math/Constants.h>
-#include <Math/Vector.h>
+#include "Math/Constants.h"
+#include "Math/Vector.h"
 
-#include <Fluid/Fluid.h>
+#include "Fluid/Fluid.h"
 
-#include <Fractal/MandelbrotSet.h>
-#include <Fractal/JuliaSet.h>
-#include <Fractal/LyapunovFractal.h>
-#include <Fractal/MappingFunctions.h>
+#include "Fractal/MandelbrotSet.h"
+#include "Fractal/JuliaSet.h"
+#include "Fractal/LyapunovFractal.h"
+#include "Fractal/MappingFunctions.h"
 
-#include <Geometry/BoundingBox.h>
-#include <Geometry/Sphere.h>
-#include <Geometry/Plane.h>
-#include <Geometry/Cylinder.h>
-#include <Geometry/Torus.h>
+#include "Geometry/BoundingBox.h"
+#include "Geometry/Sphere.h"
+#include "Geometry/Plane.h"
+#include "Geometry/Cylinder.h"
+#include "Geometry/Torus.h"
 
-#include <Image/Image.h>
+#include "Image/Image.h"
 
-#include <Main/SceneExamples.h>
-#include <Main/ConsoleLogEventListner.h>
-#include <Main/SimpleCameraController.h>
+#include "Main/SceneExamples.h"
+#include "Main/ConsoleLogEventListner.h"
+#include "Main/SimpleCameraController.h"
 
 #include <Memory/custom_vector.h>
 
-#include <Visual/SpotLight.h>
-#include <Visual/PhongMaterial.h>
+#include "Visual/SpotLight.h"
+#include "Visual/PhongMaterial.h"
 
-#include <Rendering/RenderableObject.h>
-#include <Rendering/Scene.h>
-#include <Rendering/CPURayTracer.h>
-#include <Rendering/SimpleCamera.h>
+#include "Rendering/RenderableObject.h"
+#include "Rendering/Scene.h"
+#include "Rendering/CPURayTracer.h"
+#include "Rendering/SimpleCamera.h"
 
-#include <Window/GLUTWindow.h>
-#include <Window/GLFWWindow.h>
-#include <Window/GLFWDebugGUIView.h>
+#include "Window/GLUTWindow.h"
+#include "Window/GLFWWindow.h"
+#include "Window/GLFWDebugGUIView.h"
 
-#include <BMPWriter/BMPWriter.h>
+#include "BMPWriter/BMPWriter.h"
 
 #ifdef ENABLED_OPENCL
-#include <OpenCLCore/OpenCLEnvironment.h>
-#include <OpenCLKernels/MandelbrotSetKernel.h>
+#include "OpenCLCore/OpenCLEnvironment.h"
+#include "OpenCLKernels/MandelbrotSetKernel.h"
 #endif
 
-#include <Main/CudaTest.h>
+#include "Main/CudaTest.h"
 
 #include <iostream>
 #include <chrono>

@@ -1,5 +1,5 @@
 #pragma once
-#include <Fractal/ColorMap.h>
+#include "Fractal/ColorMap.h"
 
 class DefaultColorMap : public ColorMap
   {

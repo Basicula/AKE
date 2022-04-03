@@ -1,6 +1,6 @@
 #pragma once
-#include <Fluid/SPHSystem.h>
-#include <Physics/Simulation.h>
+#include "Fluid/SPHSystem.h"
+#include "Physics/Simulation.h"
 
 class SPHSimulation : public Simulation
   {

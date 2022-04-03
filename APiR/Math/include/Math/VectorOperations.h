@@ -1,5 +1,5 @@
 #pragma once
-#include <Math/Vector.h>
+#include "Math/Vector.h"
 
 namespace Math {
   template<typename T, std::size_t Dimension, typename std::enable_if<std::is_floating_point<T>::value>::type>

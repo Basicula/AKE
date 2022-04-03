@@ -1,8 +1,8 @@
 #pragma once
-#include <Macros.h>
+#include "Macros.h"
 
-#include <Memory/custom_vector.h>
-#include <Visual/Color.h>
+#include "Memory/custom_vector.h"
+#include "Visual/Color.h"
 
 namespace FractalMapping {
   HOSTDEVICE Color Default(size_t i_val, const custom_vector<Color>& i_colors);

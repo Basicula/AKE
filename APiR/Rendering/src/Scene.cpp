@@ -1,5 +1,5 @@
-#include <Rendering/Scene.h>
-#include <Common/ThreadPool.h>
+#include "Rendering/Scene.h"
+#include "Common/ThreadPool.h"
 
 Scene::Scene(const std::string& i_name)
   : m_name(i_name)

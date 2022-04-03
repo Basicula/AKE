@@ -1,5 +1,5 @@
-#include <BMPWriter/BMPWriter.h>
-#include <Visual/Color.h>
+#include "BMPWriter/BMPWriter.h"
+#include "Visual/Color.h"
 
 #include <fstream>
 

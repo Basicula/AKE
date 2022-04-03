@@ -1,8 +1,8 @@
 #pragma once
-#include <Geometry/Intersection.h>
-#include <Geometry/Transformation.h>
+#include "Geometry/Intersection.h"
+#include "Geometry/Transformation.h"
 
-#include <Math/Vector.h>
+#include "Math/Vector.h"
 
 class Transformable
   {

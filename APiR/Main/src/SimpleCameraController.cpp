@@ -1,7 +1,7 @@
-#include <Geometry/Transformation.h>
-#include <Math/Constants.h>
+#include "Geometry/Transformation.h"
+#include "Math/Constants.h"
 
-#include <Main/SimpleCameraController.h>
+#include "Main/SimpleCameraController.h"
 
 SimpleCameraController::SimpleCameraController(Camera* ip_camera)
   : EventListner()

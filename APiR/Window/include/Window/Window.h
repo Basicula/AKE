@@ -1,9 +1,9 @@
 #pragma once
-#include <Image/Image.h>
+#include "Image/Image.h"
 
-#include <Window/EventListner.h>
-#include <Window/FPSCounter.h>
-#include <Window/GUIView.h>
+#include "Window/EventListner.h"
+#include "Window/FPSCounter.h"
+#include "Window/GUIView.h"
 
 #include <functional>
 #include <string>

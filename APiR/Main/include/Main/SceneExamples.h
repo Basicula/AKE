@@ -1,15 +1,15 @@
 #pragma once
-#include <Geometry/Sphere.h>
-#include <Geometry/Cylinder.h>
-#include <Geometry/Torus.h>
+#include "Geometry/Sphere.h"
+#include "Geometry/Cylinder.h"
+#include "Geometry/Torus.h"
 
-#include <Math/Constants.h>
+#include "Math/Constants.h"
 
-#include <Rendering/RenderableObject.h>
-#include <Rendering/Scene.h>
+#include "Rendering/RenderableObject.h"
+#include "Rendering/Scene.h"
 
-#include <Visual/PhongMaterial.h>
-#include <Visual/SpotLight.h>
+#include "Visual/PhongMaterial.h"
+#include "Visual/SpotLight.h"
 
 
 

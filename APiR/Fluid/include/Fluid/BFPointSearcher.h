@@ -1,5 +1,5 @@
 #pragma once
-#include <Fluid/PointNeighborSearcher.h>
+#include "Fluid/PointNeighborSearcher.h"
 
 class BFPointSearcher : public PointNeighborSearcher
   {

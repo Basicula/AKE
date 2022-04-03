@@ -1,6 +1,6 @@
 #pragma once
-#include <CUDACore/KernelHandler.h>
-#include <Rendering/IRenderer.h>
+#include "CUDACore/KernelHandler.h"
+#include "Rendering/IRenderer.h"
 
 class CUDARayTracer : public IRenderer
   {

@@ -1,6 +1,6 @@
 #pragma once
-#include <Math/Vector.h>
-#include <Geometry/ISurface.h>
+#include "Math/Vector.h"
+#include "Geometry/ISurface.h"
 
 class Plane : public ISurface
   {

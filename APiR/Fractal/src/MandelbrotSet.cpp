@@ -1,4 +1,4 @@
-#include <Fractal/MandelbrotSet.h>
+#include "Fractal/MandelbrotSet.h"
 
 MandelbrotSet::MandelbrotSet(
   std::size_t i_width,

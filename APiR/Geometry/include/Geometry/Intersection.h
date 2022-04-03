@@ -1,7 +1,4 @@
 #pragma once
-#include <Math/Vector.h>
-
-#include <memory>
 
 struct RayBoxIntersectionRecord
   {

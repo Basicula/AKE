@@ -1,9 +1,9 @@
-#include <Common/ThreadPool.h>
+#include "Common/ThreadPool.h"
 
-#include <Fluid/SPHSimulation.h>
-#include <Fluid/SPHSpikyKernel.h>
+#include "Fluid/SPHSimulation.h"
+#include "Fluid/SPHSpikyKernel.h"
 
-#include <Physics/Constants.h>
+#include "Physics/Constants.h"
 
 namespace
   {

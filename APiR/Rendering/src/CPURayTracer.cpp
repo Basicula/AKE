@@ -1,7 +1,7 @@
-#include <Rendering/CPURayTracer.h>
-#include <Rendering/RenderableObject.h>
+#include "Rendering/CPURayTracer.h"
+#include "Rendering/RenderableObject.h"
 
-#include <Common/ThreadPool.h>
+#include "Common/ThreadPool.h"
 
 CPURayTracer::CPURayTracer() 
   : mp_active_camera(nullptr){

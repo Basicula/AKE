@@ -1,8 +1,8 @@
 #pragma once
-#include <Math/Vector.h>
+#include "Math/Vector.h"
 
-#include <Visual/IVisualMaterial.h>
-#include <Visual/Color.h>
+#include "Visual/IVisualMaterial.h"
+#include "Visual/Color.h"
 
 class PhongMaterial : public IVisualMaterial
   {

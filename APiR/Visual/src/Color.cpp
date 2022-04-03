@@ -1,5 +1,5 @@
-#include <Common/Utils.h>
-#include <Visual/Color.h>
+#include "Common/Utils.h"
+#include "Visual/Color.h"
 
 const Color Color::White = Color(255, 255, 255);
 const Color Color::Black = Color(0, 0, 0);

@@ -1,4 +1,4 @@
-#include <Fractal/JuliaSet.h>
+#include "Fractal/JuliaSet.h"
 
 JuliaSet::JuliaSet(
   std::size_t i_width,

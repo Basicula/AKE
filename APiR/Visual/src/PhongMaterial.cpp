@@ -1,5 +1,5 @@
-#include <Visual/PhongMaterial.h>
-#include <Math/VectorOperations.h>
+#include "Visual/PhongMaterial.h"
+#include "Math/VectorOperations.h"
 
 PhongMaterial::PhongMaterial(
   const Color& i_color, 

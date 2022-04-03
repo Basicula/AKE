@@ -1,5 +1,5 @@
 #pragma once
-#include <Rendering/IRenderer.h>
+#include "Rendering/IRenderer.h"
 
 class CPURayTracer : public IRenderer
   {

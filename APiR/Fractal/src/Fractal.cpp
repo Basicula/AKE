@@ -1,4 +1,4 @@
-#include <Fractal/Fractal.h>
+#include "Fractal/Fractal.h"
 
 Fractal::Fractal(
   std::size_t i_width,

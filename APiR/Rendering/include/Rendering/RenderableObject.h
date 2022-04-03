@@ -1,7 +1,7 @@
 #pragma once
-#include <Geometry/ISurface.h>
-#include <Rendering/Object.h>
-#include <Visual/IVisualMaterial.h>
+#include "Geometry/ISurface.h"
+#include "Rendering/Object.h"
+#include "Visual/IVisualMaterial.h"
 
 class RenderableObject : public Object
   {

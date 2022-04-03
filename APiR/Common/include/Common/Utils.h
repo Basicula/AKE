@@ -1,5 +1,5 @@
 #pragma once
-#include <Macros.h>
+#include "Macros.h"
 #ifdef __CUDA_ARCH__
 #include <cuda_runtime.h>
 #else

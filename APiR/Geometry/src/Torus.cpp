@@ -1,5 +1,5 @@
-#include <Geometry/Torus.h>
-#include <Math/SolveEquations.h>
+#include "Geometry/Torus.h"
+#include "Math/SolveEquations.h"
 
 Torus::Torus(
   const Vector3d& i_center, 

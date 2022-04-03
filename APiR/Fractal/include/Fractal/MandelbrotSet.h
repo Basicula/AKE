@@ -1,8 +1,5 @@
 #pragma once
-#include <Fractal/Fractal.h>
-
-#include <cstdio>
-#include <cstdint>
+#include "Fractal/Fractal.h"
 
 class MandelbrotSet : public Fractal
   {

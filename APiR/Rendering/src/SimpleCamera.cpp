@@ -1,6 +1,6 @@
-#include <Rendering/SimpleCamera.h>
+#include "Rendering/SimpleCamera.h"
 
-#include <Math/Constants.h>
+#include "Math/Constants.h"
 
 SimpleCamera::SimpleCamera(
   const Vector3d& i_location,

@@ -1,5 +1,5 @@
 #pragma once
-#include <math.h>
+#include <cmath>
 #include <algorithm>
 
 template<class ElementType, std::size_t Dimension>

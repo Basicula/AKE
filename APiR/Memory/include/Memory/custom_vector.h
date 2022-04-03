@@ -1,10 +1,10 @@
 #pragma once
-#include <Macros.h>
+#include "Macros.h"
 
-#include <Memory/MemoryManager.h>
+#include "Memory/MemoryManager.h"
 #if defined(ENABLED_CUDA)
-#include <Memory/device_ptr.h>
-#include <Memory/managed_ptr.h>
+#include "Memory/device_ptr.h"
+#include "Memory/managed_ptr.h"
 #endif
 
 #include <initializer_list>

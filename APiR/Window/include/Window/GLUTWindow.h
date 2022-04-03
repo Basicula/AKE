@@ -1,7 +1,7 @@
 #pragma once
-#include <Window/FPSCounter.h>
-#include <Window/Window.h>
-#include <Image/Image.h>
+#include "Window/FPSCounter.h"
+#include "Window/Window.h"
+#include "Image/Image.h"
 
 #pragma warning(push)
 #pragma warning(disable:4505)

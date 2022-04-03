@@ -1,8 +1,7 @@
 #pragma once
-#include <Math/Vector.h>
+#include "Math/Vector.h"
 
 #include <functional>
-#include <memory>
 #include <vector>
 
 class PointNeighborSearcher

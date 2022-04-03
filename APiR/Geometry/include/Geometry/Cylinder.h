@@ -1,8 +1,8 @@
 #pragma once
-#include <Geometry/ISurface.h>
-#include <Geometry/Plane.h>
+#include "Geometry/ISurface.h"
+#include "Geometry/Plane.h"
 
-#include <Math/Vector.h>
+#include "Math/Vector.h"
 
 #include <optional>
 

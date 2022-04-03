@@ -1,5 +1,5 @@
 #pragma once
-#include <Visual/Color.h>
+#include "Visual/Color.h"
 
 // Material that will be using in rendering workflow
 // Tells how we see the object in the world

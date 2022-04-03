@@ -1,8 +1,8 @@
-#include <Common/ThreadPool.h>
+#include "Common/ThreadPool.h"
 
-#include <Fluid/BFPointSearcher.h>
-#include <Fluid/SPHSystem.h>
-#include <Fluid/SPHStandartKernel.h>
+#include "Fluid/BFPointSearcher.h"
+#include "Fluid/SPHSystem.h"
+#include "Fluid/SPHStandartKernel.h"
 
 SPHSystem::SPHSystem(
   std::size_t i_num_particles,

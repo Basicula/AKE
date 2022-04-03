@@ -1,5 +1,5 @@
+#pragma once
 #include <algorithm>
-#include <math.h>
 
 using namespace Parallel;
 

@@ -1,8 +1,8 @@
 #pragma once
-#include <Macros.h>
+#include "Macros.h"
 
-#include <Memory/MemoryManager.h>
-#include <Visual/Color.h>
+#include "Memory/MemoryManager.h"
+#include "Visual/Color.h"
 
 class Image
   {

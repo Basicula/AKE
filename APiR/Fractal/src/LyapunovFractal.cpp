@@ -1,5 +1,5 @@
-#include <Fractal/LyapunovFractal.h>
-#include <Memory/custom_vector.h>
+#include "Fractal/LyapunovFractal.h"
+#include "Memory/custom_vector.h"
 
 LyapunovFractal::LyapunovFractal(
   const std::string& i_fractal_string,

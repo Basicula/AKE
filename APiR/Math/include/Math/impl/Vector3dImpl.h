@@ -1,5 +1,5 @@
 #pragma once
-#include <math.h>
+#include <cmath>
 
 template<>
 inline Vector3d::Vector(double i_elem)

@@ -1,5 +1,5 @@
-#include <Main/SceneExamples.h>
-#include <Rendering/SimpleCamera.h>
+#include "Main/SceneExamples.h"
+#include "Rendering/SimpleCamera.h"
 
 namespace ExampleMaterials {
   PhongMaterial* pure_mirror() { 

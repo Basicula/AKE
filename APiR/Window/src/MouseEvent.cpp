@@ -1,4 +1,4 @@
-#include <Window/MouseEvent.h>
+#include "Window/MouseEvent.h"
 
 MouseButtonPressedEvent::MouseButtonPressedEvent(const MouseButton i_button)
   : Event(EventType::MOUSE_BUTTON_PRESSED_EVENT)

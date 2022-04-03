@@ -1,4 +1,4 @@
-#include <Rendering/Object.h>
+#include "Rendering/Object.h"
 
 Object::Object()
   : mp_visual_material(nullptr)

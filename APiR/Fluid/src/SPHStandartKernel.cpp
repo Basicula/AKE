@@ -1,5 +1,5 @@
-#include <Fluid/SPHStandartKernel.h>
-#include <Math/Constants.h>
+#include "Fluid/SPHStandartKernel.h"
+#include "Math/Constants.h"
 
 SPHStandartKernel::SPHStandartKernel()
   : SPHKernel()

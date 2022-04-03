@@ -1,10 +1,10 @@
 #pragma once
-#include <Geometry/BoundingBox.h>
-#include <Geometry/Ray.h>
+#include "Geometry/BoundingBox.h"
+#include "Geometry/Ray.h"
 
-#include <Physics/IPhysicMaterial.h>
+#include "Physics/IPhysicMaterial.h"
 
-#include <Visual/IVisualMaterial.h>
+#include "Visual/IVisualMaterial.h"
 
 // This and derivative classes will own dynamic allocated members inside (IVisualMaterial, IPhysicMaterial etc)
 // Class contains all possible information that describes object in the world 

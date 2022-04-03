@@ -1,12 +1,12 @@
 #pragma once
-#include <Image/Image.h>
+#include "Image/Image.h"
 
-#include <Rendering/Camera.h>
-#include <Rendering/Object.h>
-#include <Rendering/KDTree.h>
+#include "Rendering/Camera.h"
+#include "Rendering/Object.h"
+#include "Rendering/KDTree.h"
 
-#include <Visual/IVisualMaterial.h>
-#include <Visual/ILight.h>
+#include "Visual/IVisualMaterial.h"
+#include "Visual/ILight.h"
 
 #include <vector>
 #include <memory>

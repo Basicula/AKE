@@ -1,4 +1,4 @@
-#include <Fluid/SPHKernel.h>
+#include "Fluid/SPHKernel.h"
 
 SPHKernel::SPHKernel()
   : m_h(0), m_h2(0), m_h3(0), m_h4(0), m_h5(0)

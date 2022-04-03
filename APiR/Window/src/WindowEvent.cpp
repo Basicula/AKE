@@ -1,4 +1,4 @@
-#include <Window/WindowEvent.h>
+#include "Window/WindowEvent.h"
 
 WindowResizeEvent::WindowResizeEvent(const int i_width, const int i_height)
   : Event(EventType::WINDOW_RESIZED_EVENT)

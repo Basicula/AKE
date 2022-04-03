@@ -1,8 +1,8 @@
 #pragma once
-#include <Geometry/BoundingBox.h>
-#include <Fluid/SPHSimulation.h>
-#include <Rendering/Object.h>
-#include <Visual/IVisualMaterial.h>
+#include "Geometry/BoundingBox.h"
+#include "Fluid/SPHSimulation.h"
+#include "Rendering/Object.h"
+#include "Visual/IVisualMaterial.h"
 
 class Fluid : public Object
   {

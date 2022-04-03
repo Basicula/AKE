@@ -1,7 +1,7 @@
 #pragma once
-#include <Math/Vector.h>
-#include <Rendering/Camera.h>
-#include <Window/EventListner.h>
+#include "Math/Vector.h"
+#include "Rendering/Camera.h"
+#include "Window/EventListner.h"
 
 class SimpleCameraController : public EventListner {
 public:

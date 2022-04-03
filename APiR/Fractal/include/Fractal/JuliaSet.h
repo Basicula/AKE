@@ -1,5 +1,5 @@
 #pragma once
-#include <Fractal/Fractal.h>
+#include "Fractal/Fractal.h"
 
 class JuliaSet : public Fractal
   {
