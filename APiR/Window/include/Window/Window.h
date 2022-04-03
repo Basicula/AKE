@@ -14,7 +14,7 @@ public:
   using UpdateFunction = std::function<void()>;
 
 public:
-  Window(const size_t i_width, const size_t i_height, const std::string& i_title = "New window");
+  Window(size_t i_width, size_t i_height, std::string i_title = "New window");
   virtual ~Window();
 
   // Run main infinity loop for window
@@ -43,14 +43,14 @@ protected:
   // Rendering postprocessing rutine
   virtual void _PostDisplay() = 0;
 
-  void _OnMouseButtonPressed(const MouseButton i_button);
-  void _OnMouseButtonReleased(const MouseButton i_button);
-  void _OnMouseMoved(const double i_x, const double i_y);
-  void _OnMouseScroll(const double i_offset);
-  void _OnKeyPressed(const KeyboardButton i_key);
-  void _OnKeyReleased(const KeyboardButton i_key);
-  void _OnWindowResized(const int i_width, const int i_height);
-  void _OnWindowClosed();
+  void _OnMouseButtonPressed(MouseButton i_button) const;
+  void _OnMouseButtonReleased(MouseButton i_button) const;
+  void _OnMouseMoved(double i_x, double i_y) const;
+  void _OnMouseScroll(double i_offset) const;
+  void _OnKeyPressed(KeyboardButton i_key) const;
+  void _OnKeyReleased(KeyboardButton i_key) const;
+  void _OnWindowResized(int i_width, int i_height) const;
+  void _OnWindowClosed() const;
 
 protected:
   std::string m_title;

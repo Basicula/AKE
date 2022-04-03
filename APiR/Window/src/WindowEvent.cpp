@@ -8,7 +8,7 @@ WindowResizeEvent::WindowResizeEvent(const int i_width, const int i_height)
 
 std::pair<int, int> WindowResizeEvent::Size() const
 {
-  return std::pair<int, int>(m_width, m_heigth);
+  return { m_width, m_heigth };
 }
 
 WindowCloseEvent::WindowCloseEvent()

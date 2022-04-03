@@ -111,8 +111,8 @@ namespace {
 
 GLFWWindow* GLFWWindow::mg_instance = nullptr;
 
-GLFWWindow::GLFWWindow(const size_t i_width, const size_t i_height, const std::string& i_title)
-  : Window(i_width, i_height, i_title)
+GLFWWindow::GLFWWindow(const size_t i_width, const size_t i_height, std::string i_title)
+  : Window(i_width, i_height, std::move(i_title))
   , mp_window(nullptr)
 {
   _Init();

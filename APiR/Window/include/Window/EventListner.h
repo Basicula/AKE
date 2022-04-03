@@ -1,9 +1,6 @@
 #pragma once
 #include "Window/Event.h"
-#include "Window/KeyboardEvent.h"
 #include "Window/Keys.h"
-#include "Window/MouseEvent.h"
-#include "Window/WindowEvent.h"
 
 #include <utility>
 
@@ -19,10 +16,10 @@ public:
 protected:
   virtual void _ProcessEvent(const Event& i_event) = 0;
 
-  bool _IsKeyPressed(const KeyboardButton i_key) const;
+  [[nodiscard]] bool _IsKeyPressed(KeyboardButton i_key) const;
 
 protected:
-  static const size_t mg_key_count = 256;
+  static constexpr std::size_t mg_key_count = 256;
   bool m_key_pressed[mg_key_count];
   std::pair<double, double> m_mouse_position;
 };

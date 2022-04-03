@@ -4,46 +4,46 @@
 
 #include <utility>
 
-class MouseButtonPressedEvent : public Event
+class MouseButtonPressedEvent final : public Event
 {
 public:
-  MouseButtonPressedEvent(const MouseButton i_button);
+  explicit MouseButtonPressedEvent(MouseButton i_button);
 
-  MouseButton Button() const;
+  [[nodiscard]] MouseButton Button() const;
 
 private:
   MouseButton m_button;
 };
 
-class MouseButtonReleasedEvent : public Event
+class MouseButtonReleasedEvent final : public Event
 {
 public:
-  MouseButtonReleasedEvent(const MouseButton i_button);
+  explicit MouseButtonReleasedEvent(MouseButton i_button);
 
-  MouseButton Button() const;
+  [[nodiscard]] MouseButton Button() const;
 
 private:
   MouseButton m_button;
 };
 
-class MouseMovedEvent : public Event
+class MouseMovedEvent final : public Event
 {
 public:
-  MouseMovedEvent(const double i_x, const double i_y);
+  MouseMovedEvent(double i_x, double i_y);
 
-  std::pair<double, double> Position() const;
+  [[nodiscard]] std::pair<double, double> Position() const;
 
 private:
   double m_x;
   double m_y;
 };
 
-class MouseScrollEvent : public Event
+class MouseScrollEvent final : public Event
 {
 public:
-  MouseScrollEvent(const double i_offset);
+  explicit MouseScrollEvent(double i_offset);
 
-  double Offset() const;
+  [[nodiscard]] double Offset() const;
 
 private:
   double m_offset;

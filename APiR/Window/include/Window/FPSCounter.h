@@ -6,13 +6,13 @@
 class FPSCounter
 {
 public:
-  FPSCounter(std::ostream& io_output_stream, std::size_t i_update_interval_in_frames = 10);
-  FPSCounter(
+  explicit FPSCounter(std::ostream& io_output_stream, std::size_t i_update_interval_in_frames = 10);
+  explicit FPSCounter(
     std::size_t i_update_interval_in_frames = 10,
     std::function<void(double)> i_fps_logging_function = [](double) {});
 
   void Update();
-  double GetFPS() const;
+  [[nodiscard]] double GetFPS() const;
 
 private:
   std::chrono::system_clock::time_point m_start;
@@ -22,8 +22,3 @@ private:
   std::function<void(double)> m_logging_function;
   std::ostream* mp_output_stream;
 };
-
-inline double FPSCounter::GetFPS() const
-{
-  return m_fps;
-}

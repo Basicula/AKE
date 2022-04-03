@@ -28,7 +28,7 @@ MouseMovedEvent::MouseMovedEvent(const double i_x, const double i_y)
 
 std::pair<double, double> MouseMovedEvent::Position() const
 {
-  return std::pair<double, double>(m_x, m_y);
+  return { m_x, m_y };
 }
 
 MouseScrollEvent::MouseScrollEvent(const double i_offset)

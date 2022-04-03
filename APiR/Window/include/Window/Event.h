@@ -19,10 +19,10 @@ public:
   };
 
 public:
-  Event(const EventType i_type);
+  explicit Event(EventType i_type);
   virtual ~Event() = default;
 
-  EventType Type() const;
+  [[nodiscard]] EventType Type() const;
 
 private:
   EventType m_type;

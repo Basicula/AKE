@@ -1,11 +1,10 @@
 #pragma once
 #include "Window/GLFWGUIView.h"
 
-class GLFWDebugGUIView : public GLFWGUIView
+class GLFWDebugGUIView final : public GLFWGUIView
 {
 public:
-  GLFWDebugGUIView(GLFWwindow* ip_window);
-  virtual ~GLFWDebugGUIView() = default;
+  explicit GLFWDebugGUIView(GLFWwindow* ip_window);
 
-  virtual void Render() override;
+  void Render() override;
 };

@@ -2,23 +2,23 @@
 #include "Window/Event.h"
 #include "Window/Keys.h"
 
-class KeyPressedEvent : public Event
+class KeyPressedEvent final : public Event
 {
 public:
-  KeyPressedEvent(const KeyboardButton i_key);
+  explicit KeyPressedEvent(KeyboardButton i_key);
 
-  KeyboardButton Key() const;
+  [[nodiscard]] KeyboardButton Key() const;
 
 private:
   KeyboardButton m_key;
 };
 
-class KeyReleasedEvent : public Event
+class KeyReleasedEvent final : public Event
 {
 public:
-  KeyReleasedEvent(const KeyboardButton i_key);
+  explicit KeyReleasedEvent(const KeyboardButton i_key);
 
-  KeyboardButton Key() const;
+  [[nodiscard]] KeyboardButton Key() const;
 
 private:
   KeyboardButton m_key;
