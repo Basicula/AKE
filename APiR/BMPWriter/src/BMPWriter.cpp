@@ -4,7 +4,7 @@
 
 #include <fstream>
 
-BMPWriter::BMPWriter(ColorMode i_mode)
+BMPWriter::BMPWriter(const ColorMode i_mode)
   : m_color_mode(i_mode)
 {}
 
@@ -30,10 +30,10 @@ void BMPWriter::Write(const std::string& i_file_path, const Image& i_image)
       uint8_t r, g, b, a;
       i_image.GetPixelRGBA(j, i, r, g, b, a);
       switch (m_color_mode) {
-        case BMPWriter::ColorMode::RGBA:
+        case ColorMode::RGBA:
           file << b << g << r << a;
           break;
-        case BMPWriter::ColorMode::BGRA:
+        case ColorMode::BGRA:
           file << r << g << b << a;
           break;
         default:
