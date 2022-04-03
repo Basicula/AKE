@@ -10,13 +10,17 @@ namespace Parallel {
   class ThreadPool
   {
   public:
+    ThreadPool(const ThreadPool& other) = delete;
+    ThreadPool& operator=(const ThreadPool& other) = delete;
+    ThreadPool(ThreadPool&& other) = delete;
+    ThreadPool& operator=(ThreadPool&& other) = delete;
     ~ThreadPool();
 
     static ThreadPool* GetInstance();
 
     template <class Function, class... Args>
     auto Enqueue(Function&& i_function, Args&&... i_args)
-      -> std::future<typename std::invoke_result<Function, Args...>::type>;
+      -> std::future<std::invoke_result_t<Function, Args...>>;
 
     template <class IndexType, class Function>
     void ParallelFor(IndexType i_start, IndexType i_end, const Function& i_function);
@@ -26,8 +30,6 @@ namespace Parallel {
 
   private:
     ThreadPool();
-    ThreadPool(const ThreadPool& other) = delete;
-    ThreadPool(ThreadPool&& other) = delete;
 
     void _AddWorker();
 
@@ -51,4 +53,4 @@ namespace Parallel {
   }
 }
 
-#include <Common/impl/ThreadPool_impl.h>
+#include "impl/ThreadPool_impl.h"
