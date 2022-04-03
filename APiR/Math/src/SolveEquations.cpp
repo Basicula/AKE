@@ -1,9 +1,11 @@
 #include "Math/SolveEquations.h"
 
+#include "Math/Constants.h"
+
 #include <cmath>
 
 namespace Equations {
-  double CubicRoot(double i_val)
+  double CubicRoot(const double i_val)
   {
     return i_val > 0.0 ? std::pow(i_val, 1.0 / 3.0) : (i_val < 0.0 ? -std::pow(-i_val, 1.0 / 3.0) : 0.0);
   }
@@ -37,13 +39,13 @@ namespace Equations {
 
   int SolveCubic(const double* i_coefs, double* io_roots)
   {
-    if (i_coefs[0] == 0) {
+    if (i_coefs[0] == 0.0) {
       int roots = SolveQuadratic(i_coefs + 1, io_roots);
       io_roots[roots++] = 0.0;
       return roots;
     }
 
-    int roots_count = 0;
+    int roots_count;
     // transform to x^3 + A*x^2 + B*x + C = 0
     const double A = i_coefs[2] / i_coefs[3];
     const double B = i_coefs[1] / i_coefs[3];
@@ -83,17 +85,16 @@ namespace Equations {
       io_roots[0] = CubicRoot(-q / 2.0 + std::sqrt(D)) + CubicRoot(-q / 2.0 - std::sqrt(D));
       roots_count = 1;
     } else {
-      const double PI = std::acos(-1.0);
       const double angle = std::acos(3.0 * q * std::sqrt(-3.0 / p) / (2.0 * p)) / 3.0;
       const double t = 2.0 * std::sqrt(-p / 3.0);
       io_roots[0] = t * std::cos(angle);
-      io_roots[1] = t * std::cos(angle - 2.0 * PI / 3.0);
-      io_roots[2] = t * std::cos(angle + 2.0 * PI / 3.0);
+      io_roots[1] = t * std::cos(angle - 2.0 * Math::Constants::PI / 3.0);
+      io_roots[2] = t * std::cos(angle + 2.0 * Math::Constants::PI / 3.0);
       roots_count = 3;
     }
 
     // transform from x^3 + px + q = 0 to x^3 + Ax^2 + Bx + C = 0
-    double sub = A / 3.0;
+    const double sub = A / 3.0;
     for (auto i = 0; i < roots_count; ++i)
       io_roots[i] -= sub;
 
@@ -114,7 +115,7 @@ namespace Equations {
     const double q = C - A * B / 2.0 + square_A * A / 8.0;
     const double r = D - A * C / 4.0 + square_A * B / 16.0 - 3.0 * square_A * square_A / 256.0;
 
-    int roots_count = 0;
+    int roots_count;
     if (r == 0.0) {
       /*
       special case when r = 0
@@ -142,11 +143,11 @@ namespace Equations {
       */
       const double cubic_coefs[4] = { -q * q, 2.0 * p * p - 8.0 * r, 8.0 * p, 8.0 };
       double cubic_roots[3];
-      int cubic_roots_count = SolveCubic(cubic_coefs, cubic_roots);
+      const int cubic_roots_count = SolveCubic(cubic_coefs, cubic_roots);
       double cubic_res = cubic_roots[0];
       for (auto i = 1; cubic_res <= 0.0 && i < cubic_roots_count; ++i)
         cubic_res = cubic_roots[i];
-      double sqrt_double_cubic_res = std::sqrt(2.0 * cubic_res);
+      const double sqrt_double_cubic_res = std::sqrt(2.0 * cubic_res);
       const double quadratic_coefs1[3] = { p / 2.0 + cubic_res - q / (2.0 * sqrt_double_cubic_res),
                                            sqrt_double_cubic_res,
                                            1.0 };
@@ -157,7 +158,7 @@ namespace Equations {
       roots_count += SolveQuadratic(quadratic_coefs2, io_roots + roots_count);
     }
 
-    double sub = A / 4.0;
+    const double sub = A / 4.0;
     for (auto i = 0; i < roots_count; ++i)
       io_roots[i] -= sub;
     return roots_count;

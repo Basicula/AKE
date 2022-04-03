@@ -16,7 +16,7 @@ double SPHSpikyKernel::operator()(const double i_distance) const
     return 0.0;
 
   const double x = 1.0 - i_distance / m_h;
-  return 15.0 / (PI * m_h3) * x * x * x;
+  return 15.0 / (Math::Constants::PI * m_h3) * x * x * x;
 }
 
 double SPHSpikyKernel::FirstDerivative(const double i_distance) const
@@ -25,7 +25,7 @@ double SPHSpikyKernel::FirstDerivative(const double i_distance) const
     return 0.0;
 
   const double x = 1.0 - i_distance / m_h;
-  return -45.0 * x * x / (PI * m_h4);
+  return -45.0 * x * x / (Math::Constants::PI * m_h4);
 }
 
 double SPHSpikyKernel::SecondDerivative(const double i_distance) const
@@ -34,7 +34,7 @@ double SPHSpikyKernel::SecondDerivative(const double i_distance) const
     return 0.0;
 
   const double x = 1.0 - i_distance / m_h;
-  return 90.0 / (PI * m_h5) * x;
+  return 90.0 / (Math::Constants::PI * m_h5) * x;
 }
 
 Vector3d SPHSpikyKernel::Gradient(const Vector3d& i_point) const

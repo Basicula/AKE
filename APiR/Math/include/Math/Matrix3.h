@@ -32,8 +32,8 @@ private:
     ElementType m_matrix[3][3];
     ElementType m_elements[9];
   };
-  static const std::size_t m_element_cnt = 9;
-  static const std::size_t m_matrix_dim = 3;
+  static constexpr std::size_t m_element_cnt = 9;
+  static constexpr std::size_t m_matrix_dim = 3;
 };
 
 using Matrix3d = Matrix3<double>;

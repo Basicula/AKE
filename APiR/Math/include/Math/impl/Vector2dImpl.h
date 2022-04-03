@@ -2,26 +2,26 @@
 #include <cmath>
 
 template <>
-inline Vector2d::Vector(double i_elem)
+inline Vector2d::Vector(const double i_elem)
   : m_coords{ i_elem, i_elem }
 {}
 
 template <>
 template <>
-inline Vector2d::Vector(double i_x, double i_y)
+inline Vector2d::Vector(const double i_x, const double i_y)
   : m_coords{ i_x, i_y }
 {}
 
 template <>
 inline Vector2d Vector2d::operator-(const Vector2d& i_other) const
 {
-  return Vector2d(m_coords[0] - i_other.m_coords[0], m_coords[1] - i_other.m_coords[1]);
+  return { m_coords[0] - i_other.m_coords[0], m_coords[1] - i_other.m_coords[1] };
 }
 
 template <>
 inline Vector2d Vector2d::operator+(const Vector2d& i_other) const
 {
-  return Vector2d(m_coords[0] + i_other.m_coords[0], m_coords[1] + i_other.m_coords[1]);
+  return { m_coords[0] + i_other.m_coords[0], m_coords[1] + i_other.m_coords[1] };
 }
 
 template <>
@@ -32,17 +32,17 @@ inline double Vector2d::Dot(const Vector2d& i_other) const
 
 template <>
 template <>
-inline Vector2d Vector2d::operator*<double>(double i_val) const
+inline Vector2d Vector2d::operator*<double>(const double i_factor) const
 {
-  return Vector2d(m_coords[0] * i_val, m_coords[1] * i_val);
+  return { m_coords[0] * i_factor, m_coords[1] * i_factor };
 }
 
 template <>
 template <>
-inline Vector2d& Vector2d::operator*=<double>(double i_val)
+inline Vector2d& Vector2d::operator*=<double>(const double i_factor)
 {
-  m_coords[0] *= i_val;
-  m_coords[1] *= i_val;
+  m_coords[0] *= i_factor;
+  m_coords[1] *= i_factor;
   return *this;
 }
 
@@ -79,5 +79,5 @@ inline Vector2d Vector2d::Normalized() const
     return *this;
   // normalizing
   const double length = sqrt(sqr_length);
-  return Vector2d(m_coords[0] / length, m_coords[1] / length);
+  return { m_coords[0] / length, m_coords[1] / length };
 }

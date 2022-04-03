@@ -2,28 +2,26 @@
 #include <cmath>
 
 template <>
-inline Vector3d::Vector(double i_elem)
+inline Vector3d::Vector(const double i_elem)
   : m_coords{ i_elem, i_elem, i_elem }
 {}
 
 template <>
 template <>
-inline Vector3d::Vector(double i_x, double i_y, double i_z)
+inline Vector3d::Vector(const double i_x, const double i_y, const double i_z)
   : m_coords{ i_x, i_y, i_z }
 {}
 
 template <>
 inline Vector3d Vector3d::operator-(const Vector3d& i_other) const
 {
-  return Vector3d(
-    m_coords[0] - i_other.m_coords[0], m_coords[1] - i_other.m_coords[1], m_coords[2] - i_other.m_coords[2]);
+  return { m_coords[0] - i_other.m_coords[0], m_coords[1] - i_other.m_coords[1], m_coords[2] - i_other.m_coords[2] };
 }
 
 template <>
 inline Vector3d Vector3d::operator+(const Vector3d& i_other) const
 {
-  return Vector3d(
-    m_coords[0] + i_other.m_coords[0], m_coords[1] + i_other.m_coords[1], m_coords[2] + i_other.m_coords[2]);
+  return { m_coords[0] + i_other.m_coords[0], m_coords[1] + i_other.m_coords[1], m_coords[2] + i_other.m_coords[2] };
 }
 
 template <>
@@ -34,18 +32,18 @@ inline double Vector3d::Dot(const Vector3d& i_other) const
 
 template <>
 template <>
-inline Vector3d Vector3d::operator*<double>(double i_val) const
+inline Vector3d Vector3d::operator*<double>(const double i_factor) const
 {
-  return Vector3d(m_coords[0] * i_val, m_coords[1] * i_val, m_coords[2] * i_val);
+  return { m_coords[0] * i_factor, m_coords[1] * i_factor, m_coords[2] * i_factor };
 }
 
 template <>
 template <>
-inline Vector3d& Vector3d::operator*=<double>(double i_val)
+inline Vector3d& Vector3d::operator*=<double>(const double i_factor)
 {
-  m_coords[0] *= i_val;
-  m_coords[1] *= i_val;
-  m_coords[2] *= i_val;
+  m_coords[0] *= i_factor;
+  m_coords[1] *= i_factor;
+  m_coords[2] *= i_factor;
   return *this;
 }
 
@@ -84,5 +82,5 @@ inline Vector3d Vector3d::Normalized() const
     return *this;
   // normalizing
   const double length = sqrt(sqr_length);
-  return Vector3d(m_coords[0] / length, m_coords[1] / length, m_coords[2] / length);
+  return { m_coords[0] / length, m_coords[1] / length, m_coords[2] / length };
 }
