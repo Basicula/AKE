@@ -5,9 +5,8 @@ OpenGLRenderer::OpenGLRenderer(const Scene2D& i_scene)
 {}
 
 void OpenGLRenderer::Render() const
-  {
+{
   const auto& objects = m_scene.GetObjects();
-    for (const auto& p_object : objects)
-      p_object->mp_drawer->Draw();
-  }
-
+  for (const auto& p_object : objects)
+    p_object->mp_drawer->Draw();
+}

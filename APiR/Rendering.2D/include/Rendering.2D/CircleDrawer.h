@@ -2,7 +2,6 @@
 #include <Geometry.2D/Circle.h>
 #include <Rendering.2D/Drawer.h>
 #include <Visual/Color.h>
-
 #include <memory>
 
 class CircleDrawer : public Drawer

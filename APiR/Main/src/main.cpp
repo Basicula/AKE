@@ -14,25 +14,25 @@
 #include "Fractal/LyapunovFractal.h"
 #include "Fractal/MandelbrotSet.h"
 #include "Fractal/MappingFunctions.h"
-#include "Geometry/BoundingBox.h"
 #include "Geometry.2D/Circle.h"
 #include "Geometry.3D/Cylinder.h"
 #include "Geometry.3D/Plane.h"
 #include "Geometry.3D/Sphere.h"
 #include "Geometry.3D/Torus.h"
+#include "Geometry/BoundingBox.h"
 #include "Image/Image.h"
 #include "Main/ConsoleLogEventListner.h"
 #include "Main/SceneExamples.h"
 #include "Main/SimpleCameraController.h"
 #include "Math/Constants.h"
 #include "Math/Vector.h"
+#include "Rendering.2D/CircleDrawer.h"
+#include "Rendering.2D/OpenGLRenderer.h"
+#include "Rendering.2D/Scene2D.h"
 #include "Rendering/CPURayTracer.h"
 #include "Rendering/RenderableObject.h"
 #include "Rendering/Scene.h"
 #include "Rendering/SimpleCamera.h"
-#include "Rendering.2D/Scene2D.h"
-#include "Rendering.2D/CircleDrawer.h"
-#include "Rendering.2D/OpenGLRenderer.h"
 #include "Visual/PhongMaterial.h"
 #include "Visual/SpotLight.h"
 #include "Window/GLFWDebugGUIView.h"
@@ -178,7 +178,7 @@ void test_fractals()
   const std::size_t height = 768;
   Image image(width, height);
   std::size_t max_iterations = 100;
-  //std::unique_ptr<Fractal> p_fractal = std::make_unique<MandelbrotSet>(width, height, max_iterations);
+  // std::unique_ptr<Fractal> p_fractal = std::make_unique<MandelbrotSet>(width, height, max_iterations);
   std::unique_ptr<Fractal> p_fractal = std::make_unique<JuliaSet>(width, height, max_iterations);
   custom_vector<Color> color_map{
     Color(0, 0, 0),       Color(66, 45, 15),    Color(25, 7, 25),    Color(10, 0, 45),    Color(5, 5, 73),
@@ -279,8 +279,8 @@ void test_gui_view()
 int main()
 {
   // test_fluid();
-   test_scene();
-  // test_scene_2d();
+  // test_scene();
+  test_scene_2d();
   // test();
   // test_opencl();
 #ifdef ENABLED_CUDA

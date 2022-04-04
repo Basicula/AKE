@@ -3,8 +3,7 @@
 Circle::Circle(const Vector2d& i_center, const double i_radius)
   : radius(i_radius)
   , center(i_center)
-{
-}
+{}
 
 void Circle::_CalculateBoundingBox()
 {

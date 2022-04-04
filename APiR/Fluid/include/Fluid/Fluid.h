@@ -21,8 +21,7 @@ public:
 private:
   void _UpdateBBox();
 
-  private:
-    BoundingBox3D m_bbox;
-    SPHSimulation m_simulation;
-  };
-
+private:
+  BoundingBox3D m_bbox;
+  SPHSimulation m_simulation;
+};

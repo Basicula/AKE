@@ -157,13 +157,13 @@ void Window::_OnKeyReleased(const KeyboardButton i_key) const
 }
 
 void Window::_OnWindowResized(const int i_width, const int i_height) const
-  {
+{
   if (mp_event_listner)
     mp_event_listner->ProcessEvent(WindowResizeEvent(i_width, i_height));
 }
 
 void Window::_OnWindowClosed() const
-  {
+{
   if (mp_event_listner)
     mp_event_listner->ProcessEvent(WindowCloseEvent());
 }

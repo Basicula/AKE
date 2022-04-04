@@ -1,6 +1,6 @@
 #pragma once
-#include "Geometry/BoundingBox.h"
 #include "Geometry.3D/Ray.h"
+#include "Geometry/BoundingBox.h"
 
 struct RayBoxIntersectionRecord
 {
@@ -20,11 +20,6 @@ class Ray;
 // if result is false
 // o_tmin and o_tmax contain garbage
 void RayBoxIntersection(const Ray& i_ray, const BoundingBox3D& i_box, RayBoxIntersectionRecord& o_intersection);
-void RayBoxIntersection(
-  const Ray& i_ray,
-  const BoundingBox3D& i_box,
-  RayBoxIntersectionRecord& o_intersection);
+void RayBoxIntersection(const Ray& i_ray, const BoundingBox3D& i_box, RayBoxIntersectionRecord& o_intersection);
 
-bool RayIntersectBox(
-  const Ray& i_ray,
-  const BoundingBox3D& i_box);
+bool RayIntersectBox(const Ray& i_ray, const BoundingBox3D& i_box);

@@ -1,6 +1,6 @@
 #pragma once
-#include <Math/Vector.h>
 #include <Geometry.2D/Shape.h>
+#include <Math/Vector.h>
 
 struct Circle : public Shape
 {

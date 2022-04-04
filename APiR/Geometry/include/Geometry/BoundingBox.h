@@ -1,18 +1,16 @@
 #pragma once
 #include "Math/Vector.h"
 
-template<size_t Dimension>
+template <size_t Dimension>
 struct BoundingBox
-  {
+{
   using VectorType = Vector<double, Dimension>;
 
   VectorType m_min;
   VectorType m_max;
 
   BoundingBox();
-  BoundingBox(
-    const VectorType& i_min,
-    const VectorType& i_max);
+  BoundingBox(const VectorType& i_min, const VectorType& i_max);
 
   VectorType Center() const;
   // iterate from min to max using bitmask depending on Dimension
@@ -28,7 +26,7 @@ struct BoundingBox
   bool Contains(const VectorType& i_point) const;
 
   bool IsValid() const;
-  };
+};
 
 using BoundingBox2D = BoundingBox<2>;
 using BoundingBox3D = BoundingBox<3>;

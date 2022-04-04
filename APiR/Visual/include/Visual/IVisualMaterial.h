@@ -12,15 +12,16 @@ public:
   [[nodiscard]] virtual Color GetPrimitiveColor() const = 0;
 
   [[nodiscard]] virtual Color CalculateColor(const Vector3d& i_normal,
-                               const Vector3d& i_view_direction,
-                               const Vector3d& i_light_direction) const = 0;
+                                             const Vector3d& i_view_direction,
+                                             const Vector3d& i_light_direction) const = 0;
 
   // number in interval [0,1]
   // where 0 means no reflection
   // and 1 for full reflection (impossible in real world)
   [[nodiscard]] virtual bool IsReflectable() const = 0;
   [[nodiscard]] virtual double ReflectionInfluence() const = 0;
-  [[nodiscard]] virtual Vector3d ReflectedDirection(const Vector3d& i_normal_at_point, const Vector3d& i_view_direction) const = 0;
+  [[nodiscard]] virtual Vector3d ReflectedDirection(const Vector3d& i_normal_at_point,
+                                                    const Vector3d& i_view_direction) const = 0;
 
   [[nodiscard]] virtual bool IsRefractable() const = 0;
   [[nodiscard]] virtual double RefractionInfluence() const = 0;

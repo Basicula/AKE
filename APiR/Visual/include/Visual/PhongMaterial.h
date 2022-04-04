@@ -17,12 +17,12 @@ public:
   [[nodiscard]] Color GetPrimitiveColor() const override;
 
   [[nodiscard]] Color CalculateColor(const Vector3d& i_normal,
-                                             const Vector3d& i_view_direction,
-                                             const Vector3d& i_light_direction) const override;
+                                     const Vector3d& i_view_direction,
+                                     const Vector3d& i_light_direction) const override;
 
   [[nodiscard]] bool IsReflectable() const override;
   [[nodiscard]] Vector3d ReflectedDirection(const Vector3d& i_normal_at_point,
-                                                    const Vector3d& i_view_direction) const override;
+                                            const Vector3d& i_view_direction) const override;
   [[nodiscard]] double ReflectionInfluence() const override;
 
   [[nodiscard]] bool IsRefractable() const override;

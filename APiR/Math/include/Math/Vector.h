@@ -53,7 +53,8 @@ public:
   HOSTDEVICE Vector operator/=(const Vector& i_other);
 
   template <std::size_t D = Dimension, typename T = typename std::enable_if<D == 3>::type>
-  HOSTDEVICE [[nodiscard]] Vector<ElementType, Dimension> CrossProduct(const Vector<ElementType, Dimension>& i_other) const;
+  HOSTDEVICE [[nodiscard]] Vector<ElementType, Dimension> CrossProduct(
+    const Vector<ElementType, Dimension>& i_other) const;
   HOSTDEVICE [[nodiscard]] ElementType Dot(const Vector& i_other) const;
   HOSTDEVICE void Normalize();
   HOSTDEVICE [[nodiscard]] Vector Normalized() const;
@@ -73,13 +74,13 @@ public:
   using m_element_type = ElementType;
 };
 
-template<class ElementType>
+template <class ElementType>
 using Vector2 = Vector<ElementType, 2>;
 using Vector2d = Vector2<double>;
 using Vector2f = Vector2<float>;
 using Vector2i = Vector2<int>;
 
-template<class ElementType>
+template <class ElementType>
 using Vector3 = Vector<ElementType, 3>;
 using Vector3d = Vector3<double>;
 using Vector3f = Vector3<float>;

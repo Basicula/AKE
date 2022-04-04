@@ -35,9 +35,7 @@ public:
 private:
   void _Build(std::size_t i_start, std::size_t i_end);
 
-    BoundingBox3D _BoundingBox(
-      std::size_t i_start,
-      std::size_t i_end);
+  BoundingBox3D _BoundingBox(std::size_t i_start, std::size_t i_end);
 
 private:
   std::vector<KDNode> m_nodes;
