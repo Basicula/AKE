@@ -3,6 +3,7 @@ set(
 
   Drawer.cpp
   CircleDrawer.cpp
+  RectangleDrawer.cpp
 
   OpenGLRenderer.cpp
 
@@ -14,6 +15,7 @@ set(
   
   Drawer.h
   CircleDrawer.h
+  RectangleDrawer.h
 
   OpenGLRenderer.h
 
