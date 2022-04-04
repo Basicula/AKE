@@ -247,13 +247,13 @@ void test_gui_view()
 int main()
 {
   // test_fluid();
-  // test_scene();
+   test_scene();
   // test();
   // test_opencl();
 #ifdef ENABLED_CUDA
   // test_cuda();
 #endif
-   test_fractals();
+  // test_fractals();
   // test_event_listner();
   // test_gui_view();
   return 0;
