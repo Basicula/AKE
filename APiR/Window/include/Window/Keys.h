@@ -1,8 +1,10 @@
 #pragma once
-// Keys are custom for more consistent event handling due to fact that some windows has own and different key codes for same keys
+// Keys are custom for more consistent event handling due to fact that some windows has own and different key codes for
+// same keys
 
 // Some printable keys are mapped to actual key code
-enum class KeyboardButton : unsigned int {
+enum class KeyboardButton : unsigned int
+{
   KEY_Q = 'q',
   KEY_W = 'w',
   KEY_E = 'e',

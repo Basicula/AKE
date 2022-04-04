@@ -1,4 +1,4 @@
-#include <Fractal/SmoothColorMap.h>
+#include "Fractal/SmoothColorMap.h"
 
 #include <cmath>
 

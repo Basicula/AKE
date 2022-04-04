@@ -1,28 +1,25 @@
-#include <Rendering/CPURayTracer.h>
-#include <Rendering/RenderableObject.h>
+#include "Rendering/CPURayTracer.h"
 
-#include <Common/ThreadPool.h>
+#include "Common/ThreadPool.h"
+#include "Rendering/RenderableObject.h"
 
-CPURayTracer::CPURayTracer() 
-  : mp_active_camera(nullptr){
-  }
+CPURayTracer::CPURayTracer()
+  : mp_active_camera(nullptr)
+{}
 
-void CPURayTracer::Render() {
+void CPURayTracer::Render()
+{
 #if true
-  ThreadPool::GetInstance()->ParallelFor(
-    static_cast<std::size_t>(0),
-    mp_frame_image->GetSize(),
-    [&](std::size_t i_pixel_id)
-    {
-    const auto x = i_pixel_id % mp_frame_image->GetWidth();
-    const auto y = i_pixel_id / mp_frame_image->GetWidth();
-    const auto u = 1.0 * x / mp_frame_image->GetWidth();
-    const auto v = 1.0 * y / mp_frame_image->GetHeight();
-    //if (x == mp_frame_image->GetWidth() / 2 && y == mp_frame_image->GetHeight() / 2)
-    const auto color = _TraceRay(mp_active_camera->CameraRay(u, v));
-    mp_frame_image->SetPixel(x, y, color);
-    }
-  );
+  Parallel::ThreadPool::GetInstance()->ParallelFor(
+    static_cast<std::size_t>(0), mp_frame_image->GetSize(), [&](std::size_t i_pixel_id) {
+      const auto x = i_pixel_id % mp_frame_image->GetWidth();
+      const auto y = i_pixel_id / mp_frame_image->GetWidth();
+      const auto u = 1.0 * x / mp_frame_image->GetWidth();
+      const auto v = 1.0 * y / mp_frame_image->GetHeight();
+      // if (x == mp_frame_image->GetWidth() / 2 && y == mp_frame_image->GetHeight() / 2)
+      const auto color = _TraceRay(mp_active_camera->CameraRay(u, v));
+      mp_frame_image->SetPixel(x, y, static_cast<std::uint32_t>(color));
+    });
 #else
   for (auto y = 0; y < mp_frame_image->GetHeight(); ++y) {
     for (auto x = 0; x < mp_frame_image->GetWidth(); ++x) {
@@ -31,19 +28,20 @@ void CPURayTracer::Render() {
       const auto u = 1.0 * x / mp_frame_image->GetWidth();
       const auto v = 1.0 * y / mp_frame_image->GetHeight();
       mp_frame_image->SetPixel(x, y, _TraceRay(mp_active_camera->CameraRay(u, v)));
-      }
+    }
   }
 #endif
-  }
+}
 
-void CPURayTracer::_OutputImageWasSet() {
-  }
+void CPURayTracer::_OutputImageWasSet() {}
 
-void CPURayTracer::_SceneWasSet() {
+void CPURayTracer::_SceneWasSet()
+{
   mp_active_camera = mp_scene->GetActiveCamera();
-  }
+}
 
-Color CPURayTracer::_TraceRay(const Ray& i_camera_ray) {
+Color CPURayTracer::_TraceRay(const Ray& i_camera_ray)
+{
   double distance;
   auto* p_intersected_object = mp_scene->TraceRay(distance, i_camera_ray);
 
@@ -51,12 +49,12 @@ Color CPURayTracer::_TraceRay(const Ray& i_camera_ray) {
     return mp_scene->GetBackGroundColor();
 
   return _ProcessIntersection(p_intersected_object, distance, i_camera_ray);
-  }
+}
 
-Color CPURayTracer::_ProcessIntersection(
-  const Object* ip_intersected_object,
-  const double i_distance,
-  const Ray& i_camera_ray)   {
+Color CPURayTracer::_ProcessIntersection(const Object* ip_intersected_object,
+                                         const double i_distance,
+                                         const Ray& i_camera_ray)
+{
   Color reflected_color;
   if (ip_intersected_object->VisualRepresentation()->IsReflectable())
     reflected_color = _ProcessReflection(ip_intersected_object, i_distance, i_camera_ray);
@@ -67,12 +65,12 @@ Color CPURayTracer::_ProcessIntersection(
 
   Color light_influence = _ProcessLightInfluence(ip_intersected_object, i_distance, i_camera_ray);
   return light_influence + reflected_color;
-  }
+}
 
-Color CPURayTracer::_ProcessReflection(
-  const Object* ip_intersected_object,
-  const double i_distance,
-  const Ray& i_camera_ray)   {
+Color CPURayTracer::_ProcessReflection(const Object* ip_intersected_object,
+                                       const double i_distance,
+                                       const Ray& i_camera_ray)
+{
   std::size_t depth = 0;
   Ray local_ray(i_camera_ray);
   auto* p_intersected_object = ip_intersected_object;
@@ -91,18 +89,18 @@ Color CPURayTracer::_ProcessReflection(
       ++depth;
     else
       return mp_scene->GetBackGroundColor();
-    }
-  return _ProcessLightInfluence(p_intersected_object, distance, local_ray) * reflection;
   }
+  return _ProcessLightInfluence(p_intersected_object, distance, local_ray) * reflection;
+}
 
-Color CPURayTracer::_ProcessRefraction(
-  const Object* /*ip_intersected_object*/,
-  const double /*i_distance*/,
-  const Ray& /*i_camera_ray*/)   {
-  //double refraction_coef = i_ray.GetEnvironment() / object->GetMaterial().GetRefraction();
-  //double cos_n_ray = i_ray.GetDirection().Dot(-normal);
-  //bool is_refracted = sqrt(1 - cos_n_ray * cos_n_ray) < (1.0 / refraction_coef);
-  //if (is_refracted)
+Color CPURayTracer::_ProcessRefraction(const Object* /*ip_intersected_object*/,
+                                       const double /*i_distance*/,
+                                       const Ray& /*i_camera_ray*/)
+{
+  // double refraction_coef = i_ray.GetEnvironment() / object->GetMaterial().GetRefraction();
+  // double cos_n_ray = i_ray.GetDirection().Dot(-normal);
+  // bool is_refracted = sqrt(1 - cos_n_ray * cos_n_ray) < (1.0 / refraction_coef);
+  // if (is_refracted)
   //  {
   //  Vector3d refraction_parallel_part = (i_ray.GetDirection() + normal * cos_n_ray) * refraction_coef;
   //  Vector3d refraction_perpendicular_part = -normal * sqrt(1 - refraction_parallel_part.SquareLength());
@@ -111,12 +109,12 @@ Color CPURayTracer::_ProcessRefraction(
   //  refracted_color = CastRay(refraction_ray, i_objects, i_lights, depth - 1);
   //  }
   return Color();
-  }
+}
 
-Color CPURayTracer::_ProcessLightInfluence(
-  const Object* ip_intersected_object,
-  const double i_distance,
-  const Ray& i_camera_ray)   {
+Color CPURayTracer::_ProcessLightInfluence(const Object* ip_intersected_object,
+                                           const double i_distance,
+                                           const Ray& i_camera_ray)
+{
   const auto& view_direction = i_camera_ray.GetDirection();
   Color result_pixel_color = ip_intersected_object->VisualRepresentation()->GetPrimitiveColor();
   std::size_t red, green, blue, active_lights_cnt;
@@ -124,7 +122,7 @@ Color CPURayTracer::_ProcessLightInfluence(
   const auto intersection_point = i_camera_ray.GetPoint(i_distance);
   const auto normal = ip_intersected_object->GetNormalAtPoint(intersection_point);
   Ray to_light(intersection_point + normal * 1e-6, Vector3d(0, 1, 0));
-  for (auto i = 0u; i < mp_scene->GetNumLights(); ++i)     {
+  for (auto i = 0u; i < mp_scene->GetNumLights(); ++i) {
     const auto& light = mp_scene->GetLight(i);
     if (!light->GetState())
       continue;
@@ -136,24 +134,21 @@ Color CPURayTracer::_ProcessLightInfluence(
     const auto local_intersection = to_light.GetPoint(distance);
     if (!p_intersected_object || light_direction.Dot(light->GetDirection(local_intersection)) < 0.0) {
       Color light_influence =
-        ip_intersected_object->VisualRepresentation()->CalculateColor(
-          normal,
-          view_direction,
-          light_direction) * light->GetIntensityAtPoint(intersection_point);
+        ip_intersected_object->VisualRepresentation()->CalculateColor(normal, view_direction, light_direction) *
+        light->GetIntensityAtPoint(intersection_point);
       red += light_influence.GetRed();
       green += light_influence.GetGreen();
       blue += light_influence.GetBlue();
-      }
     }
-  if (active_lights_cnt > 0)     {
-    //result_pixel_color += Color(
+  }
+  if (active_lights_cnt > 0) {
+    // result_pixel_color += Color(
     //  static_cast<uint8_t>(red / active_lights_cnt),
     //  static_cast<uint8_t>(green / active_lights_cnt),
     //  static_cast<uint8_t>(blue / active_lights_cnt));
-    result_pixel_color = Color(
-      static_cast<uint8_t>(red > 255 ? 255 : red),
-      static_cast<uint8_t>(green > 255 ? 255 : green),
-      static_cast<uint8_t>(blue > 255 ? 255 : blue));
-    }
-  return result_pixel_color;
+    result_pixel_color = Color(static_cast<uint8_t>(red > 255 ? 255 : red),
+                               static_cast<uint8_t>(green > 255 ? 255 : green),
+                               static_cast<uint8_t>(blue > 255 ? 255 : blue));
   }
+  return result_pixel_color;
+}

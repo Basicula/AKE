@@ -1,4 +1,4 @@
-#include <CUDACore/CUDAUtils.h>
+#include "CUDACore/CUDAUtils.h"
 
 namespace {
 #ifdef __CUDACC__

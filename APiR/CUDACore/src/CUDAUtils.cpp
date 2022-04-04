@@ -1,4 +1,4 @@
-#include <CUDACore/CUDAUtils.h>
+#include "CUDACore/CUDAUtils.h"
 
 #include <cuda_runtime.h>
 #include <iostream>

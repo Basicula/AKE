@@ -1,4 +1,4 @@
-#include <Geometry/BoundingBox.h>
+#include "Geometry/BoundingBox.h"
 
 static void AddBoundingBox(py::module& io_module)
   {

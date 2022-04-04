@@ -1,5 +1,5 @@
 #pragma once
-#include <Image/Image.h>
+#include "Image/Image.h"
 
 class BMPWriter
 {
@@ -40,7 +40,7 @@ public:
 #pragma pack()
 
 public:
-  BMPWriter(ColorMode i_mode = ColorMode::RGBA);
+  explicit BMPWriter(ColorMode i_mode = ColorMode::RGBA);
   void Write(const std::string& i_file_path, const Image& i_image);
 
 private:

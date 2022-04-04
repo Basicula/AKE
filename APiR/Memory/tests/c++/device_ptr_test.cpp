@@ -1,7 +1,7 @@
 #include "TestKernels.h"
 
-#include <Macros.h>
-#include <Memory/device_ptr.h>
+#include "Macros.h"
+#include "Memory/device_ptr.h"
 
 #include <gtest/gtest.h>
 

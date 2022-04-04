@@ -1,8 +1,8 @@
 #include "TestKernels.h"
 #include "Utils.h"
 
-#include <Memory/custom_vector.h>
-#include <Memory/managed_ptr.h>
+#include "Memory/custom_vector.h"
+#include "Memory/managed_ptr.h"
 
 #include <gtest/gtest.h>
 

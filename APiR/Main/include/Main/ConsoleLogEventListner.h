@@ -1,7 +1,8 @@
 #pragma once
-#include <Window/EventListner.h>
+#include "Window/EventListner.h"
 
-class ConsoleLogEventListner : public EventListner {
+class ConsoleLogEventListner : public EventListner
+{
 public:
   virtual void PollEvents() override;
 

@@ -1,4 +1,4 @@
-#include <OpenCLCore/OpenCLUtils.h>
+#include "OpenCLCore/OpenCLUtils.h"
 
 namespace OpenCLUtils
   {
