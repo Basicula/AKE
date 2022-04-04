@@ -1,6 +1,6 @@
 #include "Rendering/KDTree.h"
 
-#include "Geometry/Intersection.h"
+#include "Geometry.3D/Intersection.h"
 
 namespace {
   double Volume(const BoundingBox& i_bbox) { return i_bbox.DeltaX() * i_bbox.DeltaY() * i_bbox.DeltaZ(); }

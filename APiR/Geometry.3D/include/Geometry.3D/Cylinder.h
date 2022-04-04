@@ -1,6 +1,6 @@
 #pragma once
-#include "Geometry/ISurface.h"
-#include "Geometry/Plane.h"
+#include "Geometry.3D/ISurface.h"
+#include "Geometry.3D/Plane.h"
 #include "Math/Vector.h"
 
 #include <optional>

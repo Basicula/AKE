@@ -1,6 +1,6 @@
 #pragma once
 #include "Geometry/BoundingBox.h"
-#include "Geometry/Ray.h"
+#include "Geometry.3D/Ray.h"
 #include "Physics/IPhysicMaterial.h"
 #include "Visual/IVisualMaterial.h"
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "Geometry/Intersection.h"
+#include "Geometry.3D/Intersection.h"
 #include "Geometry/Transformation.h"
 #include "Math/Vector.h"
 

@@ -1,10 +1,8 @@
 #pragma once
 #include "Common/Constants.h"
 #include "Geometry/BoundingBox.h"
-#include "Geometry/Ray.h"
-#include "Geometry/Transformable.h"
-
-#include <memory>
+#include "Geometry.3D/Ray.h"
+#include "Geometry.3D/Transformable.h"
 
 class ISurface : public Transformable
 {

@@ -1,8 +1,8 @@
-#include "Geometry/Intersection.h"
+#include "Geometry.3D/Intersection.h"
 
 #include "Common/Constants.h"
 #include "Geometry/BoundingBox.h"
-#include "Geometry/Ray.h"
+#include "Geometry.3D/Ray.h"
 
 namespace {
   void RayBoxIntersection(bool& o_is_intersected,

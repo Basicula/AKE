@@ -1,5 +1,5 @@
 #pragma once
-#include "Geometry/ISurface.h"
+#include "Geometry.3D/ISurface.h"
 
 class Sphere : public ISurface
 {

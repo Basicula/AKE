@@ -1,4 +1,4 @@
-#include "Geometry/Plane.h"
+#include "Geometry.3D/Plane.h"
 
 Plane::Plane(const Vector3d& i_first, const Vector3d& i_second, const Vector3d& i_third)
   : Plane(i_first, (i_second - i_first).CrossProduct(i_third - i_first))
