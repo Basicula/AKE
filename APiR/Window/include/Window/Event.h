@@ -1,8 +1,10 @@
 #pragma once
 
-class Event {
+class Event
+{
 public:
-  enum class EventType {
+  enum class EventType
+  {
     MOUSE_MOVED_EVENT,
     MOUSE_SCOLLED_EVENT,
     MOUSE_BUTTON_PRESSED_EVENT,
@@ -17,10 +19,10 @@ public:
   };
 
 public:
-  Event(const EventType i_type);
+  explicit Event(EventType i_type);
   virtual ~Event() = default;
 
-  EventType Type() const;
+  [[nodiscard]] EventType Type() const;
 
 private:
   EventType m_type;

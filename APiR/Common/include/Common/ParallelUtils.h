@@ -1,7 +1,6 @@
 #pragma once
 #include <mutex>
 
-namespace Parallel
-  {
+namespace Parallel {
   static std::mutex g_critical;
-  }
+}

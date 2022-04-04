@@ -1,6 +1,6 @@
-#include <memory>
+#include "Rendering/Scene.h"
 
-#include <Rendering/Scene.h>
+#include <memory>
 
 static void AddScene(py::module& io_module)
   {

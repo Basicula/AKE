@@ -1,6 +1,6 @@
 #pragma once
-#include <OpenCLCore/Kernel.h>
-#include <Image/Image.h>
+#include "OpenCLCore/Kernel.h"
+#include "Image/Image.h"
 
 class MandelbrotSetKernel : public Kernel
   {

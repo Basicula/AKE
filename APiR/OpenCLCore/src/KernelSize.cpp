@@ -1,4 +1,4 @@
-#include <OpenCLCore/KernelSize.h>
+#include "OpenCLCore/KernelSize.h"
 
 #include <algorithm>
 

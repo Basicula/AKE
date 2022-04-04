@@ -1,5 +1,5 @@
-#include <OpenCLCore/OpenCLEnvironment.h>
-#include <OpenCLCore/OpenCLUtils.h>
+#include "OpenCLCore/OpenCLEnvironment.h"
+#include "OpenCLCore/OpenCLUtils.h"
 
 namespace
   {

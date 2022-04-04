@@ -3,6 +3,7 @@ set(
 
   Color.cpp
   
+  ILight.cpp
   SpotLight.cpp
   
   PhongMaterial.cpp  

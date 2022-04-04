@@ -1,4 +1,4 @@
-#include <CUDACore/CUDAUtils.h>
+#include "CUDACore/CUDAUtils.h"
 
 template<class T>
 inline T* managed_allocator<T>::allocate(size_t i_count) {

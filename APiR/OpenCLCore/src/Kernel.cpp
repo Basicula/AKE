@@ -1,5 +1,5 @@
-#include <OpenCLCore/Kernel.h>
-#include <OpenCLCore/OpenCLUtils.h>
+#include "OpenCLCore/Kernel.h"
+#include "OpenCLCore/OpenCLUtils.h"
 
 #include <fstream>
 #include <streambuf>

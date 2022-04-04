@@ -1,4 +1,4 @@
-#include <Visual/SpotLight.h>
+#include "Visual/SpotLight.h"
 
 namespace
   {

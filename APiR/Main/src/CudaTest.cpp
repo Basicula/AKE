@@ -1,17 +1,17 @@
-#include <Main/CudaTest.h>
+#include "Main/CudaTest.h"
 
-#include <CUDACore/KernelHandler.h>
+#include "CUDACore/KernelHandler.h"
 
 #include <GLUTWindow/GLUTWindow.h>
 
-#include <Fractal/MappingFunctions.h>
-#include <Fractal/MandelbrotSet.h>
+#include "Fractal/MappingFunctions.h"
+#include "Fractal/MandelbrotSet.h"
 
 #include <Memory/device_ptr.h>
 #include <Memory/custom_vector.h>
 #include <Memory/managed_ptr.h>
 
-#include <Image/Image.h>
+#include "Image/Image.h"
 
 #include <device_launch_parameters.h>
 

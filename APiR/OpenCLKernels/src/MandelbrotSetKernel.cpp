@@ -1,5 +1,5 @@
-#include <OpenCLCore/OpenCLUtils.h>
-#include <OpenCLKernels/MandelbrotSetKernel.h>
+#include "OpenCLCore/OpenCLUtils.h"
+#include "OpenCLKernels/MandelbrotSetKernel.h"
 
 MandelbrotSetKernel::MandelbrotSetKernel(
   std::size_t i_width,

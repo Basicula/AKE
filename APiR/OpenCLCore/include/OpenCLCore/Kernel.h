@@ -1,5 +1,5 @@
 #pragma once
-#include <OpenCLCore/KernelSize.h>
+#include "OpenCLCore/KernelSize.h"
 
 #include <CL/cl.h>
 

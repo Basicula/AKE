@@ -1,5 +1,5 @@
 #pragma once
-#include <Fractal/ColorMap.h>
+#include "Fractal/ColorMap.h"
 
 class SmoothColorMap : public ColorMap
   {

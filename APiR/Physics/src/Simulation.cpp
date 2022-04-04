@@ -1,17 +1,28 @@
-#include <Physics/Constants.h>
-#include <Physics/Simulation.h>
+#include "Physics/Simulation.h"
+
+#include "Physics/Constants.h"
 
 Simulation::Simulation()
-  : Simulation(DEFAULT_TIME_STEP)
-  {}
+  : Simulation(Physics::Constants::DEFAULT_TIME_STEP)
+{}
 
-Simulation::Simulation(double i_time_step)
+Simulation::Simulation(const double i_time_step)
   : m_time_step(i_time_step)
-  {}
+{}
 
 void Simulation::Update()
-  {
+{
   _PreProcessing();
   _Update();
   _PostProcessing();
-  }
+}
+
+void Simulation::SetTimeStep(const double i_new_time_step)
+{
+  m_time_step = i_new_time_step;
+}
+
+double Simulation::GetTimeStep() const
+{
+  return m_time_step;
+}
