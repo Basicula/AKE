@@ -32,7 +32,7 @@ void Transformable::Rotate(const Vector3d& i_axis, double i_degree_in_rad)
 Vector3d Transformable::ApplyRotation(const Vector3d& i_point) const
 {
   const auto& rotation = m_transformation.GetRotation();
-  return rotation * i_point;
+  return rotation.ApplyLeft(i_point);
 }
 
 void Transformable::Translate(const Vector3d& i_translation)

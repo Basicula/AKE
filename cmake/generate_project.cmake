@@ -44,7 +44,7 @@ function(generate_project)
     LINK
     PUBLIC_LINK
   )
-  cmake_parse_arguments(ARG "STATIC;SHARED;EXECUTABLE;SUPPORT_MFC;ENABLE_PCH;WIN32_EXE;SUPPORT_CUDA" "" "${KEYWORDS}" ${ARGN})
+  cmake_parse_arguments(ARG "INTERFACE;STATIC;SHARED;EXECUTABLE;SUPPORT_MFC;ENABLE_PCH;WIN32_EXE;SUPPORT_CUDA" "" "${KEYWORDS}" ${ARGN})
   get_filename_component(NAME "${CMAKE_CURRENT_SOURCE_DIR}" NAME)
   
   set(PCH_FILES)
@@ -98,6 +98,13 @@ function(generate_project)
       ${FILES}
       ${PCH_FILES}
     )
+  elseif(ARG_INTERFACE)
+    add_library(
+      ${NAME}
+      INTERFACE
+      ${FILES}
+      ${PCH_FILES}
+    )
   else()
     message(FATAL_ERROR "Project type doesn't specified, please set it to STATIC, SHARED or EXECUTABLE")
   endif()
@@ -117,10 +124,17 @@ function(generate_project)
     set_property(TARGET ${NAME} PROPERTY CUDA_ARCHITECTURES 61-real 61-virtual)
   endif()
   
-  target_include_directories(${NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
-  target_include_directories(${NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/py")
-  target_link_libraries(${NAME} PRIVATE ${ARG_LINK})
-  target_link_libraries(${NAME} PUBLIC ${ARG_PUBLIC_LINK})
+  if(ARG_INTERFACE)
+    target_include_directories(${NAME} INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+    target_include_directories(${NAME} INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/py")
+    target_link_libraries(${NAME} INTERFACE ${ARG_LINK})
+    target_link_libraries(${NAME} INTERFACE ${ARG_PUBLIC_LINK})
+  else()
+    target_include_directories(${NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
+    target_include_directories(${NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/py")
+    target_link_libraries(${NAME} PRIVATE ${ARG_LINK})
+    target_link_libraries(${NAME} PUBLIC ${ARG_PUBLIC_LINK})
+  endif()
   
   set_property(TARGET ${NAME} PROPERTY FOLDER "APiR")
   

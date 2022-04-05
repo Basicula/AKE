@@ -1,22 +1,27 @@
 #pragma once
-#include "Math/Matrix3.h"
+#include "Math/SquareMatrix.h"
 #include "Math/Vector.h"
 
+template <size_t Dimension>
 class Transformation
 {
+public:
+    using VectorType = Vector<double, Dimension>;
+    using MatrixType = SquareMatrix<double, Dimension>;
+
 public:
   Transformation();
   Transformation(const Transformation& i_other);
 
-  Vector3d GetScale() const;
-  void SetScale(const Vector3d& i_scale);
+  VectorType GetScale() const;
+  void SetScale(const VectorType& i_scale);
 
-  Vector3d GetTranslation() const;
-  void SetTranslation(const Vector3d& i_translation);
+  VectorType GetTranslation() const;
+  void SetTranslation(const VectorType& i_translation);
 
-  Matrix3d GetRotation() const;
-  void SetRotation(const Matrix3d& i_rotation_matrix);
-  void SetRotation(const Vector3d& i_axis, double i_degree_in_rad);
+  MatrixType GetRotation() const;
+  void SetRotation(const MatrixType& i_rotation_matrix);
+  void SetRotation(const VectorType& i_axis, double i_degree_in_rad);
 
   void Inverse();
   Transformation GetInversed() const;
@@ -25,61 +30,29 @@ public:
   // if i_is_vector is true then i_vector treats as vector(direction)
   // i.e. only rotation applies to vector
   // if i_is_vector is false then i_vector treats as point
-  Vector3d Transform(const Vector3d& i_vector, const bool i_is_vector = false) const;
-  void Transform(Vector3d& io_vector, const bool i_is_vector = false) const;
+  VectorType Transform(const VectorType& i_vector, bool i_is_vector = false) const;
+  void Transform(VectorType& io_vector, bool i_is_vector = false) const;
 
-  Vector3d InverseTransform(const Vector3d& i_vector, const bool i_is_vector = false) const;
-  void InverseTransform(Vector3d& io_vector, const bool i_is_vector = false) const;
+  VectorType InverseTransform(const VectorType& i_vector, bool i_is_vector = false) const;
+  void InverseTransform(VectorType& io_vector, bool i_is_vector = false) const;
 
-  Vector3d Rotate(const Vector3d& i_vector) const;
-  void Rotate(Vector3d& io_vector) const;
-  Vector3d Translate(const Vector3d& i_vector) const;
-  void Translate(Vector3d& io_vector) const;
-  Vector3d Scale(const Vector3d& i_vector) const;
-  void Scale(Vector3d& io_vector) const;
+  VectorType Rotate(const VectorType& i_vector) const;
+  void Rotate(VectorType& io_vector) const;
+  VectorType Translate(const VectorType& i_vector) const;
+  void Translate(VectorType& io_vector) const;
+  VectorType Scale(const VectorType& i_vector) const;
+  void Scale(VectorType& io_vector) const;
 
 private:
-  Vector3d m_translation;
-  Vector3d m_scale;
+  VectorType m_translation;
+  VectorType m_scale;
 
-  Matrix3d m_rotation;
-  Matrix3d m_inverse_rotation;
+  MatrixType m_rotation;
+  MatrixType m_inverse_rotation;
 };
 
-inline Vector3d Transformation::GetScale() const
-{
-  return m_scale;
-}
+using Transformation3D = Transformation<3>;
 
-inline void Transformation::SetScale(const Vector3d& i_scale)
-{
-  m_scale = i_scale;
-}
-
-inline Vector3d Transformation::GetTranslation() const
-{
-  return m_translation;
-}
-
-inline void Transformation::SetTranslation(const Vector3d& i_translation)
-{
-  m_translation = i_translation;
-}
-
-inline Matrix3d Transformation::GetRotation() const
-{
-  return m_rotation;
-}
-
-inline void Transformation::SetRotation(const Matrix3d& i_rotation_matrix)
-{
-  m_rotation = i_rotation_matrix;
-  m_inverse_rotation = i_rotation_matrix.Transposed();
-}
-
-inline void Transformation::Inverse()
-{
-  m_translation = -m_translation;
-  m_scale = Vector3d(1.0 / m_scale[0], 1.0 / m_scale[1], 1.0 / m_scale[2]);
-  std::swap(m_rotation, m_inverse_rotation);
-}
+#include "impl/TransformationImpl.h"
+#include "impl/Transformation2DImpl.h"
+#include "impl/Transformation3DImpl.h"

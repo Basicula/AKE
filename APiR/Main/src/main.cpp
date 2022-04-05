@@ -295,8 +295,8 @@ void test_gui_view()
 int main()
 {
   // test_fluid();
-  // test_scene();
-  test_scene_2d();
+   test_scene();
+  // test_scene_2d();
   // test();
   // test_opencl();
 #ifdef ENABLED_CUDA

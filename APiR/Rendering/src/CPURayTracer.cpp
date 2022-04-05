@@ -27,7 +27,8 @@ void CPURayTracer::Render()
         continue;
       const auto u = 1.0 * x / mp_frame_image->GetWidth();
       const auto v = 1.0 * y / mp_frame_image->GetHeight();
-      mp_frame_image->SetPixel(x, y, _TraceRay(mp_active_camera->CameraRay(u, v)));
+      const auto color = _TraceRay(mp_active_camera->CameraRay(u, v));
+      mp_frame_image->SetPixel(x, y, static_cast<std::uint32_t>(color));
     }
   }
 #endif

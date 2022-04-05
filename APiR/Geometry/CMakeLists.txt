@@ -1,15 +1,18 @@
 set(
   SOURCES
   
-  Transformation.cpp
 )
 
 set(
   HEADERS
   
   BoundingBox.h
+  impl/BoundingBoxImpl.h
   
   Transformation.h
+  impl/TransformationImpl.h
+  impl/Transformation2DImpl.h
+  impl/Transformation3DImpl.h
 )
 
 set(
@@ -27,7 +30,7 @@ set(
 )
 
 generate_project(
-  STATIC
+  INTERFACE
   SOURCES ${SOURCES}
   HEADERS ${HEADERS}
   PY      ${PY}
