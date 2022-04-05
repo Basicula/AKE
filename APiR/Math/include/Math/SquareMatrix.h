@@ -49,11 +49,7 @@ public:
 
 protected:
   static constexpr size_t m_size = N * N;
-  union
-  {
-    ElementType m_matrix[N][N];
-    ElementType m_elements[m_size];
-  };
+  ElementType m_data[N][N];
 };
 
 template <class ElementType>
