@@ -1,6 +1,7 @@
 #pragma once
 
 template <>
+template <>
 inline void Transformation3D::SetRotation(const Vector3d& i_axis, const double i_degree_in_rad)
 {
   const double cosine = cos(i_degree_in_rad);

@@ -29,7 +29,7 @@ template <size_t Dimension>
 typename Transformation<Dimension>::VectorType Transformation<Dimension>::Transform(const VectorType& i_vector,
                                                                                     const bool i_is_vector) const
 {
-  Vector3d vector = i_vector;
+  VectorType vector = i_vector;
   Transform(vector, i_is_vector);
   return vector;
 }
@@ -50,7 +50,7 @@ template <size_t Dimension>
 typename Transformation<Dimension>::VectorType Transformation<Dimension>::InverseTransform(const VectorType& i_vector,
                                                                                            const bool i_is_vector) const
 {
-  Vector3d vector = i_vector;
+  VectorType vector = i_vector;
   InverseTransform(vector, i_is_vector);
   return vector;
 }
@@ -70,7 +70,7 @@ void Transformation<Dimension>::InverseTransform(VectorType& io_vector, const bo
 template <size_t Dimension>
 typename Transformation<Dimension>::VectorType Transformation<Dimension>::Rotate(const VectorType& i_vector) const
 {
-  Vector3d result = i_vector;
+  VectorType result = i_vector;
   m_rotation.ApplyLeft(result);
   return result;
 }
@@ -146,6 +146,6 @@ template <size_t Dimension>
 void Transformation<Dimension>::Inverse()
 {
   m_translation = -m_translation;
-  m_scale = Vector3d(1.0 / m_scale[0], 1.0 / m_scale[1], 1.0 / m_scale[2]);
+  m_scale.Invert();
   std::swap(m_rotation, m_inverse_rotation);
 }
