@@ -26,7 +26,7 @@ public:
   template <std::size_t D = Dimension, std::enable_if_t<D == 2, bool> = true>
   void SetRotation(double i_degree_in_rad);
 
-  void Inverse();
+  void Invert();
   [[nodiscard]] Transformation GetInversed() const;
 
   // Transforms i_vector

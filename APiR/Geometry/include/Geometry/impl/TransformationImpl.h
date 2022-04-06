@@ -143,7 +143,7 @@ void Transformation<Dimension>::SetRotation(const MatrixType& i_rotation_matrix)
 }
 
 template <size_t Dimension>
-void Transformation<Dimension>::Inverse()
+void Transformation<Dimension>::Invert()
 {
   m_translation = -m_translation;
   m_scale.Invert();
