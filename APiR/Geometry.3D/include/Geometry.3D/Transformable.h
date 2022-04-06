@@ -7,7 +7,7 @@ class Transformable
 {
 public:
   Transformable() = default;
-  ~Transformable() = default;
+  virtual ~Transformable() = default;
 
   Transformation3D GetTransformation() const;
 
