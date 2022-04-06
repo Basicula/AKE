@@ -4,17 +4,17 @@
 
 #include <GL/glew.h>
 
-CircleDrawer::CircleDrawer(std::shared_ptr<Circle> ip_circle, const Color& i_color, const bool i_fill)
-  : mp_circle(std::move(ip_circle))
+CircleDrawer::CircleDrawer(const Circle& i_circle, const Color& i_color, const bool i_fill)
+  : m_circle(i_circle)
   , m_color(i_color)
   , m_fill(i_fill)
 {}
 
 void CircleDrawer::Draw() const
 {
-  const auto& x = mp_circle->center[0];
-  const auto& y = mp_circle->center[1];
-  const auto& radius = mp_circle->radius;
+  const auto& x = m_circle.center[0];
+  const auto& y = m_circle.center[1];
+  const auto& radius = m_circle.radius;
   constexpr auto segments_count = 180;
   if (m_fill) {
     glBegin(GL_TRIANGLE_FAN);

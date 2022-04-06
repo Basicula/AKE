@@ -7,6 +7,8 @@ set(
 
   OpenGLRenderer.cpp
 
+  Object2D.cpp
+
   Scene2D.cpp
 )
 
@@ -18,6 +20,9 @@ set(
   RectangleDrawer.h
 
   OpenGLRenderer.h
+
+  Object2D.h
+  impl/Object2DImpl.h
 
   Scene2D.h
 )

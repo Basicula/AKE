@@ -31,6 +31,7 @@
 #include "Rendering.2D/RectangleDrawer.h"
 #include "Rendering.2D/OpenGLRenderer.h"
 #include "Rendering.2D/Scene2D.h"
+#include "Rendering.2D/Object2D.h"
 #include "Rendering/CPURayTracer.h"
 #include "Rendering/RenderableObject.h"
 #include "Rendering/Scene.h"
@@ -119,19 +120,17 @@ void test_scene_2d()
 {
   constexpr std::size_t width = 800;
   constexpr std::size_t height = 800;
-
+  
   Scene2D scene("Test 2D scene");
   auto unif_rand = []() { return 2.0 * (static_cast<double>(rand()) / RAND_MAX) - 1.0; };
   for (std::size_t circle_id = 0; circle_id < 10; ++circle_id) {
     const auto x = unif_rand();
     const auto y = unif_rand();
     const auto radius = unif_rand();
-    auto p_circle = std::make_shared<Circle>(Vector2d(x, y), radius);
-    auto p_circle_drawer = std::make_shared<CircleDrawer>(p_circle, Color::Blue, false);
-    auto p_object = std::make_unique<Scene2D::Object>();
-    p_object->mp_shape = p_circle;
-    p_object->mp_drawer = p_circle_drawer;
-    scene.AddObject(std::move(p_object));
+    auto p_circle = std::make_unique<Object2D>();
+    p_circle->InitShape<Circle>(Vector2d(x, y), radius);
+    p_circle->InitDrawer<CircleDrawer>(static_cast<const Circle&>(p_circle->GetShape()), Color::Blue, false);
+    scene.AddObject(std::move(p_circle));
   }
 
   for (std::size_t rectangle_id = 0; rectangle_id < 10; ++rectangle_id) {
@@ -139,12 +138,10 @@ void test_scene_2d()
     const auto y = unif_rand();
     const auto rect_width = unif_rand();
     const auto rect_height = unif_rand();
-    auto p_rectangle = std::make_shared<Rectangle>(Vector2d(x, y), rect_width, rect_height);
-    auto p_rectangle_drawer = std::make_shared<RectangleDrawer>(p_rectangle, Color::Red, false);
-    auto p_object = std::make_unique<Scene2D::Object>();
-    p_object->mp_shape = p_rectangle;
-    p_object->mp_drawer = p_rectangle_drawer;
-    scene.AddObject(std::move(p_object));
+    auto p_rectangle = std::make_unique<Object2D>();
+    p_rectangle->InitShape<Rectangle>(Vector2d(x, y), rect_width, rect_height);
+    p_rectangle->InitDrawer<RectangleDrawer>(static_cast<const Rectangle&>(p_rectangle->GetShape()), Color::Red, false);
+    scene.AddObject(std::move(p_rectangle));
   }
 
   const OpenGLRenderer renderer(scene);
@@ -295,8 +292,8 @@ void test_gui_view()
 int main()
 {
   // test_fluid();
-   test_scene();
-  // test_scene_2d();
+  // test_scene();
+   test_scene_2d();
   // test();
   // test_opencl();
 #ifdef ENABLED_CUDA

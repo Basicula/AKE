@@ -8,5 +8,5 @@ void OpenGLRenderer::Render() const
 {
   const auto& objects = m_scene.GetObjects();
   for (const auto& p_object : objects)
-    p_object->mp_drawer->Draw();
+    p_object->GetDrawer().Draw();
 }
