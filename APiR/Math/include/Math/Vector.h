@@ -57,6 +57,7 @@ public:
     const Vector<ElementType, Dimension>& i_other) const;
   HOSTDEVICE [[nodiscard]] ElementType Dot(const Vector& i_other) const;
   HOSTDEVICE void Normalize();
+  HOSTDEVICE void Invert();
   HOSTDEVICE [[nodiscard]] Vector Normalized() const;
   HOSTDEVICE [[nodiscard]] double Length() const;
   HOSTDEVICE [[nodiscard]] ElementType SquareLength() const;

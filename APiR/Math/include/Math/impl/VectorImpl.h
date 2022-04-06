@@ -254,6 +254,13 @@ void Vector<ElementType, Dimension>::Normalize()
 }
 
 template <class ElementType, std::size_t Dimension>
+void Vector<ElementType, Dimension>::Invert()
+{
+  for (std::size_t i = 0; i < Dimension; ++i)
+    m_coords[i] = 1.0 / m_coords[i];
+}
+
+template <class ElementType, std::size_t Dimension>
 Vector<ElementType, Dimension> Vector<ElementType, Dimension>::Normalized() const
 {
   Vector<ElementType, Dimension> res(*this);
