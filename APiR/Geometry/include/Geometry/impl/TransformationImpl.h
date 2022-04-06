@@ -21,7 +21,7 @@ template <size_t Dimension>
 Transformation<Dimension> Transformation<Dimension>::GetInversed() const
 {
   Transformation temp(*this);
-  temp.Inverse();
+  temp.Invert();
   return temp;
 }
 
