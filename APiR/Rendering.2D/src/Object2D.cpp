@@ -9,3 +9,13 @@ const Drawer& Object2D::GetDrawer() const
 {
   return *mp_drawer;
 }
+
+const Transformation2D& Object2D::GetTransformation() const
+{
+  return m_transformation;
+}
+
+Transformation2D& Object2D::GetTransformation()
+{
+  return m_transformation;
+}
