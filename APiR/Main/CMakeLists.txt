@@ -7,6 +7,8 @@ set(
   
   ConsoleLogEventListner.cpp
   SimpleCameraController.cpp
+
+  FluidExample.cpp
 )
 
 set(
@@ -16,6 +18,8 @@ set(
   
   ConsoleLogEventListner.h
   SimpleCameraController.h
+
+  FluidExample.h
 )
 
 set(
