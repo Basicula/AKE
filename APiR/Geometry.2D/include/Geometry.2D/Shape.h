@@ -1,16 +1,12 @@
 #pragma once
 #include <Geometry/BoundingBox.h>
 
-class Shape
+struct Shape
 {
-public:
-  virtual ~Shape() = default;
+  BoundingBox2D m_bounding_box;
 
-  [[nodiscard]] BoundingBox2D GetBoundingBox() const;
+  virtual ~Shape() = default;
 
 protected:
   virtual void _CalculateBoundingBox() = 0;
-
-protected:
-  BoundingBox2D m_bounding_box;
 };
