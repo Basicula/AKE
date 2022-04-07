@@ -9,6 +9,7 @@ set(
   SimpleCameraController.cpp
 
   FluidExample.cpp
+  3DSceneExample.cpp
 )
 
 set(
@@ -20,6 +21,7 @@ set(
   SimpleCameraController.h
 
   FluidExample.h
+  3DSceneExample.h
 )
 
 set(
