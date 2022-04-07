@@ -12,6 +12,7 @@ set(
   2DSceneExample.cpp
   3DSceneExample.cpp
   OpenCLExample.cpp
+  FractalExample.cpp
 )
 
 set(
@@ -26,6 +27,7 @@ set(
   2DSceneExample.h
   3DSceneExample.h
   OpenCLExample.h
+  FractalExample.h
 )
 
 set(
