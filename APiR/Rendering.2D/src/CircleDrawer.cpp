@@ -12,10 +12,10 @@ CircleDrawer::CircleDrawer(const Circle& i_circle, const Color& i_color, const b
 
 void CircleDrawer::Draw() const
 {
-  const auto& x = m_circle.center[0];
-  const auto& y = m_circle.center[1];
-  const auto& radius = m_circle.radius;
+  const auto& radius = m_circle.m_radius;
   constexpr auto segments_count = 180;
+  const auto x = mp_transformation != nullptr ? mp_transformation->GetTranslation()[0] : 0.0;
+  const auto y = mp_transformation != nullptr ? mp_transformation->GetTranslation()[1] : 0.0;
   if (m_fill) {
     glBegin(GL_TRIANGLE_FAN);
     glVertex2d(x, y);
