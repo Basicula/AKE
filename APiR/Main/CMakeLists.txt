@@ -13,6 +13,7 @@ set(
   3DSceneExample.cpp
   OpenCLExample.cpp
   FractalExample.cpp
+  WindowExample.cpp
 )
 
 set(
@@ -28,6 +29,7 @@ set(
   3DSceneExample.h
   OpenCLExample.h
   FractalExample.h
+  WindowExample.h
 )
 
 set(
