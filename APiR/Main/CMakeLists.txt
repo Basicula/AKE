@@ -11,6 +11,7 @@ set(
   FluidExample.cpp
   2DSceneExample.cpp
   3DSceneExample.cpp
+  OpenCLExample.cpp
 )
 
 set(
@@ -24,6 +25,7 @@ set(
   FluidExample.h
   2DSceneExample.h
   3DSceneExample.h
+  OpenCLExample.h
 )
 
 set(

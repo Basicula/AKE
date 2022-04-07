@@ -45,46 +45,10 @@
 
 #include <Memory/custom_vector.h>
 
-#ifdef ENABLED_OPENCL
-#include "OpenCLCore/OpenCLEnvironment.h"
-#include "OpenCLKernels/MandelbrotSetKernel.h"
-#endif
-
 #include "Main/CudaTest.h"
 
 #include <chrono>
 #include <iostream>
-
-#ifdef ENABLED_OPENCL
-void test_opencl()
-{
-  const std::size_t width = 1024;
-  const std::size_t height = 768;
-  Image image(width, height);
-  OpenCLEnvironment env;
-  env.Init();
-  env.PrintInfo();
-  std::size_t iterations = 1000;
-  MandelbrotSetKernel kernel(width, height, iterations);
-  kernel.SetMaxIterations(iterations);
-  kernel.SetOutput(image);
-  FPSCounter fps_counter(std::cout);
-  env.Build(kernel);
-  const auto update_func = [&]() {
-    env.Execute(kernel);
-    fps_counter.Update();
-  };
-#if false
-  for (auto i = 0; i < 30; ++i)
-    update_func();
-#else
-  GLUTWindow window(width, height, "OpenCLTest");
-  window.SetImageSource(&image);
-  window.SetUpdateFunction(update_func);
-  window.Open();
-#endif
-}
-#endif
 
 void test_fractals()
 {
@@ -192,8 +156,6 @@ void test_gui_view()
 
 int main()
 {
-  // test_fluid();
-  // test_scene();
    SceneExample2D();
   // test();
   // test_opencl();
