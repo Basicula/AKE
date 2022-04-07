@@ -15,16 +15,23 @@ public:
 
   [[nodiscard]] VectorType GetScale() const;
   void SetScale(const VectorType& i_scale);
+  void Scale(const VectorType& i_scale);
+  void Scale(double i_factor);
 
   [[nodiscard]] VectorType GetTranslation() const;
   void SetTranslation(const VectorType& i_translation);
+  void Translate(const VectorType& i_translation);
 
   [[nodiscard]] MatrixType GetRotation() const;
   void SetRotation(const MatrixType& i_rotation_matrix);
   template <std::size_t D = Dimension, std::enable_if_t<D == 3, bool> = true>
   void SetRotation(const VectorType& i_axis, double i_degree_in_rad);
+  template <std::size_t D = Dimension, std::enable_if_t<D == 3, bool> = true>
+  void Rotate(const VectorType& i_axis, double i_degree_in_rad);
   template <std::size_t D = Dimension, std::enable_if_t<D == 2, bool> = true>
   void SetRotation(double i_degree_in_rad);
+  template <std::size_t D = Dimension, std::enable_if_t<D == 2, bool> = true>
+  void Rotate(double i_degree_in_rad);
 
   void Invert();
   [[nodiscard]] Transformation GetInversed() const;

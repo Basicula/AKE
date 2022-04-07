@@ -1,3 +1,4 @@
+#include "..\Transformation.h"
 #pragma once
 
 template <size_t Dimension>
@@ -93,6 +94,12 @@ void Transformation<Dimension>::Translate(VectorType& io_vector) const
   io_vector += m_translation;
 }
 
+template <std::size_t Dimension>
+void Transformation<Dimension>::Translate(const VectorType& i_translation)
+{
+  m_translation += i_translation;
+}
+
 template <size_t Dimension>
 typename Transformation<Dimension>::VectorType Transformation<Dimension>::Scale(const VectorType& i_vector) const
 {
@@ -115,6 +122,20 @@ template <size_t Dimension>
 void Transformation<Dimension>::SetScale(const VectorType& i_scale)
 {
   m_scale = i_scale;
+}
+
+template <std::size_t Dimension>
+void Transformation<Dimension>::Scale(const VectorType& i_scale)
+{
+  for (std::size_t coord_id = 0; coord_id < Dimension; ++coord_id)
+    m_scale[coord_id] *= i_scale[coord_id];
+}
+
+template <std::size_t Dimension>
+void Transformation<Dimension>::Scale(double i_factor)
+{
+  for (std::size_t coord_id = 0; coord_id < Dimension; ++coord_id)
+    m_scale[coord_id] *= i_factor;
 }
 
 template <size_t Dimension>
