@@ -2,7 +2,6 @@
 [![Badge](https://img.shields.io/badge/C-birghtgreen)](https://github.com/Basicula)
 [![Badge](https://img.shields.io/badge/Python-blue)](https://github.com/Basicula)
 [![Badge](https://img.shields.io/badge/CMake-aaaaaa)](https://github.com/Basicula)
-[![Badge](https://europe-west6-xlocc-badge.cloudfunctions.net/XLOCC/Basicula/APiR?kill_cache=7&ifiles=pybind11|ThirdParties)](https://github.com/Basicula)
 
 # **APiR** - **A**ll **P**ossible **i**n **R**endering
 
@@ -18,29 +17,39 @@ or they will be taken from ThirdParties folder instead
 
 ## Feature list
 - [ ] Geometry
-    - [ ] Primitives
-        - [x] Sphere
-        - [x] Cylinder
-        - [x] Plane
-        - [x] Torus
-        - [ ] Cone
-        - [ ] Cube
-    - [ ] Mesh
+    - [ ] 3D
+        - [ ] Primitives
+            - [x] Sphere
+            - [x] Cylinder
+            - [x] Plane
+            - [x] Torus
+            - [ ] Cone
+            - [ ] Cube
+        - [ ] Mesh
+    - [ ] 2D
+        - [ ] Primitives
+            - [x] Circle
+            - [x] Rectangle
+            - [x] Triangle
+        - [ ] Mesh
 - [ ] Fractal
     - [ ] 2D
         - [x] Mandelbrot set
         - [x] Julia set
     - [ ] 3D
 - [ ] Rendering worflow
-    - [ ] RayTracing
-        - [x] CPU version
-        - [ ] CUDA version
-        - [ ] Techniques
-            - [ ] Soft shadows
-            - [ ] TAA (temporal anti aliasing)
-    - [ ] RayMarching
-    - [ ] PathTracing
-    - [ ] Rasterizer
+    - [ ] 3D
+        - [ ] RayTracing
+            - [x] CPU version
+            - [ ] CUDA version
+            - [ ] Techniques
+                - [ ] Soft shadows
+                - [ ] TAA (temporal anti aliasing)
+        - [ ] RayMarching
+        - [ ] PathTracing
+        - [ ] Rasterizer
+    - [ ] 2D
+        - [x] Simple drawers based on OpenGL primitives
 - [ ] Physic
 - [ ] Serialization
 - [ ] Python wrapper
