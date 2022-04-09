@@ -1,10 +1,12 @@
 #pragma once
 #include "Image/Image.h"
+#include "Rendering/IRenderer.h"
 #include "Window/EventListner.h"
 #include "Window/FPSCounter.h"
 #include "Window/GUIView.h"
 
 #include <functional>
+#include <memory>
 #include <string>
 
 class Window
@@ -15,32 +17,32 @@ public:
 
 public:
   Window(size_t i_width, size_t i_height, std::string i_title = "New window");
-  virtual ~Window();
+  virtual ~Window() = default;
 
   // Run main infinity loop for window
   virtual void Open() = 0;
 
   // Set event listner to process different user inputs like keyboard button press etc
-  void SetEventListner(EventListner* ip_event_listner);
+  template <class TEventListner, class... Args>
+  void InitEventListner(Args&&... i_args);
   // Set custom gui view
-  void SetGUIView(GUIView* ip_gui_view);
-
-  // Image source - basically image that will be updated through update function
-  // or can be static image to visualize
-  void SetImageSource(const Image* ip_source);
+  template<class TGUIView, class... Args>
+  void InitGUIView(Args&&... i_args);
+  // Set backend functionality that is responsible for visualizing data to window
+  template <class TRenderer, class... Args>
+  void InitRenderer(Args&&... i_args);
+  
   void SetUpdateFunction(UpdateFunction i_func);
 
 protected:
   // Init for window specific options etc
   virtual void _Init() = 0;
 
-  // Base function for rendering worflow that consists of below function
+  // Base function for rendering workflow that consists of below function
   void _RenderFrame();
   // Rendering preprocessing (input events etc)
   virtual void _PreDisplay() = 0;
-  // Actual display func that updates screen with new/updated image
-  virtual void _Display();
-  // Rendering postprocessing rutine
+  // Rendering postprocessing routine
   virtual void _PostDisplay() = 0;
 
   void _OnMouseButtonPressed(MouseButton i_button) const;
@@ -64,6 +66,9 @@ protected:
   UpdateFunction m_update_function;
 
   const Image* mp_source;
-  EventListner* mp_event_listner;
-  GUIView* mp_gui_view;
+  std::unique_ptr<EventListner> mp_event_listner;
+  std::unique_ptr<GUIView> mp_gui_view;
+  std::unique_ptr<IRenderer> mp_renderer;
 };
+
+#include "impl/WindowImpl.h"

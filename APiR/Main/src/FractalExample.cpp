@@ -6,6 +6,7 @@
 #include "Fractal/MappingFunctions.h"
 #include "Image/Image.h"
 #include "Memory/custom_vector.h"
+#include "Rendering/ImageRenderer.h"
 #include "Window/EventListner.h"
 #include "Window/GLUTWindow.h"
 #include "Window/KeyboardEvent.h"
@@ -60,13 +61,39 @@ namespace {
     float origin_x = 0.0f, origin_y = 0.0f;
     float scale = 1.0f;
   };
+
+  class FractalRenderer : public ImageRenderer
+  {
+  public:
+    explicit FractalRenderer(const Fractal& i_fractal, custom_vector<Color> i_color_map)
+      : ImageRenderer()
+      , m_fractal(i_fractal)
+      , m_color_map(std::move(i_color_map))
+    {}
+    
+  private:
+    void _GenerateFrameImage() override
+    {
+      Parallel::ThreadPool::GetInstance()->ParallelFor(
+        static_cast<std::size_t>(0), mp_image_source->GetSize(), [&](std::size_t i) {
+          const int x = static_cast<int>(i % mp_image_source->GetWidth());
+          const int y = static_cast<int>(i / mp_image_source->GetWidth());
+
+          mp_image_source->SetPixel(
+            x, y, static_cast<std::uint32_t>(FractalMapping::Default(m_fractal.GetValue(x, y), m_color_map)));
+        });
+    }
+
+  private:
+    const Fractal& m_fractal;
+    custom_vector<Color> m_color_map;
+  };
 }
 
 void FractalExample()
 {
   const std::size_t width = 1024;
   const std::size_t height = 768;
-  Image image(width, height);
   std::size_t max_iterations = 100;
   // std::unique_ptr<Fractal> p_fractal = std::make_unique<MandelbrotSet>(width, height, max_iterations);
   std::unique_ptr<Fractal> p_fractal = std::make_unique<JuliaSet>(width, height, max_iterations);
@@ -85,18 +112,8 @@ void FractalExample()
   //  };
   // julia_set.SetColorMap(std::make_unique<SmoothColorMap>(color_map));
   // julia_set.SetType(JuliaSet::JuliaSetType::WhiskeryDragon);
-  FractalChangeEventListner event_listner(p_fractal.get());
-  auto update_func = [&]() {
-    Parallel::ThreadPool::GetInstance()->ParallelFor(static_cast<std::size_t>(0), width * height, [&](std::size_t i) {
-      int x = static_cast<int>(i % width);
-      int y = static_cast<int>(i / width);
-      image.SetPixel(x, y, static_cast<std::uint32_t>(FractalMapping::Default(p_fractal->GetValue(x, y), color_map)));
-      // image.SetPixel(x, y, julia_set.GetColor(x, y));
-    });
-  };
   GLUTWindow window(width, height, "FracralsTest");
-  window.SetImageSource(&image);
-  window.SetUpdateFunction(update_func);
-  window.SetEventListner(&event_listner);
+  window.InitRenderer<FractalRenderer>(*p_fractal, color_map);
+  window.InitEventListner<FractalChangeEventListner>(p_fractal.get());
   window.Open();
 }

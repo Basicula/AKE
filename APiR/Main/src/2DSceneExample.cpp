@@ -26,6 +26,18 @@ namespace {
     const auto y = sin(angle);
     return { i_length * x, i_length * y };
   }
+
+  void OpenWindow(const std::size_t i_window_width,
+                  const std::size_t i_window_height,
+                  const Scene2D& i_scene,
+                  std::function<void()> i_update_function = nullptr)
+  {
+    GLFWWindow window(i_window_width, i_window_height, i_scene.GetName());
+    window.SetUpdateFunction(std::move(i_update_function));
+    window.InitGUIView<GLFWDebugGUIView>(window.GetOpenGLWindow());
+    window.InitRenderer<OpenGLRenderer>(i_scene);
+    window.Open();
+  }
 }
 
 namespace Scene2DExamples {
@@ -48,14 +60,7 @@ namespace Scene2DExamples {
       scene.AddObject(std::move(p_rectangle));
     }
 
-    const OpenGLRenderer renderer(scene);
-
-    auto update_func = [&]() { renderer.Render(); };
-
-    GLFWWindow window(i_window_width, i_window_height, scene.GetName());
-    window.SetUpdateFunction(update_func);
-    window.SetGUIView(new GLFWDebugGUIView(window.GetOpenGLWindow()));
-    window.Open();
+    OpenWindow(i_window_width, i_window_height, scene);
   }
 
   void Circles(const std::size_t i_window_width, const std::size_t i_window_height, const std::size_t i_circles_count)
@@ -73,14 +78,7 @@ namespace Scene2DExamples {
       scene.AddObject(std::move(p_circle));
     }
 
-    const OpenGLRenderer renderer(scene);
-
-    auto update_func = [&]() { renderer.Render(); };
-
-    GLFWWindow window(i_window_width, i_window_height, scene.GetName());
-    window.SetUpdateFunction(update_func);
-    window.SetGUIView(new GLFWDebugGUIView(window.GetOpenGLWindow()));
-    window.Open();
+    OpenWindow(i_window_width, i_window_height, scene);
   }
 
   void RotatedRectangles(const std::size_t i_window_width,
@@ -101,19 +99,12 @@ namespace Scene2DExamples {
       p_rectangle->GetTransformation().SetTranslation({ x, y });
       scene.AddObject(std::move(p_rectangle));
     }
-
-    const OpenGLRenderer renderer(scene);
-
-    auto update_func = [&]() {
-      renderer.Render();
+    
+    auto update_func = [&scene]() {
       for (const auto& object : scene.GetObjects())
         object->GetTransformation().Rotate(0.001);
     };
-
-    GLFWWindow window(i_window_width, i_window_height, scene.GetName());
-    window.SetUpdateFunction(update_func);
-    window.SetGUIView(new GLFWDebugGUIView(window.GetOpenGLWindow()));
-    window.Open();
+    OpenWindow(i_window_width, i_window_height, scene, update_func);
   }
 
   void RotatedTriangles(const std::size_t i_window_width,
@@ -132,18 +123,11 @@ namespace Scene2DExamples {
       p_triangle->GetTransformation().SetTranslation(center);
       scene.AddObject(std::move(p_triangle));
     }
-
-    const OpenGLRenderer renderer(scene);
-
+    
     auto update_func = [&]() {
-      renderer.Render();
       for (const auto& object : scene.GetObjects())
-       object->GetTransformation().Rotate(0.001);
+        object->GetTransformation().Rotate(0.001);
     };
-
-    GLFWWindow window(i_window_width, i_window_height, scene.GetName());
-    window.SetUpdateFunction(update_func);
-    window.SetGUIView(new GLFWDebugGUIView(window.GetOpenGLWindow()));
-    window.Open();
+    OpenWindow(i_window_width, i_window_height, scene, update_func);
   }
 }

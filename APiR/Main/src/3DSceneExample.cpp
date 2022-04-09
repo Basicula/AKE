@@ -14,18 +14,11 @@ void SceneExample3D()
   const std::size_t height = 600;
 
   Scene scene = ExampleScene::RandomSpheres(20);
-
-  Image image(width, height);
-  CPURayTracer renderer;
-  renderer.SetOutputImage(&image);
-  renderer.SetScene(&scene);
-
-  auto update_func = [&]() { renderer.Render(); };
+  
   // GLUTWindow window(width, height, scene.GetName());
   GLFWWindow window(width, height, scene.GetName());
-  window.SetImageSource(&image);
-  window.SetUpdateFunction(update_func);
-  window.SetEventListner(new SimpleCameraController(scene.GetActiveCamera()));
-  window.SetGUIView(new GLFWDebugGUIView(window.GetOpenGLWindow()));
+  window.InitRenderer<CPURayTracer>(scene);
+  window.InitEventListner<SimpleCameraController>(scene.GetActiveCamera());
+  window.InitGUIView<GLFWDebugGUIView>(window.GetOpenGLWindow());
   window.Open();
 }

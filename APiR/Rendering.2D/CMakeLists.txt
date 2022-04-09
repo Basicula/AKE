@@ -36,6 +36,7 @@ set(
   Geometry
   Geometry.2D
   Math
+  Rendering
   Visual
 )
 

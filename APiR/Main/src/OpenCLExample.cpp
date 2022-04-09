@@ -15,7 +15,6 @@ void OpenCLExample()
 #ifdef ENABLED_OPENCL
   const std::size_t width = 1024;
   const std::size_t height = 768;
-  Image image(width, height);
   OpenCLEnvironment env;
   env.Init();
   env.PrintInfo();
@@ -34,7 +33,6 @@ void OpenCLExample()
     update_func();
 #else
   GLUTWindow window(width, height, "OpenCLTest");
-  window.SetImageSource(&image);
   window.SetUpdateFunction(update_func);
   window.Open();
 #endif
