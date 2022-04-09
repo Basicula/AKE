@@ -7,6 +7,7 @@
 #endif
 #include "Window/FPSCounter.h"
 #include "Window/GLUTWindow.h"
+#include "Window/ImageWindowBackend.h"
 
 #include <iostream>
 
@@ -34,7 +35,7 @@ void OpenCLExample()
     update_func();
 #else
   GLUTWindow window(width, height, "OpenCLTest");
-  window.SetImageSource(&image);
+  window.InitWindowBackend<ImageWindowBackend>(&image);
   window.SetUpdateFunction(update_func);
   window.Open();
 #endif

@@ -6,6 +6,7 @@
 #include "Rendering/SimpleCamera.h"
 #include "Visual/SpotLight.h"
 #include "Window/GLUTWindow.h"
+#include "Window/ImageWindowBackend.h"
 
 #include <chrono>
 #include <iostream>
@@ -43,7 +44,7 @@ void FluidExample()
   }
 #else
   GLUTWindow window(width, height, "Fluid demo");
-  window.SetImageSource(&image);
+  window.InitWindowBackend<ImageWindowBackend>(&image);
   window.SetUpdateFunction(update_func);
   window.Open();
 #endif

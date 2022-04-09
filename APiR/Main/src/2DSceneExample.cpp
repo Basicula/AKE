@@ -54,7 +54,7 @@ namespace Scene2DExamples {
 
     GLFWWindow window(i_window_width, i_window_height, scene.GetName());
     window.SetUpdateFunction(update_func);
-    window.SetGUIView(new GLFWDebugGUIView(window.GetOpenGLWindow()));
+    window.InitGUIView<GLFWDebugGUIView>(window.GetOpenGLWindow());
     window.Open();
   }
 
@@ -79,7 +79,7 @@ namespace Scene2DExamples {
 
     GLFWWindow window(i_window_width, i_window_height, scene.GetName());
     window.SetUpdateFunction(update_func);
-    window.SetGUIView(new GLFWDebugGUIView(window.GetOpenGLWindow()));
+    window.InitGUIView<GLFWDebugGUIView>(window.GetOpenGLWindow());
     window.Open();
   }
 
@@ -112,7 +112,7 @@ namespace Scene2DExamples {
 
     GLFWWindow window(i_window_width, i_window_height, scene.GetName());
     window.SetUpdateFunction(update_func);
-    window.SetGUIView(new GLFWDebugGUIView(window.GetOpenGLWindow()));
+    window.InitGUIView<GLFWDebugGUIView>(window.GetOpenGLWindow());
     window.Open();
   }
 
@@ -143,7 +143,7 @@ namespace Scene2DExamples {
 
     GLFWWindow window(i_window_width, i_window_height, scene.GetName());
     window.SetUpdateFunction(update_func);
-    window.SetGUIView(new GLFWDebugGUIView(window.GetOpenGLWindow()));
+    window.InitGUIView<GLFWDebugGUIView>(window.GetOpenGLWindow());
     window.Open();
   }
 }

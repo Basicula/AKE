@@ -8,6 +8,7 @@
 #include "Memory/custom_vector.h"
 #include "Window/EventListner.h"
 #include "Window/GLUTWindow.h"
+#include "Window/ImageWindowBackend.h"
 #include "Window/KeyboardEvent.h"
 
 #include <memory>
@@ -85,7 +86,6 @@ void FractalExample()
   //  };
   // julia_set.SetColorMap(std::make_unique<SmoothColorMap>(color_map));
   // julia_set.SetType(JuliaSet::JuliaSetType::WhiskeryDragon);
-  FractalChangeEventListner event_listner(p_fractal.get());
   auto update_func = [&]() {
     Parallel::ThreadPool::GetInstance()->ParallelFor(static_cast<std::size_t>(0), width * height, [&](std::size_t i) {
       int x = static_cast<int>(i % width);
@@ -95,8 +95,8 @@ void FractalExample()
     });
   };
   GLUTWindow window(width, height, "FracralsTest");
-  window.SetImageSource(&image);
+  window.InitWindowBackend<ImageWindowBackend>(&image);
   window.SetUpdateFunction(update_func);
-  window.SetEventListner(&event_listner);
+  window.InitEventListner<FractalChangeEventListner>(p_fractal.get());
   window.Open();
 }

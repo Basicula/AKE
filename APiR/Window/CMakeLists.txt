@@ -5,6 +5,8 @@ set(
   GLFWWindow.cpp
   GLUTWindow.cpp
   
+  ImageWindowBackend.cpp
+  
   GLFWGUIView.cpp
   GLFWDebugGUIView.cpp
   
@@ -21,8 +23,12 @@ set(
   HEADERS
   
   Window.h
+  impl/WindowImpl.h
   GLFWWindow.h
   GLUTWindow.h
+
+  WindowBackend.h
+  ImageWindowBackend.h
   
   GUIView.h
   GLFWGUIView.h
