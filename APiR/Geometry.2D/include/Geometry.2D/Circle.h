@@ -1,7 +1,7 @@
 #pragma once
-#include <Geometry.2D/Shape.h>
+#include <Geometry.2D/Shape2D.h>
 
-struct Circle : public Shape
+struct Circle : public Shape2D
 {
   double m_radius;
 

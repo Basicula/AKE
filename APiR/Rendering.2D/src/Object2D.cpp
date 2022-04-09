@@ -1,6 +1,6 @@
 #include "Rendering.2D/Object2D.h"
 
-const Shape& Object2D::GetShape() const
+const Shape2D& Object2D::GetShape() const
 {
   return *mp_shape;
 }

@@ -1,9 +1,9 @@
 #pragma once
-#include "Geometry.2D/Shape.h"
+#include "Geometry.2D/Shape2D.h"
 
 #include <array>
 
-struct Rectangle final : public Shape
+struct Rectangle final : public Shape2D
 {
   double m_width;
   double m_height;

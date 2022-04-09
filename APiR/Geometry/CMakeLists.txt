@@ -13,6 +13,8 @@ set(
   impl/TransformationImpl.h
   impl/Transformation2DImpl.h
   impl/Transformation3DImpl.h
+
+  IShape.h
 )
 
 set(
