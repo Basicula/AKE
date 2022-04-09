@@ -9,7 +9,6 @@ SimpleCameraController::SimpleCameraController(Camera* ip_camera)
   , mp_camera(ip_camera)
   , m_movement_step(1)
   , m_angular_speed(Math::Constants::PI / 45)
-  , m_prev_mouse_position()
   , m_rotation_enabled(false)
 {}
 
@@ -55,9 +54,9 @@ void SimpleCameraController::_RotateCamera()
   if (m_rotation_enabled) {
     const auto dx = m_mouse_position.first - m_prev_mouse_position[0];
     const auto dy = m_mouse_position.second - m_prev_mouse_position[1];
-    const auto angle = atan2(dy, -dx);
-    auto camera_direction = mp_camera->GetDirection();
-    Transformation rotation;
+    const auto angle = atan2(dy, dx);
+    const auto& camera_direction = mp_camera->GetDirection();
+    Transformation3D rotation;
     rotation.SetRotation(camera_direction, angle);
     auto new_camera_right = mp_camera->GetRight();
     rotation.Rotate(new_camera_right);

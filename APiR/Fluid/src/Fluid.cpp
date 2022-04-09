@@ -33,8 +33,8 @@ void Fluid::_UpdateBBox()
   const auto& system = m_simulation.GetParticleSystem();
   m_bbox.Reset();
   for (auto pos = system.BeginPositions(); pos != system.EndPositions(); ++pos) {
-    m_bbox.AddPoint(*pos + Vector3d{1});
-    m_bbox.AddPoint(*pos - Vector3d{1});
+    m_bbox.AddPoint(*pos + Vector3d{ 1 });
+    m_bbox.AddPoint(*pos - Vector3d{ 1 });
   }
 }
 
@@ -82,7 +82,7 @@ std::string Fluid::Serialize() const
   return res;
 }
 
-BoundingBox Fluid::GetBoundingBox() const
+BoundingBox3D Fluid::GetBoundingBox() const
 {
   return m_bbox;
 }

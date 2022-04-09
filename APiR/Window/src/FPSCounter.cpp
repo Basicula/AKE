@@ -8,7 +8,8 @@ FPSCounter::FPSCounter(std::ostream& io_output_stream, const std::size_t i_updat
   , mp_output_stream(&io_output_stream)
 {}
 
-FPSCounter::FPSCounter(const std::size_t i_update_interval_in_frames, std::function<void(double)> i_fps_logging_function)
+FPSCounter::FPSCounter(const std::size_t i_update_interval_in_frames,
+                       std::function<void(double)> i_fps_logging_function)
   : m_start(std::chrono::system_clock::now())
   , m_frames_cnt(0)
   , m_update_interval(i_update_interval_in_frames)

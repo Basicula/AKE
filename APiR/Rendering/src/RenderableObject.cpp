@@ -23,7 +23,7 @@ inline Vector3d RenderableObject::GetNormalAtPoint(const Vector3d& i_point) cons
   return mp_surface->NormalAtPoint(i_point);
 }
 
-BoundingBox RenderableObject::GetBoundingBox() const
+BoundingBox3D RenderableObject::GetBoundingBox() const
 {
   return mp_surface->GetBoundingBox();
 }

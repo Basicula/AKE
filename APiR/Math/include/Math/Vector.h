@@ -53,9 +53,11 @@ public:
   HOSTDEVICE Vector operator/=(const Vector& i_other);
 
   template <std::size_t D = Dimension, typename T = typename std::enable_if<D == 3>::type>
-  HOSTDEVICE [[nodiscard]] Vector<ElementType, Dimension> CrossProduct(const Vector<ElementType, Dimension>& i_other) const;
+  HOSTDEVICE [[nodiscard]] Vector<ElementType, Dimension> CrossProduct(
+    const Vector<ElementType, Dimension>& i_other) const;
   HOSTDEVICE [[nodiscard]] ElementType Dot(const Vector& i_other) const;
   HOSTDEVICE void Normalize();
+  HOSTDEVICE void Invert();
   HOSTDEVICE [[nodiscard]] Vector Normalized() const;
   HOSTDEVICE [[nodiscard]] double Length() const;
   HOSTDEVICE [[nodiscard]] ElementType SquareLength() const;
@@ -73,9 +75,17 @@ public:
   using m_element_type = ElementType;
 };
 
-using Vector2d = Vector<double, 2>;
+template <class ElementType>
+using Vector2 = Vector<ElementType, 2>;
+using Vector2d = Vector2<double>;
+using Vector2f = Vector2<float>;
+using Vector2i = Vector2<int>;
 
-using Vector3d = Vector<double, 3>;
+template <class ElementType>
+using Vector3 = Vector<ElementType, 3>;
+using Vector3d = Vector3<double>;
+using Vector3f = Vector3<float>;
+using Vector3i = Vector3<int>;
 
 #include "impl/Vector2dImpl.h"
 #include "impl/Vector3dImpl.h"

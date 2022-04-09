@@ -19,8 +19,7 @@ namespace Parallel {
     static ThreadPool* GetInstance();
 
     template <class Function, class... Args>
-    auto Enqueue(Function&& i_function, Args&&... i_args)
-      -> std::future<std::invoke_result_t<Function, Args...>>;
+    auto Enqueue(Function&& i_function, Args&&... i_args) -> std::future<std::invoke_result_t<Function, Args...>>;
 
     template <class IndexType, class Function>
     void ParallelFor(IndexType i_start, IndexType i_end, const Function& i_function);

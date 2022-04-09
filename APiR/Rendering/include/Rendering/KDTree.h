@@ -22,7 +22,7 @@ private:
     std::int64_t left;
     std::int64_t right;
     KDNodeType type;
-    BoundingBox bounding_box;
+    BoundingBox3D bounding_box;
   };
 
 public:
@@ -35,7 +35,7 @@ public:
 private:
   void _Build(std::size_t i_start, std::size_t i_end);
 
-  BoundingBox _BoundingBox(std::size_t i_start, std::size_t i_end);
+  BoundingBox3D _BoundingBox(std::size_t i_start, std::size_t i_end);
 
 private:
   std::vector<KDNode> m_nodes;

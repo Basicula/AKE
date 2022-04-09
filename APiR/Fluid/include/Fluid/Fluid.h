@@ -10,7 +10,7 @@ public:
 
   bool IntersectWithRay(double& o_distance, const Ray& i_ray, double i_far) const override;
   [[nodiscard]] std::string Serialize() const;
-  [[nodiscard]] BoundingBox GetBoundingBox() const override;
+  [[nodiscard]] BoundingBox3D GetBoundingBox() const override;
   [[nodiscard]] Vector3d GetNormalAtPoint(const Vector3d& i_point) const override;
 
   void Update();
@@ -22,6 +22,6 @@ private:
   void _UpdateBBox();
 
 private:
-  BoundingBox m_bbox;
+  BoundingBox3D m_bbox;
   SPHSimulation m_simulation;
 };

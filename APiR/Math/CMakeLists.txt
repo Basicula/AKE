@@ -2,8 +2,6 @@ set(
   SOURCES
 
   SolveEquations.cpp
-  
-  Matrix.cpp
 )
 
 set(
@@ -20,9 +18,8 @@ set(
   VectorOperations.h
   impl/VectorOperationsImpl.h
   
-  Matrix.h
-  Matrix3.h
-  impl/Matrix3Impl.h
+  SquareMatrix.h
+  impl/SquareMatrixImpl.h
 )
 
 set(
@@ -37,7 +34,7 @@ set(
 
   Vector3d_test.cpp
   
-  Matrix3d_test.cpp
+  Matrix_test.cpp
 )
 
 generate_project(

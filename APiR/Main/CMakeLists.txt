@@ -7,6 +7,13 @@ set(
   
   ConsoleLogEventListner.cpp
   SimpleCameraController.cpp
+
+  FluidExample.cpp
+  2DSceneExample.cpp
+  3DSceneExample.cpp
+  OpenCLExample.cpp
+  FractalExample.cpp
+  WindowExample.cpp
 )
 
 set(
@@ -16,6 +23,13 @@ set(
   
   ConsoleLogEventListner.h
   SimpleCameraController.h
+
+  FluidExample.h
+  2DSceneExample.h
+  3DSceneExample.h
+  OpenCLExample.h
+  FractalExample.h
+  WindowExample.h
 )
 
 set(
@@ -32,11 +46,14 @@ set(
   Physics
   Fractal
   Geometry
+  Geometry.2D
+  Geometry.3D
   Window
   Image
   Math
   Memory
   Rendering
+  Rendering.2D
   Common
   Visual
 )

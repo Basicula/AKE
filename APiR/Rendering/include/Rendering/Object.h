@@ -1,6 +1,6 @@
 #pragma once
+#include "Geometry.3D/Ray.h"
 #include "Geometry/BoundingBox.h"
-#include "Geometry/Ray.h"
 #include "Physics/IPhysicMaterial.h"
 #include "Visual/IVisualMaterial.h"
 
@@ -18,7 +18,7 @@ public:
 
   // Some helpful functions
   virtual Vector3d GetNormalAtPoint(const Vector3d& i_point) const = 0;
-  virtual BoundingBox GetBoundingBox() const = 0;
+  virtual BoundingBox3D GetBoundingBox() const = 0;
 
   // It's about how object will be displayed throug different rendering approaches
   const IVisualMaterial* VisualRepresentation() const;

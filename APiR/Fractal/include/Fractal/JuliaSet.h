@@ -1,7 +1,7 @@
 #pragma once
 #include "Fractal/Fractal.h"
 
-class JuliaSet final: public Fractal
+class JuliaSet final : public Fractal
 {
 public:
   enum class JuliaSetType

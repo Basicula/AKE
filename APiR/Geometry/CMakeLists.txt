@@ -1,48 +1,27 @@
 set(
   SOURCES
   
-  BoundingBox.cpp
-  
-  Transformable.cpp
-  Transformation.cpp
-  
-  ISurface.cpp
-  Sphere.cpp
-  Torus.cpp
-  Cylinder.cpp
-  Plane.cpp
-  Ray.cpp
-  
-  Intersection.cpp
 )
 
 set(
   HEADERS
   
   BoundingBox.h
+  impl/BoundingBoxImpl.h
   
-  Transformable.h
   Transformation.h
-  
-  Cylinder.h
-  ISurface.h
-  Plane.h
-  Ray.h
-  Sphere.h
-  Torus.h
-  
-  Intersection.h
+  impl/TransformationImpl.h
+  impl/Transformation2DImpl.h
+  impl/Transformation3DImpl.h
+
+  IShape.h
 )
 
 set(
   PY
   
   BoundingBox_py.hpp
-  Intersection_py.hpp
-  ISurface_py.hpp
   geometry_py.hpp
-  Ray_py.hpp
-  Sphere_py.hpp
 )
 
 set(
@@ -53,7 +32,7 @@ set(
 )
 
 generate_project(
-  STATIC
+  INTERFACE
   SOURCES ${SOURCES}
   HEADERS ${HEADERS}
   PY      ${PY}

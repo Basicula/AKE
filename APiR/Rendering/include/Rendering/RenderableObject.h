@@ -1,5 +1,5 @@
 #pragma once
-#include "Geometry/ISurface.h"
+#include "Geometry.3D/ISurface.h"
 #include "Rendering/Object.h"
 #include "Visual/IVisualMaterial.h"
 
@@ -11,7 +11,7 @@ public:
 
   virtual bool IntersectWithRay(double& o_distance, const Ray& i_ray, const double i_far) const override;
 
-  virtual BoundingBox GetBoundingBox() const override;
+  virtual BoundingBox3D GetBoundingBox() const override;
 
   virtual Vector3d GetNormalAtPoint(const Vector3d& i_point) const override;
 

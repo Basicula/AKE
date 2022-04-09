@@ -47,6 +47,7 @@ set(
 
   Common
   Geometry
+  Geometry.3D
   Math
   Physics
   Rendering

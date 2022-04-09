@@ -32,7 +32,7 @@ void Camera::Move(const Vector3d& i_displacement_vector)
 
 void Camera::Rotate(const Vector3d& i_rotation_axis, const double i_angle_in_rad)
 {
-  Transformation rotation;
+  Transformation3D rotation;
   rotation.SetRotation(i_rotation_axis, i_angle_in_rad);
   rotation.Rotate(m_direction);
   rotation.Rotate(m_up);

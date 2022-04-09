@@ -1,9 +1,12 @@
 #include "Rendering/KDTree.h"
 
-#include "Geometry/Intersection.h"
-
+#include "Geometry.3D/Intersection.h"
 namespace {
-  double Volume(const BoundingBox& i_bbox) { return i_bbox.DeltaX() * i_bbox.DeltaY() * i_bbox.DeltaZ(); }
+  double Volume(const BoundingBox3D& i_bbox)
+  {
+    const auto delta = i_bbox.Delta();
+    return delta[0] * delta[1] * delta[2];
+  }
 
   struct SAHSplittingInfo
   {
@@ -18,25 +21,25 @@ namespace {
   {
     const auto& bbox_first = i_first->GetBoundingBox();
     const auto& bbox_second = i_second->GetBoundingBox();
-    return bbox_first.GetMin() < bbox_second.GetMin();
+    return bbox_first.m_min < bbox_second.m_min;
   };
 
   bool comparator_bbox_max(const Object* i_first, const Object* i_second)
   {
     const auto& bbox_first = i_first->GetBoundingBox();
     const auto& bbox_second = i_second->GetBoundingBox();
-    return bbox_first.GetMax() < bbox_second.GetMax();
+    return bbox_first.m_max < bbox_second.m_max;
   };
 
   void UpdateSAH(SAHSplittingInfo& o_splitting_info,
-                 const BoundingBox& i_bbox,
+                 const BoundingBox3D& i_bbox,
                  double i_split,
                  std::size_t i_axis,
                  std::size_t i_left_cnt,
                  std::size_t i_right_cnt)
   {
     const double volume = Volume(i_bbox);
-    const double left_to_right_ratio = (i_split - i_bbox.GetMin()[i_axis]) / (i_bbox.GetMax()[i_axis] - i_split);
+    const double left_to_right_ratio = (i_split - i_bbox.m_min[i_axis]) / (i_bbox.m_max[i_axis] - i_split);
     const double volume_right = volume / (1 + left_to_right_ratio);
     const double volume_left = volume - volume_right;
     const double sah = i_left_cnt * volume_left + i_right_cnt * volume_right;
@@ -71,8 +74,8 @@ void KDTree::_Build(std::size_t i_start, std::size_t i_end)
     for (auto i = i_start + 1; i < i_end; ++i) {
       const std::size_t left_side_cnt = i - i_start;
       const std::size_t right_side_cnt = i_end - i;
-      double split = m_objects[i]->GetBoundingBox().GetMin()[axis];
-      if (split == curr_bbox.GetMin()[axis])
+      double split = m_objects[i]->GetBoundingBox().m_min[axis];
+      if (split == curr_bbox.m_min[axis])
         continue;
 
       UpdateSAH(splitting_info, curr_bbox, split, axis, left_side_cnt, right_side_cnt);
@@ -82,8 +85,8 @@ void KDTree::_Build(std::size_t i_start, std::size_t i_end)
     for (long long i = i_end - 2; i >= static_cast<long long>(i_start); --i) {
       const std::size_t left_side_cnt = i + 1 - i_start;
       const std::size_t right_side_cnt = i_end - i - 1;
-      double split = m_objects[i]->GetBoundingBox().GetMax()[axis];
-      if (split == curr_bbox.GetMax()[axis])
+      double split = m_objects[i]->GetBoundingBox().m_max[axis];
+      if (split == curr_bbox.m_max[axis])
         continue;
 
       UpdateSAH(splitting_info, curr_bbox, split, axis, left_side_cnt, right_side_cnt);
@@ -101,9 +104,9 @@ void KDTree::_Build(std::size_t i_start, std::size_t i_end)
   m_nodes[right].parent = left - 1;
 }
 
-BoundingBox KDTree::_BoundingBox(std::size_t i_start, std::size_t i_end)
+BoundingBox3D KDTree::_BoundingBox(std::size_t i_start, std::size_t i_end)
 {
-  auto res = BoundingBox();
+  auto res = BoundingBox3D();
   for (auto i = i_start; i < i_end; ++i)
     res.Merge(m_objects[i]->GetBoundingBox());
   return res;
