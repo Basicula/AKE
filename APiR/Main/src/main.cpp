@@ -3,7 +3,7 @@
 
 int main()
 {
-  Scene2DExamples::RotatedRectangles(800, 800, 10);
+  Scene2DExamples::RotatedTriangles(800, 800, 10);
   //SceneExample3D();
   return 0;
 }

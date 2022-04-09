@@ -1,4 +1,15 @@
+#pragma once
 #include <Common/Constants.h>
+
+template <size_t Dimension>
+template <class Iterator>
+BoundingBox<Dimension> BoundingBox<Dimension>::Make(Iterator i_begin, Iterator i_end)
+{
+  BoundingBox<Dimension> res;
+  while (i_begin != i_end)
+    res.AddPoint(*i_begin++);
+  return res;
+}
 
 template<size_t Dimension>
 BoundingBox<Dimension>::BoundingBox()

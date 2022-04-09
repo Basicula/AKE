@@ -1,17 +1,18 @@
 set(
   SOURCES
-
-  Shape.cpp
+  
   Circle.cpp
   Rectangle.cpp
+  Triangle2D.cpp
 )
 
 set(
   HEADERS
 
-  Shape.h
+  Shape2D.h
   Circle.h
   Rectangle.h
+  Triangle2D.h
 )
 
 set(
