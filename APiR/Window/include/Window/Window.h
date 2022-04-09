@@ -1,9 +1,9 @@
 #pragma once
 #include "Image/Image.h"
+#include "Rendering/IRenderer.h"
 #include "Window/EventListner.h"
 #include "Window/FPSCounter.h"
 #include "Window/GUIView.h"
-#include "Window/WindowBackend.h"
 
 #include <functional>
 #include <memory>
@@ -29,8 +29,8 @@ public:
   template<class TGUIView, class... Args>
   void InitGUIView(Args&&... i_args);
   // Set backend functionality that is responsible for visualizing data to window
-  template <class TWindowBackend, class... Args>
-  void InitWindowBackend(Args&&... i_args);
+  template <class TRenderer, class... Args>
+  void InitRenderer(Args&&... i_args);
   
   void SetUpdateFunction(UpdateFunction i_func);
 
@@ -68,7 +68,7 @@ protected:
   const Image* mp_source;
   std::unique_ptr<EventListner> mp_event_listner;
   std::unique_ptr<GUIView> mp_gui_view;
-  std::unique_ptr<WindowBackend> mp_window_backend;
+  std::unique_ptr<IRenderer> mp_renderer;
 };
 
 #include "impl/WindowImpl.h"

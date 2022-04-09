@@ -6,7 +6,6 @@
 #include "Rendering/SimpleCamera.h"
 #include "Visual/SpotLight.h"
 #include "Window/GLUTWindow.h"
-#include "Window/ImageWindowBackend.h"
 
 #include <chrono>
 #include <iostream>
@@ -17,7 +16,6 @@ void FluidExample()
   const std::size_t height = 480;
 
   Scene scene("Fluid test");
-  Image image(width, height, 0xffaaaaaa);
 
   scene.AddCamera(
     new SimpleCamera(
@@ -26,12 +24,8 @@ void FluidExample()
   scene.AddLight(new SpotLight(Vector3d(0, 10, 0)));
   auto fluid = new Fluid(48);
   scene.AddObject(fluid);
-
-  CPURayTracer renderer;
-  renderer.SetOutputImage(&image);
-  renderer.SetScene(&scene);
+  
   auto update_func = [&]() {
-    renderer.Render();
     fluid->Update();
   };
 #ifdef _DEBUG
@@ -44,7 +38,7 @@ void FluidExample()
   }
 #else
   GLUTWindow window(width, height, "Fluid demo");
-  window.InitWindowBackend<ImageWindowBackend>(&image);
+  window.InitRenderer<CPURayTracer>(scene);
   window.SetUpdateFunction(update_func);
   window.Open();
 #endif

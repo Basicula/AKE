@@ -10,7 +10,7 @@ set(
   Container.cpp
   KDTree.cpp
   
-  IRenderer.cpp
+  ImageRenderer.cpp
   CPURayTracer.cpp
   
   Scene.cpp
@@ -29,6 +29,7 @@ set(
   KDTree.h
   
   IRenderer.h
+  ImageRenderer.h
   CPURayTracer.h
   
   Scene.h

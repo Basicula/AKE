@@ -32,11 +32,8 @@ void Window::_RenderFrame()
 
   m_fps_counter.Update();
 
-  if (mp_window_backend) {
-    mp_window_backend->PreDisplay();
-    mp_window_backend->Display();
-    mp_window_backend->PostDisplay();
-  }
+  if (mp_renderer)
+    mp_renderer->Render();
 
   if (mp_gui_view) {
     mp_gui_view->NewFrame();
@@ -87,8 +84,8 @@ void Window::_OnWindowResized(const int i_width, const int i_height) const
 {
   if (mp_event_listner)
     mp_event_listner->ProcessEvent(WindowResizeEvent(i_width, i_height));
-  if (mp_window_backend)
-    mp_window_backend->_OnWindowResize(i_width, i_height);
+  if (mp_renderer)
+    mp_renderer->_OnWindowResize(i_width, i_height);
 }
 
 void Window::_OnWindowClosed() const
