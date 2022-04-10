@@ -18,7 +18,7 @@ void RectangleDrawer::Draw() const
     glBegin(GL_LINE_LOOP);
   for (auto corner : m_rectangle.m_corners) {
     if (mp_transformation)
-        mp_transformation->Transform(corner);
+      mp_transformation->Transform(corner);
     glVertex2d(corner[0], corner[1]);
   }
   glEnd();

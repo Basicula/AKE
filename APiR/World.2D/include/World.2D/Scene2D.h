@@ -1,5 +1,5 @@
 #pragma once
-#include "Rendering.2D/Object2D.h"
+#include "World.2D/Object2D.h"
 
 #include <memory>
 #include <string>

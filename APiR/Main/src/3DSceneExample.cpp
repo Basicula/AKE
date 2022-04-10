@@ -14,7 +14,7 @@ void SceneExample3D()
   const std::size_t height = 600;
 
   Scene scene = ExampleScene::RandomSpheres(20);
-  
+
   // GLUTWindow window(width, height, scene.GetName());
   GLFWWindow window(width, height, scene.GetName());
   window.InitRenderer<CPURayTracer>(scene);

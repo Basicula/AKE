@@ -1,4 +1,4 @@
-#include "Rendering.2D/OpenGLRenderer.h"
+#include "Renderer.2D/OpenGLRenderer.h"
 
 #include <GL/glew.h>
 

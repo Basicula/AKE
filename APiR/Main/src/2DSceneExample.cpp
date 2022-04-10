@@ -1,13 +1,13 @@
 #include "Main/2DSceneExample.h"
 
 #include "Math/Constants.h"
+#include "Renderer.2D/OpenGLRenderer.h"
 #include "Rendering.2D/CircleDrawer.h"
-#include "Rendering.2D/OpenGLRenderer.h"
 #include "Rendering.2D/RectangleDrawer.h"
-#include "Rendering.2D/Scene2D.h"
 #include "Rendering.2D/Triangle2DDrawer.h"
 #include "Window/GLFWDebugGUIView.h"
 #include "Window/GLFWWindow.h"
+#include "World.2D/Scene2D.h"
 
 namespace {
   double Random(const double i_from = 0.0, const double i_to = 1.0)
@@ -99,7 +99,7 @@ namespace Scene2DExamples {
       p_rectangle->GetTransformation().SetTranslation({ x, y });
       scene.AddObject(std::move(p_rectangle));
     }
-    
+
     auto update_func = [&scene]() {
       for (const auto& object : scene.GetObjects())
         object->GetTransformation().Rotate(0.001);
@@ -123,7 +123,7 @@ namespace Scene2DExamples {
       p_triangle->GetTransformation().SetTranslation(center);
       scene.AddObject(std::move(p_triangle));
     }
-    
+
     auto update_func = [&]() {
       for (const auto& object : scene.GetObjects())
         object->GetTransformation().Rotate(0.001);

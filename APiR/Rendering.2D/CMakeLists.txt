@@ -5,12 +5,6 @@ set(
   CircleDrawer.cpp
   RectangleDrawer.cpp
   Triangle2DDrawer.cpp
-
-  OpenGLRenderer.cpp
-
-  Object2D.cpp
-
-  Scene2D.cpp
 )
 
 set(
@@ -20,13 +14,6 @@ set(
   CircleDrawer.h
   RectangleDrawer.h
   Triangle2DDrawer.h
-
-  OpenGLRenderer.h
-
-  Object2D.h
-  impl/Object2DImpl.h
-
-  Scene2D.h
 )
 
 set(
@@ -36,7 +23,6 @@ set(
   Geometry
   Geometry.2D
   Math
-  Rendering
   Visual
 )
 

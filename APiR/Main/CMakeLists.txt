@@ -52,10 +52,12 @@ set(
   Image
   Math
   Memory
+  Renderer.2D
   Rendering
   Rendering.2D
   Common
   Visual
+  World.2D
 )
 
 if(ENABLE_CUDA)

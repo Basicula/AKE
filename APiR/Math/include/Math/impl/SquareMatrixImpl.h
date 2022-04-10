@@ -150,7 +150,7 @@ bool SquareMatrix<ElementType, N>::operator==(const SquareMatrix& i_other) const
 {
   for (size_t i = 0; i < N; ++i)
     for (size_t j = 0; j < N; ++j)
-    if (m_data[i][j] != i_other.m_data[i][j])
-      return false;
+      if (m_data[i][j] != i_other.m_data[i][j])
+        return false;
   return true;
 }

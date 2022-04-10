@@ -1,4 +1,4 @@
-#include "Rendering.2D/Scene2D.h"
+#include "World.2D/Scene2D.h"
 
 Scene2D::Scene2D(std::string i_name)
   : m_name(std::move(i_name))

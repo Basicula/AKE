@@ -1,6 +1,6 @@
 #pragma once
 #include "Rendering/IRenderer.h"
-#include "Rendering.2D/Scene2D.h"
+#include "World.2D/Scene2D.h"
 
 class OpenGLRenderer : public IRenderer
 {

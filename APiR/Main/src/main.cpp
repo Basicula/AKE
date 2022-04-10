@@ -6,8 +6,8 @@
 int main()
 {
   Scene2DExamples::RotatedRectangles(800, 800, 10);
-  //SceneExample3D();
-  //FluidExample();
-  //FractalExample();
+  // SceneExample3D();
+  // FluidExample();
+  // FractalExample();
   return 0;
 }

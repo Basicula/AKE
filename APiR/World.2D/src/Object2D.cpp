@@ -1,4 +1,4 @@
-#include "Rendering.2D/Object2D.h"
+#include "World.2D/Object2D.h"
 
 const Shape2D& Object2D::GetShape() const
 {
