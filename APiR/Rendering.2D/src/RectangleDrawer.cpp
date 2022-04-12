@@ -4,9 +4,8 @@
 #include <array>
 
 RectangleDrawer::RectangleDrawer(const Rectangle& i_rectangle, const Color& i_color, const bool i_fill)
-  : m_rectangle(i_rectangle)
-  , m_color(i_color)
-  , m_fill(i_fill)
+  : SimpleDrawer(i_color, i_fill)
+  , m_rectangle(i_rectangle)
 {}
 
 void RectangleDrawer::Draw() const

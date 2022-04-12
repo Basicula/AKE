@@ -2,10 +2,9 @@
 
 #include <GL/glew.h>
 
-Triangle2DDrawer::Triangle2DDrawer(const Triangle2D& i_triangle, const Color& i_color, bool i_fill)
-  : m_triangle(i_triangle)
-  , m_color(i_color)
-  , m_fill(i_fill)
+Triangle2DDrawer::Triangle2DDrawer(const Triangle2D& i_triangle, const Color& i_color, const bool i_fill)
+  : SimpleDrawer(i_color, i_fill)
+  , m_triangle(i_triangle)
 {}
 
 void Triangle2DDrawer::Draw() const
