@@ -12,7 +12,7 @@ void OpenGLRenderer::Render()
   glClear(GL_COLOR_BUFFER_BIT);
   const auto& objects = m_scene.GetObjects();
   for (const auto& p_object : objects)
-    p_object->GetDrawer().Draw();
+    p_object->mp_drawer->Draw();
 }
 
 void OpenGLRenderer::_OnWindowResize(const int i_new_width, const int i_new_height)
