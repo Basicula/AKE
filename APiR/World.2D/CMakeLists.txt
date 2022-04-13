@@ -21,6 +21,8 @@ set(
   Geometry
   Geometry.2D
   Rendering.2D
+  Physics.2D
+  Visual
 )
 
 generate_project(

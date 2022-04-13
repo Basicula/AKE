@@ -17,6 +17,8 @@ set(
   Geometry.2D
   Rendering
   Rendering.2D
+  Physics.2D
+  Visual
   World.2D
 )
 

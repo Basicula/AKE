@@ -5,9 +5,19 @@ const Shape2D& Object2D::GetShape() const
   return *mp_shape;
 }
 
-const Drawer& Object2D::GetDrawer() const
+const SimpleDrawer& Object2D::GetDrawer() const
 {
   return *mp_drawer;
+}
+
+SimpleDrawer& Object2D::GetDrawer()
+{
+  return *mp_drawer;
+}
+
+const GJKConvex2D* Object2D::GetCollider() const
+{
+  return mp_collider.get();
 }
 
 const Transformation2D& Object2D::GetTransformation() const

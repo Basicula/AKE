@@ -15,6 +15,8 @@ public:
   void AddObject(std::unique_ptr<Object2D>&& ip_object);
   [[nodiscard]] const std::vector<std::unique_ptr<Object2D>>& GetObjects() const;
 
+  void Update();
+
 private:
   std::string m_name;
   std::vector<std::unique_ptr<Object2D>> m_objects;
