@@ -5,7 +5,7 @@
 class OpenGLRenderer : public IRenderer
 {
 public:
-  explicit OpenGLRenderer(const Scene2D& i_scene);
+  explicit OpenGLRenderer(int i_width, int i_height, const Scene2D& i_scene);
 
   void Render() override;
 
