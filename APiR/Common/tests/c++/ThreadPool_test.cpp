@@ -1,4 +1,5 @@
 #include "Common/ThreadPool.h"
+#include "Common/Randomizer.h"
 
 #include <chrono>
 #include <gtest/gtest.h>
@@ -55,7 +56,7 @@ TEST(ThreadPoolTest, ThreadPoolCommonScenario)
 
 TEST(ThreadPoolTest, ThreadPoolParallelFor)
 {
-  srand(123);
+  Randomizer random(123);
 
   constexpr std::size_t iterations = 1;
   constexpr std::size_t n = 10;
@@ -63,7 +64,7 @@ TEST(ThreadPoolTest, ThreadPoolParallelFor)
   std::vector<std::vector<int>> matrix(n, std::vector<int>(n));
   for (auto& row : matrix)
     for (auto& elem : row)
-      elem = rand() % 10;
+      elem = random.Next<int>() % 10;
 
   Parallel::ThreadPool* pool = Parallel::ThreadPool::GetInstance();
 
