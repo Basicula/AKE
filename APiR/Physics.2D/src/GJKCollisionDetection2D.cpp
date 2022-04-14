@@ -35,6 +35,9 @@ namespace {
     const auto& b = i_simplex.m_points[1];
 
     io_direction = GetLineNormalToOrigin(a, b);
+    if (a.Dot(a - b) < 0.0)
+      io_direction = -a;
+
     return false;
   }
 
@@ -44,18 +47,15 @@ namespace {
     const auto& b = io_simplex.m_points[1];
     const auto& c = io_simplex.m_points[0];
 
-    const auto ac_direction = GetLineNormalToOrigin(a, c);
-    if (ac_direction.Dot(a) > 0) {
+    io_direction = GetLineNormalToOrigin(a, c);
+    if (io_direction.Dot(b) < 0) {
       std::swap(io_simplex.m_points[1], io_simplex.m_points[0]);
-      io_direction = ac_direction;
       return false;
     }
 
-    const auto ab_direction = GetLineNormalToOrigin(a, b);
-    if (ab_direction.Dot(a) > 0) {
-      io_direction = ab_direction;
+    io_direction = GetLineNormalToOrigin(a, b);
+    if (io_direction.Dot(c) < 0)
       return false;
-    }
 
     return true;
   }
