@@ -21,6 +21,11 @@ const std::vector<std::unique_ptr<Object2D>>& Scene2D::GetObjects() const
   return m_objects;
 }
 
+void Scene2D::Clear()
+{
+  m_objects.clear();
+}
+
 void Scene2D::Update()
 {
   std::vector<bool> in_collision(m_objects.size(), false);
@@ -42,5 +47,4 @@ void Scene2D::Update()
 
   for (std::size_t object_id = 0; object_id < m_objects.size(); ++object_id)
     m_objects[object_id]->GetDrawer().m_fill = !in_collision[object_id];
-
 }
