@@ -5,6 +5,7 @@ set(
   
   GJKCollisionDetection2D.cpp
   GJKCircleConvex2D.cpp
+  GJKRectangleConvex2D.cpp
 )
 
 set(
@@ -16,6 +17,7 @@ set(
   GJKCollisionDetection2D.h
   GJKConvex2D.h
   GJKCircleConvex2D.h
+  GJKRectangleConvex2D.h
 
   PhysicalProperty2D.h
 )
