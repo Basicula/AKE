@@ -22,9 +22,5 @@ void OpenGLRenderer::_OnWindowResize(const int i_new_width, const int i_new_heig
   glViewport(0, 0, i_new_width, i_new_height);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  const auto aspect = static_cast<GLdouble>(i_new_width) / i_new_height;
-  if (i_new_width >= i_new_height)
-    gluOrtho2D(-1.0 * aspect, 1.0 * aspect, -1.0, 1.0);
-  else
-    gluOrtho2D(-1.0, 1.0, -1.0 / aspect, 1.0 / aspect);
+  gluOrtho2D(0.0, i_new_width, i_new_height, 0.0);
 }
