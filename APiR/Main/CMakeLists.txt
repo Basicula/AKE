@@ -44,6 +44,7 @@ set(
   BMPWriter
   Fluid
   Physics
+  Physics.2D
   Fractal
   Geometry
   Geometry.2D

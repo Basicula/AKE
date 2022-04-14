@@ -5,7 +5,7 @@
 
 int main()
 {
-  Scene2DExamples::RotatedRectangles(800, 800, 10);
+  Scene2DExamples::CollisionDetectionExample(800, 800, 10);
   // SceneExample3D();
   // FluidExample();
   // FractalExample();
