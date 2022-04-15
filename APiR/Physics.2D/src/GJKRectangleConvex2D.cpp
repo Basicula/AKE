@@ -4,6 +4,10 @@ GJKRectangleConvex2D::GJKRectangleConvex2D(const double i_width, const double i_
   : m_rectangle(i_width, i_height)
 {}
 
+GJKRectangleConvex2D::GJKRectangleConvex2D(Rectangle i_rectangle)
+  : m_rectangle(std::move(i_rectangle))
+{}
+
 Vector2d GJKRectangleConvex2D::GetFurthestPoint(const Vector2d& i_direction) const
 {
   Vector2d direction = i_direction;
