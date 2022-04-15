@@ -51,6 +51,12 @@ or they will be taken from ThirdParties folder instead
     - [ ] 2D
         - [x] Simple drawers based on OpenGL primitives
 - [ ] Physic
+    - [ ] 2D
+        - [ ] GJK collision detection
+            - [x] Circle
+            - [x] Triangle
+            - [x] Rectangle
+            - [ ] Convex
 - [ ] Serialization
 - [ ] Python wrapper
 - [ ] Camera
