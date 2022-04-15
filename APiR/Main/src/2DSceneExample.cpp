@@ -4,6 +4,7 @@
 #include "Math/Constants.h"
 #include "Physics.2D/GJKCircleConvex2D.h"
 #include "Physics.2D/GJKRectangleConvex2D.h"
+#include "Physics.2D/GJKTriangleConvex2D.h"
 #include "Renderer.2D/OpenGLRenderer.h"
 #include "Rendering.2D/CircleDrawer.h"
 #include "Rendering.2D/RectangleDrawer.h"
@@ -57,6 +58,7 @@ namespace {
       p_object->InitShape<Triangle2D>(vertices[0], vertices[1], vertices[2]);
       p_object->InitDrawer<Triangle2DDrawer>(
         static_cast<const Triangle2D&>(p_object->GetShape()), Color::RandomColor(), true);
+      p_object->InitCollider<GJKTriangleConvex2D>(vertices[0], vertices[1], vertices[2]);
     }
     return p_object;
   }
@@ -183,7 +185,7 @@ namespace Scene2DExamples {
           const auto& key_pressed_event = static_cast<const KeyPressedEvent&>(i_event);
           if (key_pressed_event.Key() == KeyboardButton::KEY_R) {
             m_scene.Clear();
-             for (std::size_t object_id = 0; object_id < m_objects_cnt; ++object_id) {
+            for (std::size_t object_id = 0; object_id < m_objects_cnt; ++object_id) {
               const Vector2d center(Randomizer::Get(0.0, static_cast<double>(m_window_width)),
                                     Randomizer::Get(0.0, static_cast<double>(m_window_height)));
               auto p_object = RandomObject();

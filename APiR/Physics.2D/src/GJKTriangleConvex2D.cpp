@@ -17,7 +17,7 @@ Vector2d GJKTriangleConvex2D::GetFurthestPoint(const Vector2d& i_direction) cons
     mp_transformation_source->InverseTransform(dir, true);
 
   Vector2d result;
-  double max_dot = -MAX_DOUBLE;
+  double max_dot = -Common::Constants::MAX_DOUBLE;
   for (const auto& vertex : m_triangle.m_vertices) {
     const auto dot = vertex.Dot(dir);
     if (dot > max_dot) {

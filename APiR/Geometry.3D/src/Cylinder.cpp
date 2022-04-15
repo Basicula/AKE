@@ -2,13 +2,13 @@
 
 #include "Common/Constants.h"
 
-Cylinder::Cylinder(const Vector3d& i_center, double i_radius, double i_height)
+Cylinder::Cylinder(const Vector3d& i_center, const double i_radius, const double i_height)
   : ISurface()
   , m_radius(i_radius)
   , m_height(i_height)
   , m_is_finite(i_height > 0)
-  , m_zmax(MAX_DOUBLE)
-  , m_zmin(-MAX_DOUBLE)
+  , m_zmax(Common::Constants::MAX_DOUBLE)
+  , m_zmin(-Common::Constants::MAX_DOUBLE)
   , m_half_height(0)
 {
   SetTranslation(i_center);
@@ -24,10 +24,10 @@ Cylinder::Cylinder(const Vector3d& i_center, double i_radius, double i_height)
 Vector3d Cylinder::_NormalAtLocalPoint(const Vector3d& i_local_point) const
 {
   if (m_is_finite && i_local_point[2] == m_zmin)
-    return Vector3d(0, 0, -1);
+    return { 0, 0, -1 };
 
   if (m_is_finite && i_local_point[2] == m_zmax)
-    return Vector3d(0, 0, 1);
+    return { 0, 0, 1 };
 
   Vector3d normal = i_local_point;
   normal[2] = 0;
@@ -46,8 +46,9 @@ bool Cylinder::_IntersectWithRay(double& o_intersection_dist, const Ray& i_local
   // normalize and store starting length for projected ray direction
   // corner case if direction projection is (0,0) then can assume
   // that length is small enough but not zero for general approach
-  const double projected_direction_len =
-    (projected_direction[0] == 0.0 && projected_direction[1] == 0.0) ? MIN_DOUBLE : projected_direction.Length();
+  const double projected_direction_len = (projected_direction[0] == 0.0 && projected_direction[1] == 0.0)
+                                           ? Common::Constants::MIN_DOUBLE
+                                           : projected_direction.Length();
   projected_direction /= projected_direction_len;
 
   // solve ray sphere task in 2d
@@ -97,7 +98,7 @@ bool Cylinder::_IntersectWithRay(double& o_intersection_dist, const Ray& i_local
   }
 
   // find intersection with top or bottom plane
-  double distance_to_caps = MAX_DOUBLE;
+  double distance_to_caps = Common::Constants::MAX_DOUBLE;
   bool is_intersected = m_top->IntersectWithRay(distance_to_caps, i_local_ray);
   is_intersected |= m_bottom->IntersectWithRay(distance_to_caps, i_local_ray, distance_to_caps);
   if (!is_intersected || distance_to_caps < 0 || distance_to_caps > o_intersection_dist)
@@ -117,7 +118,7 @@ bool Cylinder::_IntersectWithRay(double& o_intersection_dist, const Ray& i_local
 
 void Cylinder::_CalculateBoundingBox()
 {
-  const double z = m_is_finite ? m_height / 2 : MAX_DOUBLE;
+  const double z = m_is_finite ? m_height / 2 : Common::Constants::MAX_DOUBLE;
   m_bounding_box.AddPoint(Vector3d(m_radius, m_radius, z));
   m_bounding_box.AddPoint(Vector3d(-m_radius, -m_radius, -z));
 }

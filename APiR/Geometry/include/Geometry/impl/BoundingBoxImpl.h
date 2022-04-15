@@ -13,19 +13,18 @@ BoundingBox<Dimension> BoundingBox<Dimension>::Make(Iterator i_begin, Iterator i
 
 template <size_t Dimension>
 BoundingBox<Dimension>::BoundingBox()
-  : m_min(MAX_INT)
-  , m_max(MIN_INT)
+  : m_min(Common::Constants::MAX_INT)
+  , m_max(Common::Constants::MIN_INT)
 {}
 
 template <size_t Dimension>
-BoundingBox<Dimension>::BoundingBox(const typename BoundingBox<Dimension>::VectorType& i_min,
-                                    const typename BoundingBox<Dimension>::VectorType& i_max)
+BoundingBox<Dimension>::BoundingBox(const VectorType& i_min, const VectorType& i_max)
   : m_min(i_min)
   , m_max(i_max)
 {}
 
 template <size_t Dimension>
-void BoundingBox<Dimension>::AddPoint(const typename BoundingBox<Dimension>::VectorType& i_point)
+void BoundingBox<Dimension>::AddPoint(const VectorType& i_point)
 {
   for (int i = 0; i < Dimension; ++i) {
     m_min[i] = std::min(m_min[i], i_point[i]);
@@ -45,12 +44,12 @@ void BoundingBox<Dimension>::Merge(const BoundingBox<Dimension>& i_other)
 template <size_t Dimension>
 void BoundingBox<Dimension>::Reset()
 {
-  m_min = BoundingBox<Dimension>::VectorType(MAX_INT);
-  m_max = BoundingBox<Dimension>::VectorType(MIN_INT);
+  m_min = BoundingBox<Dimension>::VectorType(Common::Constants::MAX_INT);
+  m_max = BoundingBox<Dimension>::VectorType(Common::Constants::MIN_INT);
 }
 
 template <size_t Dimension>
-typename BoundingBox<Dimension>::VectorType BoundingBox<Dimension>::GetCorner(std::size_t i_corner_id) const
+typename BoundingBox<Dimension>::VectorType BoundingBox<Dimension>::GetCorner(const std::size_t i_corner_id) const
 {
   BoundingBox<Dimension>::VectorType res;
   for (size_t i = 0; i < Dimension; ++i)
@@ -71,7 +70,7 @@ bool BoundingBox<Dimension>::IsValid() const
 }
 
 template <size_t Dimension>
-bool BoundingBox<Dimension>::Contains(const typename BoundingBox<Dimension>::VectorType& i_point) const
+bool BoundingBox<Dimension>::Contains(const VectorType& i_point) const
 {
   return (m_min <= i_point && i_point <= m_max);
 }
