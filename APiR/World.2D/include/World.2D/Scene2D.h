@@ -1,5 +1,5 @@
 #pragma once
-#include "Rendering.2D/Object2D.h"
+#include "World.2D/Object2D.h"
 
 #include <memory>
 #include <string>
@@ -14,6 +14,9 @@ public:
 
   void AddObject(std::unique_ptr<Object2D>&& ip_object);
   [[nodiscard]] const std::vector<std::unique_ptr<Object2D>>& GetObjects() const;
+  void Clear();
+
+  void Update();
 
 private:
   std::string m_name;

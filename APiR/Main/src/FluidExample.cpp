@@ -24,10 +24,8 @@ void FluidExample()
   scene.AddLight(new SpotLight(Vector3d(0, 10, 0)));
   auto fluid = new Fluid(48);
   scene.AddObject(fluid);
-  
-  auto update_func = [&]() {
-    fluid->Update();
-  };
+
+  auto update_func = [&]() { fluid->Update(); };
 #ifdef _DEBUG
   for (int i = 0; i < 5; ++i) {
     std::cout << i << std::endl;

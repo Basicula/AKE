@@ -5,9 +5,9 @@
 ImageRenderer::ImageRenderer()
   : m_image_binding(0)
   , mp_image_source(std::make_unique<Image>(800, 600))
-  {
+{
   _BindImage();
-  }
+}
 
 void ImageRenderer::Render()
 {

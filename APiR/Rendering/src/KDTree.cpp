@@ -53,7 +53,7 @@ namespace {
   };
 }
 
-void KDTree::_Build(std::size_t i_start, std::size_t i_end)
+void KDTree::_Build(const std::size_t i_start, const std::size_t i_end)
 {
   m_nodes.emplace_back();
   auto& curr_node = m_nodes.back();
@@ -104,7 +104,7 @@ void KDTree::_Build(std::size_t i_start, std::size_t i_end)
   m_nodes[right].parent = left - 1;
 }
 
-BoundingBox3D KDTree::_BoundingBox(std::size_t i_start, std::size_t i_end)
+BoundingBox3D KDTree::_BoundingBox(const std::size_t i_start, const std::size_t i_end)
 {
   auto res = BoundingBox3D();
   for (auto i = i_start; i < i_end; ++i)

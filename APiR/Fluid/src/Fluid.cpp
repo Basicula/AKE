@@ -46,7 +46,7 @@ bool Fluid::IntersectWithRay(double& o_distance, const Ray& i_ray, const double 
   bool intersected = false;
   const double k = 0.1;
   auto sdf = [&](const Vector3d& i_ray_origin) {
-    double res = MAX_DOUBLE;
+    double res = Common::Constants::MAX_DOUBLE;
     std::for_each(start, end, [&res, &i_ray_origin, &k](const Vector3d& i_pos) {
       const double local_sdf = i_pos.SquareDistance(i_ray_origin) - SMOOTHING_RADIUS_SQR;
       res = SmoothingMin(local_sdf, res, k);

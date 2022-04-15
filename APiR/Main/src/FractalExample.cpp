@@ -70,7 +70,7 @@ namespace {
       , m_fractal(i_fractal)
       , m_color_map(std::move(i_color_map))
     {}
-    
+
   private:
     void _GenerateFrameImage() override
     {

@@ -1,5 +1,6 @@
 #include "Visual/Color.h"
 
+#include "Common/Randomizer.h"
 #include "Common/Utils.h"
 
 const Color Color::White = Color(255, 255, 255);
@@ -94,8 +95,10 @@ Color& Color::operator+=(const Color& i_other)
 
 Color Color::RandomColor()
 {
-  srand(rand() % RAND_MAX);
-  return { static_cast<std::uint8_t>(rand()), static_cast<std::uint8_t>(rand()), static_cast<std::uint8_t>(rand()) };
+  static Randomizer color_randomizer;
+  return { color_randomizer.Next<std::uint8_t>(),
+           color_randomizer.Next<std::uint8_t>(),
+           color_randomizer.Next<std::uint8_t>() };
 }
 
 std::uint8_t Color::GetRed() const

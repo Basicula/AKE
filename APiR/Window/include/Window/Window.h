@@ -26,12 +26,12 @@ public:
   template <class TEventListner, class... Args>
   void InitEventListner(Args&&... i_args);
   // Set custom gui view
-  template<class TGUIView, class... Args>
+  template <class TGUIView, class... Args>
   void InitGUIView(Args&&... i_args);
   // Set backend functionality that is responsible for visualizing data to window
   template <class TRenderer, class... Args>
   void InitRenderer(Args&&... i_args);
-  
+
   void SetUpdateFunction(UpdateFunction i_func);
 
 protected:

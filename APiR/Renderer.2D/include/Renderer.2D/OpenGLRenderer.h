@@ -1,11 +1,11 @@
 #pragma once
 #include "Rendering/IRenderer.h"
-#include "Rendering.2D/Scene2D.h"
+#include "World.2D/Scene2D.h"
 
 class OpenGLRenderer : public IRenderer
 {
 public:
-  explicit OpenGLRenderer(const Scene2D& i_scene);
+  explicit OpenGLRenderer(int i_width, int i_height, const Scene2D& i_scene);
 
   void Render() override;
 

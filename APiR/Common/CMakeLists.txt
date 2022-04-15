@@ -2,6 +2,8 @@ set(
   SOURCES
   
   ThreadPool.cpp
+
+  Randomizer.cpp
 )
 
 set(
@@ -15,6 +17,9 @@ set(
   IObject.h
   
   Constants.h
+
+  Randomizer.h
+  impl/RandomizerImpl.h
 )
 
 set(
