@@ -6,9 +6,13 @@
 # **APiR** - **A**ll **P**ossible **i**n **R**endering
 
 ## Actual progress
-![](States/actual_state.png)
+### 3D Scene sample based on ray tracing analytical primitives
+![](States/ray_tracing_analytical_primitives.png)
 
-## Instalation
+### 2D Scene GJK collision detection
+![](States/gjk.gif)
+
+## Installation
 Next thirdparties must be installed before configuring cmake
 or they will be taken from ThirdParties folder instead
 1. OpenCL
