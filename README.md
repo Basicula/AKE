@@ -3,7 +3,7 @@
 [![Badge](https://img.shields.io/badge/Python-blue)](https://github.com/Basicula)
 [![Badge](https://img.shields.io/badge/CMake-aaaaaa)](https://github.com/Basicula)
 
-# **APiR** - **A**ll **P**ossible **i**n **R**endering
+# **AKE** - **A**ll **K**inded **E**ngine
 
 ## Actual progress
 ### 3D Scene sample based on ray tracing analytical primitives

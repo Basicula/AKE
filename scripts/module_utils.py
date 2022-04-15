@@ -4,7 +4,7 @@ import os
 import sys
 
 def create_module(module_name, has_python, has_cpp_tests, has_py_tests):
-    project_folder_root = os.path.abspath("./APiR")
+    project_folder_root = os.path.abspath("./AKE")
 
     module_path = f"{project_folder_root}/{module_name}"
     if os.path.exists(module_path):
@@ -66,7 +66,7 @@ def create_module(module_name, has_python, has_cpp_tests, has_py_tests):
         fo.write(")\n")
 
 def add_component(component, module, with_py, with_cpp_tests, with_py_tests):
-    project_folder_root = os.path.abspath("./APiR/")
+    project_folder_root = os.path.abspath("./AKE/")
     module_path = f"{project_folder_root}/{module}"
     
     open(f"{module_path}/include/{module}/{component}.h", 'x')

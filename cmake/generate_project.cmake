@@ -136,7 +136,7 @@ function(generate_project)
     target_link_libraries(${NAME} PUBLIC ${ARG_PUBLIC_LINK})
   endif()
   
-  set_property(TARGET ${NAME} PROPERTY FOLDER "APiR")
+  set_property(TARGET ${NAME} PROPERTY FOLDER "AKE")
   
   if (DEFINED ARG_TESTS)
     set(TEST_FILES)
@@ -165,6 +165,6 @@ function(generate_project)
       ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${NAME}.Tests
     )
     
-    set_property(TARGET ${NAME}.Tests PROPERTY FOLDER "APiR")
+    set_property(TARGET ${NAME}.Tests PROPERTY FOLDER "AKE")
   endif()
 endfunction()

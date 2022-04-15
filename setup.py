@@ -57,13 +57,13 @@ class CMakeBuild(build_ext):
         subprocess.check_call(['cmake', '--build', '.'] + build_args, cwd=self.build_temp)
 
 setup(
-    name='APiR',
+    name='AKE',
     version='0.0.1',
     author='',
     author_email='',
     description='A test project using pybind11 and CMake',
     long_description='',
-    ext_modules=[CMakeExtension('APiR')],
+    ext_modules=[CMakeExtension('AKE')],
     cmdclass=dict(build_ext=CMakeBuild),
     zip_safe=False,
 )

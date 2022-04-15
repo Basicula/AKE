@@ -8,5 +8,5 @@ docker run -it basicula/fsgw:<tag> bash                     - run bush on VM (wi
 docker run --env PARCS_ARGS=master -it basicula/fsgw:05     - run with environment variables
 
 ------------------------------------------------Main------------------------------------------------------
-pip3 install APiR/                                          - install as python lib
+pip3 install AKE/                                           - install as python lib
 python3 run_all_py_tests.py <ProjectName or for all tests>  - run tests

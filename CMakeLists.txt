@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.18)
 
-project(APiR)
+project(AKE)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CUDA_STANDARD 17)
@@ -33,4 +33,4 @@ enable_testing()
 # main lib
 include("cmake/generate_project.cmake")
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-add_subdirectory(APiR)
+add_subdirectory(AKE)

@@ -44,7 +44,7 @@ if(ENABLE_PYTHON_WRAPPER)
     
     pybind11
   )
-  set_property(TARGET engine PROPERTY FOLDER "APiR")
+  set_property(TARGET engine PROPERTY FOLDER "AKE")
 endif()
 
 set_target_properties(Common PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
