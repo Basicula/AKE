@@ -28,6 +28,10 @@ void Scene2D::Clear()
 
 void Scene2D::Update()
 {
+  for (const auto& p_object : m_objects)
+    if (auto* p_physical_property = p_object->GetPhysicalProperty(); p_physical_property != nullptr)
+      p_physical_property->Apply(0.001);
+
   std::vector<bool> in_collision(m_objects.size(), false);
   for (std::size_t first_object_id = 0; first_object_id < m_objects.size(); ++first_object_id) {
     const auto& first_object = m_objects[first_object_id];
