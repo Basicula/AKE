@@ -46,12 +46,12 @@ public:
   [[nodiscard]] VectorType InverseTransform(const VectorType& i_vector, bool i_is_vector = false) const;
   void InverseTransform(VectorType& io_vector, bool i_is_vector = false) const;
 
-  [[nodiscard]] VectorType Rotate(const VectorType& i_vector) const;
-  void Rotate(VectorType& io_vector) const;
-  [[nodiscard]] VectorType Translate(const VectorType& i_vector) const;
-  void Translate(VectorType& io_vector) const;
-  [[nodiscard]] VectorType Scale(const VectorType& i_vector) const;
-  void Scale(VectorType& io_vector) const;
+  [[nodiscard]] VectorType RotateOnly(const VectorType& i_vector) const;
+  void RotateOnly(VectorType& io_vector) const;
+  [[nodiscard]] VectorType TranslateOnly(const VectorType& i_vector) const;
+  void TranslateOnly(VectorType& io_vector) const;
+  [[nodiscard]] VectorType ScaleOnly(const VectorType& i_vector) const;
+  void ScaleOnly(VectorType& io_vector) const;
 
 private:
   VectorType m_translation;

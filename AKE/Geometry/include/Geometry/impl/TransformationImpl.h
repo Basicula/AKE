@@ -1,4 +1,3 @@
-#include "..\Transformation.h"
 #pragma once
 
 template <size_t Dimension>
@@ -69,7 +68,7 @@ void Transformation<Dimension>::InverseTransform(VectorType& io_vector, const bo
 }
 
 template <size_t Dimension>
-typename Transformation<Dimension>::VectorType Transformation<Dimension>::Rotate(const VectorType& i_vector) const
+typename Transformation<Dimension>::VectorType Transformation<Dimension>::RotateOnly(const VectorType& i_vector) const
 {
   VectorType result = i_vector;
   m_rotation.ApplyLeft(result);
@@ -77,19 +76,20 @@ typename Transformation<Dimension>::VectorType Transformation<Dimension>::Rotate
 }
 
 template <size_t Dimension>
-void Transformation<Dimension>::Rotate(VectorType& io_vector) const
+void Transformation<Dimension>::RotateOnly(VectorType& io_vector) const
 {
   m_rotation.ApplyLeft(io_vector);
 }
 
 template <size_t Dimension>
-typename Transformation<Dimension>::VectorType Transformation<Dimension>::Translate(const VectorType& i_vector) const
+typename Transformation<Dimension>::VectorType Transformation<Dimension>::TranslateOnly(
+  const VectorType& i_vector) const
 {
   return i_vector + m_translation;
 }
 
 template <size_t Dimension>
-void Transformation<Dimension>::Translate(VectorType& io_vector) const
+void Transformation<Dimension>::TranslateOnly(VectorType& io_vector) const
 {
   io_vector += m_translation;
 }
@@ -101,13 +101,13 @@ void Transformation<Dimension>::Translate(const VectorType& i_translation)
 }
 
 template <size_t Dimension>
-typename Transformation<Dimension>::VectorType Transformation<Dimension>::Scale(const VectorType& i_vector) const
+typename Transformation<Dimension>::VectorType Transformation<Dimension>::ScaleOnly(const VectorType& i_vector) const
 {
   return i_vector * m_scale;
 }
 
 template <size_t Dimension>
-void Transformation<Dimension>::Scale(VectorType& io_vector) const
+void Transformation<Dimension>::ScaleOnly(VectorType& io_vector) const
 {
   io_vector *= m_scale;
 }
