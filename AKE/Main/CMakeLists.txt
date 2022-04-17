@@ -11,9 +11,14 @@ set(
   FluidExample.cpp
   2DSceneExample.cpp
   CollisionDetectionExample2D.cpp
+  TowerDefenseExample.cpp
+
   3DSceneExample.cpp
+
   OpenCLExample.cpp
+
   FractalExample.cpp
+
   WindowExample.cpp
 
   Utils2D.h

@@ -44,8 +44,8 @@ void Scene2D::Update()
 
       const auto collision =
         GJKCollisionDetection2D::GetCollision(*first_object->GetCollider(), *second_object->GetCollider());
-      in_collision[first_object_id] = in_collision[first_object_id] || collision;
-      in_collision[second_object_id] = in_collision[second_object_id] || collision;
+      in_collision[first_object_id] = in_collision[first_object_id] || collision.m_is_collided;
+      in_collision[second_object_id] = in_collision[second_object_id] || collision.m_is_collided;
     }
   }
 

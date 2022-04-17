@@ -5,7 +5,7 @@
 
 int main()
 {
-  Example2D::CollisionDetection(800, 800, 10);
+  Example2D::TowerDefenseGame(800, 800);
   // SceneExample3D();
   // FluidExample();
   // FractalExample();
