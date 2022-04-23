@@ -5,7 +5,7 @@
 
 int main()
 {
-  Example2D::TowerDefenseGame(800, 800);
+  Example2D::BouncingBalls(800, 800);
   // SceneExample3D();
   // FluidExample();
   // FractalExample();
