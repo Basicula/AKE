@@ -61,6 +61,7 @@ or they will be taken from ThirdParties folder instead
             - [x] Triangle
             - [x] Rectangle
             - [ ] Convex
+        - [x] Move logic(based on mass, velocity and acceleration)
 - [ ] Serialization
 - [ ] Python wrapper
 - [ ] Camera
