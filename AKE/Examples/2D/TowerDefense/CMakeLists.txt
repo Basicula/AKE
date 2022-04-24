@@ -1,41 +1,37 @@
 set(
   SOURCES
-  
+
   main.cpp
 
-  World.cpp
-  WorldController.cpp
-  WorldRenderer.cpp
-  GUI.cpp
+  GameController.cpp
+  GameRenderer.cpp
+  TowerDefense.cpp
 )
 
 set(
   HEADERS
-  
-  World.h
-  WorldController.h
-  WorldRenderer.h
-  GUI.h
+
+  GameController.h
+  GameRenderer.h
+  TowerDefense.h
 )
 
 set(
   LINKS
 
-  Physics
-  Physics.2D
+  Common
+  Math
   Geometry
   Geometry.2D
-  Window
-  Math
-  Renderer.2D
   Rendering
   Rendering.2D
-  Common
+  Physics.2D
   Visual
+  Window
   World.2D
 )
 
-set(NAME BouncingBalls)
+set(NAME TowerDefense)
 
 add_executable(
   ${NAME}
@@ -50,3 +46,4 @@ set_property(TARGET ${NAME} PROPERTY FOLDER "AKE/Examples/2D")
 add_custom_command(TARGET ${NAME} POST_BUILD
                    COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${GLEW_BINARY}" "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>/"
 )
+

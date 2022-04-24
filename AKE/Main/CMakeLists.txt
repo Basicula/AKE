@@ -11,7 +11,6 @@ set(
   FluidExample.cpp
   2DSceneExample.cpp
   CollisionDetectionExample2D.cpp
-  TowerDefenseExample.cpp
 
   3DSceneExample.cpp
 
