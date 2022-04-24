@@ -10,7 +10,6 @@ set(
 
   FluidExample.cpp
   2DSceneExample.cpp
-  CollisionDetectionExample2D.cpp
 
   3DSceneExample.cpp
 
