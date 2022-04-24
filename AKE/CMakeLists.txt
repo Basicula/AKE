@@ -24,6 +24,7 @@ add_subdirectory(Fluid)
 add_subdirectory(World.2D)
 add_subdirectory(Window)
 add_subdirectory(Main)
+add_subdirectory(Examples)
 
 if(ENABLE_PYTHON_WRAPPER)
   pybind11_add_module(engine engine_module.cpp)

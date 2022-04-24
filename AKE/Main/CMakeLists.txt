@@ -12,7 +12,6 @@ set(
   2DSceneExample.cpp
   CollisionDetectionExample2D.cpp
   TowerDefenseExample.cpp
-  BouncingBallsExample.cpp
 
   3DSceneExample.cpp
 

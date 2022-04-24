@@ -11,6 +11,4 @@ namespace Example2D {
   void CollisionDetection(std::size_t i_window_width, std::size_t i_window_height, std::size_t i_objects_count);
 
   void TowerDefenseGame(std::size_t i_window_width, std::size_t i_window_height);
-
-  void BouncingBalls(std::size_t i_window_width, std::size_t i_window_height);
 }
