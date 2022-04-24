@@ -59,7 +59,7 @@ void SimpleCameraController::_RotateCamera()
     Transformation3D rotation;
     rotation.SetRotation(camera_direction, angle);
     auto new_camera_right = mp_camera->GetRight();
-    rotation.Rotate(new_camera_right);
+    rotation.RotateOnly(new_camera_right);
     const auto rotation_axis = new_camera_right.CrossProduct(camera_direction);
     mp_camera->Rotate(rotation_axis, m_angular_speed);
   }

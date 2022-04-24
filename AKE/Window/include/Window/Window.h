@@ -1,5 +1,4 @@
 #pragma once
-#include "Image/Image.h"
 #include "Rendering/IRenderer.h"
 #include "Window/EventListner.h"
 #include "Window/FPSCounter.h"
@@ -64,8 +63,7 @@ protected:
   FPSCounter m_fps_counter;
 
   UpdateFunction m_update_function;
-
-  const Image* mp_source;
+  
   std::unique_ptr<EventListner> mp_event_listner;
   std::unique_ptr<GUIView> mp_gui_view;
   std::unique_ptr<IRenderer> mp_renderer;

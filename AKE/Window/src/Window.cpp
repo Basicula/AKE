@@ -10,7 +10,6 @@ Window::Window(const size_t i_width, const size_t i_height, std::string i_title)
   , m_height(i_height)
   , m_frame_binding(0)
   , m_fps_counter(1)
-  , mp_source(nullptr)
   , mp_event_listner(nullptr)
   , mp_gui_view(nullptr)
 {}

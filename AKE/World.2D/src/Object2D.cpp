@@ -20,6 +20,16 @@ const GJKConvex2D* Object2D::GetCollider() const
   return mp_collider.get();
 }
 
+const PhysicalProperty2D* Object2D::GetPhysicalProperty() const
+{
+  return mp_physical_properties.get();
+}
+
+PhysicalProperty2D* Object2D::GetPhysicalProperty()
+{
+  return mp_physical_properties.get();
+}
+
 const Transformation2D& Object2D::GetTransformation() const
 {
   return m_transformation;

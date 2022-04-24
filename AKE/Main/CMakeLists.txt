@@ -10,10 +10,18 @@ set(
 
   FluidExample.cpp
   2DSceneExample.cpp
+  CollisionDetectionExample2D.cpp
+
   3DSceneExample.cpp
+
   OpenCLExample.cpp
+
   FractalExample.cpp
+
   WindowExample.cpp
+
+  Utils2D.h
+  Utils2D.cpp
 )
 
 set(
@@ -25,7 +33,7 @@ set(
   SimpleCameraController.h
 
   FluidExample.h
-  2DSceneExample.h
+  Example2D.h
   3DSceneExample.h
   OpenCLExample.h
   FractalExample.h

@@ -34,8 +34,8 @@ void Camera::Rotate(const Vector3d& i_rotation_axis, const double i_angle_in_rad
 {
   Transformation3D rotation;
   rotation.SetRotation(i_rotation_axis, i_angle_in_rad);
-  rotation.Rotate(m_direction);
-  rotation.Rotate(m_up);
+  rotation.RotateOnly(m_direction);
+  rotation.RotateOnly(m_up);
   _Update();
 }
 
