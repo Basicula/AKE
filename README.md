@@ -5,12 +5,7 @@
 
 # **AKE** - **A**ll **K**inded **E**ngine
 
-## Actual progress
-### 3D Scene sample based on ray tracing analytical primitives
-![](States/ray_tracing_analytical_primitives.png)
-
-### 2D Scene GJK collision detection
-![](States/gjk.gif)
+## [Examples](Examples/Examples.md)
 
 ## Installation
 Next thirdparties must be installed before configuring cmake
