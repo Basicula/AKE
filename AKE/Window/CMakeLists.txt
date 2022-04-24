@@ -43,9 +43,7 @@ set(
 set(
   LINKS
   
-  Image
   Math
-  Memory
   Rendering
   Visual
 )
@@ -56,6 +54,7 @@ set(
   glfw
   ${GLUT_LIBRARIES}
   imgui
+  ${OPENGL_LIBRARIES}
 )
 
 generate_project(

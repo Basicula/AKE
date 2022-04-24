@@ -1,5 +1,4 @@
 #pragma once
-#include "Window/FPSCounter.h"
 #include "Window/Window.h"
 
 class GLUTWindow : public Window

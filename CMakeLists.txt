@@ -21,7 +21,7 @@ option(ENABLE_CUDA "Turn on/off CUDA usage")
 option(ENABLE_OPENCL "Turn on/off CUDA usage")
 option(ENABLE_PYTHON_WRAPPER "Turn on/off Python wrappers")
 
-# find/setuo all needed packages
+# find/setup all needed packages
 include("${THIRD_PARTIES}/ThirdParties.cmake")
 
 # Macros and other predefined stuff
