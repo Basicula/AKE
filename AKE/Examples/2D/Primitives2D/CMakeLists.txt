@@ -28,7 +28,7 @@ set(
   Utils2D
 )
 
-set(NAME Primitives)
+set(NAME Primitives2D)
 
 add_executable(
   ${NAME}
