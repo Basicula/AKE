@@ -18,6 +18,9 @@ protected:
   virtual void _Update() override;
 
 private:
+  void _UpdateCorner();
+
+private:
   Vector3d m_corner;
 
   double m_fov;
