@@ -24,14 +24,14 @@ void CPURayTracer::_GenerateFrameImage()
       mp_image_source->SetPixel(x, y, static_cast<std::uint32_t>(color));
     });
 #else
-  for (auto y = 0; y < m_image_source.GetHeight(); ++y) {
-    for (auto x = 0; x < m_image_source.GetWidth(); ++x) {
-      if (!(x == m_image_source.GetWidth() / 2 && y == m_image_source.GetHeight() / 2))
+  for (auto y = 0; y < mp_image_source->GetHeight(); ++y) {
+    for (auto x = 0; x < mp_image_source->GetWidth(); ++x) {
+      if (!(x == mp_image_source->GetWidth() / 2 && y == mp_image_source->GetHeight() / 2))
         continue;
-      const auto u = 1.0 * x / m_image_source.GetWidth();
-      const auto v = 1.0 * y / m_image_source.GetHeight();
+      const auto u = 1.0 * x / mp_image_source->GetWidth();
+      const auto v = 1.0 * y / mp_image_source->GetHeight();
       const auto color = _TraceRay(mp_active_camera->CameraRay(u, v));
-      m_image_source.SetPixel(x, y, static_cast<std::uint32_t>(color));
+      mp_image_source->SetPixel(x, y, static_cast<std::uint32_t>(color));
     }
   }
 #endif
