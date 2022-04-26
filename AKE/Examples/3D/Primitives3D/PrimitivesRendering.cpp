@@ -85,7 +85,7 @@ namespace ExampleScene {
 
     scene.AddCamera(new SimpleCamera(Vector3d(0, 0, -1), Vector3d(0, 0, 1), Vector3d(0, 1, 0), 75, 16.0 / 9.0), true);
 
-    return std::move(scene);
+    return scene;
   }
 
   Scene NineSpheres()
@@ -102,7 +102,7 @@ namespace ExampleScene {
 
     scene.AddCamera(new SimpleCamera(Vector3d(0, 0, -15), Vector3d(0, 0, 1), Vector3d(0, 1, 0), 90, 16.0 / 9.0), true);
 
-    return std::move(scene);
+    return scene;
   }
 
   Scene RandomSpheres(const size_t i_count)
@@ -117,7 +117,7 @@ namespace ExampleScene {
 
     scene.AddCamera(new SimpleCamera(Vector3d(0, 0, -15), Vector3d(0, 0, 1), Vector3d(0, 1, 0), 90, 16.0 / 9.0), true);
 
-    return std::move(scene);
+    return scene;
   }
 
   Scene EmptyRoom()
@@ -137,7 +137,7 @@ namespace ExampleScene {
 
     scene.AddCamera(new SimpleCamera(Vector3d(0, 0, -5), Vector3d(0, 0, 1), Vector3d(0, 1, 0), 75, 16.0 / 9.0), true);
 
-    return std::move(scene);
+    return scene;
   }
 
   Scene OnePlane()
@@ -151,7 +151,7 @@ namespace ExampleScene {
 
     scene.AddCamera(new SimpleCamera(Vector3d(0, 0, -5), Vector3d(0, 0, 1), Vector3d(0, 1, 0), 75, 16.0 / 9.0), true);
 
-    return std::move(scene);
+    return scene;
   }
 
   Scene OneCylinder()
@@ -179,7 +179,7 @@ namespace ExampleScene {
 
     scene.AddCamera(new SimpleCamera(Vector3d(0, 0, -5), Vector3d(0, 0, 1), Vector3d(0, 1, 0), 75, 16.0 / 9.0), true);
 
-    return std::move(scene);
+    return scene;
   }
 
   Scene ComplexScene()
@@ -208,12 +208,12 @@ namespace ExampleScene {
 
     scene.AddLight(new SpotLight(Vector3d(3, 3, -3), Color::White, 0.75));
 
-    return std::move(scene);
+    return scene;
   }
 
   Scene InfinityMirror()
   {
-    Scene scene("Complex scene");
+    Scene scene("Infinity mirror scene");
 
     scene.AddObject(new RenderableObject(new Sphere(Vector3d(2, 0, 0), 0.5), ExampleMaterials::ruby()));
     scene.AddObject(
