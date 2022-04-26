@@ -15,6 +15,8 @@ namespace {
     o_near = -Common::Constants::MAX_DOUBLE;
     o_far = Common::Constants::MAX_DOUBLE;
     for (auto i = 0; i < 3; ++i) {
+      if (ray_direction[i] == 0.0)
+        continue;
       const double inv_dir = 1.0 / ray_direction[i];
       const double t1 = (min_corner[i] - origin[i]) * inv_dir;
       const double t2 = (max_corner[i] - origin[i]) * inv_dir;
