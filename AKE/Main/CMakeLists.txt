@@ -17,9 +17,6 @@ set(
   FractalExample.cpp
 
   WindowExample.cpp
-
-  Utils2D.h
-  Utils2D.cpp
 )
 
 set(
