@@ -1,4 +1,4 @@
-#include "Main/SimpleCameraController.h"
+#include "SimpleCameraController.h"
 
 #include "Geometry/Transformation.h"
 #include "Math/Constants.h"

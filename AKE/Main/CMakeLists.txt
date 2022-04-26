@@ -3,15 +3,10 @@ set(
   
   main.cpp
   
-  SceneExamples.cpp
-  
   ConsoleLogEventListner.cpp
-  SimpleCameraController.cpp
 
   FluidExample.cpp
-
-  3DSceneExample.cpp
-
+  
   OpenCLExample.cpp
 
   FractalExample.cpp
@@ -22,13 +17,9 @@ set(
 set(
   HEADERS
   
-  SceneExamples.h
-  
   ConsoleLogEventListner.h
-  SimpleCameraController.h
 
   FluidExample.h
-  3DSceneExample.h
   OpenCLExample.h
   FractalExample.h
   WindowExample.h

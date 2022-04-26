@@ -1,14 +1,18 @@
-#include "Main/SceneExamples.h"
+#include "PrimitivesRendering.h"
 
 #include "Geometry.3D/Cylinder.h"
 #include "Geometry.3D/Plane.h"
 #include "Geometry.3D/Sphere.h"
 #include "Geometry.3D/Torus.h"
 #include "Math/Constants.h"
+#include "Rendering/CPURayTracer.h"
 #include "Rendering/RenderableObject.h"
 #include "Rendering/SimpleCamera.h"
+#include "SimpleCameraController.h"
 #include "Visual/PhongMaterial.h"
 #include "Visual/SpotLight.h"
+#include "Window/GLFWDebugGUIView.h"
+#include "Window/GLFWWindow.h"
 
 namespace ExampleMaterials {
   PhongMaterial* pure_mirror()
@@ -229,5 +233,17 @@ namespace ExampleScene {
       true);
 
     return scene;
+  }
+
+  void OpenScene(Scene&& io_scene)
+  {
+    constexpr std::size_t width = 800;
+    constexpr std::size_t height = 600;
+
+    GLFWWindow window(width, height, io_scene.GetName());
+    window.InitRenderer<CPURayTracer>(io_scene);
+    window.InitEventListner<SimpleCameraController>(io_scene.GetActiveCamera());
+    window.InitGUIView<GLFWDebugGUIView>(window.GetOpenGLWindow());
+    window.Open();
   }
 }

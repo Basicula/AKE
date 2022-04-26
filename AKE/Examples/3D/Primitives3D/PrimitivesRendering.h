@@ -8,8 +8,10 @@ namespace ExampleScene {
   Scene OneTorus();
 
   Scene NineSpheres();
-  Scene RandomSpheres(const size_t i_count);
+  Scene RandomSpheres(size_t i_count);
   Scene EmptyRoom();
   Scene ComplexScene();
   Scene InfinityMirror();
+
+  void OpenScene(Scene&& io_scene);
 }
