@@ -200,10 +200,7 @@ namespace ExampleScene {
 
     const auto cylinder = new Cylinder(Vector3d(0, -2, 0), 0.5, 5);
     scene.AddObject(new RenderableObject(cylinder, ExampleMaterials::ruby()));
-
-    // scene.AddCamera(new SimpleCamera(Vector3d(-5, 5, -5), Vector3d(0, 0, 0), Vector3d(1 / SQRT_3, 1 / SQRT_3, 1 /
-    // SQRT_3), 75, 16.0 / 9.0, 0.5), true);
-
+    
     scene.AddCamera(new SimpleCamera(Vector3d(0, 0, -5), Vector3d(0, 0, 1), Vector3d(0, 1, 0), 75, 16.0 / 9.0), true);
 
     scene.AddLight(new SpotLight(Vector3d(3, 3, -3), Color::White, 0.75));
