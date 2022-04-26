@@ -4,8 +4,6 @@ set(
   main.cpp
   
   ConsoleLogEventListner.cpp
-
-  FluidExample.cpp
   
   OpenCLExample.cpp
 
@@ -18,8 +16,7 @@ set(
   HEADERS
   
   ConsoleLogEventListner.h
-
-  FluidExample.h
+  
   OpenCLExample.h
   FractalExample.h
   WindowExample.h
