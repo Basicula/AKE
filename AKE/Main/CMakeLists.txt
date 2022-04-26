@@ -9,7 +9,6 @@ set(
   SimpleCameraController.cpp
 
   FluidExample.cpp
-  2DSceneExample.cpp
 
   3DSceneExample.cpp
 
@@ -32,7 +31,6 @@ set(
   SimpleCameraController.h
 
   FluidExample.h
-  Example2D.h
   3DSceneExample.h
   OpenCLExample.h
   FractalExample.h

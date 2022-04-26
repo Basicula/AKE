@@ -1,7 +1,8 @@
+#include "PrimitivesRendering.h"
+
 #include "Common/Randomizer.h"
-#include "Main/Example2D.h"
 #include "Renderer.2D/OpenGLRenderer.h"
-#include "Utils2D.h"
+#include "Utils2D/Utils2D.h"
 #include "Window/GLFWDebugGUIView.h"
 #include "Window/GLFWWindow.h"
 #include "World.2D/Scene2D.h"
@@ -20,7 +21,7 @@ namespace {
   }
 }
 
-namespace Example2D {
+namespace PrimitivesRendering {
   void Rectangles(const std::size_t i_window_width,
                   const std::size_t i_window_height,
                   const std::size_t i_rectangles_count)
