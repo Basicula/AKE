@@ -1,9 +1,7 @@
 Pyro4
-requests_futures
 netifaces
 py-cpuinfo
 flask
 requests
 numpy
 Pillow
-../GradWork
