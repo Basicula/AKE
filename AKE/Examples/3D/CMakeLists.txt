@@ -1,0 +1,2 @@
+add_subdirectory(FluidParticleSimulation)
+add_subdirectory(Primitives3D)

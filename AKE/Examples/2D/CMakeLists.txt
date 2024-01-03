@@ -1,2 +1,5 @@
+add_subdirectory(Utils2D)
 add_subdirectory(BouncingBalls)
 add_subdirectory(TowerDefense)
+add_subdirectory(GJKCollisionDetection)
+add_subdirectory(Primitives2D)

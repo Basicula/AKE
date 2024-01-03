@@ -76,7 +76,7 @@ Color Color::operator+(const Color& i_other) const
     static_cast<std::uint8_t>(Utils::min(255, static_cast<int>(GetBlue()) + static_cast<int>(i_other.GetBlue())));
   const auto a =
     static_cast<std::uint8_t>(Utils::min(255, static_cast<int>(GetAlpha()) + static_cast<int>(i_other.GetAlpha())));
-  return { r, g, b };
+  return { r, g, b, a };
 }
 
 Color& Color::operator+=(const Color& i_other)

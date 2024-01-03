@@ -3,38 +3,20 @@ set(
   
   main.cpp
   
-  SceneExamples.cpp
-  
   ConsoleLogEventListner.cpp
-  SimpleCameraController.cpp
-
-  FluidExample.cpp
-  2DSceneExample.cpp
-  CollisionDetectionExample2D.cpp
-
-  3DSceneExample.cpp
-
+  
   OpenCLExample.cpp
 
   FractalExample.cpp
 
   WindowExample.cpp
-
-  Utils2D.h
-  Utils2D.cpp
 )
 
 set(
   HEADERS
   
-  SceneExamples.h
-  
   ConsoleLogEventListner.h
-  SimpleCameraController.h
-
-  FluidExample.h
-  Example2D.h
-  3DSceneExample.h
+  
   OpenCLExample.h
   FractalExample.h
   WindowExample.h
